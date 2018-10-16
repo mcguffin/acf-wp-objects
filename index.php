@@ -1,7 +1,7 @@
 <?php
 
 /*
-Plugin Name: ACF-WP-Objects
+Plugin Name: ACF WP-Objects
 Plugin URI: http://wordpress.org/
 Description: Enter description here.
 Author: Jörn Lund
@@ -79,4 +79,3 @@ if ( is_admin() || defined( 'DOING_AJAX' ) ) {
 
 
 }
-
