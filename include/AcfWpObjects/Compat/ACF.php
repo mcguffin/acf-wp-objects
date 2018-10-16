@@ -153,7 +153,7 @@ class ACF extends Core\PluginComponent {
 			case 'term':
 				return 'NOT IMPLEMENTED YET';
 			case 'post':
-vaR_dump($key);
+
 				if ( 'post_title' == $key ) {
 					return get_the_title( $post_id );
 				} else if ( 'post_content' == $key ) {
