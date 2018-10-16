@@ -53,11 +53,12 @@ class ACF extends Core\PluginComponent {
 		add_action( 'acf/render_field_settings/type=post_object', array( $this, 'field_settings' ) );
 		add_action( 'acf/render_field_settings/type=relation', array( $this, 'field_settings' ) );
 
-		add_filter( 'acf/load_value/type=text', array( $this, 'load_value' ), 10, 3 );
-		add_filter( 'acf/load_value/type=wysiwyg', array( $this, 'load_value' ), 10, 3 );
-		add_filter( 'acf/load_value/type=image', array( $this, 'load_value' ), 10, 3 );
-		add_filter( 'acf/load_value/type=post_object', array( $this, 'load_value' ), 10, 3 );
-		add_filter( 'acf/load_value/type=relation', array( $this, 'load_value' ), 10, 3 );
+		// add_filter( 'acf/load_value/type=text', array( $this, 'load_value' ), 10, 3 );
+		// add_filter( 'acf/load_value/type=wysiwyg', array( $this, 'load_value' ), 10, 3 );
+		// add_filter( 'acf/load_value/type=image', array( $this, 'load_value' ), 10, 3 );
+		// add_filter( 'acf/load_value/type=post_object', array( $this, 'load_value' ), 10, 3 );
+		// add_filter( 'acf/load_value/type=relation', array( $this, 'load_value' ), 10, 3 );
+		add_filter( 'acf/pre_load_value', array( $this, 'pre_load_value' ), 5, 4 );
 
 		add_filter( 'acf/pre_update_value', array( $this, 'pre_update_value' ), 10, 4 );
 
@@ -135,9 +136,9 @@ class ACF extends Core\PluginComponent {
 
 
 	/**
-	 *	@action acf/load_value/type={$type}
+	 *	@action acf/pre_load_value
 	 */
-	public function load_value( $value, $post_id, $field ) {
+	public function pre_load_value( $check, $post_id, $field ) {
 
 		if ( ! $storage_key = $this->get_field_storage( $field ) ) {
 			return $value;
@@ -147,9 +148,9 @@ class ACF extends Core\PluginComponent {
 
 		switch ( $storage ) {
 			case 'theme_mod':
-				return get_theme_mod($key);
+				return get_theme_mod( $key );
 			case 'option':
-				return get_option($key);
+				return get_option( $key );
 			case 'term':
 				return 'NOT IMPLEMENTED YET';
 			case 'post':
@@ -160,13 +161,13 @@ class ACF extends Core\PluginComponent {
 					if ( $post = get_post( $post_id ) ) {
 						return $post->post_content;
 					}
-					return '';
+					return $check;
 
 				} else if ( 'post_thumbnail' == $key ) {
 					return get_post_thumbnail_id( $post_id );
 				}
 		}
-		return 'NO SUCH STOARAGE';
+		return $check;
 
 	}
 	/**
