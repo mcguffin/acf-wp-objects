@@ -153,7 +153,7 @@ class ACF extends Core\PluginComponent {
 
 		switch ( $storage ) {
 			case 'theme_mod':
-				set_theme_mod($key);
+				set_theme_mod( $key, $value );
 				return true;
 			case 'option':
 				update_option($key);
