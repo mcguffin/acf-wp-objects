@@ -47,6 +47,9 @@ class Core extends Plugin {
 		if ( function_exists('\acf') && version_compare( acf()->version,'5.0.0','>=') ) {
 			Compat\ACF::instance();
 		}
+		if ( class_exists( 'ACFCustomizer\Core\Core' ) ) {
+			Compat\ACFCustomizer::instance();
+		}
 	}
 
 

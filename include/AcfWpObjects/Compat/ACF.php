@@ -52,18 +52,98 @@ class ACF extends Core\PluginComponent {
 		add_action( 'acf/render_field_settings/type=image', array( $this, 'field_settings' ) );
 		add_action( 'acf/render_field_settings/type=post_object', array( $this, 'field_settings' ) );
 		add_action( 'acf/render_field_settings/type=relation', array( $this, 'field_settings' ) );
-
-		// add_filter( 'acf/load_value/type=text', array( $this, 'load_value' ), 10, 3 );
-		// add_filter( 'acf/load_value/type=wysiwyg', array( $this, 'load_value' ), 10, 3 );
-		// add_filter( 'acf/load_value/type=image', array( $this, 'load_value' ), 10, 3 );
-		// add_filter( 'acf/load_value/type=post_object', array( $this, 'load_value' ), 10, 3 );
-		// add_filter( 'acf/load_value/type=relation', array( $this, 'load_value' ), 10, 3 );
-		add_filter( 'acf/pre_load_value', array( $this, 'pre_load_value' ), 5, 4 );
+		//*
+		add_filter( 'acf/load_value/type=text', array( $this, 'load_value' ), 10, 3 );
+		add_filter( 'acf/load_value/type=wysiwyg', array( $this, 'load_value' ), 10, 3 );
+		add_filter( 'acf/load_value/type=image', array( $this, 'load_value' ), 10, 3 );
+		add_filter( 'acf/load_value/type=post_object', array( $this, 'load_value' ), 10, 3 );
+		add_filter( 'acf/load_value/type=relation', array( $this, 'load_value' ), 10, 3 );
+		/*/
+		add_filter( 'acf/pre_load_value', array( $this, 'pre_load_value' ), 10, 3 );
+		//*/
 
 		add_filter( 'acf/pre_update_value', array( $this, 'pre_update_value' ), 10, 4 );
-
 	}
 
+
+	/**
+	 *	@action acf/pre_load_value
+	 */
+	public function pre_load_value( $check, $post_id, $field ) {
+
+		if ( is_customize_preview() ) {
+			// return $check;
+		}
+
+		if ( ! $storage_key = $this->get_field_storage( $field ) ) {
+			return $check;
+		}
+		list( $storage, $key ) = $storage_key;
+
+
+		switch ( $storage ) {
+			case 'theme_mod':
+				return get_theme_mod( $key );
+			case 'option':
+				return get_option( $key );
+			case 'term':
+				return 'NOT IMPLEMENTED YET';
+			case 'post':
+
+				if ( 'post_title' == $key ) {
+					return get_the_title( $post_id );
+				} else if ( 'post_content' == $key ) {
+					if ( $post = get_post( $post_id ) ) {
+						return $post->post_content;
+					}
+					return $check;
+
+				} else if ( 'post_thumbnail' == $key ) {
+					return get_post_thumbnail_id( $post_id );
+				}
+		}
+		return $check;
+
+	}
+	/**
+	 *	@action acf/load_value/type={$type}
+	 */
+	public function load_value( $value, $post_id, $field ) {
+
+		if ( ! $storage_key = $this->get_field_storage( $field ) ) {
+			return $value;
+		}
+
+		list( $storage, $key ) = $storage_key;
+
+
+		switch ( $storage ) {
+			case 'theme_mod':
+				return get_theme_mod( $key );
+			case 'option':
+				return get_option( $key );
+			case 'term':
+				return 'NOT IMPLEMENTED YET';
+			case 'post':
+
+				if ( 'post_title' == $key ) {
+					return get_the_title( $post_id );
+				} else if ( 'post_content' == $key ) {
+					if ( $post = get_post( $post_id ) ) {
+						return $post->post_content;
+					}
+					return $value;
+
+				} else if ( 'post_thumbnail' == $key ) {
+					return get_post_thumbnail_id( $post_id );
+				}
+		}
+		return $value;
+
+	}
+	/**
+	 *	@filter acf/pre_update_value
+	 */
 	public function pre_update_value( $check, $value, $post_id, $field ) {
 		if ( ! $storage_key = $this->get_field_storage( $field ) ) {
 			return $check;
@@ -136,44 +216,9 @@ class ACF extends Core\PluginComponent {
 
 
 	/**
-	 *	@action acf/pre_load_value
-	 */
-	public function pre_load_value( $check, $post_id, $field ) {
-
-		if ( ! $storage_key = $this->get_field_storage( $field ) ) {
-			return $value;
-		}
-		list( $storage, $key ) = $storage_key;
-
-
-		switch ( $storage ) {
-			case 'theme_mod':
-				return get_theme_mod( $key );
-			case 'option':
-				return get_option( $key );
-			case 'term':
-				return 'NOT IMPLEMENTED YET';
-			case 'post':
-
-				if ( 'post_title' == $key ) {
-					return get_the_title( $post_id );
-				} else if ( 'post_content' == $key ) {
-					if ( $post = get_post( $post_id ) ) {
-						return $post->post_content;
-					}
-					return $check;
-
-				} else if ( 'post_thumbnail' == $key ) {
-					return get_post_thumbnail_id( $post_id );
-				}
-		}
-		return $check;
-
-	}
-	/**
 	 * ...
 	 */
-	private function get_field_storage( $field ) {
+	public function get_field_storage( $field ) {
 		$field = wp_parse_args($field, array(
 			'wp_object' => false,
 		));

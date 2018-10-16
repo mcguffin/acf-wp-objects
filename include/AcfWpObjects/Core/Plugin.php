@@ -26,6 +26,7 @@ class Plugin extends PluginComponent {
 	/** @var string plugin components which might need upgrade */
 	private static $components = array(
 		'AcfWpObjects\Compat\ACF',
+		'AcfWpObjects\Compat\ACFCustomizer',
 	);
 
 	/**
