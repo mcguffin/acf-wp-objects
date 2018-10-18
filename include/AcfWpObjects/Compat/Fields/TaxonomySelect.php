@@ -103,23 +103,12 @@ class TaxonomySelect extends \acf_field_select {
 
 	function render_field_settings( $field ) {
 
-		/*
-Query:
-	- public
-	- _builtin
-Pick
-		*/
 
-
-		// return_format
-		acf_render_field_setting( $field, array(
-			'label'			=> __('Pick from List','acf-wp-objects'),
-			'instructions'	=> '',
-			'type'			=> 'hidden',
+		// ajax
+		acf_hidden_input(array(
 			'name'			=> 'ajax',
 			'value'			=> 0,
 		));
-
 
 		// allow_null
 		acf_render_field_setting( $field, array(

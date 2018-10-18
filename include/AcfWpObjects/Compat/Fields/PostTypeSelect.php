@@ -103,19 +103,8 @@ class PostTypeSelect extends \acf_field_select {
 
 	function render_field_settings( $field ) {
 
-		/*
-Query:
-	- public
-	- _builtin
-Pick
-		*/
-
-
-		// return_format
-		acf_render_field_setting( $field, array(
-			'label'			=> '',
-			'instructions'	=> '',
-			'type'			=> 'hidden',
+		// ajax
+		acf_hidden_input(array(
 			'name'			=> 'ajax',
 			'value'			=> 0,
 		));
