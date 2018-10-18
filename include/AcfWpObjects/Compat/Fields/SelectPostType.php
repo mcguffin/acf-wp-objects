@@ -103,11 +103,6 @@ class PostTypeSelect extends \acf_field_select {
 
 	function render_field_settings( $field ) {
 
-		// ajax
-		acf_hidden_input(array(
-			'name'			=> 'ajax',
-			'value'			=> 0,
-		));
 
 
 		// allow_null
@@ -275,6 +270,14 @@ class PostTypeSelect extends \acf_field_select {
 				'value'		=> 0
 			)
 		));
+
+		// ajax
+		acf_hidden_input(array(
+			'name'			=> 'ajax',
+			'value'			=> 0,
+		));
+
+
 	}
 
 	/**

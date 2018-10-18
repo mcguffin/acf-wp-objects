@@ -14,7 +14,7 @@ if ( ! defined('ABSPATH') ) {
 
 use AcfWpObjects\Core;
 
-class TaxonomySelect extends \acf_field_select {
+class SelectTaxonomy extends \acf_field_select {
 
 	function initialize() {
 
@@ -104,11 +104,6 @@ class TaxonomySelect extends \acf_field_select {
 	function render_field_settings( $field ) {
 
 
-		// ajax
-		acf_hidden_input(array(
-			'name'			=> 'ajax',
-			'value'			=> 0,
-		));
 
 		// allow_null
 		acf_render_field_setting( $field, array(
@@ -275,6 +270,14 @@ class TaxonomySelect extends \acf_field_select {
 				'value'		=> 0
 			)
 		));
+
+
+		// ajax
+		acf_hidden_input(array(
+			'name'			=> 'ajax',
+			'value'			=> 0,
+		));
+
 	}
 
 	/**

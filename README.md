@@ -1,7 +1,13 @@
 ACF-WP-Objects
 ===============
 
-#### Developer info here. ####
+Features
+--------
+Integrate WordPress Objects objects into ACF.
+
+ - Add options to several ACF Fields allowing to edit the Post Title and Content, Site Title, Description and Logo, ...
+ - Post Type and Taxonomy Select fields
+
 
 
 Installation
@@ -23,3 +29,12 @@ Installation
  - $ `cd acf-wp-objects`
  - $ `npm install`
  - $ `gulp`
+
+
+
+
+ToDo:
+-----
+ - [ ] Select User-Role
+ - [ ] Select Plugin
+ - [ ] Select Theme

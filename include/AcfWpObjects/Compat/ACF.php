@@ -68,9 +68,9 @@ class ACF extends Core\PluginComponent {
 
 	public function init() {
 
-		acf_register_field_type( '\AcfWpObjects\Compat\Fields\PostTypeSelect' );
+		acf_register_field_type( '\AcfWpObjects\Compat\Fields\SelectPostType' );
 
-		acf_register_field_type( '\AcfWpObjects\Compat\Fields\TaxonomySelect' );
+		acf_register_field_type( '\AcfWpObjects\Compat\Fields\SelectTaxonomy' );
 
 	}
 
