@@ -45,6 +45,7 @@ class ACF extends Core\PluginComponent {
 			),
 		);
 
+		add_action('init',array($this,'init'));
 
 		// options blogname, blogdescription, post_title, term name
 		add_action( 'acf/render_field_settings/type=text', array( $this, 'field_settings' ) );
@@ -65,6 +66,13 @@ class ACF extends Core\PluginComponent {
 		add_filter( 'acf/pre_update_value', array( $this, 'pre_update_value' ), 10, 4 );
 	}
 
+	public function init() {
+
+		acf_register_field_type( '\AcfWpObjects\Compat\Fields\PostTypeSelect' );
+
+		acf_register_field_type( '\AcfWpObjects\Compat\Fields\TaxonomySelect' );
+
+	}
 
 	/**
 	 *	@action acf/pre_load_value
