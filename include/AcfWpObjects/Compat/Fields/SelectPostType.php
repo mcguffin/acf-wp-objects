@@ -14,7 +14,7 @@ if ( ! defined('ABSPATH') ) {
 
 use AcfWpObjects\Core;
 
-class PostTypeSelect extends \acf_field_select {
+class SelectPostType extends \acf_field_select {
 
 	function initialize() {
 
