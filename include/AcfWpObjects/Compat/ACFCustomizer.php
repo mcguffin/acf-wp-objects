@@ -25,14 +25,13 @@ class ACFCustomizer extends Core\PluginComponent {
 	protected function __construct() {
 		add_action( 'customize_register', array( $this, 'customize_register' ), 20, 1 );
 	}
-
 	/**
 	 *	@action customize_register
 	 */
 	public function customize_register( $manager ) {
 
 		if ( is_customize_preview() && ! is_admin() ) {
-			$preview = \ACFCustomizer\Compat\ACF\ACF\CustomizePreview::instance();
+			$preview = \ACFCustomizer\Compat\ACF\CustomizePreview::instance();
 			$this->changeset_data = $preview->changeset_data( $manager );
 			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
 		}
@@ -43,7 +42,7 @@ class ACFCustomizer extends Core\PluginComponent {
 	 */
 	public function template_redirect( ) {
 
-		$acf = ACF::instance();
+		$acf = ACF\ACF::instance();
 
 		foreach ( $this->changeset_data as $section => $changes ) {
 			foreach ( $changes['value'] as $field_key => $value ) {
