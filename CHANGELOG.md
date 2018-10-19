@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.1.5
+-----
+ - Post type location rule broken in acf/ajax/check_screen request
+
 0.1.4
 -----
  - fix php fatal in acf-customizer compat class (again)
