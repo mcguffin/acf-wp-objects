@@ -36,6 +36,7 @@ Installation
 
 ToDo:
 -----
+ - [ ] Implement Term title, description
  - [ ] Select User-Role
  - [ ] Select Plugin
  - [ ] Select Theme
