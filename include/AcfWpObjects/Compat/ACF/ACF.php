@@ -18,6 +18,14 @@ use ACFWPObjects\Core;
 class ACF extends Core\PluginComponent {
 
 	private $field_choices = array();
+	private $supported_fields = array(
+		'text',
+		'textarea',
+		'wysiwyg',
+		'image',
+		'post_object',
+		'relation',
+	);
 
 	/**
 	 *	@inheritdoc
@@ -31,8 +39,13 @@ class ACF extends Core\PluginComponent {
 				'post:post_title'				=> __('Post Title','acf-wp-objects'),
 				'term:term_name'				=> __('Term Title','acf-wp-objects'),
 			),
+			'textarea'	=> array(
+				'post:post_excerpt'				=> __('Post Excerpt','acf-wp-objects'),
+				'term:term_description'			=> __('Term Description','acf-wp-objects'),
+			),
 			'wysiwyg'	=> array(
 				'post:post_content'				=> __('Post Content','acf-wp-objects'),
+				'term:term_description'			=> __('Term Description','acf-wp-objects'),
 			),
 			'image'		=> array(
 				'theme_mod:custom_logo'			=> __( 'Custom Logo', 'acf-wp-objects' ),
@@ -45,29 +58,20 @@ class ACF extends Core\PluginComponent {
 			),
 		);
 
-		add_action('init',array($this,'init'));
+		add_action( 'init', array( $this, 'init' ) );
 
-		// options blogname, blogdescription, post_title, term name
-		add_action( 'acf/render_field_settings/type=text', array( $this, 'field_settings' ) );
-		add_action( 'acf/render_field_settings/type=wysiwyg', array( $this, 'field_settings' ) );
-		add_action( 'acf/render_field_settings/type=image', array( $this, 'field_settings' ) );
-		add_action( 'acf/render_field_settings/type=post_object', array( $this, 'field_settings' ) );
-		add_action( 'acf/render_field_settings/type=relation', array( $this, 'field_settings' ) );
-		//*
-		add_filter( 'acf/load_value/type=text', array( $this, 'load_value' ), 10, 3 );
-		add_filter( 'acf/load_value/type=wysiwyg', array( $this, 'load_value' ), 10, 3 );
-		add_filter( 'acf/load_value/type=image', array( $this, 'load_value' ), 10, 3 );
-		add_filter( 'acf/load_value/type=post_object', array( $this, 'load_value' ), 10, 3 );
-		add_filter( 'acf/load_value/type=relation', array( $this, 'load_value' ), 10, 3 );
-		/*/
-		add_filter( 'acf/pre_load_value', array( $this, 'pre_load_value' ), 10, 3 );
-		//*/
+		foreach ( $this->supported_fields as $field_type ) {
+
+			add_action( "acf/render_field_settings/type={$field_type}", array( $this, 'field_settings' ) );
+
+			add_filter( "acf/load_value/type={$field_type}", array( $this, 'load_value' ), 10, 3 );
+
+		}
 
 		add_filter( 'acf/pre_update_value', array( $this, 'pre_update_value' ), 10, 4 );
 
 
 		add_action( 'acf/include_location_rules', array( $this, 'load_location_rule' ) );
-
 
 	}
 
@@ -120,6 +124,12 @@ class ACF extends Core\PluginComponent {
 
 				if ( 'post_title' == $key ) {
 					return get_the_title( $post_id );
+				} else if ( 'post_excerpt' == $key ) {
+					if ( $post = get_post( $post_id ) ) {
+						return $post->post_excerpt;
+					}
+					return $check;
+
 				} else if ( 'post_content' == $key ) {
 					if ( $post = get_post( $post_id ) ) {
 						return $post->post_content;
@@ -162,6 +172,12 @@ class ACF extends Core\PluginComponent {
 					}
 					return $value;
 
+				} else if ( 'post_excerpt' == $key ) {
+					if ( $post = get_post( $post_id ) ) {
+						return $post->post_excerpt;
+					}
+					return $value;
+
 				} else if ( 'post_thumbnail' == $key ) {
 					return get_post_thumbnail_id( $post_id );
 				}
@@ -199,6 +215,8 @@ class ACF extends Core\PluginComponent {
 					$updatepost['post_title'] = $value;
 				} else if ( 'post_content' === $key ) {
 					$updatepost['post_content'] = $value;
+				} else if ( 'post_excerpt' === $key ) {
+					$updatepost['post_excerpt'] = $value;
 				} else if ( 'post_thumbnail' === $key ) {
 					if ( $value ) {
 						set_post_thumbnail( $post_id, $value );
@@ -263,6 +281,7 @@ class ACF extends Core\PluginComponent {
 	private function get_wp_objects( $field_type ) {
 		switch ( $field_type ) {
 			case 'text':
+			case 'textarea':
 			case 'image':
 			case 'wysiwyg':
 				return $this->field_choices[ $field_type ];
