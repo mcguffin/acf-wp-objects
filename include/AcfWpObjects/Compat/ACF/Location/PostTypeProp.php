@@ -31,9 +31,13 @@ class PostTypeProp extends \acf_location {
 	function rule_match( $result, $rule, $screen ) {
 
 		// vars
-		$post_type = acf_maybe_get( $screen, 'post_type' );
+		$post_id = acf_maybe_get( $screen, 'post_id' );
 
 		// bail early if not post
+		if( ! $post_id ) return false;
+
+		$post_type = get_post_type( $post_id );
+
 		if( ! $post_type ) return false;
 
 		$prop = $rule['value'];
