@@ -32,7 +32,7 @@ class ACFCustomizer extends Core\PluginComponent {
 	public function customize_register( $manager ) {
 
 		if ( is_customize_preview() && ! is_admin() ) {
-			$preview = \ACFCustomizer\Compat\ACF\CustomizePreview::instance();
+			$preview = \ACFCustomizer\Compat\ACF\ACF\CustomizePreview::instance();
 			$this->changeset_data = $preview->changeset_data( $manager );
 			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
 		}
