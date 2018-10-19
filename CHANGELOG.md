@@ -1,7 +1,11 @@
 ACF-WP-Objects Changelog
 ========================
 
-0.1.2
+0.1.4
+-----
+ - fix php fatal in acf-customizer compat class (again)
+
+0.1.3
 -----
  - fix php fatal in acf-customizer compat class
 
