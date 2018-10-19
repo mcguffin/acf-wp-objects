@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.1.6 + 0.1.7
+-------------
+- fix pt location rule not matching
+
 0.1.5
 -----
  - Post type location rule broken in acf/ajax/check_screen request
