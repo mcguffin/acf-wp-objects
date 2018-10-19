@@ -1,17 +1,17 @@
 <?php
 /**
- *	@package AcfWpObjects\AutoUpdate
+ *	@package ACFWPObjects\AutoUpdate
  *	@version 1.0.0
  *	2018-09-22
  */
-namespace AcfWpObjects\AutoUpdate;
+namespace ACFWPObjects\AutoUpdate;
 
 if ( ! defined('ABSPATH') ) {
 	die('FU!');
 }
 
 
-use AcfWpObjects\Core;
+use ACFWPObjects\Core;
 
 abstract class AutoUpdate extends Core\Singleton {
 
@@ -21,7 +21,7 @@ abstract class AutoUpdate extends Core\Singleton {
 	protected $release_info = null;
 
 	/**
-	 *	@var AcfWpObjects\Core\Core plugin core instance
+	 *	@var ACFWPObjects\Core\Core plugin core instance
 	 */
 	protected $core = null;
 

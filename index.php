@@ -39,7 +39,7 @@ Command line args were: ``
 */
 
 
-namespace AcfWpObjects;
+namespace ACFWPObjects;
 
 if ( ! defined('ABSPATH') ) {
 	die('FU!');

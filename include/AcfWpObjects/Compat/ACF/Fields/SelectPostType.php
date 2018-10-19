@@ -1,18 +1,18 @@
 <?php
 /**
- *	@package AcfWpObjects\Compat\Fields
+ *	@package ACFWPObjects\Compat\Fields
  *	@version 1.0.0
  *	2018-09-22
  */
 
-namespace AcfWpObjects\Compat\Fields;
+namespace ACFWPObjects\Compat\ACF\Fields;
 
 if ( ! defined('ABSPATH') ) {
 	die('FU!');
 }
 
 
-use AcfWpObjects\Core;
+use ACFWPObjects\Core;
 
 class SelectPostType extends \acf_field_select {
 

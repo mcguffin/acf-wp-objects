@@ -1,11 +1,11 @@
 <?php
 /**
- *	@package AcfWpObjects
+ *	@package ACFWPObjects
  *	@version 1.0.0
  *	2018-09-22
  */
 
-namespace AcfWpObjects;
+namespace ACFWPObjects;
 
 if ( ! defined('ABSPATH') ) {
 	die('FU!');
@@ -36,4 +36,4 @@ function __autoload( $class ) {
 }
 
 
-spl_autoload_register( 'AcfWpObjects\__autoload' );
+spl_autoload_register( 'ACFWPObjects\__autoload' );

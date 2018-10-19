@@ -1,11 +1,11 @@
 <?php
 /**
- *	@package AcfWpObjects\Core
+ *	@package ACFWPObjects\Core
  *	@version 1.0.0
  *	2018-09-22
  */
 
-namespace AcfWpObjects\Core;
+namespace ACFWPObjects\Core;
 
 if ( ! defined('ABSPATH') ) {
 	die('FU!');

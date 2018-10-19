@@ -1,16 +1,16 @@
 <?php
 /**
- *	@package AcfWpObjects\AutoUpdate
+ *	@package ACFWPObjects\AutoUpdate
  *	@version 1.0.0
  *	2018-09-22
  */
-namespace AcfWpObjects\AutoUpdate;
+namespace ACFWPObjects\AutoUpdate;
 
 if ( ! defined('ABSPATH') ) {
 	die('FU!');
 }
 
-use AcfWpObjects\Core;
+use ACFWPObjects\Core;
 
 class AutoUpdateGithub extends AutoUpdate {
 

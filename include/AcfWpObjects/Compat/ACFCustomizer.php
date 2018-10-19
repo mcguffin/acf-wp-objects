@@ -1,18 +1,18 @@
 <?php
 /**
- *	@package AcfWpObjects\Compat
+ *	@package ACFWPObjects\Compat
  *	@version 1.0.0
  *	2018-09-22
  */
 
-namespace AcfWpObjects\Compat;
+namespace ACFWPObjects\Compat;
 
 if ( ! defined('ABSPATH') ) {
 	die('FU!');
 }
 
 
-use AcfWpObjects\Core;
+use ACFWPObjects\Core;
 
 
 

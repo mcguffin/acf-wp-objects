@@ -1,17 +1,17 @@
 <?php
 /**
- *	@package AcfWpObjects\Core
+ *	@package ACFWPObjects\Core
  *	@version 1.0.0
  *	2018-09-22
  */
 
-namespace AcfWpObjects\Core;
+namespace ACFWPObjects\Core;
 
 if ( ! defined('ABSPATH') ) {
 	die('FU!');
 }
 
-use AcfWpObjects\Compat;
+use ACFWPObjects\Compat;
 
 class Core extends Plugin {
 
@@ -45,7 +45,7 @@ class Core extends Plugin {
 	 */
 	public function init_compat() {
 		if ( function_exists('\acf') && version_compare( acf()->version,'5.0.0','>=') ) {
-			Compat\ACF::instance();
+			Compat\ACF\ACF::instance();
 		}
 		if ( class_exists( 'ACFCustomizer\Core\Core' ) ) {
 			Compat\ACFCustomizer::instance();

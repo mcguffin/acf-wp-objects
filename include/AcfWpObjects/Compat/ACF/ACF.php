@@ -1,18 +1,18 @@
 <?php
 /**
- *	@package AcfWpObjects\Compat
+ *	@package ACFWPObjects\Compat
  *	@version 1.0.0
  *	2018-09-22
  */
 
-namespace AcfWpObjects\Compat;
+namespace ACFWPObjects\Compat\ACF;
 
 if ( ! defined('ABSPATH') ) {
 	die('FU!');
 }
 
 
-use AcfWpObjects\Core;
+use ACFWPObjects\Core;
 
 
 class ACF extends Core\PluginComponent {
@@ -64,13 +64,33 @@ class ACF extends Core\PluginComponent {
 		//*/
 
 		add_filter( 'acf/pre_update_value', array( $this, 'pre_update_value' ), 10, 4 );
+
+
+		add_action( 'acf/include_location_rules', array( $this, 'load_location_rule' ) );
+
+
 	}
 
+
+	/**
+	 *	@action acf/include_location_rules
+	 */
+	public function load_location_rule() {
+
+		acf_register_location_rule( 'ACFWPObjects\Compat\ACF\Location\PostTypeProp' );
+
+		acf_register_location_rule( 'ACFWPObjects\Compat\ACF\Location\TaxonomyProp' );
+
+	}
+
+	/**
+	 *	@action init
+	 */
 	public function init() {
 
-		acf_register_field_type( '\AcfWpObjects\Compat\Fields\SelectPostType' );
+		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectPostType' );
 
-		acf_register_field_type( '\AcfWpObjects\Compat\Fields\SelectTaxonomy' );
+		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectTaxonomy' );
 
 	}
 

@@ -1,19 +1,19 @@
 <?php
 /**
- *	@package AcfWpObjects\Core
+ *	@package ACFWPObjects\Core
  *	@version 1.0.0
  *	2018-09-22
  */
 
-namespace AcfWpObjects\Core;
+namespace ACFWPObjects\Core;
 
 if ( ! defined('ABSPATH') ) {
 	die('FU!');
 }
 
 
-use AcfWpObjects\PostType;
-use AcfWpObjects\Compat;
+use ACFWPObjects\PostType;
+use ACFWPObjects\Compat;
 
 class Plugin extends PluginComponent {
 
@@ -25,8 +25,8 @@ class Plugin extends PluginComponent {
 
 	/** @var string plugin components which might need upgrade */
 	private static $components = array(
-		'AcfWpObjects\Compat\ACF',
-		'AcfWpObjects\Compat\ACFCustomizer',
+		'ACFWPObjects\Compat\ACF',
+		'ACFWPObjects\Compat\ACFCustomizer',
 	);
 
 	/**
