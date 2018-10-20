@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.1.8
+-----
+ - Change NS dir case
+
 0.1.6 + 0.1.7
 -------------
 - fix pt location rule not matching
