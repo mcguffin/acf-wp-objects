@@ -5,7 +5,7 @@ Plugin Name: ACF WP-Objects
 Plugin URI: http://wordpress.org/
 Description: Enter description here.
 Author: Jörn Lund
-Version: 0.1.7
+Version: 0.1.8
 Author URI: https://github.com/mcguffin
 License: GPL3
 Github Repository: mcguffin/acf-wp-objects
