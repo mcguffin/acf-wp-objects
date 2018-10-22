@@ -36,9 +36,11 @@ Installation
 
 ToDo:
 -----
- - [ ] Implement Term title, description
- - [ ] Select User-Role
- - [ ] Select Plugin
- - [ ] Select Theme
- - [ ] Connect more Options like media sizes, crop thumbnails, ...
- - [ ] User Properties
+ - [ ] Field: Select User-Role
+ - [ ] Field: Select Plugin
+ - [ ] Field: Select Theme
+ - [ ] Field: Image sizes
+ - [ ] Connector: Implement Term title, description
+ - [ ] Connector: User Properties like email, nicename, avatar, ...
+ - [ ] Connector: Connect more Options like media sizes, crop thumbnails, ...
+ - [ ] More Location Rules: ...?
