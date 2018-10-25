@@ -45,6 +45,9 @@ class ACFCustomizer extends Core\PluginComponent {
 		$acf = ACF\ACF::instance();
 
 		foreach ( $this->changeset_data as $section => $changes ) {
+			if ( ! is_array( $changes['value'] ) ) {
+				continue;
+			}
 			foreach ( $changes['value'] as $field_key => $value ) {
 
 				$field = acf_get_field( $field_key );
