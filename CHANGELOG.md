@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.1.9
+-----
+ - Fix PHP warning
+
 0.1.8
 -----
  - Change NS dir case

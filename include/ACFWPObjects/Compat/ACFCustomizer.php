@@ -60,11 +60,11 @@ class ACFCustomizer extends Core\PluginComponent {
 
 				if ( 'post' === $storage && is_singular() ) {
 					if ( 'post_title' === $key ) {
-						add_filter( 'the_title', array( new Hook\Preview( $field, $value ), 'get' ), 0 );
+						add_filter( 'the_title', array( new ACF\Hook\Preview( $field, $value ), 'get' ), 0 );
 					} else if ( 'post_content' === $key ) {
-						add_filter( 'the_content', array( new Hook\Preview( $field, $value ), 'get' ), 0 );
+						add_filter( 'the_content', array( new ACF\Hook\Preview( $field, $value ), 'get' ), 0 );
 					} else if ( 'post_thumbnail' === $key ) {
-						add_filter('get_post_metadata', array( new Hook\ThumbnailPreview( $field, $value ), 'get' ), 0, 4 );
+						add_filter('get_post_metadata', array( new ACF\Hook\ThumbnailPreview( $field, $value ), 'get' ), 0, 4 );
 					}
 				}
 
