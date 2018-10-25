@@ -64,7 +64,7 @@ class ACF extends Core\PluginComponent {
 
 			add_action( "acf/render_field_settings/type={$field_type}", array( $this, 'field_settings' ) );
 
-			add_filter( "acf/load_value/type={$field_type}", array( $this, 'load_value' ), 10, 3 );
+			add_filter( "acf/load_field/type={$field_type}", array( $this, 'load_field') );
 
 		}
 
@@ -73,6 +73,18 @@ class ACF extends Core\PluginComponent {
 
 		add_action( 'acf/include_location_rules', array( $this, 'load_location_rule' ) );
 
+	}
+
+	/**
+	 *	@filter acf/load_field/type={$field_type}",
+	 */
+	public function load_field( $field ) {
+		if ( $storage_key = $this->get_field_storage( $field ) ) {
+			add_filter( "acf/load_value/key={$field['key']}", array( $this, 'load_value' ), 10, 3 );
+			error_log('add_filter '.$field['key']);
+		}
+
+		return $field;
 	}
 
 
@@ -144,7 +156,7 @@ class ACF extends Core\PluginComponent {
 
 	}
 	/**
-	 *	@action acf/load_value/type={$type}
+	 *	@action acf/load_value/key={$field_key}
 	 */
 	public function load_value( $value, $post_id, $field ) {
 
