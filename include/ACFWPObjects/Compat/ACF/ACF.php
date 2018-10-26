@@ -79,9 +79,8 @@ class ACF extends Core\PluginComponent {
 	 *	@filter acf/load_field/type={$field_type}",
 	 */
 	public function load_field( $field ) {
-		if ( $storage_key = $this->get_field_storage( $field ) ) {
+		if ( isset( $field['wp_object'] ) && $field['wp_object'] ) {
 			add_filter( "acf/load_value/key={$field['key']}", array( $this, 'load_value' ), 10, 3 );
-			error_log('add_filter '.$field['key']);
 		}
 
 		return $field;
@@ -169,29 +168,27 @@ class ACF extends Core\PluginComponent {
 
 		switch ( $storage ) {
 			case 'theme_mod':
-				return get_theme_mod( $key );
+				$value = get_theme_mod( $key );
 			case 'option':
-				return get_option( $key );
+				$value = get_option( $key );
 			case 'term':
-				return 'NOT IMPLEMENTED YET';
+				$value = 'NOT IMPLEMENTED YET';
 			case 'post':
 
 				if ( 'post_title' == $key ) {
-					return get_the_title( $post_id );
+					$value = get_the_title( $post_id );
 				} else if ( 'post_content' == $key ) {
 					if ( $post = get_post( $post_id ) ) {
-						return $post->post_content;
+						$value = $post->post_content;
 					}
-					return $value;
 
 				} else if ( 'post_excerpt' == $key ) {
 					if ( $post = get_post( $post_id ) ) {
-						return $post->post_excerpt;
+						$value = $post->post_excerpt;
 					}
-					return $value;
 
 				} else if ( 'post_thumbnail' == $key ) {
-					return get_post_thumbnail_id( $post_id );
+					$value = get_post_thumbnail_id( $post_id );
 				}
 		}
 		return $value;
