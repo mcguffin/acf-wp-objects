@@ -107,6 +107,8 @@ class ACF extends Core\PluginComponent {
 
 		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectTaxonomy' );
 
+		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectImageSize' );
+
 	}
 
 	/**

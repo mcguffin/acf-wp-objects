@@ -281,7 +281,7 @@ class SelectPostType extends \acf_field_select {
 	}
 
 	/**
-	 *	@param $args see get_taxonomies() $args param
+	 *	@param $args see get_post_types() $args param
 	 *	@param $return Taxonomy property to return
 	 *	@return array
 	 */
