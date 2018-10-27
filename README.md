@@ -36,12 +36,11 @@ Installation
 
 ToDo:
 -----
+ - […] Field: Image sizes
  - [ ] Field: Select User-Role
  - [ ] Field: Select Plugin
  - [ ] Field: Select Theme
- - [ ] Field: Image sizes
  - [ ] Connector: Implement Term title, description
  - [ ] Connector: User Properties like email, nicename, avatar, ...
  - [ ] Connector: Connect more Options like media sizes, crop thumbnails, ...
  - [ ] More Location Rules: ...?
- - [ ] Performance: post properties in customizer preview slows down value retrieval
