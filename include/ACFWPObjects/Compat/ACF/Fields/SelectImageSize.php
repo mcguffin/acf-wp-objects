@@ -31,9 +31,10 @@ class SelectImageSize extends \acf_field_select {
 			'ui'			=> 0,
 			'ajax'			=> 0,
 			'placeholder'	=> '',
-			'return_format'	=> 'object',
+			'return_format'	=> 'array',
 
 			'image_sizes'	=> array(),
+			'pick'			=> 0,
 			'named'			=> '',
 			'cropped'		=> '',
 			'builtin'		=> '',
@@ -56,16 +57,14 @@ class SelectImageSize extends \acf_field_select {
 	function render_field( $field ) {
 
 		$args_keys = array(
-			'_builtin',
-			'public',
-			'show_ui',
-			'show_in_menu',
-			'show_in_nav_menus',
+			'builtin',
+			'named',
+			'cropped',
 		);
 
 		if ( $field['pick'] ) {
 			if ( empty( $field['image_sizes'] ) ) {
-				$choices = $this->get_image_sizes( array(), 'label' );
+				$choices = $this->get_image_sizes( array(), 'name' );
 			} else {
 				$choices = $this->get_image_sizes( array( 'names' => $field['image_sizes'] ), 'name' );
 			}
@@ -74,10 +73,12 @@ class SelectImageSize extends \acf_field_select {
 			$args = array();
 
 			foreach ( $args_keys as $key ) {
+
 				if ( $field[$key] !== '' ) {
 					$args[ $key ] = boolval( intval( $field[$key] ) );
 				}
 			}
+
 			$choices = $this->get_image_sizes( $args, 'name' );
 		}
 
@@ -169,11 +170,11 @@ class SelectImageSize extends \acf_field_select {
 			'instructions'	=> '',
 			'type'			=> 'select',
 			'name'			=> 'image_sizes',
-			'choices'		=> $this->get_image_sizes( array(), 'slug' ),
+			'choices'		=> $this->get_image_sizes( array(), 'name' ),
 			'multiple'		=> 1,
 			'ui'			=> 1,
 			'allow_null'	=> 1,
-			'placeholder'	=> __("All Post Types",'acf'),
+			'placeholder'	=> __("All Image Sizes",'acf'),
 			'conditions'	=> array(
 				'field'		=> 'pick',
 				'operator'	=> '==',
@@ -227,7 +228,7 @@ class SelectImageSize extends \acf_field_select {
 				'1'		=> __('Yes', 'wp-acf-objects' ),
 				'0'		=> __('No', 'wp-acf-objects' ),
 			),
-			'name'			=> '_builtin',
+			'name'			=> 'builtin',
 			'ui'			=> 1,
 			'conditions'	=> array(
 				'field'		=> 'pick',
@@ -265,8 +266,14 @@ class SelectImageSize extends \acf_field_select {
 		if ( $args['names'] ) {
 			$allowed = $args['names'];
 		} else {
+			$allowed = array_keys($sizes);
 			if ( $args['builtin'] !== '' ) {
-				$allowed = array_intersect( $allowed, array( 'tumbnail', 'medium', 'large', 'full' ) );
+				$builtin = array( 'thumbnail', 'medium', 'medium_large', 'large', 'full' );
+				if ( $args['builtin'] ) {
+					$allowed = array_intersect( $allowed, $builtin );
+				} else {
+					$allowed = array_diff( $allowed, $builtin );
+				}
 			}
 
 			if ( $args['named'] !== '' ) {
@@ -280,7 +287,7 @@ class SelectImageSize extends \acf_field_select {
 			if ( $args['cropped'] !== '' ) {
 				$cropped = intval($args['cropped']) === 1;
 				$sizes = array_filter( $sizes, function( $val ) use ($cropped) {
-					return $val['cropped'] === $cropped;
+					return $val['crop'] === $cropped;
 				} );
 			}
 		}
@@ -297,12 +304,16 @@ class SelectImageSize extends \acf_field_select {
 		}
 
 		foreach ( array_keys( $sizes ) as $slug ) {
-			if ( ! isset( $sizes[ $slug ][ $return ] ) ) {
+			$size = $sizes[ $slug ];
+			if ( ! isset( $size[ $return ] ) ) {
 				continue;
 			}
-			$sizes[ $slug ] = $sizes[ $slug ][ $return ];
+			$sizes[ $slug ] = $size[ $return ];
 			if ( empty( $sizes[ $slug ] ) ) {
 				$sizes[ $slug ] = $slug;
+			}
+			if ( $return === 'name' ) {
+				$sizes[ $slug ] .= sprintf( ' (%d&times;%d)', $size[ 'width' ], $size[ 'height' ] );
 			}
 		}
 
@@ -354,6 +365,7 @@ class SelectImageSize extends \acf_field_select {
 				$h    = intval( $_wp_additional_image_sizes[ $_size ]['height'] );
 				$crop = (bool) $_wp_additional_image_sizes[ $_size ]['crop'];
 			}
+
 			$this->all_sizes[$_size] = array(
 				'width'			=> $w,
 				'height'		=> $h,
