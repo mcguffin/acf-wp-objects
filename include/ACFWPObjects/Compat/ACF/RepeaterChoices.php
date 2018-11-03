@@ -82,6 +82,7 @@ class RepeaterChoices extends Core\Singleton {
 			'name'			=> 'repeater_label_field',
 			'type'			=> 'select',
 			'ui'			=> 0,
+			'allow_null'	=> 1,
 			'choices'		=> $label_field_choices,
 			'conditions'	=> array(
 				array(
@@ -198,7 +199,13 @@ class RepeaterChoices extends Core\Singleton {
 
 		switch ( $allow_fields[ $field['type'] ] ) {
 			case 'image';
-				$html = wp_get_attachment_image($value,'thumbnail', null, array( 'title' => $label ) );
+				$html = sprintf('<span class="acf-image-choice">
+						%s
+						<span class="image-label">%s</span>
+					</span>',
+					wp_get_attachment_image($value,'thumbnail', null, array( 'title' => $label ) ),
+					$label
+				);
 				break;
 			case 'color':
 				if ( ! empty( $value ) ) {
@@ -352,18 +359,39 @@ class RepeaterChoices extends Core\Singleton {
 	// reduce value & label field choices when repeater field changes
 	$(document).on( 'change', selector, function(e){
 		if ( !! repeated_fields[ $(this).val() ] ) {
-			console.log();
-			var html = '';
-			$.each(repeated_fields[ $(this).val() ],function( val, label ){
+			var html = '',
+				repeater = $(this).val();
+			/*
+			$(this).closest('.acf-field-settings')
+				.find('[data-key="repeater_label_field"] select,[data-key="repeater_value_field"] select')
+				.each(function(i,el){
+					$(this).find('optgroup').each(function(i,el){
+						if ( $(this).is('[label="'+repeater+'"]') ) {
+
+						}
+
+					})
+				});
+			/*/
+			$.each(repeated_fields[ repeater ],function( val, label ){
 				html += '<option value="'+val+'">' + label + '</option>';
 			});
 			$(this).closest('.acf-field-settings')
 				.find('[data-key="repeater_label_field"] select,[data-key="repeater_value_field"] select')
 				.each(function(i,el){
-					var val = $(this).val();
+					var val = $(this).val(),
+						choiceNull = $(this).find('option[value=""]'),
+						field = acf.getField($(this).closest('.acf-field'));
+
 					$(this).html(html);
+					if ( choiceNull.length ) {
+						$(this).prepend( choiceNull );
+					}
 					$(this).val( val );
+
 				});
+			//*/
+
 		}
 	}).ready(function(){
 		$(selector).trigger('change');
@@ -395,7 +423,7 @@ EOD;
 	font-family: dashicons;
 	font-size:20px;
 	display:inline-block;
-	margin:-5px 5px -5px -5px;
+	margin:-5px 5px;
 	vertical-align:middle;
 }
 .acf-button-group .selected {
@@ -424,9 +452,31 @@ EOD;
 	content: "\\f147";
 	opacity:1;
 }
+
+
 .acf-button-group .size-thumbnail {
 	height: 100%;
 	object-fit: none;
+}
+.acf-image-choice {
+	position:relative;
+	display:inline-block;
+}
+.acf-image-choice .image-label {
+	display: flex;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 15px;
+	align-items: center;
+	justify-content: center;
+	font-weight: 700;
+	text-shadow: 1px 1px 4px #333,
+		-1px -1px 4px #333;
+	font-size: 16px;
+	color: #fff;
 }
 EOD;
 		wp_add_inline_style( 'acf-input', $css );
