@@ -416,6 +416,7 @@ EOD;
 	margin:-4px -9px;
 	width:100%;
 	text-align:left;
+	min-height:24px;
 }
 
 .acf-button-group .color-label::before {

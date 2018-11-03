@@ -1,6 +1,14 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.1.13
+------
+ - Repeater Select: style improvements
+
+0.1.12
+------
+ - Introduce Repeater Select
+
 0.1.9
 -----
  - Fix PHP warning
