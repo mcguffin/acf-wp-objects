@@ -228,10 +228,10 @@ class RepeaterChoices extends Core\Singleton {
 	 *	@return string color string
 	 */
 	private function get_matching_color( $color ) {
-		$threshold = 0.25;
+		$threshold = 0.33;
 		$rgba = $this->parse_color( $color );
 		$a = array_pop($rgba);
-		$opacity = 1 - ( array_sum($rgba) / 1 ); // 0-3
+		$opacity = 1 - ( array_sum($rgba) / 3 ); // 0-3
 		$opacity *= $a;
 		if ( $opacity > $threshold ) {
 			return '#ffffff';
