@@ -73,6 +73,11 @@ class ACF extends Core\PluginComponent {
 
 		add_action( 'acf/include_location_rules', array( $this, 'load_location_rule' ) );
 
+
+		if ( acf_get_setting('pro') ) {
+			// init repeater choices
+			RepeaterChoices::instance();
+		}
 	}
 
 	/**
