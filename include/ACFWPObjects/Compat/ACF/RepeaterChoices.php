@@ -203,9 +203,13 @@ class RepeaterChoices extends Core\Singleton {
 			case 'color':
 				if ( ! empty( $value ) ) {
 
-					$html = sprintf('<span class="color-label" style="background-color:%s;color:%s">%s</span>',
-						$value,
+					$html = sprintf('
+						<span class="white"></span>
+						<span class="color-label" style="color:%s;background:%s;">
+							%s
+						</span>',
 						$this->get_matching_color($value),
+						$value,
 						$label
 					);
 				}
@@ -224,11 +228,12 @@ class RepeaterChoices extends Core\Singleton {
 	 *	@return string color string
 	 */
 	private function get_matching_color( $color ) {
-		$threshold = 2.00;
+		$threshold = 0.25;
 		$rgba = $this->parse_color( $color );
 		$a = array_pop($rgba);
-		$luminance = array_sum($rgba); // 0-3
-		if ( $luminance < $threshold ) {
+		$opacity = 1 - ( array_sum($rgba) / 1 ); // 0-3
+		$opacity *= $a;
+		if ( $opacity > $threshold ) {
 			return '#ffffff';
 		}
 		return '#333333';
@@ -375,14 +380,16 @@ EOD;
 .color-label {
 	display:inline-block;
 	padding:0 0.25em;
+	background:#fff;
+	position:relative;
 }
 .acf-button-group .color-label {
 	padding:4px 9px;
 	margin:-4px -9px;
 	width:100%;
 	text-align:left;
-	opacity:0.66;
 }
+
 .acf-button-group .color-label::before {
 	content: "\\f460";
 	font-family: dashicons;
@@ -390,6 +397,25 @@ EOD;
 	display:inline-block;
 	margin:-5px 5px -5px -5px;
 	vertical-align:middle;
+}
+.acf-button-group .selected {
+	position:relative;
+}
+.acf-button-group .white  {
+	position:absolute;
+	display:block;
+	left:2px;
+	top:2px;
+	bottom:2px;
+	right:2px;
+	background:#fff;
+	background-image:	linear-gradient(45deg, #ededed 25%, transparent 25%),
+						linear-gradient(-45deg, #ededed 25%, transparent 25%),
+						linear-gradient(45deg, transparent 75%, #ededed 75%),
+						linear-gradient(-45deg, transparent 75%, #ededed 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+
 }
 .acf-button-group .selected .color-label {
 	opacity:1;
