@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.1.14
+------
+ - Fix uninstall fatal
+
 0.1.13
 ------
  - Repeater Select: style improvements
