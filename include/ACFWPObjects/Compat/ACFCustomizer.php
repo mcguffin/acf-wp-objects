@@ -42,7 +42,7 @@ class ACFCustomizer extends Core\PluginComponent {
 	 */
 	public function template_redirect( ) {
 
-		$acf = ACF\ACF::instance();
+		$wp_obj = ACF\WPObjects::instance();
 
 		foreach ( $this->changeset_data as $section => $changes ) {
 			if ( ! is_array( $changes['value'] ) ) {
@@ -52,7 +52,7 @@ class ACFCustomizer extends Core\PluginComponent {
 
 				$field = acf_get_field( $field_key );
 
-				if ( ! $storage_key = $acf->get_field_storage( $field ) ) {
+				if ( ! $storage_key = $wp_obj->get_field_storage( $field ) ) {
 					continue;
 				}
 
