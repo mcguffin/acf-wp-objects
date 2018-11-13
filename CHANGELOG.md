@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.1.15
+------
+ - Fix function call
+
 0.1.14
 ------
  - Fix messed-up fields after save
