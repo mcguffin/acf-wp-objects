@@ -3,6 +3,7 @@ ACF-WP-Objects Changelog
 
 0.1.14
 ------
+ - Fix messed-up fields after save
  - Fix uninstall fatal
 
 0.1.13
