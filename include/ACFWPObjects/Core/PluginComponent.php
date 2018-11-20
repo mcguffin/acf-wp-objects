@@ -46,12 +46,6 @@ abstract class PluginComponent extends Singleton {
 
 	/**
 	 *	Called on plugin uninstall
-	 *	@param	string	$new_version
-	 *	@param	string	$old_version
-	 *	@return array(
-	 *		'success'	=> bool,
-	 *		'messages'	=> array,
-	 *	)
 	 */
 	abstract static function uninstall();
 

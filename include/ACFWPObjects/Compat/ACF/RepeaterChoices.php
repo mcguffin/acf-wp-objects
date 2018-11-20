@@ -102,6 +102,7 @@ class RepeaterChoices extends Core\Singleton {
 			'name'			=> 'repeater_value_field',
 			'type'			=> 'select',
 			'ui'			=> 0,
+			'allow_null'	=> 0,
 			'choices'		=> $value_field_choices,
 			'conditions'	=> array(
 				array(

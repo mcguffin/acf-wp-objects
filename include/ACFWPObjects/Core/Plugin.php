@@ -192,8 +192,7 @@ class Plugin extends PluginComponent {
 	 */
 	public static function uninstall() {
 		foreach ( self::$components as $component ) {
-			$comp = $component::instance();
-			$comp->uninstall();
+			$comp = $component::uninstall();
 		}
 	}
 

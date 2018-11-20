@@ -1,12 +1,20 @@
 ACF-WP-Objects Changelog
 ========================
 
-0.1.14
+0.1.16
 ------
- - Fix uninstall fatal
  - Repeater-Choice: improve color select style
  - Introduce Gulp
  - Fix Issue in Field Group admin: acf noted changes but nothing changed
+
+0.1.15
+------
+ - Fix function call
+
+0.1.14
+------
+ - Fix messed-up fields after save
+ - Fix uninstall fatal
 
 0.1.13
 ------
