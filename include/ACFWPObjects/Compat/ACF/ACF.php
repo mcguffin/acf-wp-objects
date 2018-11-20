@@ -78,6 +78,30 @@ class ACF extends Core\PluginComponent {
 			// init repeater choices
 			RepeaterChoices::instance();
 		}
+
+		add_action( 'acf/enqueue_scripts', array( $this, 'enqueue_style' ) );
+		add_action( 'acf/field_group/admin_enqueue_scripts', array( $this, 'enqueue_field_group' ) );
+	}
+
+	/**
+	 *	@action acf/enqueue_scripts
+	 */
+	public function enqueue_style() {
+		$core = Core\Core::instance();
+		wp_enqueue_style( 'acf-wp-objects-input', $core->get_asset_url('css/admin/acf-input.css'), array('acf-input') );
+	}
+
+	/**
+	 *	@action acf/field_group/admin_enqueue_scripts
+	 */
+	public function enqueue_field_group() {
+		$core = Core\Core::instance();
+		$choices = RepeaterChoices::instance();
+		wp_enqueue_script( 'acf-wp-objects-field-group', $core->get_asset_url('js/admin/acf-field-group.js'), array('acf-field-group') );
+		wp_localize_script( 'acf-wp-objects-field-group', 'acf_wp_objects', array(
+			'repeated_fields' => $choices->get_repeated_fields(),
+		) );
+
 	}
 
 	/**

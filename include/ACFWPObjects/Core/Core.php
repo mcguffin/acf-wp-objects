@@ -70,9 +70,14 @@ class Core extends Plugin {
 	 *	@param	string	$asset	URL part relative to plugin class
 	 *	@return string URL
 	 */
-	public function get_asset_url( $asset ) {
-		return plugins_url( $asset, $this->get_plugin_file() );
-	}
+	 public function get_asset_url( $asset ) {
+ 		$pi = pathinfo($asset);
+ 		if ( defined('SCRIPT_DEBUG') && SCRIPT_DEBUG && in_array( $pi['extension'], ['css','js']) ) {
+ 			// add .dev suffix (files with sourcemaps)
+ 			$asset = sprintf('%s/%s.dev.%s', $pi['dirname'], $pi['filename'], $pi['extension'] );
+ 		}
+ 		return plugins_url( $asset, $this->get_plugin_file() );
+ 	}
 
 
 
