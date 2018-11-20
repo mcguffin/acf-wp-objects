@@ -169,23 +169,30 @@ class RepeaterChoices extends Core\Singleton {
 
 		if ( $field['repeater_choices'] && have_rows( $field['repeater_field'], $field['repeater_post_id'] ) ) {
 			$choices = array();
+
+
 			while ( have_rows( $field['repeater_field'], $field['repeater_post_id'] ) ) {
 				the_row();
 				$label = get_sub_field( $field['repeater_label_field'] );
 				$value = get_sub_field( $field['repeater_value_field'] );
 				if ( $field['repeater_display_value'] ) {
-					$label = $this->get_value_display( $field['repeater_value_field'], $label, $value );
+					$value_field = acf_get_field( $field['repeater_value_field'] );
+					$label = $this->get_value_display( $value_field, $label, $value );
+					$value_type = $value_field['type'];
 				}
 				$choices[ $value ] = $label;
 			}
 			$field['choices'] = $choices;
+
+			if ( $field['repeater_display_value'] ) {
+				$field['wrapper']['class'] .= ' repeater-choice-visualize-' . $value_type;
+			}
 		}
 		return $field;
 	}
 
-	private function get_value_display( $field_key, $label, $value ) {
+	private function get_value_display( $field, $label, $value ) {
 
-		$field = acf_get_field( $field_key );
 		$html = '';
 
 		$allow_fields = apply_filters('acf_wp_objects_repeater_choices_allow_fields', $this->allow_fields );
@@ -292,6 +299,9 @@ class RepeaterChoices extends Core\Singleton {
 			$acf_groups = acf_get_field_groups();
 			foreach ( $acf_groups as $group ) {
 				$fields = acf_get_fields( $group );
+				if ( ! $fields ) {
+					continue;
+				}
 				foreach ( $fields as $field ) {
 					if ( $field['type'] !== 'repeater' ) {
 						continue;
@@ -311,7 +321,7 @@ class RepeaterChoices extends Core\Singleton {
 	/**
 	 *	@return array
 	 */
-	private function get_repeated_fields(  ) {
+	public function get_repeated_fields(  ) {
 		$repeater_groups = $this->get_first_level_repeater_fields();
 		$repeated = array();
 		$allow_fields = apply_filters('acf_wp_objects_repeater_choices_allow_fields', $this->allow_fields );
