@@ -5,7 +5,7 @@ Features
 --------
 Integrate WordPress Objects objects into ACF.
 
- - Add options to several ACF Fields allowing to edit the Post Title and Content, Site Title, Description and Logo, ...
+ - Add options to several ACF Fields allowing to edit the Post Title, Content and Attachments, Site Title, Description and Logo, ...
  - New Field types for Post Types and Taxonomies
  - Location Rules for Post Type and Taxonomy properties (Like Builtin, Public, ...)
  - Choice fields can have a repeater as data source. (Pro only)
