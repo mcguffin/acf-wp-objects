@@ -24,6 +24,7 @@ class WPObjects extends Core\Singleton {
 		'image',
 		'post_object',
 		'relation',
+		'gallery',
 	);
 
 	/**
@@ -54,6 +55,9 @@ class WPObjects extends Core\Singleton {
 			'relation'	=> array(
 				'option:page_for_posts'			=> __( 'Page for Posts', 'acf-wp-objects' ),
 				'option:page_on_front'			=> __( 'Page on Front', 'acf-wp-objects' ),
+			),
+			'gallery'	=> array(
+				'post:attachments'					=> __( 'Post Attachments', 'acf-wp-objects' ),
 			),
 		);
 
@@ -165,6 +169,9 @@ class WPObjects extends Core\Singleton {
 
 				} else if ( 'post_thumbnail' == $key ) {
 					$value = get_post_thumbnail_id( $post_id );
+				} else if ( 'attachments' == $key ) {
+					// IDs of children
+					$value = $this->get_attachment_ids( $post_id );
 				}
 		}
 		return $value;
@@ -208,6 +215,35 @@ class WPObjects extends Core\Singleton {
 					} else {
 						delete_post_thumbnail( $post_id );
 					}
+				} else if ( 'attachments' === $key ) {
+					// set attachment parent ID if not set
+					$value = (array) $value;
+					$value = array_filter( $value );
+
+					// old attachment IDs ...
+					$attachment_ids = $this->get_attachment_ids( $post_id );
+
+					foreach ( $attachment_ids as $attachment_id ) {
+						if ( ! in_array( $attachment_id, $value ) ) {
+							$update_attachment = array(
+								'ID'			=> $attachment_id,
+								'post_parent'	=> 0,
+							);
+							wp_update_post( $update_attachment );
+						}
+					}
+					if ( empty( $value ) ) {
+						// default behaviour
+						return $check;
+					}
+					foreach ( $value as $i => $attachment_id ) {
+						$update_attachment = array(
+							'ID'			=> $attachment_id,
+							'post_parent'	=> $post_id,
+							'menu_order'	=> $i,
+						);
+						wp_update_post( $update_attachment );
+					}
 				}
 				if ( ! empty( $updatepost ) ) {
 					$updatepost['ID'] = $post_id;
@@ -215,7 +251,20 @@ class WPObjects extends Core\Singleton {
 				}
 				return true;
 		}
+	}
 
+	/**
+	 *	@param int $post_id
+	 */
+	private function get_attachment_ids( $post_id ) {
+		return get_posts( array(
+			'posts_per_page'	=> -1,
+			'orderby'			=> 'menu_order',
+			'order'				=> 'ASC',
+			'fields'			=> 'ids',
+			'post_type'			=> 'attachment',
+			'post_parent'		=> $post_id,
+		) );
 	}
 
 	/**
@@ -268,14 +317,15 @@ class WPObjects extends Core\Singleton {
 	 */
 	private function get_wp_objects( $field_type ) {
 		switch ( $field_type ) {
+			case 'relation':
+			case 'post_object':
+				return $this->field_choices[ 'relation' ];
 			case 'text':
 			case 'textarea':
 			case 'image':
 			case 'wysiwyg':
+			default:
 				return $this->field_choices[ $field_type ];
-			case 'relation':
-			case 'post_object':
-				return $this->field_choices[ 'relation' ];
 		}
 		return false;
 	}
