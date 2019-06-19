@@ -181,7 +181,15 @@ class RepeaterChoices extends Core\Singleton {
 					$label = $this->get_value_display( $value_field, $label, $value );
 					$value_type = $value_field['type'];
 				}
-				$choices[ $value ] = $label;
+				// value might be image object, term object, ...
+				$key = $value;
+
+				if ( ! is_array( $key ) ) {
+					if ( isset($key['ID']) )
+					$key = $key['ID'];
+				}
+
+				$choices[ $key ] = $label;
 			}
 			$field['choices'] = $choices;
 
@@ -202,7 +210,6 @@ class RepeaterChoices extends Core\Singleton {
 		}
 
 		$treat_as = $allow_fields[ $field['type'] ];
-
 		switch ( $allow_fields[ $field['type'] ] ) {
 			case 'image';
 				$html = sprintf('<span class="acf-image-choice">
