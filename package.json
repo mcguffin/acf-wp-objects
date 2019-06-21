@@ -8,16 +8,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com//acf-wp-objects.git"
+    "url": "git+https://github.com/mcguffin/acf-wp-objects.git"
   },
   "author": "Jörn Lund",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com//acf-wp-objects/issues"
+    "url": "https://github.com/mcguffin/acf-wp-objects/issues"
   },
-  "homepage": "https://github.com//acf-wp-objects#readme",
+  "homepage": "https://github.com/mcguffin/acf-wp-objects#readme",
+  "browserslist":["last 2 versions"],
   "devDependencies": {
-    "gulp": "^4.0.0",
+    "gulp": "^4.0.2",
     "gulp-autoprefixer": "*",
     "gulp-concat": "*",
     "gulp-rename": "*",
@@ -25,5 +26,10 @@
     "gulp-sourcemaps": "*",
     "gulp-uglify": "*",
     "gulp-util": "*"
+  },
+  "engines": {
+    "node": "12.4.0",
+    "npm": "^6.9.0"
   }
+
 }
