@@ -212,12 +212,13 @@ class RepeaterChoices extends Core\Singleton {
 		$treat_as = $allow_fields[ $field['type'] ];
 		switch ( $allow_fields[ $field['type'] ] ) {
 			case 'image';
+				$attachment = get_post( $value );
 				$html = sprintf('<span class="acf-image-choice">
 						%s
 						<span class="image-label">%s</span>
 					</span>',
 					wp_get_attachment_image($value,'thumbnail', null, array( 'title' => $label ) ),
-					$label
+					$attachment->post_title
 				);
 				break;
 			case 'color':
