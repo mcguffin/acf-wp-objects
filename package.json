@@ -1,10 +1,13 @@
 {
   "name": "acf-wp-objects",
-  "version": "0.0.1",
-  "description": "Plugin description",
+  "version": "0.1.18",
+  "description": "Connecting WordPress Data with ACF Fields",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "gulp dev",
+    "build": "gulp build && npm run i18n",
+    "i18n": "wp i18n make-pot . languages/acf-wp-objects.pot --domain=acf-wp-objects",
+    "rollback": "git reset --hard HEAD~ && git push origin +master"
   },
   "repository": {
     "type": "git",
@@ -16,7 +19,9 @@
     "url": "https://github.com/mcguffin/acf-wp-objects/issues"
   },
   "homepage": "https://github.com/mcguffin/acf-wp-objects#readme",
-  "browserslist":["last 2 versions"],
+  "browserslist": [
+    "last 2 versions"
+  ],
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "*",
@@ -30,6 +35,28 @@
   "engines": {
     "node": "12.4.0",
     "npm": "^6.9.0"
+  },
+  "wporg": {
+    "type": "plugin",
+    "steps": [
+      "build",
+      "github"
+    ],
+    "build": {
+      "prebuild": [
+        "wp i18n make-pot . languages/acf-wp-objects.pot --domain=acf-wp-objects"
+      ],
+      "build": [
+        "gulp build"
+      ]
+    },
+    "github": {
+      "user": "mcguffin",
+      "host": "github.com"
+    },
+    "wporg": {
+      "svn": "https://plugins.svn.wordpress.org/acf-wp-objects/",
+      "assets": ".wporg"
+    }
   }
-
 }
