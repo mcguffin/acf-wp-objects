@@ -22,6 +22,8 @@ class RepeaterChoices extends Core\Singleton {
 	);
 	private $repeater_fields = null;
 
+	private $value_cache = array();
+
 	/**
 	 *	@inheritdoc
 	 */
@@ -55,11 +57,20 @@ class RepeaterChoices extends Core\Singleton {
 			return $value;
 		}
 
+		$cache_key = sprintf( '%s-%s-%s', $field['repeater_field'], $field['repeater_post_id'], $value );
+
+		if ( isset( $this->value_cache[ $cache_key ] ) ) {
+			return $this->value_cache[ $cache_key ];
+		}
+
+		// generate value cache
 		while ( have_rows( $field['repeater_field'], $field['repeater_post_id'] ) ) {
 			the_row();
 			$raw_row = get_row( false );
-			if ( $value === $raw_row[ $field['repeater_value_field'] ] ) {
-				return get_row( true );
+			$key = sprintf( '%s-%s-%s', $field['repeater_field'], $field['repeater_post_id'], $raw_row[ $field['repeater_value_field'] ] );
+			$this->value_cache[ $key ] = get_row( true );
+			if ( $cache_key === $key ) {
+				$value = $this->value_cache[ $key ];
 			}
 		}
 		return $value;
