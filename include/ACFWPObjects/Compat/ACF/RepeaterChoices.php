@@ -37,8 +37,44 @@ class RepeaterChoices extends Core\Singleton {
 		add_filter( 'acf/render_field_settings/type=button_group', array( $this, 'render_settings' ) );
 		add_filter( 'acf/render_field_settings/type=checkbox', array( $this, 'render_settings' ) );
 
+		add_filter( 'acf/validate_field', array( $this, 'validate_return_format_field' ) );
+
+		add_filter( 'acf/format_value/type=select', array( $this, 'format_value' ), 15, 3 );
+		add_filter( 'acf/format_value/type=radio', array( $this, 'format_value' ), 15, 3 );
+		add_filter( 'acf/format_value/type=button_group', array( $this, 'format_value' ), 15, 3 );
+		add_filter( 'acf/format_value/type=checkbox', array( $this, 'format_value' ), 15, 3 );
+
 	}
 
+	/**
+	 *	@filter acf/format_value/?type=*
+	 */
+	public function format_value( $value, $post_id, $field ) {
+
+		if ( ! $field['repeater_choices'] || $field['return_format'] !== 'row' ) {
+			return $value;
+		}
+
+		while ( have_rows( $field['repeater_field'], $field['repeater_post_id'] ) ) {
+			the_row();
+			$raw_row = get_row( false );
+			if ( $value === $raw_row[ $field['repeater_value_field'] ] ) {
+				return get_row( true );
+			}
+		}
+		return $value;
+	}
+
+	/**
+	 *	@filter acf/render_field_settings/type=*
+	 */
+	public function validate_return_format_field( $field ) {
+		//vaR_dump(count( array_diff( $field['choices'], array( 'value', 'label', 'array' ) ) ));
+		if ( $field['name'] === 'return_format' && isset( $field['choices'] ) ) {
+			$field['choices']['row'] = __('Repeater Row', 'acf-wp-objects' );
+		}
+		return $field;
+	}
 
 	/**
 	 *	@filter acf/render_field_settings/type=*
@@ -169,8 +205,8 @@ class RepeaterChoices extends Core\Singleton {
 		));
 
 		if ( $field['repeater_choices'] && have_rows( $field['repeater_field'], $field['repeater_post_id'] ) ) {
-			$choices = array();
 
+			$choices = array();
 
 			while ( have_rows( $field['repeater_field'], $field['repeater_post_id'] ) ) {
 				the_row();
@@ -200,6 +236,13 @@ class RepeaterChoices extends Core\Singleton {
 		return $field;
 	}
 
+	/**
+	 *	Display Value Visualization
+	 *
+	 *	@param array $field
+	 *	@param array $label
+	 *	@param array $value
+	 */
 	private function get_value_display( $field, $label, $value ) {
 
 		$html = '';
@@ -218,7 +261,7 @@ class RepeaterChoices extends Core\Singleton {
 						<span class="image-label">%s</span>
 					</span>',
 					wp_get_attachment_image($value,'thumbnail', null, array( 'title' => $label ) ),
-					$attachment->post_title
+					$label
 				);
 				break;
 			case 'color':
@@ -299,6 +342,7 @@ class RepeaterChoices extends Core\Singleton {
 		$rgba[] = $a;
 		return $rgba;
 	}
+
 	/**
 	 *	@return array
 	 */
