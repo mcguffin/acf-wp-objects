@@ -3,7 +3,7 @@
 /*
 Plugin Name: ACF WP-Objects
 Plugin URI: http://wordpress.org/
-Description: Enter description here.
+Description: Connecting WordPress Data with ACF Fields
 Author: Jörn Lund
 Version: 0.1.18
 Author URI: https://github.com/mcguffin
