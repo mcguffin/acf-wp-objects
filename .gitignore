@@ -10,3 +10,5 @@
 .svnignore
 .sass-cache
 node_modules/
+!src/wporg/*.psd
+tmp/

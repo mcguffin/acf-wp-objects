@@ -11,11 +11,10 @@ if ( ! defined('ABSPATH') ) {
 	die('FU!');
 }
 
+class Plugin extends Singleton implements ComponentInterface {
 
-use ACFWPObjects\PostType;
-use ACFWPObjects\Compat;
-
-class Plugin extends PluginComponent {
+	/** @var string plugin prefix */
+	private $plugin_prefix = 'acf_wp_objects';
 
 	/** @var string plugin main file */
 	private $plugin_file;
@@ -27,6 +26,7 @@ class Plugin extends PluginComponent {
 	private static $components = array(
 		'ACFWPObjects\Compat\ACF\ACF',
 		'ACFWPObjects\Compat\ACFCustomizer',
+		'ACFWPObjects\Compat\ACFRGBAColorPicker',
 	);
 
 	/**
@@ -71,10 +71,37 @@ class Plugin extends PluginComponent {
 	}
 
 	/**
+	 *	@return string full plugin url path
+	 */
+	public function get_plugin_url() {
+		return plugin_dir_url( $this->get_plugin_file() );
+	}
+
+
+
+	/**
+	 *	@inheritdoc
+	 */
+	public function get_asset_roots() {
+		return [
+			$this->get_plugin_dir() => $this->get_plugin_url(),
+		];
+	}
+
+
+	/**
 	 *	@return string plugin slug
 	 */
 	public function get_slug() {
 		return basename( $this->get_plugin_dir() );
+	}
+
+
+	/**
+	 *	@return string plugin prefix
+	 */
+	public function get_prefix() {
+		return $this->plugin_prefix;
 	}
 
 	/**
@@ -87,7 +114,7 @@ class Plugin extends PluginComponent {
 	/**
 	 *	@return string current plugin version
 	 */
-	public function get_version() {
+	public function version() {
 		return $this->get_plugin_meta( 'Version' );
 	}
 
@@ -105,20 +132,21 @@ class Plugin extends PluginComponent {
 		return $this->plugin_meta;
 	}
 
+
 	/**
 	 *	@action plugins_loaded
 	 */
 	public function maybe_upgrade() {
 		// trigger upgrade
-		$new_version = $this->get_version();
-		$old_version = get_site_option( 'acf-wp-objects_version' );
+		$new_version = $this->version();
+		$old_version = get_site_option( 'acf_wp_objects_version' );
 
 		// call upgrade
 		if ( version_compare($new_version, $old_version, '>' ) ) {
 
 			$this->upgrade( $new_version, $old_version );
 
-			update_site_option( 'acf-wp-objects_version', $new_version );
+			update_site_option( 'acf_wp_objects_version', $new_version );
 
 		}
 
@@ -130,7 +158,7 @@ class Plugin extends PluginComponent {
 	 *  @action plugins_loaded
 	 */
 	public function load_textdomain() {
-		$path = pathinfo( $this->get_plugin_file(), PATHINFO_FILENAME );
+		$path = pathinfo( $this->get_wp_plugin(), PATHINFO_DIRNAME );
 		load_plugin_textdomain( 'acf-wp-objects', false, $path . '/languages' );
 	}
 
@@ -192,7 +220,8 @@ class Plugin extends PluginComponent {
 	 */
 	public static function uninstall() {
 		foreach ( self::$components as $component ) {
-			$comp = $component::uninstall();
+			$comp = $component::instance();
+			$comp->uninstall();
 		}
 	}
 

@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "gulp dev",
     "build": "gulp build && npm run i18n",
-    "i18n": "wp i18n make-pot . languages/acf-wp-objects.pot --domain=acf-wp-objects",
-    "rollback": "git reset --hard HEAD~ && git push origin +master"
+    "i18n": "wp i18n make-pot . languages/acf-wp-objects.pot --domain=acf-wp-objects --exclude=tmp/*",
+    "rollback": "git reset --hard HEAD~ && git push origin +master",
+    "make-acf": "node ./src/run/mk-fieldgroup.js",
+    "dashicons": "node ./src/run/dashicons.js"
   },
   "repository": {
     "type": "git",
@@ -20,21 +22,74 @@
   },
   "homepage": "https://github.com/mcguffin/acf-wp-objects#readme",
   "browserslist": [
-    "last 2 versions"
+    "last 3 versions",
+    "> 0.25%",
+    "IE 10"
   ],
   "devDependencies": {
     "gulp": "^4.0.2",
-    "gulp-autoprefixer": "*",
+    "gulp-autoprefixer": "^6.1.0",
     "gulp-concat": "*",
     "gulp-rename": "*",
-    "gulp-sass": "*",
-    "gulp-sourcemaps": "*",
-    "gulp-uglify": "*",
-    "gulp-util": "*"
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2",
+    "gulp-util": "*",
+    "event-stream": "^4.0.1",
+    "@babel/core": "^7.5.4",
+    "@babel/plugin-proposal-class-properties": "^7.5.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.4",
+    "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "@babel/preset-env": "^7.5.4",
+    "babelify": "^10.0.0",
+    "browserify": "^16.3.0",
+    "browserify-shim": "^3.8.14",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
   },
   "engines": {
     "node": "12.4.0",
     "npm": "^6.9.0"
+  },
+  "wpPlugin": {
+    "components": {
+      "core": {
+        "components": [],
+        "flags": [
+          "css",
+          "js"
+        ]
+      },
+      "compat": {
+        "components": {
+          "acf": {
+            "flags": [
+              "css",
+              "js"
+            ]
+          },
+          "acf-customizer": {
+            "flags": []
+          },
+          "acf-rgba-color-picker": {
+            "flags": []
+          }
+        },
+        "flags": []
+      },
+      "git": {
+        "user": "mcguffin",
+        "remote": "git@github.com:mcguffin/acf-wp-object.git"
+      }
+    },
+    "name": "ACF WP-Objects",
+    "slug": "acf-wp-objects",
+    "prefix": "acf_wp_objects",
+    "textdomain": "acf-wp-objects",
+    "namespace": "ACFWPObjects",
+    "author": "Jörn Lund",
+    "author_uri": "",
+    "year": 2018
   },
   "wporg": {
     "type": "plugin",
@@ -43,9 +98,7 @@
       "github"
     ],
     "build": {
-      "prebuild": [
-        "wp i18n make-pot . languages/acf-wp-objects.pot --domain=acf-wp-objects"
-      ],
+      "prebuild": [],
       "build": [
         "gulp build"
       ]
@@ -58,5 +111,11 @@
       "svn": "https://plugins.svn.wordpress.org/acf-wp-objects/",
       "assets": ".wporg"
     }
+  },
+  "browserify-shim": {
+    "jquery": "global:jQuery"
+  },
+  "dependencies": {
+    "jquery": "^1.12.4"
   }
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  *	@package ACFWPObjects\Core
- *	@version 1.0.0
+ *	@version 1.0.1
  *	2018-09-22
  */
 
@@ -10,10 +10,10 @@ namespace ACFWPObjects\Core;
 if ( ! defined('ABSPATH') ) {
 	die('FU!');
 }
-
+use ACFWPObjects\Asset;
 use ACFWPObjects\Compat;
 
-class Core extends Plugin {
+class Core extends Plugin implements CoreInterface {
 
 	/**
 	 *	@inheritdoc
@@ -23,7 +23,7 @@ class Core extends Plugin {
 		add_action( 'plugins_loaded' , array( $this , 'init_compat' ), 0 );
 		add_action( 'init' , array( $this , 'init' ) );
 
-		add_action( 'wp_enqueue_scripts' , array( $this , 'wp_enqueue_style' ) );
+		add_action( 'wp_enqueue_scripts' , array( $this , 'enqueue_assets' ) );
 
 		$args = func_get_args();
 		parent::__construct( ...$args );
@@ -34,7 +34,7 @@ class Core extends Plugin {
 	 *
 	 *	@action wp_enqueue_scripts
 	 */
-	public function wp_enqueue_style() {
+	public function enqueue_assets() {
 	}
 
 
@@ -63,22 +63,6 @@ class Core extends Plugin {
 	 */
 	public function init() {
 	}
-
-	/**
-	 *	Get asset url for this plugin
-	 *
-	 *	@param	string	$asset	URL part relative to plugin class
-	 *	@return string URL
-	 */
-	 public function get_asset_url( $asset ) {
- 		$pi = pathinfo($asset);
- 		if ( defined('SCRIPT_DEBUG') && SCRIPT_DEBUG && in_array( $pi['extension'], ['css','js']) ) {
- 			// add .dev suffix (files with sourcemaps)
- 			$asset = sprintf('%s/%s.dev.%s', $pi['dirname'], $pi['filename'], $pi['extension'] );
- 		}
- 		return plugins_url( $asset, $this->get_plugin_file() );
- 	}
-
 
 
 }

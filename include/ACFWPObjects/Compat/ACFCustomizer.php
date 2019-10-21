@@ -16,7 +16,7 @@ use ACFWPObjects\Core;
 
 
 
-class ACFCustomizer extends Core\PluginComponent {
+class ACFCustomizer extends Core\Singleton implements Core\ComponentInterface {
 	private $changeset_data = null;
 
 	/**

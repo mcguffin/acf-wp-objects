@@ -16,7 +16,7 @@ use ACFWPObjects\Core;
 
 
 
-class ACFRGBAColorPicker extends Core\PluginComponent {
+class ACFRGBAColorPicker extends Core\Singleton implements Core\ComponentInterface {
 	/**
 	 *	@inheritdoc
 	 */

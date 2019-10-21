@@ -12,20 +12,20 @@ if ( ! defined('ABSPATH') ) {
 }
 
 
-abstract class PluginComponent extends Singleton {
+interface ComponentInterface {
 
 	/**
-	 *	Called on plugin activation
+	 *	Called on Plugin activation
 	 *
 	 *	@return array(
 	 *		'success'	=> bool,
 	 *		'messages'	=> array,
 	 *	)
 	 */
-	abstract function activate();
+	public function activate();
 
 	/**
-	 *	Called on plugin upgrade
+	 *	Called on Plugin upgrade
 	 *	@param	string	$new_version
 	 *	@param	string	$old_version
 	 *	@return array(
@@ -33,20 +33,26 @@ abstract class PluginComponent extends Singleton {
 	 *		'messages'	=> array,
 	 *	)
 	 */
-	abstract function upgrade( $new_version, $old_version );
+	public function upgrade( $new_version, $old_version );
 
 	/**
-	 *	Called on plugin deactivation
+	 *	Called on Plugin deactivation
 	 *	@return array(
 	 *		'success'	=> bool,
 	 *		'messages'	=> array,
 	 *	)
 	 */
-	abstract function deactivate();
+	public function deactivate();
 
 	/**
-	 *	Called on plugin uninstall
+	 *	Called on Plugin uninstall
+	 *	@param	string	$new_version
+	 *	@param	string	$old_version
+	 *	@return array(
+	 *		'success'	=> bool,
+	 *		'messages'	=> array,
+	 *	)
 	 */
-	abstract static function uninstall();
+	public static function uninstall();
 
 }
