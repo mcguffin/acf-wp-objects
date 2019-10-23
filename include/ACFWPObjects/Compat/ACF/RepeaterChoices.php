@@ -34,17 +34,43 @@ class RepeaterChoices extends Core\Singleton {
 		add_filter( 'acf/prepare_field/type=button_group', array( $this, 'prepare' ) );
 		add_filter( 'acf/prepare_field/type=checkbox', array( $this, 'prepare' ) );
 
-		add_filter( 'acf/render_field_settings/type=select', array( $this, 'render_settings' ) );
-		add_filter( 'acf/render_field_settings/type=radio', array( $this, 'render_settings' ) );
-		add_filter( 'acf/render_field_settings/type=button_group', array( $this, 'render_settings' ) );
-		add_filter( 'acf/render_field_settings/type=checkbox', array( $this, 'render_settings' ) );
+		add_action( 'acf/render_field_settings/type=select', array( $this, 'add_choice_filter' ), 9 );
+		add_action( 'acf/render_field_settings/type=radio', array( $this, 'add_choice_filter' ), 9 );
+		add_action( 'acf/render_field_settings/type=button_group', array( $this, 'add_choice_filter' ), 9 );
+		add_action( 'acf/render_field_settings/type=checkbox', array( $this, 'add_choice_filter' ), 9 );
 
-		add_filter( 'acf/validate_field', array( $this, 'validate_return_format_field' ) );
+		add_action( 'acf/render_field_settings/type=select', array( $this, 'render_settings' ) );
+		add_action( 'acf/render_field_settings/type=radio', array( $this, 'render_settings' ) );
+		add_action( 'acf/render_field_settings/type=button_group', array( $this, 'render_settings' ) );
+		add_action( 'acf/render_field_settings/type=checkbox', array( $this, 'render_settings' ) );
+
+		add_action( 'acf/render_field_settings/type=select', array( $this, 'remove_choice_filter' ), 11 );
+		add_action( 'acf/render_field_settings/type=radio', array( $this, 'remove_choice_filter' ), 11 );
+		add_action( 'acf/render_field_settings/type=button_group', array( $this, 'remove_choice_filter' ), 11 );
+		add_action( 'acf/render_field_settings/type=checkbox', array( $this, 'remove_choice_filter' ), 11 );
 
 		add_filter( 'acf/format_value/type=select', array( $this, 'format_value' ), 15, 3 );
 		add_filter( 'acf/format_value/type=radio', array( $this, 'format_value' ), 15, 3 );
 		add_filter( 'acf/format_value/type=button_group', array( $this, 'format_value' ), 15, 3 );
 		add_filter( 'acf/format_value/type=checkbox', array( $this, 'format_value' ), 15, 3 );
+
+	}
+
+	/**
+	 *	@action
+	 */
+	public function add_choice_filter( $field ) {
+
+		add_filter( 'acf/validate_field', array( $this, 'validate_return_format_field' ) );
+
+	}
+
+	/**
+	 *	@action
+	 */
+	public function remove_choice_filter( $field ) {
+
+		remove_filter( 'acf/validate_field', array( $this, 'validate_return_format_field' ) );
 
 	}
 
@@ -106,7 +132,7 @@ class RepeaterChoices extends Core\Singleton {
 
 		// repeater field
 		acf_render_field_setting( $field, array(
-			'label'			=> __('Repeater Field','ternum-ds'),
+			'label'			=> __('Repeater Field','acf-wp-objects'),
 			'instructions'	=> '',
 			'name'			=> 'repeater_field',
 			'type'			=> 'select',
@@ -122,7 +148,7 @@ class RepeaterChoices extends Core\Singleton {
 
 		// label field
 		acf_render_field_setting( $field, array(
-			'label'			=> __('Label Field','ternum-ds'),
+			'label'			=> __('Label Field','acf-wp-objects'),
 			'instructions'	=> '',
 			'name'			=> 'repeater_label_field',
 			'type'			=> 'select',
@@ -144,7 +170,7 @@ class RepeaterChoices extends Core\Singleton {
 
 		// value field
 		acf_render_field_setting( $field, array(
-			'label'			=> __('Value Field','ternum-ds'),
+			'label'			=> __('Value Field','acf-wp-objects'),
 			'instructions'	=> '',
 			'name'			=> 'repeater_value_field',
 			'type'			=> 'select',
@@ -171,11 +197,11 @@ class RepeaterChoices extends Core\Singleton {
 
 		// post id
 		acf_render_field_setting( $field, array(
-			'label'			=> __('Post ID','ternum-ds'),
-			'instructions'	=> __('Leave empty for current Post ID.','ternum-ds'),
+			'label'			=> __('Post ID','acf-wp-objects'),
+			'instructions'	=> __('Leave empty for current Post ID.','acf-wp-objects'),
 			'name'			=> 'repeater_post_id',
 			'type'			=> 'text',
-			'placeholder'	=> __('Current Post','ternum-ds'),
+			'placeholder'	=> __('Current Post','acf-wp-objects'),
 			'class'			=> 'code',
 			'conditions'	=> array(
 				'field'		=> 'repeater_choices',
@@ -186,7 +212,7 @@ class RepeaterChoices extends Core\Singleton {
 		if ( $field['type'] !== 'select' ) {
 			// enable
 			acf_render_field_setting( $field, array(
-				'label'			=> __('Visualize value','ternum-ds'),
+				'label'			=> __('Visualize value','acf-wp-objects'),
 				'instructions'	=> '',
 				'name'			=> 'repeater_display_value',
 				'type'			=> 'true_false',
