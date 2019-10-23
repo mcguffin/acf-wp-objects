@@ -46,7 +46,7 @@ class ACF extends Core\Singleton implements Core\ComponentInterface {
 
 		add_action( 'acf/enqueue_scripts', array( $this, 'enqueue_style' ) );
 		add_action( 'acf/field_group/admin_enqueue_scripts', array( $this, 'enqueue_field_group' ) );
-
+		add_action( 'acf/input/admin_enqueue_scripts', array( $this, 'enqueue_input' ) );
 
 	}
 
@@ -63,7 +63,7 @@ class ACF extends Core\Singleton implements Core\ComponentInterface {
 	 *	@action acf/field_group/admin_enqueue_scripts
 	 */
 	public function enqueue_field_group() {
-		$core = Core\Core::instance();
+
 		$choices = RepeaterChoices::instance();
 
 		Asset\Asset::get( 'js/admin/acf-field-group.js' )
@@ -74,6 +74,18 @@ class ACF extends Core\Singleton implements Core\ComponentInterface {
 			->enqueue();
 
 	}
+
+	/**
+	 *	@action acf/input/admin_enqueue_scripts
+	 */
+	public function enqueue_input() {
+
+		Asset\Asset::get( 'js/admin/acf-input.js' )
+			->footer( false )
+			->enqueue();
+
+	}
+
 
 	/**
 	 *	@action acf/include_location_rules
