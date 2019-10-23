@@ -4,12 +4,24 @@ ACF-WP-Objects
 Features
 --------
 Integrate WordPress Objects objects into ACF.
-
- - Add options to several ACF Fields allowing to edit the Post Title, Content and Attachments, Site Title, Description and Logo, ...
- - New Field types for Post Types and Taxonomies
- - Location Rules for Post Type and Taxonomy properties (Like Builtin, Public, ...)
- - Choice fields can have a repeater as data source. (Pro only)
-
+ - Use ACF Fields to edit several WP-Post properties:
+   - Settings: blogname
+   - Settings: blogdescription
+   - Post: post_title
+   - Post: post_excerpt
+   - Post: post_content
+   - Post: post_thumbnail
+   - Post: attachments
+   - Term: term_name (Not implemented yet)
+   - Term: term_description (Not implemented yet)
+   - Theme-Mod: custom_logo
+ - New Field types:
+    - Post Type
+    - Taxonomy
+    - Image Size
+ - New Location Rules:
+    - Post Type / Taxonomy is public / builtin / show_ui / show_in_menu / show_in_nav_menus
+ - Choice fields: get choices from a repeater
 
 
 Installation
@@ -30,19 +42,31 @@ Installation
  - $ `git clone git@github.com:mcguffin/acf-wp-objects.git`
  - $ `cd acf-wp-objects`
  - $ `npm install`
- - $ `gulp`
+ - $ `npm run dev`
 
 
 
 
 ToDo:
 -----
- - [x] Field: Image sizes
- - [ ] Field: Select User-Role
- - [ ] Field: Select Plugin
- - [ ] Field: Select Theme
- - [ ] Connector: Implement Term title, description
- - [ ] Connector: User Properties like email, nicename, avatar, ...
- - [ ] Connector: Connect more Options like media sizes, crop thumbnails, ...
- - [ ] More Location Rules: ...?
- - [ ] WSOD: Compat\ACF\ACF::instance() after upgrade if ACF inactive
+Features:
+ - [ ] Implement: Term storage
+ - [x] Add Field: Image sizes
+ - [ ] Add Field: Select User-Role ()
+ - [ ] Add Field: Select Plugin (active, inactive, network-activated, ...)
+ - [ ] Add Field: Select Theme (all, activatable, childs, parents, ...)
+ - [ ] Add Field Option: readonly
+ - [x] Add Connector: Implement Term title, description
+ - [ ] Add Connector: User Properties like email, nicename, avatar, ...
+ - [ ] Add Connector: Connect more Options like media sizes, crop thumbnails, ...
+ - [ ] Add Location Rule: Network admin page
+ - [ ] Add Location Rule: current_user_can ( capability )
+ - [x] Dev: ESNext
+ - [x] Dev: Boilerplate 2
+ - [ ] Dev: Add Tests
+   - [ ] Register Test PT, Options page, ...
+   - [ ] Fieldgroup with WP-Values
+   - [ ] Fieldgroup with Repeater-Choices
+ - [x] Fix: Repeater Choice: dont show row return foramt on Taxonomies
+ - [ ] Fix: WSOD Compat\ACF\ACF::instance() after upgrade if ACF inactive
+ - [x] Fix: JS Select with UI doesn't init
