@@ -16,7 +16,22 @@ use ACFWPObjects\Core;
 
 
 class WPObjects extends Core\Singleton {
+
+	/**
+	 *	storage_type: option, theme_mod, term, post
+	 *	storage_key: post/term property (like post_title), option_name or theme mod name
+	 *
+	 *	@var array field choices array(
+	 *		acf_field_type => array(
+	 *			storage_type:storage_key => label
+	 * 		)
+	 * )
+	 */
 	private $field_choices = array();
+
+	/**
+	 *	@var array supported field types
+	 */
 	private $supported_fields = array(
 		'text',
 		'textarea',
@@ -57,7 +72,7 @@ class WPObjects extends Core\Singleton {
 				'option:page_on_front'			=> __( 'Page on Front', 'acf-wp-objects' ),
 			),
 			'gallery'	=> array(
-				'post:attachments'					=> __( 'Post Attachments', 'acf-wp-objects' ),
+				'post:attachments'				=> __( 'Post Attachments', 'acf-wp-objects' ),
 			),
 		);
 
