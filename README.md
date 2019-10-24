@@ -61,6 +61,7 @@ Features:
  - [ ] Add Connector: Connect more Options like media sizes, crop thumbnails, ...
  - [ ] Add Location Rule: Network admin page
  - [ ] Add Location Rule: current_user_can ( capability )
+ - [x] Improve: use PT & Tax Select for conditional logic
  - [x] Dev: ESNext
  - [x] Dev: Boilerplate 2
  - [ ] Dev: Add Tests

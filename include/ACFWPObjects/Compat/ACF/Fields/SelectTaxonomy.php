@@ -54,6 +54,8 @@ class SelectTaxonomy extends \acf_field_select {
 
 	function render_field( $field ) {
 
+		$core = Core\Core::instance();
+
 		$args_keys = array(
 			'_builtin',
 			'public',
@@ -64,9 +66,9 @@ class SelectTaxonomy extends \acf_field_select {
 
 		if ( $field['pick'] ) {
 			if ( empty( $field['taxonomies'] ) ) {
-				$choices = $this->get_taxonomies( array(), 'label' );
+				$choices = $core->get_taxonomies( array(), 'label' );
 			} else {
-				$choices = $this->get_taxonomies( array( 'names' => $field['taxonomies'] ), 'label' );
+				$choices = $core->get_taxonomies( array( 'names' => $field['taxonomies'] ), 'label' );
 			}
 		} else {
 
@@ -77,7 +79,7 @@ class SelectTaxonomy extends \acf_field_select {
 					$args[ $key ] = boolval( intval( $field[$key] ) );
 				}
 			}
-			$choices = $this->get_taxonomies( $args, 'label' );
+			$choices = $core->get_taxonomies( $args, 'label' );
 		}
 
 		$field['choices'] = $choices;
@@ -103,7 +105,7 @@ class SelectTaxonomy extends \acf_field_select {
 
 	function render_field_settings( $field ) {
 
-
+		$core = Core\Core::instance();
 
 		// allow_null
 		acf_render_field_setting( $field, array(
@@ -165,7 +167,7 @@ class SelectTaxonomy extends \acf_field_select {
 			'instructions'	=> '',
 			'type'			=> 'select',
 			'name'			=> 'taxonomies',
-			'choices'		=> $this->get_taxonomies( array(), 'label' ),
+			'choices'		=> $core->get_taxonomies( array(), 'label' ),
 			'multiple'		=> 1,
 			'ui'			=> 1,
 			'allow_null'	=> 1,
@@ -279,38 +281,6 @@ class SelectTaxonomy extends \acf_field_select {
 		));
 
 	}
-
-	/**
-	 *	@param $args see get_taxonomies() $args param
-	 *	@param $return Taxonomy property to return
-	 *	@return array
-	 */
-	private function get_taxonomies( $args = array(), $return = null ) {
-		if ( isset( $args['names'] ) ) {
-			$taxonomies = array();
-			$names = $args['names'];
-			unset($args['names']);
-			foreach ( $names as $name ) {
-				$args['name'] = $name;
-				$taxonomies += get_taxonomies( $args, 'objects' );
-			}
-		} else {
-			$taxonomies = get_taxonomies( $args, 'objects' );
-		}
-
-		if ( is_null( $return ) ) {
-			return $taxonomies;
-		}
-		foreach ( array_keys( $taxonomies ) as $slug ) {
-			if ( ! isset( $taxonomies[ $slug ]->$return ) ) {
-				continue;
-			}
-			$taxonomies[ $slug ] = $taxonomies[ $slug ]->$return;
-		}
-
-		return $taxonomies;
-	}
-
 
 
 	function format_value_single( $value, $post_id, $field ) {

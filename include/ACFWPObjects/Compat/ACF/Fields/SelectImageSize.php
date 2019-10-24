@@ -36,8 +36,8 @@ class SelectImageSize extends \acf_field_select {
 			'image_sizes'	=> array(),
 			'pick'			=> 0,
 			'named'			=> '',
-			'cropped'		=> '',
-			'builtin'		=> '',
+			'crop'			=> '',
+			'_builtin'		=> '',
 		);
 	}
 
@@ -56,17 +56,19 @@ class SelectImageSize extends \acf_field_select {
 
 	function render_field( $field ) {
 
+		$core = Core\Core::instance();
+
 		$args_keys = array(
-			'builtin',
+			'_builtin',
 			'named',
-			'cropped',
+			'crop',
 		);
 
 		if ( $field['pick'] ) {
 			if ( empty( $field['image_sizes'] ) ) {
-				$choices = $this->get_image_sizes( array(), 'name' );
+				$choices = $core->get_image_sizes( array(), 'label' );
 			} else {
-				$choices = $this->get_image_sizes( array( 'names' => $field['image_sizes'] ), 'name' );
+				$choices = $core->get_image_sizes( array( 'names' => $field['image_sizes'] ), 'label' );
 			}
 		} else {
 
@@ -79,7 +81,7 @@ class SelectImageSize extends \acf_field_select {
 				}
 			}
 
-			$choices = $this->get_image_sizes( $args, 'name' );
+			$choices = $core->get_image_sizes( $args, 'label' );
 		}
 
 		$field['choices'] = $choices;
@@ -105,7 +107,7 @@ class SelectImageSize extends \acf_field_select {
 
 	function render_field_settings( $field ) {
 
-
+		$core = Core\Core::instance();
 
 		// allow_null
 		acf_render_field_setting( $field, array(
@@ -135,8 +137,6 @@ class SelectImageSize extends \acf_field_select {
 			'type'			=> 'true_false',
 			'ui'			=> 1,
 		));
-
-
 
 
 		// return_format
@@ -170,7 +170,7 @@ class SelectImageSize extends \acf_field_select {
 			'instructions'	=> '',
 			'type'			=> 'select',
 			'name'			=> 'image_sizes',
-			'choices'		=> $this->get_image_sizes( array(), 'name' ),
+			'choices'		=> $core->get_image_sizes( array(), 'label' ),
 			'multiple'		=> 1,
 			'ui'			=> 1,
 			'allow_null'	=> 1,
@@ -210,7 +210,7 @@ class SelectImageSize extends \acf_field_select {
 				'1'		=> __('Yes', 'wp-acf-objects' ),
 				'0'		=> __('No', 'wp-acf-objects' ),
 			),
-			'name'			=> 'cropped',
+			'name'			=> 'crop',
 			'ui'			=> 1,
 			'conditions'	=> array(
 				'field'		=> 'pick',
@@ -228,7 +228,7 @@ class SelectImageSize extends \acf_field_select {
 				'1'		=> __('Yes', 'wp-acf-objects' ),
 				'0'		=> __('No', 'wp-acf-objects' ),
 			),
-			'name'			=> 'builtin',
+			'name'			=> '_builtin',
 			'ui'			=> 1,
 			'conditions'	=> array(
 				'field'		=> 'pick',
@@ -246,137 +246,6 @@ class SelectImageSize extends \acf_field_select {
 
 
 	}
-
-	/**
-	 *	@param $args see get_taxonomies() $args param
-	 *	@param $return property to return
-	 *	@return array
-	 */
-	private function get_image_sizes( $args = array(), $return = null ) {
-		$args = wp_parse_args( $args, array(
-			'names'		=> false,
-			'named'		=> '',
-			'cropped'	=> '',
-			'builtin'	=> '',
-		) );
-
-		$sizes = $this->get_all_image_sizes();
-		$allowed = false;
-
-		if ( $args['names'] ) {
-			$allowed = $args['names'];
-		} else {
-			$allowed = array_keys($sizes);
-			if ( $args['builtin'] !== '' ) {
-				$builtin = array( 'thumbnail', 'medium', 'medium_large', 'large', 'full' );
-				if ( $args['builtin'] ) {
-					$allowed = array_intersect( $allowed, $builtin );
-				} else {
-					$allowed = array_diff( $allowed, $builtin );
-				}
-			}
-
-			if ( $args['named'] !== '' ) {
-				$named = intval($args['named']) === 1;
-				$sizes = array_filter( $sizes, function( $val ) use ($named) {
-					return ( $val['name'] === '' ) === ! $named;
-				} );
-
-			}
-
-			if ( $args['cropped'] !== '' ) {
-				$cropped = intval($args['cropped']) === 1;
-				$sizes = array_filter( $sizes, function( $val ) use ($cropped) {
-					return $val['crop'] === $cropped;
-				} );
-			}
-		}
-
-		if ( $allowed !== false ) {
-			$sizes = array_filter( $sizes, function( $key ) use ( $allowed ) {
-				return in_array( $key, $allowed );
-			}, ARRAY_FILTER_USE_KEY );
-		}
-
-
-		if ( is_null( $return ) ) {
-			return $sizes;
-		}
-
-		foreach ( array_keys( $sizes ) as $slug ) {
-			$size = $sizes[ $slug ];
-			if ( ! isset( $size[ $return ] ) ) {
-				continue;
-			}
-			$sizes[ $slug ] = $size[ $return ];
-			if ( empty( $sizes[ $slug ] ) ) {
-				$sizes[ $slug ] = $slug;
-			}
-			if ( $return === 'name' ) {
-				$sizes[ $slug ] .= sprintf( ' (%d&times;%d)', $size[ 'width' ], $size[ 'height' ] );
-			}
-		}
-
-		return $sizes;
-	}
-
-
-
-	/**
-	 *	Get all image sizes
-	 *
-	 *	@param	bool	$with_core	Include Core sizes thumbnail, medium, medium_large
-	 *
-	 *	@return assocative array with all image sizes, their names and labels
-	 */
-	public function get_all_image_sizes() {
-
-		global $_wp_additional_image_sizes;
-
-		if ( ! empty( $this->all_sizes ) ) {
-			return $this->all_sizes;
-		}
-
-		$this->all_sizes = array();
-
-		$core_sizes = array( 'thumbnail', 'medium', 'medium_large', 'large', 'full' );
-
-		$core_size_names = array(
-			'thumbnail' => __( 'Thumbnail' ),
-			'medium'    => __( 'Medium' ),
-			'large'     => __( 'Large' ),
-			'full'      => __( 'Full Size' )
-		);
-
-		// get size names
-		$size_names = apply_filters( 'image_size_names_choose', $core_size_names );
-
-		$intermediate_image_sizes = get_intermediate_image_sizes();
-
-		// Create the full array with sizes and crop info
-		foreach( $intermediate_image_sizes as $_size ) {
-
-			if ( in_array( $_size, array( 'thumbnail', 'medium', 'large' ) ) ) {
-				$w    = intval( get_option( $_size . '_size_w' ) );
-				$h    = intval( get_option( $_size . '_size_h' ) );
-				$crop = (bool) get_option( $_size . '_crop' );
-			} elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {
-				$w    = intval( $_wp_additional_image_sizes[ $_size ]['width'] );
-				$h    = intval( $_wp_additional_image_sizes[ $_size ]['height'] );
-				$crop = (bool) $_wp_additional_image_sizes[ $_size ]['crop'];
-			}
-
-			$this->all_sizes[$_size] = array(
-				'width'			=> $w,
-				'height'		=> $h,
-				'crop'			=> $crop,
-				'slug'			=> $_size,
-				'name'			=> isset( $size_names[$_size] ) ? $size_names[$_size] : '',
-			);
-		}
-		return $this->all_sizes;
-	}
-
 
 	function format_value_single( $value, $post_id, $field ) {
 

@@ -27,6 +27,10 @@ class ACF extends Core\Singleton implements Core\ComponentInterface {
 		'relation',
 	);
 
+	private $acf_input_js;
+	private $acf_input_css;
+	private $acf_field_group_js;
+
 	/**
 	 *	@inheritdoc
 	 */
@@ -48,13 +52,17 @@ class ACF extends Core\Singleton implements Core\ComponentInterface {
 		add_action( 'acf/field_group/admin_enqueue_scripts', array( $this, 'enqueue_field_group' ) );
 		add_action( 'acf/input/admin_enqueue_scripts', array( $this, 'enqueue_input' ) );
 
+		$this->acf_input_js			= Asset\Asset::get( 'js/admin/acf-input.js' );
+		$this->acf_input_css		= Asset\Asset::get( 'css/admin/acf-input.css' );
+		$this->acf_field_group_js	= Asset\Asset::get( 'js/admin/acf-field-group.js' );
+
 	}
 
 	/**
 	 *	@action acf/enqueue_scripts
 	 */
 	public function enqueue_style() {
-		Asset\Asset::get( 'css/admin/acf-input.css' )
+		$this->acf_input_css
 			->deps('acf-input')
 			->enqueue();
 	}
@@ -65,22 +73,71 @@ class ACF extends Core\Singleton implements Core\ComponentInterface {
 	public function enqueue_field_group() {
 
 		$choices = RepeaterChoices::instance();
+		$core = Core\Core::instance();
 
-		Asset\Asset::get( 'js/admin/acf-field-group.js' )
-			->deps( 'acf-field-group' )
+		$this->acf_field_group_js
+			->footer( false )
+			->deps( 'acf-field-group', $this->acf_input_js )
 			->localize(array(
 				'repeated_fields' => $choices->get_repeated_fields(),
+				'post_types'	=> array_map( [ $this, 'reduce_pt' ], $core->get_post_types() ),
+				'taxonomies'	=> array_map( [ $this, 'reduce_taxo' ], $core->get_taxonomies() ),
+				'image_sizes'	=> array_map( [ $this, 'mk_image_sizes' ], $core->get_image_sizes() ),
 			), 'acf_wp_objects' )
 			->enqueue();
 
 	}
 
 	/**
+	 *	@param Array $im Image size
+	 */
+	private function mk_image_sizes( $size ) {
+		$size['label'] = sprintf( '%s (%d×%d)',
+			$size['label'] ? $size['label'] : $size['name'],
+			$size[ 'width' ],
+			$size[ 'height' ]
+		);
+		return $size;
+	}
+
+	/**
+	 *	@param Object $pto Post type object
+	 */
+	private function reduce_pt( $pto ) {
+		return array_intersect_key( get_object_vars( $pto ), array(
+			'_builtin'			=> 1,
+			'name'				=> 1,
+			'label'				=> 1,
+			'show_ui'			=> 1,
+			'show_in_nav_menus'	=> 1,
+			'show_in_menu'		=> 1,
+			'public'			=> 1,
+		));
+	}
+
+	/**
+	 *	@param Object $tx Taxonomy object
+	 */
+	private function reduce_taxo( $tx ) {
+		return array_intersect_key( get_object_vars( $tx ), array(
+			'_builtin'			=> 1,
+			'name'				=> 1,
+			'label'				=> 1,
+			'show_ui'			=> 1,
+			'show_in_nav_menus'	=> 1,
+			'show_in_menu'		=> 1,
+			'public'			=> 1,
+		));
+	}
+
+
+
+	/**
 	 *	@action acf/input/admin_enqueue_scripts
 	 */
 	public function enqueue_input() {
 
-		Asset\Asset::get( 'js/admin/acf-input.js' )
+		$this->acf_input_js
 			->footer( false )
 			->enqueue();
 

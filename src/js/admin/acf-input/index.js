@@ -1,21 +1,26 @@
 import $ from 'jquery';
 
-
+const selectField = acf.getFieldType('select');
+// make select2 work
 [
 	'image_size_select',
 	'post_type_select',
 	'taxonomy_select'
 ].forEach(
 	type => {
-		const t = acf.getFieldType('select').extend( {
+
+		const t = selectField.extend( {
 			type,
 		} );
-		console.log('ADD TYPES');
 		acf.registerFieldType( t );
+
+		acf.registerConditionForFieldType( 'hasValue', type );
+		acf.registerConditionForFieldType( 'hasNoValue', type );
+		acf.registerConditionForFieldType( 'contains', type );
+		acf.registerConditionForFieldType( 'selectEqualTo', type );
+		acf.registerConditionForFieldType( 'selectNotEqualTo', type );
+		acf.registerConditionForFieldType( 'selectionLessThan', type );
+		acf.registerConditionForFieldType( 'selectionGreaterThan', type );
+
 	}
 );
-
-acf.addFilter('select2_args',( options, $select, data, field, self ) => {
-	console.log(field.get('type'))
-	return options;
-});

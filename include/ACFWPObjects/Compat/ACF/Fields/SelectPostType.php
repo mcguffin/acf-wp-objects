@@ -54,6 +54,8 @@ class SelectPostType extends \acf_field_select {
 
 	function render_field( $field ) {
 
+		$core = Core\Core::instance();
+
 		$args_keys = array(
 			'_builtin',
 			'public',
@@ -64,9 +66,9 @@ class SelectPostType extends \acf_field_select {
 
 		if ( $field['pick'] ) {
 			if ( empty( $field['post_types'] ) ) {
-				$choices = $this->get_post_types( array(), 'label' );
+				$choices = $core->get_post_types( array(), 'label' );
 			} else {
-				$choices = $this->get_post_types( array( 'names' => $field['post_types'] ), 'label' );
+				$choices = $core->get_post_types( array( 'names' => $field['post_types'] ), 'label' );
 			}
 		} else {
 
@@ -77,7 +79,7 @@ class SelectPostType extends \acf_field_select {
 					$args[ $key ] = boolval( intval( $field[$key] ) );
 				}
 			}
-			$choices = $this->get_post_types( $args, 'label' );
+			$choices = $core->get_post_types( $args, 'label' );
 		}
 
 		$field['choices'] = $choices;
@@ -103,7 +105,7 @@ class SelectPostType extends \acf_field_select {
 
 	function render_field_settings( $field ) {
 
-
+		$core = Core\Core::instance();
 
 		// allow_null
 		acf_render_field_setting( $field, array(
@@ -165,7 +167,7 @@ class SelectPostType extends \acf_field_select {
 			'instructions'	=> '',
 			'type'			=> 'select',
 			'name'			=> 'post_types',
-			'choices'		=> $this->get_post_types( array(), 'label' ),
+			'choices'		=> $core->get_post_types( array(), 'label' ),
 			'multiple'		=> 1,
 			'ui'			=> 1,
 			'allow_null'	=> 1,
@@ -278,37 +280,6 @@ class SelectPostType extends \acf_field_select {
 		));
 
 
-	}
-
-	/**
-	 *	@param $args see get_post_types() $args param
-	 *	@param $return Taxonomy property to return
-	 *	@return array
-	 */
-	private function get_post_types( $args = array(), $return = null ) {
-		if ( isset( $args['names'] ) ) {
-			$post_types = array();
-			$names = $args['names'];
-			unset($args['names']);
-			foreach ( $names as $name ) {
-				$args['name'] = $name;
-				$post_types += get_post_types( $args, 'objects' );
-			}
-		} else {
-			$post_types = get_post_types( $args, 'objects' );
-		}
-
-		if ( is_null( $return ) ) {
-			return $post_types;
-		}
-		foreach ( array_keys( $post_types ) as $slug ) {
-			if ( ! isset( $post_types[ $slug ]->$return ) ) {
-				continue;
-			}
-			$post_types[ $slug ] = $post_types[ $slug ]->$return;
-		}
-
-		return $post_types;
 	}
 
 
