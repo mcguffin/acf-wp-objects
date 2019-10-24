@@ -104,6 +104,7 @@
     "type": "plugin",
     "steps": [
       "build",
+      "git",
       "github"
     ],
     "build": {

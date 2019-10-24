@@ -24,6 +24,7 @@ class PluginTest {
 		acf_add_options_page([
 			'page_title'	=> __('My Network Options'),
 			'post_id'		=> 'blabla',
+			'position'		=> 10,
 			'network'		=> true,
 		]);
 		acf_add_options_page([

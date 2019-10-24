@@ -23,14 +23,16 @@ class WPMU extends Core\Singleton implements Core\ComponentInterface {
 	protected function __construct() {
 		// filter options pages
 		add_filter('acf/validate_options_page', [ $this, 'validate_options_page' ] );
+
+
 		add_filter('acf/get_options_pages', [ $this, 'get_options_pages' ] );
 
 		// save values
-		add_filter('acf/pre_update_metadata', [ $this, 'pre_update_metadata' ], 10, 5 )
+		add_filter('acf/pre_update_metadata', [ $this, 'pre_update_metadata' ], 10, 5 );
 
 		// retrieve values
 		// 1st approach: Results in network taking precedence over blog options!
-		add_filter('acf/pre_load_metadata', [ $this, 'pre_load_metadata' ], 10, 4 )
+		add_filter('acf/pre_load_metadata', [ $this, 'pre_load_metadata' ], 10, 4 );
 
 		if ( is_network_admin() ) {
 			new ACF\NetworkAdminOptionsPage();
@@ -59,7 +61,7 @@ class WPMU extends Core\Singleton implements Core\ComponentInterface {
 		if( $type === 'option' ) {
 
 			// Let blog options override network options:
-			if ( $opt = get_option( "{$prefix}{$id}_{$name}", null ) ) {
+			if ( ! is_network_admin() && ( $opt = get_option( "{$prefix}{$id}_{$name}", null ) ) ) {
 				return $opt;
 			}
 
@@ -82,7 +84,12 @@ class WPMU extends Core\Singleton implements Core\ComponentInterface {
 	 *	@filter acf/get_options_pages
 	 */
 	public function get_options_pages( $pages ) {
-		return array_filter( $pages, [ $this, '_filter_network' ] );
+
+		if ( doing_filter('admin_menu') || doing_filter( 'network_admin_menu' ) || ! is_main_site() ) {
+			$pages = array_filter( $pages, [ $this, '_filter_network' ] );
+		}
+
+		return $pages;
 	}
 
 	/**
