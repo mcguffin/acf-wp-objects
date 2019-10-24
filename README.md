@@ -50,16 +50,19 @@ Installation
 ToDo:
 -----
 Features:
- - [ ] Implement: Term storage
- - [x] Add Field: Image sizes
- - [ ] Add Field: Select User-Role ()
+ - [ ] Add Field: Select User-Role
  - [ ] Add Field: Select Plugin (active, inactive, network-activated, ...)
  - [ ] Add Field: Select Theme (all, activatable, childs, parents, ...)
  - [ ] Add Field Option: readonly
- - [x] Add Connector: Implement Term title, description
+ - [ ] Add Connector: Implement Term title, description
  - [ ] Add Connector: User Properties like email, nicename, avatar, ...
  - [ ] Add Connector: Connect more Options like media sizes, crop thumbnails, ...
  - [ ] Add Location Rule: Network admin page
+   - Needs 
+        - hooking into `acf/pre_update_metadata`, `acf/validate_options_page`
+        - hook: `acf/get_options_pages` rm non-network pages if in blog
+        - extending `class acf_admin_options_page`
+        - hooking into 
  - [ ] Add Location Rule: current_user_can ( capability )
  - [x] Improve: use PT & Tax Select for conditional logic
  - [x] Dev: ESNext
