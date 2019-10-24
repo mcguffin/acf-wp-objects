@@ -9,7 +9,9 @@
     "i18n": "wp i18n make-pot . languages/acf-wp-objects.pot --domain=acf-wp-objects --exclude=tmp/*",
     "rollback": "git reset --hard HEAD~ && git push origin +master",
     "make-acf": "node ./src/run/mk-fieldgroup.js",
-    "dashicons": "node ./src/run/dashicons.js"
+    "dashicons": "node ./src/run/dashicons.js",
+    "test": "node ./src/run/test.js",
+    "dev-test": "./src/run/dev-test.sh"
   },
   "repository": {
     "type": "git",
@@ -80,6 +82,10 @@
       "git": {
         "user": "mcguffin",
         "remote": "git@github.com:mcguffin/acf-wp-object.git"
+      },
+      "test": {
+        "components": {},
+        "flags": []
       }
     },
     "name": "ACF WP-Objects",
