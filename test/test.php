@@ -21,15 +21,34 @@ class PluginTest {
 	}
 
 	public function add_options_page() {
-		acf_add_options_page([
-			'page_title'	=> __('My Network Options'),
+		$nwp = acf_add_options_page([
+			'page_title'	=> 'My Network Options',
 			'post_id'		=> 'blabla',
 			'position'		=> 10,
+			'redirect'		=> false,
 			'network'		=> true,
 		]);
-		acf_add_options_page([
-			'page_title'	=> __('My Options'),
+		acf_add_options_sub_page([
+			'page_title'	=> 'Network sub 1',
+			'post_id'		=> 'blublue',
+			'parent'		=> $nwp['menu_slug'],
+			'network'		=> true,
+		]);
+		acf_add_options_sub_page([
+			'page_title'	=> 'Network sub 2',
+			'post_id'		=> 'blubluex',
+			'parent'		=> $nwp['menu_slug'],
+			'network'		=> true,
+		]);
+		$blp = acf_add_options_page([
+			'page_title'	=> 'My Options',
 			'post_id'		=> 'blabla',
+			'redirect'		=> false,
+		]);
+		acf_add_options_sub_page([
+			'page_title'	=> 'Options sub page',
+			'post_id'		=> 'blublue',
+			'parent'		=> $blp['menu_slug'],
 		]);
 	}
 

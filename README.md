@@ -22,6 +22,8 @@ Integrate WordPress Objects objects into ACF.
  - New Location Rules:
     - Post Type / Taxonomy is public / builtin / show_ui / show_in_menu / show_in_nav_menus
  - Choice fields: get choices from a repeater
+ - Multisite: 
+   - Add a network admin page with `acf_add_options_(sub_)page()`. Add `"network" => true,` to the page args (ACF Pro only – both plugins must be network-enabled)
 
 
 Installation
@@ -57,12 +59,7 @@ Features:
  - [ ] Add Connector: Implement Term title, description
  - [ ] Add Connector: User Properties like email, nicename, avatar, ...
  - [ ] Add Connector: Connect more Options like media sizes, crop thumbnails, ...
- - [ ] Add Location Rule: Network admin page
-   - Needs 
-        - hooking into `acf/pre_update_metadata`, `acf/validate_options_page`
-        - hook: `acf/get_options_pages` rm non-network pages if in blog
-        - extending `class acf_admin_options_page`
-        - hooking into 
+ - [x] Add Location Rule: Network admin page
  - [ ] Add Location Rule: current_user_can ( capability )
  - [x] Improve: use PT & Tax Select for conditional logic
  - [x] Dev: ESNext
