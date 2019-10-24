@@ -140,8 +140,11 @@ class Asset {
 	 *
 	 *	@param array $deps Dependencies
 	 */
-	public function deps( $deps = [] ) {
-		$this->deps = (array) $deps;
+	public function deps( ...$deps ) {
+		$this->deps = [];
+		foreach ( $deps as $dep ) {
+			$this->add_dep( $dep );
+		}
 		return $this;
 	}
 
@@ -156,7 +159,7 @@ class Asset {
 		}
 		if ( is_array( $dep ) ) {
 			foreach ( $dep as $d ) {
-				$this-add_dep($d);
+				$this->add_dep($d);
 			}
 		} else {
 			if ( ! in_array( $dep, $this->deps ) ) {
