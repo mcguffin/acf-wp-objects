@@ -1,6 +1,13 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.1.21
+------
+ - ESNext
+ - Upgrade plugin Boilerplate
+ - add tests skeleton
+ - allow conditional logic for WP-Object-Fields
+
 0.1.16
 ------
  - Repeater-Choice: improve color select style

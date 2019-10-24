@@ -230,8 +230,21 @@ class Core extends Plugin implements CoreInterface {
 	 *  @action plugins_loaded
 	 */
 	public function init_compat() {
-		if ( function_exists('\acf') && version_compare( acf()->version,'5.0.0','>=') ) {
+		if ( function_exists('\acf') && version_compare( acf()->version,'5.6.0','>=') ) {
+			$acf = acf();
 			Compat\ACF\ACF::instance();
+
+			// So many conditions...
+			if ( is_multisite()
+				&& acf_get_setting('pro')
+				&& function_exists('is_plugin_active_for_network')
+				&& is_plugin_active_for_network( $this->get_wp_plugin() )
+				&& is_plugin_active_for_network( acf_get_setting('basename') )
+			) {
+				Compat\WPMU::instance();
+			} else {
+				Compat\NoWPMU::instance();
+			}
 		}
 		if ( class_exists( '\ACFCustomizer\Core\Core' ) ) {
 			Compat\ACFCustomizer::instance();

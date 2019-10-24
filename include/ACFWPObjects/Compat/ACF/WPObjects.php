@@ -167,6 +167,12 @@ class WPObjects extends Core\Singleton {
 			case 'option':
 				$value = get_option( $key );
 			case 'term':
+				$info = acf_get_post_id_info( $post_id );
+				if ( 'term_name' === $key ) {
+					//if ( $term = get_term() )
+				} else if ( 'term_description' === $key ) {
+
+				}
 				$value = 'NOT IMPLEMENTED YET';
 			case 'post':
 
@@ -210,7 +216,7 @@ class WPObjects extends Core\Singleton {
 				update_option($key);
 				return true;
 			case 'term':
-				// return get_option($key);
+				// update term
 				return true;
 			case 'post':
 				if ( ! absint( $post_id ) ) {

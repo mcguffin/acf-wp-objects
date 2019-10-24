@@ -1,8 +1,1 @@
-{
-  "src/js/admin/acf-input/index.js": [
-    "js/admin/acf-input.js"
-  ],
-  "src/js/admin/acf-field-group/index.js": [
-    "js/admin/acf-field-group.js"
-  ]
-}
+{}

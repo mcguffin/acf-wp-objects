@@ -16,8 +16,21 @@ class PluginTest {
 		add_action( 'acf/untrash_field_group', [ $this, 'mutate_field_group' ], 9 );
 		add_action( 'acf/update_field_group', [ $this, 'mutate_field_group' ], 9 );
 
+		add_action('acf/init', [ $this,'add_options_page' ] );
+
 	}
 
+	public function add_options_page() {
+		acf_add_options_page([
+			'page_title'	=> __('My Network Options'),
+			'post_id'		=> 'blabla',
+			'network'		=> true,
+		]);
+		acf_add_options_page([
+			'page_title'	=> __('My Options'),
+			'post_id'		=> 'blabla',
+		]);
+	}
 
 
 	/**

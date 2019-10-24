@@ -75,6 +75,9 @@
           },
           "acf-rgba-color-picker": {
             "flags": []
+          },
+          "wpmu": {
+            "flags": []
           }
         },
         "flags": []
