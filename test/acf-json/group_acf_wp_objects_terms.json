@@ -1,0 +1,64 @@
+{
+    "key": "group_acf_wp_objects_terms",
+    "title": "ACF WP-Objects Test: Term Properties",
+    "fields": [
+        {
+            "key": "field_5db2b45fefb0b",
+            "label": "Term Title",
+            "name": "term_title",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "wp_object": "term:term_name"
+        },
+        {
+            "key": "field_5db2b46cefb0c",
+            "label": "Term Description",
+            "name": "term_description",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": "",
+            "new_lines": "",
+            "wp_object": "term:term_description"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "acf-wp-objects-test"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1571992724
+}

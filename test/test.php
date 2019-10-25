@@ -18,7 +18,29 @@ class PluginTest {
 
 		add_action('acf/init', [ $this,'add_options_page' ] );
 
+		add_action('init', [ $this,'init' ] );
+
+
 	}
+
+	/**
+	 *	@action init
+	 */
+	public function init() {
+		register_post_type('acf-wp-objects-test',[
+			'label'		=> 'WP-Objects Tests',
+			'public'	=> true,
+			'supports'	=> ['title'],
+		]);
+		register_taxonomy('acf-wp-objects-test','acf-wp-objects-test',[
+			'label'		=> 'WP-Objects Test Terms',
+			'labels'	=> [
+				'no_terms'	=> 'No Terms',
+			],
+			'public'	=> true,
+		]);
+	}
+
 
 	/**
 	 *	@action acf/init
@@ -53,6 +75,34 @@ class PluginTest {
 			'post_id'		=> 'acf_wpo_opt_test',
 			'menu_slug'		=> 'wpo-test-options',
 			'redirect'		=> false,
+		]);
+		acf_add_options_sub_page([
+			'page_title'	=> 'ACF WP-Objects Fields',
+			'menu_title'	=> 'Fields',
+			'post_id'		=> 'acf_wpo_fields_test',
+			'menu_slug'		=> 'wpo-test-fields',
+			'parent'		=> $blp['menu_slug'],
+		]);
+		acf_add_options_sub_page([
+			'page_title'	=> 'ACF WP-Objects Repeater',
+			'menu_title'	=> 'Repeater ...',
+			'post_id'		=> 'acf_wpo_fields_test_repeater',
+			'menu_slug'		=> 'wpo-test-repeater',
+			'parent'		=> $blp['menu_slug'],
+		]);
+		acf_add_options_sub_page([
+			'page_title'	=> 'ACF WP-Objects Repeater Choices',
+			'menu_title'	=> '... Choices',
+			'post_id'		=> 'acf_wpo_fields_test_repeater',
+			'menu_slug'		=> 'wpo-test-choices',
+			'parent'		=> $blp['menu_slug'],
+		]);
+		acf_add_options_sub_page([
+			'page_title'	=> 'ACF WP-Objects Options + Theme Mods',
+			'menu_title'	=> 'Options + Mods',
+			'post_id'		=> 'acf_wpo_fields_test_repeater',
+			'menu_slug'		=> 'wpo-test-options-mods',
+			'parent'		=> $blp['menu_slug'],
 		]);
 	}
 
