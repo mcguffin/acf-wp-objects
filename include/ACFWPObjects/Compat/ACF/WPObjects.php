@@ -213,7 +213,7 @@ class WPObjects extends Core\Singleton {
 				set_theme_mod( $key, $value );
 				return true;
 			case 'option':
-				update_option($key);
+				update_option( $key, $value );
 				return true;
 			case 'term':
 				// update term
