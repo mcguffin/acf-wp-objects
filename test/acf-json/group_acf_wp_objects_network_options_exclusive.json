@@ -1,0 +1,44 @@
+{
+    "key": "group_acf_wp_objects_network_options_exclusive",
+    "title": "ACF WP-Objects Test: Network Admin (Exclusive)",
+    "fields": [
+        {
+            "key": "field_5db29de889f9e",
+            "label": "Test text",
+            "name": "test_text",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "wp_object": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "wpo-test-network-options"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1571986934
+}

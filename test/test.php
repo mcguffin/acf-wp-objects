@@ -20,35 +20,39 @@ class PluginTest {
 
 	}
 
+	/**
+	 *	@action acf/init
+	 */
 	public function add_options_page() {
 		$nwp = acf_add_options_page([
-			'page_title'	=> 'My Network Options',
-			'post_id'		=> 'blabla',
-			'position'		=> 10,
+			'page_title'	=> 'ACF WP-Objects Network Options',
+			'menu_title'	=> 'WP-Objects',
+			'post_id'		=> 'network_opt_test',
+			'menu_slug'		=> 'wpo-test-network-options',
+			'position'		=> 50,
 			'redirect'		=> false,
 			'network'		=> true,
 		]);
 		acf_add_options_sub_page([
-			'page_title'	=> 'Network sub 1',
-			'post_id'		=> 'blublue',
+			'page_title'	=> 'Network Options Sub #1',
+			'menu_title'	=> 'Sub #1',
+			'post_id'		=> 'network_opt_test',
 			'parent'		=> $nwp['menu_slug'],
 			'network'		=> true,
 		]);
 		acf_add_options_sub_page([
-			'page_title'	=> 'Network sub 2',
-			'post_id'		=> 'blubluex',
+			'page_title'	=> 'Network Options Sub #2',
+			'menu_title'	=> 'Sub #2',
+			'post_id'		=> 'acf_wpo_opt_test',
 			'parent'		=> $nwp['menu_slug'],
 			'network'		=> true,
 		]);
 		$blp = acf_add_options_page([
-			'page_title'	=> 'My Options',
-			'post_id'		=> 'blabla',
+			'page_title'	=> 'ACF WP-Objects Options',
+			'menu_title'	=> 'WP-Objects',
+			'post_id'		=> 'acf_wpo_opt_test',
+			'menu_slug'		=> 'wpo-test-options',
 			'redirect'		=> false,
-		]);
-		acf_add_options_sub_page([
-			'page_title'	=> 'Options sub page',
-			'post_id'		=> 'blublue',
-			'parent'		=> $blp['menu_slug'],
 		]);
 	}
 
