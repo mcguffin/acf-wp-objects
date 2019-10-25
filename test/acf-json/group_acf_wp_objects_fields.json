@@ -48,7 +48,7 @@
                     },
                     "allow_null": 1,
                     "multiple": 1,
-                    "ui": 0,
+                    "ui": 1,
                     "return_format": "object",
                     "pick": 1,
                     "post_types": [
@@ -220,7 +220,7 @@
                     },
                     "allow_null": 1,
                     "multiple": 1,
-                    "ui": 0,
+                    "ui": 1,
                     "return_format": "object",
                     "pick": 0,
                     "public": "",
@@ -1240,5 +1240,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1571989981
+    "modified": 1571999349
 }
