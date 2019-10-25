@@ -17,10 +17,19 @@ use ACFWPObjects\Core;
 class Preview {
 	private $field;
 
+	/**
+	 *	@param array $field ACF Field
+	 *	@param string $value
+	 */
 	public function __construct( $field, $value ) {
 		$this->field = $field;
 		$this->value = $value;
 	}
+
+	/**
+	 *	@filter the_title
+	 *	@filter the_content
+	 */
 	public function get( $value ) {
 		return $this->value;
 	}
