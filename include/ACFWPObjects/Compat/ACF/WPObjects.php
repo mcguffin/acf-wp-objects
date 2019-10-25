@@ -164,16 +164,23 @@ class WPObjects extends Core\Singleton {
 		switch ( $storage ) {
 			case 'theme_mod':
 				$value = get_theme_mod( $key );
+				break;
 			case 'option':
 				$value = get_option( $key );
+				break;
 			case 'term':
-				$info = acf_get_post_id_info( $post_id );
-				if ( 'term_name' === $key ) {
-					//if ( $term = get_term() )
-				} else if ( 'term_description' === $key ) {
 
+				if ( $term = $this->get_term( $post_id ) ) {
+
+					if ( 'term_name' === $key ) {
+						//if ( $term = get_term() )
+						$value = $term->name;
+					} else if ( 'term_description' === $key ) {
+						$value = $term->description;
+					}
 				}
-				$value = 'NOT IMPLEMENTED YET';
+
+				break;
 			case 'post':
 
 				if ( 'post_title' == $key ) {
@@ -194,6 +201,7 @@ class WPObjects extends Core\Singleton {
 					// IDs of children
 					$value = $this->get_attachment_ids( $post_id );
 				}
+				break;
 		}
 		return $value;
 
@@ -216,7 +224,21 @@ class WPObjects extends Core\Singleton {
 				update_option( $key, $value );
 				return true;
 			case 'term':
-				// update term
+				// update term .. works on create too
+
+				if ( $term = $this->get_term( $post_id ) ) {
+
+					$update_term = array();
+					if ( 'term_name' === $key ) {
+						$update_term['name'] = $value;
+					} else if ( 'term_description' === $key ) {
+						$update_term['description'] = $value;
+					}
+
+					if ( ! empty( $update_term ) ) {
+						wp_update_term( $term->term_id, $term->taxonomy, $update_term );
+					}
+				}
 				return true;
 			case 'post':
 				if ( ! absint( $post_id ) ) {
@@ -272,6 +294,18 @@ class WPObjects extends Core\Singleton {
 				}
 				return true;
 		}
+	}
+
+	/**
+	 *	@param string|int $post_id ACF post_id
+	 */
+	private function get_term( $post_id ) {
+		$info = acf_get_post_id_info( $post_id );
+
+		if ( 'term' === $info['type'] && $info['id'] ) {
+			return get_term( $info['id'] );
+		}
+		return null;
 	}
 
 	/**
