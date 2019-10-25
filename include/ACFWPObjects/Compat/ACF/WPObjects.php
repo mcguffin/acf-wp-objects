@@ -38,7 +38,7 @@ class WPObjects extends Core\Singleton {
 		'wysiwyg',
 		'image',
 		'post_object',
-		'relation',
+		'relationship',
 		'gallery',
 	);
 
@@ -67,7 +67,7 @@ class WPObjects extends Core\Singleton {
 			//	'theme_mod:background_image'	=> __( 'Background Image', 'acf-wp-objects' ), // can't use ... WP saves a plain URL.
 				'post:post_thumbnail'			=> __( 'Post Thumbnail', 'acf-wp-objects' ),
 			),
-			'relation'	=> array(
+			'relationship'	=> array(
 				'option:page_for_posts'			=> __( 'Page for Posts', 'acf-wp-objects' ),
 				'option:page_on_front'			=> __( 'Page on Front', 'acf-wp-objects' ),
 			),
