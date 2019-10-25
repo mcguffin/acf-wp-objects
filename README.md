@@ -56,6 +56,7 @@ Features:
  - [ ] Add Field: Select Plugin (active, inactive, network-activated, ...)
  - [ ] Add Field: Select Theme (all, activatable, childs, parents, ...)
  - [ ] Add Field Option: readonly
+<<<<<<< HEAD
  - [ ] Add Connector: User Properties like email, nicename, avatar, ...
  - [ ] Add Connector: Connect more Options like media sizes, crop thumbnails, ...
  - [ ] Add Hiding Options: term title, term description, ...
@@ -64,5 +65,26 @@ Features:
      - [ ] Location rules
      - [ ] WP-Props
    - [ ] Test with acf free
+=======
+ - [x] Add Connector: Implement Term title, description
+ - [ ] Add Connector: User Properties like email, nicename, avatar, ...
+ - [ ] Add Connector: Connect more Options like media sizes, crop thumbnails, ...
+ - [x] Add Location Rule: Network admin page
+ - [ ] Add Hiding Options: term title, term description, ...
+ - [x] Improve: use PT, Tax, image size Select for conditional logic
+ - [x] Dev: ESNext
+ - [x] Dev: Boilerplate 2
+ - [ ] Dev: Add Tests
+   - [x] Test network Options Page
+   - [x] Register Test PT
+   - [x] Fieldgroup with WP-Values
+   - [x] Fieldgroup with Repeater-Choices
+   - [x] Test Location Rules
+   - [ ] Cross-Compat with Customizer and RGBA-Color-Picker
+   - [ ] Test with acf free
+ - [ ] Fix: Repeater Choice: dont show row return format on Taxonomy field
+ - [ ] Fix: WSOD Compat\ACF\ACF::instance() after upgrade if ACF inactive
+ - [ ] Fix: JS Select with UI doesn't init
+>>>>>>> 0ec540f19a8086190ac716fb48cab69d1145c6df
  - [ ] Fix: Connector: handle new post autodraft title
  - [ ] Install: submit to packagist, add composer description
