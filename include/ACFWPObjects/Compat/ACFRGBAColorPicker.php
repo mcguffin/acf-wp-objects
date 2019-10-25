@@ -16,7 +16,7 @@ use ACFWPObjects\Core;
 
 
 
-class ACFRGBAColorPicker extends Core\Singleton implements Core\ComponentInterface {
+class ACFRGBAColorPicker extends Core\Singleton {
 
 	/**
 	 *	@inheritdoc
@@ -25,38 +25,14 @@ class ACFRGBAColorPicker extends Core\Singleton implements Core\ComponentInterfa
 		add_filter( 'acf_wp_objects_repeater_choices_allow_fields', array( $this, 'repeater_choice_fields' ));
 	}
 
+
+	/**
+	 *	@filter acf_wp_objects_repeater_choices_allow_fields
+	 */
 	public function repeater_choice_fields( $field_types ) {
 		$field_types[ 'extended-color-picker' ] = 'color';
 		return $field_types;
 	}
 
 
-
-
-	/**
-	 *	@inheritdoc
-	 */
-	 public function activate(){
-
-	 }
-
-	 /**
-	  *	@inheritdoc
-	  */
-	 public function deactivate(){
-
-	 }
-
-	 /**
-	  *	@inheritdoc
-	  */
-	 public static function uninstall() {
-		 // remove content and settings
-	 }
-
-	/**
- 	 *	@inheritdoc
-	 */
-	public function upgrade( $new_version, $old_version ) {
-	}
 }

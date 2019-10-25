@@ -16,7 +16,7 @@ use ACFWPObjects\Asset;
 use ACFWPObjects\Core;
 
 
-class ACF extends Core\Singleton implements Core\ComponentInterface {
+class ACF extends Core\Singleton {
 
 	private $supported_fields = array(
 		'text',
@@ -166,33 +166,6 @@ class ACF extends Core\Singleton implements Core\ComponentInterface {
 
 		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectImageSize' );
 
-	}
-
-	/**
-	 *	@inheritdoc
-	 */
-	 public function activate(){
-
-	 }
-
-	 /**
-	  *	@inheritdoc
-	  */
-	 public function deactivate(){
-
-	 }
-
-	 /**
-	  *	@inheritdoc
-	  */
-	 public static function uninstall() {
-		 // remove content and settings
-	 }
-
-	/**
- 	 *	@inheritdoc
-	 */
-	public function upgrade( $new_version, $old_version ) {
 	}
 
 }

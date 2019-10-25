@@ -23,10 +23,7 @@ class Plugin extends Singleton implements ComponentInterface {
 	private $plugin_meta;
 
 	/** @var string plugin components which might need upgrade */
-	private static $components = array(
-		'ACFWPObjects\Compat\ACF\ACF',
-		'ACFWPObjects\Compat\ACFCustomizer',
-		'ACFWPObjects\Compat\ACFRGBAColorPicker',
+	public static $components = array(
 	);
 
 	/**
