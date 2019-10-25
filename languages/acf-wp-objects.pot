@@ -2,16 +2,16 @@
 # This file is distributed under the same license as the ACF WP-Objects plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: ACF WP-Objects 0.1.20\n"
+"Project-Id-Version: ACF WP-Objects 0.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/acf-wp-objects\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-07-11T16:54:21+00:00\n"
+"POT-Creation-Date: 2019-10-25T10:40:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.1.0\n"
+"X-Generator: WP-CLI 2.2.0\n"
 "X-Domain: acf-wp-objects\n"
 
 #. Plugin Name of the plugin
@@ -19,7 +19,7 @@ msgid "ACF WP-Objects"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "http://wordpress.org/"
+msgid "https://github.com/mcguffin/acf-wp-objects.git"
 msgstr ""
 
 #. Description of the plugin
@@ -55,14 +55,14 @@ msgid "Select Image Size"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:144
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:140
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:140
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:142
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:142
 msgid "Return Value"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:145
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:141
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:141
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:143
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:143
 msgid "Specify the returned value on front end"
 msgstr ""
 
@@ -71,14 +71,14 @@ msgid "Size Array"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:151
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:147
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:147
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:149
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:149
 msgid "Slug"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:160
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:155
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:155
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:157
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:157
 msgid "Pick from List"
 msgstr ""
 
@@ -91,38 +91,38 @@ msgid "Cropped "
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:223
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:199
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:199
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:201
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:201
 msgid "Builtin"
-msgstr ""
-
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:146
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:146
-msgid "Label"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:148
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:148
+msgid "Label"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:150
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:150
 msgid "Object"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:181
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:181
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:183
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:183
 msgid "Public"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:219
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:219
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:221
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:221
 msgid "Show UI"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:238
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:238
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:240
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:240
 msgid "Show in Menus"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:257
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:257
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:259
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:259
 msgid "Show in Nav Menus"
 msgstr ""
 
@@ -130,67 +130,100 @@ msgstr ""
 msgid "Select Post Type"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:85
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:115
 msgid "Repeater Row"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:100
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:130
 msgid "Get choices from repeater"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:37
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:139
+msgid "Repeater Field"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:155
+msgid "Label Field"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:177
+msgid "Value Field"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:204
+msgid "Post ID"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:205
+msgid "Leave empty for current Post ID."
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:208
+msgid "Current Post"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:219
+msgid "Visualize value"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:52
 msgid "Blogname"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:38
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:53
 msgid "Blog description"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:39
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:54
 msgid "Post Title"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:40
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:55
 msgid "Term Title"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:43
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:58
 msgid "Post Excerpt"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:44
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:48
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:59
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:63
 msgid "Term Description"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:47
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:62
 msgid "Post Content"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:51
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:66
 msgid "Custom Logo"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:53
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:68
 msgid "Post Thumbnail"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:56
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:71
 msgid "Page for Posts"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:57
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:72
 msgid "Page on Front"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:60
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:75
 msgid "Post Attachments"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:283
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:338
 msgid "WordPress Object"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:291
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:346
 msgid "Select"
+msgstr ""
+
+#. Translators: 1: ACF URL, 2: plugins page url
+#: include/ACFWPObjects/Core/Core.php:72
+msgid "The <strong>ACF WP-Objects</strong> plugin requires <a href=\"%1$s\">ACF version 5.6 or later</a>. You can disable and uninstall it on the <a href=\"%2$s\">plugins page</a>."
 msgstr ""
