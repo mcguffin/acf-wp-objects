@@ -21,14 +21,64 @@ class Core extends Plugin implements CoreInterface {
 	protected function __construct() {
 
 		add_action( 'plugins_loaded' , array( $this , 'init_compat' ), 0 );
-		add_action( 'init' , array( $this , 'init' ) );
-
-		add_action( 'wp_enqueue_scripts' , array( $this , 'enqueue_assets' ) );
 
 		$args = func_get_args();
 		parent::__construct( ...$args );
 	}
 
+	/**
+	 *	Load Compatibility classes
+	 *
+	 *  @action plugins_loaded
+	 */
+	public function init_compat() {
+		if ( function_exists('\acf') && version_compare( acf()->version,'5.6.0','>=') ) {
+			$acf = acf();
+			Compat\ACF\ACF::instance();
+
+			// So many conditions...
+			if ( is_multisite()
+				&& acf_get_setting('pro')
+				&& function_exists('is_plugin_active_for_network')
+				&& is_plugin_active_for_network( $this->get_wp_plugin() )
+				&& is_plugin_active_for_network( acf_get_setting('basename') )
+			) {
+				Compat\WPMU::instance();
+			} else {
+				Compat\NoWPMU::instance();
+			}
+		} else {
+			add_action('admin_notices', [ $this, 'print_no_acf_notice' ] );
+			return;
+		}
+		if ( class_exists( '\ACFCustomizer\Core\Core' ) ) {
+			Compat\ACFCustomizer::instance();
+		}
+		if ( class_exists( '\dhz_acf_plugin_extended_color_picker' ) ) {
+			Compat\ACFRGBAColorPicker::instance();
+		}
+	}
+
+
+	/**
+	 *	@action admin_notices
+	 */
+	public function print_no_acf_notice() {
+		?>
+		<div class="notice notice-error is-dismissible">
+			<p><?php
+				printf(
+					/* Translators: 1: ACF URL, 2: plugins page url */
+					__( 'The <strong>ACF WP-Objects</strong> plugin requires <a href="%1$s">ACF version 5.6 or later</a>. You can disable and uninstall it on the <a href="%2$s">plugins page</a>.',
+						'acf-wp-objects'
+					),
+					'http://www.advancedcustomfields.com/',
+					admin_url('plugins.php' )
+				);
+			?></p>
+		</div>
+		<?php
+	}
 
 	/**
 	 *	@param $args see get_taxonomies() $args param
@@ -212,56 +262,5 @@ class Core extends Plugin implements CoreInterface {
 
 		return $taxonomies;
 	}
-
-
-
-	/**
-	 *	Load frontend styles and scripts
-	 *
-	 *	@action wp_enqueue_scripts
-	 */
-	public function enqueue_assets() {
-	}
-
-
-	/**
-	 *	Load Compatibility classes
-	 *
-	 *  @action plugins_loaded
-	 */
-	public function init_compat() {
-		if ( function_exists('\acf') && version_compare( acf()->version,'5.6.0','>=') ) {
-			$acf = acf();
-			Compat\ACF\ACF::instance();
-
-			// So many conditions...
-			if ( is_multisite()
-				&& acf_get_setting('pro')
-				&& function_exists('is_plugin_active_for_network')
-				&& is_plugin_active_for_network( $this->get_wp_plugin() )
-				&& is_plugin_active_for_network( acf_get_setting('basename') )
-			) {
-				Compat\WPMU::instance();
-			} else {
-				Compat\NoWPMU::instance();
-			}
-		}
-		if ( class_exists( '\ACFCustomizer\Core\Core' ) ) {
-			Compat\ACFCustomizer::instance();
-		}
-		if ( class_exists( '\dhz_acf_plugin_extended_color_picker' ) ) {
-			Compat\ACFRGBAColorPicker::instance();
-		}
-	}
-
-
-	/**
-	 *	Init hook.
-	 *
-	 *  @action init
-	 */
-	public function init() {
-	}
-
 
 }

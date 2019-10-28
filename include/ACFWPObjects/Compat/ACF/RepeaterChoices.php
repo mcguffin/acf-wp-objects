@@ -7,18 +7,22 @@ use ACFWPObjects\Core;
 
 class RepeaterChoices extends Core\Singleton {
 
+	/**
+	 *	@var array field types that can serve as value or label fields mapped to their rendering function
+	 */
 	private $allow_fields = array(
-		'text'			=> 'text',
-		'num'			=> 'text',
-		'range'			=> 'text',
-		'url'			=> 'text',
-		'email'			=> 'text',
-		'date'			=> 'text',
-		'time'			=> 'text',
-		'datetime'		=> 'text',
-		'image'			=> 'image',
-		'color_picker'	=> 'color',
-		'select'		=> 'text'
+		'text'				=> 'text',
+		'number'			=> 'text',
+		'range'				=> 'text',
+		'url'				=> 'text',
+		'email'				=> 'text',
+		'date_picker'		=> 'text',
+		'time_picker'		=> 'text',
+		'date_time_picker'	=> 'text',
+		'image'				=> 'image',
+		'color_picker'		=> 'color',
+		'select'			=> 'text',
+		'radio'				=> 'text'
 	);
 	private $repeater_fields = null;
 
@@ -241,11 +245,21 @@ class RepeaterChoices extends Core\Singleton {
 			'repeater_display_value'	=> 0, // media | string + media
 		));
 
-		if ( $field['repeater_choices'] && have_rows( $field['repeater_field'], $field['repeater_post_id'] ) ) {
+		$post_id = $field['repeater_post_id'];
+
+		if ( ! $post_id ) {
+			global $plugin_page;
+			// get current plugins page post id
+			if ( isset( $plugin_page ) && ( $opt_page = acf_get_options_page( $plugin_page ) ) ) {
+				$post_id = $opt_page['post_id'];
+			}
+		}
+
+		if ( $field['repeater_choices'] && have_rows( $field['repeater_field'], $post_id ) ) {
 
 			$choices = array();
 
-			while ( have_rows( $field['repeater_field'], $field['repeater_post_id'] ) ) {
+			while ( have_rows( $field['repeater_field'], $post_id ) ) {
 				the_row();
 				$label = get_sub_field( $field['repeater_label_field'] );
 				$value = get_sub_field( $field['repeater_value_field'] );

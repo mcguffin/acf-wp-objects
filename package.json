@@ -1,10 +1,10 @@
 {
   "name": "acf-wp-objects",
-  "version": "0.1.20",
+  "version": "0.2.0",
   "description": "Connecting WordPress Data with ACF Fields",
   "private": true,
   "scripts": {
-    "dev": "gulp dev",
+    "dev": "node ./src/run/acf-private.js 0 && gulp dev",
     "build": "gulp build && npm run i18n",
     "i18n": "wp i18n make-pot . languages/acf-wp-objects.pot --domain=acf-wp-objects --exclude=tmp/*",
     "rollback": "git reset --hard HEAD~ && git push origin +master",
@@ -18,7 +18,7 @@
     "url": "git+https://github.com/mcguffin/acf-wp-objects.git"
   },
   "author": "Jörn Lund",
-  "license": "ISC",
+  "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/mcguffin/acf-wp-objects/issues"
   },
@@ -104,10 +104,14 @@
     "type": "plugin",
     "steps": [
       "build",
+      "git",
       "github"
     ],
     "build": {
-      "prebuild": [],
+      "prebuild": [
+        "wp i18n make-pot . languages/acf-wp-objects.pot --domain=acf-wp-objects --exclude=./tmp,./test",
+        "node ./src/run/acf-private.js 1"
+      ],
       "build": [
         "gulp build"
       ]

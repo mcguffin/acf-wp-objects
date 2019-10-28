@@ -16,7 +16,11 @@ use ACFWPObjects\Core;
 
 
 
-class ACFCustomizer extends Core\Singleton implements Core\ComponentInterface {
+class ACFCustomizer extends Core\Singleton {
+
+	/**
+	 *
+	 */
 	private $changeset_data = null;
 
 	/**
@@ -25,6 +29,7 @@ class ACFCustomizer extends Core\Singleton implements Core\ComponentInterface {
 	protected function __construct() {
 		add_action( 'customize_register', array( $this, 'customize_register' ), 20, 1 );
 	}
+
 	/**
 	 *	@action customize_register
 	 */
@@ -70,38 +75,5 @@ class ACFCustomizer extends Core\Singleton implements Core\ComponentInterface {
 
 			}
 		}
-
-	}
-
-	/**
-	 *
-	 */
-
-
-	/**
-	 *	@inheritdoc
-	 */
-	 public function activate(){
-
-	 }
-
-	 /**
-	  *	@inheritdoc
-	  */
-	 public function deactivate(){
-
-	 }
-
-	 /**
-	  *	@inheritdoc
-	  */
-	 public static function uninstall() {
-		 // remove content and settings
-	 }
-
-	/**
- 	 *	@inheritdoc
-	 */
-	public function upgrade( $new_version, $old_version ) {
 	}
 }

@@ -1,5 +1,8 @@
 <?php
 
+namespace ACFWPObjects\Compat\ACF;
+
+use ACFWPObjects\Core;
 
 class NetworkAdminOptionsPage extends \acf_admin_options_page {
 

@@ -7,13 +7,14 @@ Integrate WordPress Objects objects into ACF.
  - Use ACF Fields to edit several WP-Post properties:
    - Settings: blogname
    - Settings: blogdescription
+   - Theme mod: custom logo
    - Post: post_title
    - Post: post_excerpt
    - Post: post_content
    - Post: post_thumbnail
    - Post: attachments
-   - Term: term_name (Not implemented yet)
-   - Term: term_description (Not implemented yet)
+   - Term: term_name
+   - Term: term_description
    - Theme-Mod: custom_logo
  - New Field types:
     - Post Type
@@ -22,6 +23,8 @@ Integrate WordPress Objects objects into ACF.
  - New Location Rules:
     - Post Type / Taxonomy is public / builtin / show_ui / show_in_menu / show_in_nav_menus
  - Choice fields: get choices from a repeater
+ - Multisite: 
+   - Add a network admin page with `acf_add_options_(sub_)page()`. Add `"network" => true,` to the page args (ACF Pro only – both plugins must be network-enabled)
 
 
 Installation
@@ -46,7 +49,6 @@ Installation
 
 
 
-
 ToDo:
 -----
 Features:
@@ -54,23 +56,35 @@ Features:
  - [ ] Add Field: Select Plugin (active, inactive, network-activated, ...)
  - [ ] Add Field: Select Theme (all, activatable, childs, parents, ...)
  - [ ] Add Field Option: readonly
- - [ ] Add Connector: Implement Term title, description
+<<<<<<< HEAD
  - [ ] Add Connector: User Properties like email, nicename, avatar, ...
  - [ ] Add Connector: Connect more Options like media sizes, crop thumbnails, ...
- - [ ] Add Location Rule: Network admin page
-   - Needs 
-        - hooking into `acf/pre_update_metadata`, `acf/validate_options_page`
-        - hook: `acf/get_options_pages` rm non-network pages if in blog
-        - extending `class acf_admin_options_page`
-        - hooking into 
- - [ ] Add Location Rule: current_user_can ( capability )
- - [x] Improve: use PT & Tax Select for conditional logic
+ - [ ] Add Hiding Options: term title, term description, ...
+ - [ ] Dev: Add Tests
+   - [ ] Test with Customizer
+     - [ ] Location rules
+     - [ ] WP-Props
+   - [ ] Test with acf free
+=======
+ - [x] Add Connector: Implement Term title, description
+ - [ ] Add Connector: User Properties like email, nicename, avatar, ...
+ - [ ] Add Connector: Connect more Options like media sizes, crop thumbnails, ...
+ - [x] Add Location Rule: Network admin page
+ - [ ] Add Hiding Options: term title, term description, ...
+ - [x] Improve: use PT, Tax, image size Select for conditional logic
  - [x] Dev: ESNext
  - [x] Dev: Boilerplate 2
  - [ ] Dev: Add Tests
-   - [ ] Register Test PT, Options page, ...
-   - [ ] Fieldgroup with WP-Values
-   - [ ] Fieldgroup with Repeater-Choices
- - [x] Fix: Repeater Choice: dont show row return foramt on Taxonomies
+   - [x] Test network Options Page
+   - [x] Register Test PT
+   - [x] Fieldgroup with WP-Values
+   - [x] Fieldgroup with Repeater-Choices
+   - [x] Test Location Rules
+   - [ ] Cross-Compat with Customizer and RGBA-Color-Picker
+   - [ ] Test with acf free
+ - [ ] Fix: Repeater Choice: dont show row return format on Taxonomy field
  - [ ] Fix: WSOD Compat\ACF\ACF::instance() after upgrade if ACF inactive
- - [x] Fix: JS Select with UI doesn't init
+ - [ ] Fix: JS Select with UI doesn't init
+>>>>>>> 0ec540f19a8086190ac716fb48cab69d1145c6df
+ - [ ] Fix: Connector: handle new post autodraft title
+ - [ ] Install: submit to packagist, add composer description

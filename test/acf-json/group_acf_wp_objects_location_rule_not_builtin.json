@@ -1,0 +1,48 @@
+{
+    "key": "group_acf_wp_objects_location_rule_not_builtin",
+    "title": "ACF WP-Objects Test: Location Rule Not builtin",
+    "fields": [
+        {
+            "key": "field_6db2be97f3404",
+            "label": "I am here on custom Post Types and Taxonomies",
+            "name": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type_prop",
+                "operator": "!=",
+                "value": "_builtin"
+            }
+        ],
+        [
+            {
+                "param": "taxonomy_prop",
+                "operator": "!=",
+                "value": "_builtin"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1571995456
+}

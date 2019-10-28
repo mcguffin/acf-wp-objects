@@ -16,6 +16,10 @@ use ACFWPObjects\Core;
 
 class ThumbnailPreview extends Preview {
 
+
+	/**
+	 *	@filter get_post_metadata
+	 */
 	public function get( $value ) {
 		@list( $check, $post_id, $meta_key, $single ) = func_get_args();
 		if ( $meta_key !== '_thumbnail_id') {
