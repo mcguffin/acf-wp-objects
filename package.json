@@ -116,7 +116,7 @@
         "gulp build"
       ]
     },
-    "github": {
+    "git": {
       "user": "mcguffin",
       "host": "github.com"
     },
