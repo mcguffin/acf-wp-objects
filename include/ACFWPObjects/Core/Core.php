@@ -201,8 +201,8 @@ class Core extends Plugin implements CoreInterface {
 
 
 	/**
-	 *	@param $args see get_post_types() $args param
-	 *	@param $return Taxonomy property to return
+	 *	@param array $args see get_post_types() $args param
+	 *	@param string $return Post type property to return
 	 *	@return array
 	 */
 	public function get_post_types( $args = array(), $return = null ) {

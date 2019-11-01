@@ -300,12 +300,13 @@ class SelectPostType extends \acf_field_select {
 		// value
 		if( $field['return_format'] == 'label' ) {
 
-			// do nothing
-
 			// label
+			$value = $label;
+
 		} elseif( $field['return_format'] == 'name' ) {
 
-			$value = $label;
+			// do nothing
+
 
 		} elseif( $field['return_format'] == 'object' ) {
 

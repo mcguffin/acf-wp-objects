@@ -302,12 +302,12 @@ class SelectTaxonomy extends \acf_field_select {
 		// value
 		if( $field['return_format'] == 'label' ) {
 
-			// do nothing
-
 			// label
+			$value = get_taxonomy( $value )->label;
+
 		} elseif( $field['return_format'] == 'name' ) {
 
-			$value = get_taxonomy( $value )->label;
+			// do nothing
 
 		} elseif( $field['return_format'] == 'object' ) {
 			$value = get_taxonomy( $value );
