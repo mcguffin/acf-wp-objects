@@ -18,6 +18,9 @@ class SelectImageSize extends \acf_field_select {
 
 	private $all_sizes = array();
 
+	/**
+	 *	@inheritdoc
+	 */
 	function initialize() {
 
 		// vars
@@ -39,22 +42,20 @@ class SelectImageSize extends \acf_field_select {
 			'crop'			=> '',
 			'_builtin'		=> '',
 		);
+
+
+		// ajax
+		add_action('wp_ajax_acf/fields/image_size_select/query',		array($this, 'ajax_query'));
+		add_action('wp_ajax_nopriv_acf/fields/image_size_select/query',	array($this, 'ajax_query'));
+
 	}
 
 
-	/*
-	*  render_field()
-	*
-	*  Create the HTML interface for your field
-	*
-	*  @param	$field - an array holding all the field's data
-	*
-	*  @type	action
-	*  @since	3.6
-	*  @date	23/01/13
-	*/
 
-	function render_field( $field ) {
+	/**
+	 *	@inheritdoc
+	 */
+	function load_field( $field ) {
 
 		$core = Core\Core::instance();
 
@@ -86,25 +87,16 @@ class SelectImageSize extends \acf_field_select {
 
 		$field['choices'] = $choices;
 
-		parent::render_field( $field );
+		// return
+		return $field;
 
 	}
 
 
 
-	/*
-	*  render_field_settings()
-	*
-	*  Create extra options for your field. This is rendered when editing a field.
-	*  The value of $field['name'] can be used (like bellow) to save extra data to the $field
-	*
-	*  @type	action
-	*  @since	3.6
-	*  @date	23/01/13
-	*
-	*  @param	$field	- an array holding all the field's data
-	*/
-
+	/**
+	 *	@inheritdoc
+	 */
 	function render_field_settings( $field ) {
 
 		$core = Core\Core::instance();
@@ -136,6 +128,20 @@ class SelectImageSize extends \acf_field_select {
 			'name'			=> 'ui',
 			'type'			=> 'true_false',
 			'ui'			=> 1,
+		));
+
+		// ajax
+		acf_render_field_setting( $field, array(
+			'label'			=> __('Use AJAX to lazy load choices?','acf'),
+			'instructions'	=> '',
+			'name'			=> 'ajax',
+			'type'			=> 'true_false',
+			'ui'			=> 1,
+			'conditions'	=> array(
+				'field'		=> 'ui',
+				'operator'	=> '==',
+				'value'		=> 1
+			)
 		));
 
 
@@ -247,6 +253,9 @@ class SelectImageSize extends \acf_field_select {
 
 	}
 
+	/**
+	 *	@inheritdoc
+	 */
 	function format_value_single( $value, $post_id, $field ) {
 
 		// bail ealry if is empty

@@ -56,7 +56,7 @@
                         "page"
                     ],
                     "default_value": [],
-                    "ajax": 0,
+                    "ajax": 1,
                     "placeholder": "",
                     "_builtin": "",
                     "public": "",
@@ -229,7 +229,7 @@
                     "show_in_menu": "",
                     "show_in_nav_menus": "",
                     "default_value": [],
-                    "ajax": 0,
+                    "ajax": 1,
                     "placeholder": "",
                     "choices": []
                 },
@@ -431,7 +431,7 @@
                         "post_format"
                     ],
                     "default_value": [],
-                    "ajax": 0,
+                    "ajax": 1,
                     "placeholder": "",
                     "_builtin": "",
                     "public": "",
@@ -629,7 +629,7 @@
                     "show_in_menu": "",
                     "show_in_nav_menus": "",
                     "default_value": [],
-                    "ajax": 0,
+                    "ajax": 1,
                     "placeholder": "",
                     "choices": []
                 },
@@ -856,7 +856,7 @@
                         "medium"
                     ],
                     "default_value": [],
-                    "ajax": 0,
+                    "ajax": 1,
                     "placeholder": "",
                     "named": "",
                     "crop": "",
@@ -1050,7 +1050,7 @@
                     "crop": "",
                     "_builtin": 1,
                     "default_value": [],
-                    "ajax": 0,
+                    "ajax": 1,
                     "placeholder": "",
                     "image_sizes": [],
                     "choices": []
