@@ -203,7 +203,7 @@ class Core extends Plugin implements CoreInterface {
 	/**
 	 *	@param array $args see get_post_types() $args param
 	 *	@param string $return Post type property to return
-	 *	@return array
+	 *	@return array pt_slug => $return
 	 */
 	public function get_post_types( $args = array(), $return = null ) {
 		if ( isset( $args['names'] ) ) {

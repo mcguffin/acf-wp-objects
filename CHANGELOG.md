@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.2.2
+-----
+ - Fix: PHP Warning in Repeater Choices
+
 0.2.1
 -----
 Fields: Support Ajax loading choices
