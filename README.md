@@ -7,7 +7,6 @@ Integrate WordPress Objects objects into ACF.
  - Use ACF Fields to edit several WP-Post properties:
    - Settings: blogname
    - Settings: blogdescription
-   - Theme mod: custom logo
    - Post: post_title
    - Post: post_excerpt
    - Post: post_content
@@ -55,17 +54,22 @@ Features:
  - [ ] Add Field: Select User-Role
  - [ ] Add Field: Select Plugin (active, inactive, network-activated, ...)
  - [ ] Add Field: Select Theme (all, activatable, childs, parents, ...)
+ - [ ] Add Field: Select Page Template
  - [ ] Add Field Option: readonly
- - [ ] Add Connector: User Properties
-   - [ ] Email
-   - [ ] Avatar
-   - [ ] First name, last name
-   - [ ] ...
+ - [ ] Add Connectors
+   - [ ] User:
+     - [ ] Email
+     - [ ] Avatar
+     - [ ] First name, last name
+     - [ ] ...
+   - [ ] Post
+     - [ ] menu_order
  - [ ] Add Connector: More Options
-   - [ ] media sizes, crop thumbnails, ...
    - [ ] Crop Thumbnails
    - [ ] Permalink structure
- - [ ] Add Location Rule: (if classic editor installed) Editor is Classic / Block Editor
+ - [ ] Location Rules
+   - [ ] Is Classic/Block Editor (depend on classic editor)
+   - [ ] Content Type is Post / Taxonomy / User / Widget
  - [ ] Add Hiding Options: term title, term description, ...
    - [ ] Term: Title, Description, Slug
    - [ ] User: Editor settings, Name, About
