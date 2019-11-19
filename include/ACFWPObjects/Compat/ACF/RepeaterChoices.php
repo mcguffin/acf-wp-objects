@@ -83,7 +83,7 @@ class RepeaterChoices extends Core\Singleton {
 	 */
 	public function format_value( $value, $post_id, $field ) {
 
-		if ( ! $field['repeater_choices'] || $field['return_format'] !== 'row' ) {
+		if ( ! isset( $field['repeater_choices'] ) || ! $field['repeater_choices'] || $field['return_format'] !== 'row' ) {
 			return $value;
 		}
 
