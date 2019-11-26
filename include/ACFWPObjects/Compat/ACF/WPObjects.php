@@ -377,7 +377,10 @@ class WPObjects extends Core\Singleton {
 		switch ( $field_type ) {
 			case 'relation':
 			case 'post_object':
-				return $this->field_choices[ 'relation' ];
+				if ( isset( $this->field_choices[ 'relation' ] ) ) {
+					return $this->field_choices[ 'relation' ];
+				}
+				break;
 			case 'text':
 			case 'textarea':
 			case 'image':
