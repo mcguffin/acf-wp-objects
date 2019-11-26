@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.2.3
+-----
+Fix: Endless Loop when saving post data
+
 0.2.2
 -----
 Fix: PHP Warning in Repeater Choices
