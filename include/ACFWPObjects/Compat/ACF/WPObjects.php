@@ -289,8 +289,11 @@ class WPObjects extends Core\Singleton {
 					}
 				}
 				if ( ! empty( $updatepost ) ) {
-					$updatepost['ID'] = $post_id;
-					wp_update_post( $updatepost );
+					//$updatepost['ID'] = $post_id;
+					global $wpdb;
+					$updatepost = wp_unslash( $updatepost );
+					$wpdb->update( $wpdb->posts, $updatepost, [ 'ID' => $post_id ] );
+			//		wp_update_post( $updatepost );
 				}
 				return true;
 		}
