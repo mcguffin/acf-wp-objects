@@ -5,7 +5,8 @@ const selectField = acf.getFieldType('select');
 [
 	'image_size_select',
 	'post_type_select',
-	'taxonomy_select'
+	'taxonomy_select',
+	'role_select'
 ].forEach(
 	type => {
 

@@ -54,17 +54,15 @@ class SelectRole extends \acf_field_select {
 	 */
 	function load_field( $field ) {
 
-		$core = Core\Core::instance();
+		$core_roles = Core\Core::instance()->get_roles();
 
-		$args_keys = array(
-			'_builtin',
-			'public',
-			'show_ui',
-			'show_in_menu',
-			'show_in_nav_menus',
-		);
 
-		$field['choices'] = $core->get_roles();;
+		$field['choices'] = $core_roles;
+
+		if ( ! empty( $field['roles'] ) ) {
+			$field['choices'] = array_intersect_key( $core_roles, array_flip( $field['roles'] ) );
+		}
+
 
 		return $field;
 
@@ -138,7 +136,7 @@ class SelectRole extends \acf_field_select {
 
 		// default_value
 		acf_render_field_setting( $field, array(
-			'label'			=> __('Select Role','acf'),
+			'label'			=> __('Select User Role','acf'),
 			'instructions'	=> '',
 			'type'			=> 'select',
 			'name'			=> 'roles',

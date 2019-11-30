@@ -63,7 +63,10 @@
                     "show_ui": "",
                     "show_in_menu": "",
                     "show_in_nav_menus": "",
-                    "choices": []
+                    "choices": {
+                        "post": "Posts",
+                        "page": "Pages"
+                    }
                 },
                 {
                     "key": "field_5db2a547c465d",
@@ -231,7 +234,18 @@
                     "default_value": [],
                     "ajax": 1,
                     "placeholder": "",
-                    "choices": []
+                    "choices": {
+                        "post": "Posts",
+                        "page": "Pages",
+                        "attachment": "Media",
+                        "revision": "Revisions",
+                        "nav_menu_item": "Navigation Menu Items",
+                        "custom_css": "Custom CSS",
+                        "customize_changeset": "Changesets",
+                        "oembed_cache": "oEmbed Responses",
+                        "user_request": "User Requests",
+                        "wp_block": "Blocks"
+                    }
                 },
                 {
                     "key": "field_5db2a576c465e",
@@ -438,7 +452,12 @@
                     "show_ui": "",
                     "show_in_menu": "",
                     "show_in_nav_menus": "",
-                    "choices": []
+                    "choices": {
+                        "category": "Categories",
+                        "post_tag": "Tags",
+                        "link_category": "Link Categories",
+                        "post_format": "Formats"
+                    }
                 },
                 {
                     "key": "field_5db2a6679a663",
@@ -631,7 +650,13 @@
                     "default_value": [],
                     "ajax": 1,
                     "placeholder": "",
-                    "choices": []
+                    "choices": {
+                        "category": "Categories",
+                        "post_tag": "Tags",
+                        "nav_menu": "Navigation Menus",
+                        "link_category": "Link Categories",
+                        "post_format": "Formats"
+                    }
                 },
                 {
                     "key": "field_5db2a6689a66a",
@@ -861,7 +886,12 @@
                     "named": "",
                     "crop": "",
                     "_builtin": "",
-                    "choices": []
+                    "choices": {
+                        "thumbnail": "Thumbnail (150&times;150)",
+                        "medium": "Medium (300&times;300)",
+                        "medium_large": "medium_large (300&times;300)",
+                        "large": "Large (1024&times;1024)"
+                    }
                 },
                 {
                     "key": "field_5db2a7e0688c0",
@@ -1053,7 +1083,12 @@
                     "ajax": 1,
                     "placeholder": "",
                     "image_sizes": [],
-                    "choices": []
+                    "choices": {
+                        "thumbnail": "Thumbnail (150&times;150)",
+                        "medium": "Medium (300&times;300)",
+                        "medium_large": "medium_large (300&times;300)",
+                        "large": "Large (1024&times;1024)"
+                    }
                 },
                 {
                     "key": "field_5db2a7e0688c8",
@@ -1221,6 +1256,244 @@
                     ]
                 }
             ]
+        },
+        {
+            "key": "field_5de2423897ec7",
+            "label": "WP Role Select",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_5de242ad66eb0",
+            "label": "User Role",
+            "name": "user_role",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_5de2424797ec8",
+                    "label": "User Role",
+                    "name": "user_role",
+                    "type": "role_select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "allow_null": 1,
+                    "multiple": 1,
+                    "ui": 1,
+                    "ajax": 1,
+                    "return_format": "object",
+                    "roles": [
+                        "instructor",
+                        "lms_manager",
+                        "student",
+                        "instructors_assistant",
+                        "editor"
+                    ],
+                    "default_value": [],
+                    "placeholder": "",
+                    "_builtin": "",
+                    "public": "",
+                    "show_ui": "",
+                    "show_in_menu": "",
+                    "show_in_nav_menus": "",
+                    "choices": {
+                        "editor": "Editor",
+                        "lms_manager": "LMS Manager",
+                        "instructor": "Instructor",
+                        "instructors_assistant": "Instructor's Assistant",
+                        "student": "Student"
+                    }
+                },
+                {
+                    "key": "field_5de242ae66eb2",
+                    "label": "User Role Conditional Logic",
+                    "name": "user_role_conditional_logic",
+                    "type": "group",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "67",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_5de242ae66eb3",
+                            "label": "User Role has a value",
+                            "name": "",
+                            "type": "message",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_5de2424797ec8",
+                                        "operator": "!=empty"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "new_lines": "wpautop",
+                            "esc_html": 0
+                        },
+                        {
+                            "key": "field_5de242ae66eb4",
+                            "label": "User Role has no value",
+                            "name": "",
+                            "type": "message",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_5de2424797ec8",
+                                        "operator": "==empty"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "new_lines": "wpautop",
+                            "esc_html": 0
+                        },
+                        {
+                            "key": "field_5de242ae66eb5",
+                            "label": "User Role contains 'editor'",
+                            "name": "",
+                            "type": "message",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_5de2424797ec8",
+                                        "operator": "==contains",
+                                        "value": "editor"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "new_lines": "wpautop",
+                            "esc_html": 0
+                        },
+                        {
+                            "key": "field_5de242ae66eb6",
+                            "label": "User Role contains 'foobar'",
+                            "name": "",
+                            "type": "message",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_5de2424797ec8",
+                                        "operator": "==contains",
+                                        "value": "foobar"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "new_lines": "wpautop",
+                            "esc_html": 0
+                        },
+                        {
+                            "key": "field_5de242ae66eb7",
+                            "label": "User Role is Editor",
+                            "name": "",
+                            "type": "message",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_5de2424797ec8",
+                                        "operator": "==",
+                                        "value": ""
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "new_lines": "wpautop",
+                            "esc_html": 0
+                        },
+                        {
+                            "key": "field_5de242ae66eb8",
+                            "label": "User Role Choice is > 1",
+                            "name": "",
+                            "type": "message",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_5de2424797ec8",
+                                        "operator": ">",
+                                        "value": "1"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "new_lines": "wpautop",
+                            "esc_html": 0
+                        }
+                    ]
+                }
+            ]
         }
     ],
     "location": [
@@ -1240,5 +1513,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1571999349
+    "modified": 1575110352
 }
