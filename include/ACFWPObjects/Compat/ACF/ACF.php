@@ -166,6 +166,8 @@ class ACF extends Core\Singleton {
 
 		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectImageSize' );
 
+		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectRole' );
+
 	}
 
 }

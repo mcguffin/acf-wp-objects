@@ -233,8 +233,8 @@ class Core extends Plugin implements CoreInterface {
 
 
 	/**
-	 *	@param $args see get_taxonomies() $args param
-	 *	@param $return Taxonomy property to return
+	 *	@param array $args see get_taxonomies() $args param
+	 *	@param string $return Taxonomy property to return
 	 *	@return array
 	 */
 	public function get_taxonomies( $args = array(), $return = null ) {
@@ -263,4 +263,13 @@ class Core extends Plugin implements CoreInterface {
 		return $taxonomies;
 	}
 
+
+	/**
+	 *	@return array Rolenames
+	 */
+	public function get_roles() {
+
+		return wp_roles()->get_names();
+
+	}
 }
