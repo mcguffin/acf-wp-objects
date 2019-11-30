@@ -54,8 +54,8 @@ class Core extends Plugin implements CoreInterface {
 		if ( class_exists( '\ACFCustomizer\Core\Core' ) ) {
 			Compat\ACFCustomizer::instance();
 		}
-		if ( class_exists( '\dhz_acf_plugin_extended_color_picker' ) ) {
-			Compat\ACFRGBAColorPicker::instance();
+		if ( class_exists( '\Classic_Editor' ) ) {
+			Compat\ClassicEditor::instance();
 		}
 	}
 
