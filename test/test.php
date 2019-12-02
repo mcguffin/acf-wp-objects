@@ -20,7 +20,6 @@ class PluginTest {
 
 		add_action('init', [ $this,'init' ] );
 
-
 	}
 
 	/**

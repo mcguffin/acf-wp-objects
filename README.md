@@ -19,11 +19,16 @@ Integrate WordPress Objects objects into ACF.
     - Post Type
     - Taxonomy
     - Image Size
+    - User Role
  - New Location Rules:
     - Post Type / Taxonomy is public / builtin / show_ui / show_in_menu / show_in_nav_menus
+    - Editor is Classic / Block editor
  - Choice fields: get choices from a repeater
  - Multisite: 
    - Add a network admin page with `acf_add_options_(sub_)page()`. Add `"network" => true,` to the page args (ACF Pro only – both plugins must be network-enabled)
+ - Styling:
+   - Compact styles in block editor sidebar
+   - Adds classes `no-head` and `no-sort` for repeaters
 
 
 Installation
@@ -51,7 +56,7 @@ Installation
 ToDo:
 -----
 Features:
- - [ ] Add Field: Select User-Role
+ - [x] Add Field: Select User-Role
  - [ ] Add Field: Select Plugin (active, inactive, network-activated, ...)
  - [ ] Add Field: Select Theme (all, activatable, childs, parents, ...)
  - [ ] Add Field: Select Page Template
@@ -61,14 +66,14 @@ Features:
      - [ ] Email
      - [ ] Avatar
      - [ ] First name, last name
-     - [ ] ...
+     - [ ] Role
    - [ ] Post
      - [ ] menu_order
  - [ ] Add Connector: More Options
    - [ ] Crop Thumbnails
    - [ ] Permalink structure
  - [ ] Location Rules
-   - [ ] Is Classic/Block Editor (depend on classic editor)
+   - [x] Is Classic/Block Editor (depend on classic editor)
    - [ ] Content Type is Post / Taxonomy / User / Widget
  - [ ] Add Hiding Options: term title, term description, ...
    - [ ] Term: Title, Description, Slug
@@ -78,3 +83,4 @@ Features:
    - [ ] Test with acf free
  - [ ] Fix: Connector: handle new post autodraft title
  - [ ] Install: submit to packagist, add composer description
+ - [ ] Style Fields in Block-Editor sidebar
