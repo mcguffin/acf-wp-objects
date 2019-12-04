@@ -1,3 +1,10 @@
+@mixin acf-block-editor() {
+	.acf-block-component,
+	.edit-post-meta-boxes-area {
+		@content;
+	}
+}
+
 @mixin acf-input-fields() {
 	input[type="text"],
 	input[type="password"],
