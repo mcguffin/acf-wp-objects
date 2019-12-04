@@ -6,7 +6,14 @@ ToDo:
 
 */
 
+
+.acf-block-component,
 .edit-post-meta-boxes-area {
+	.acf-block-fields {
+		div.acf-field {
+			padding:10px;
+		}
+	}
 	@include acf-input-fields() {
 		font-size:13px;
 	}
