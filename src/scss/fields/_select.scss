@@ -1,0 +1,7 @@
+.select2-container--open {
+	.select2-dropdown--above {
+		.block-editor-page & {
+			min-width:250px;
+		}
+	}
+}
