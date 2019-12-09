@@ -1,0 +1,157 @@
+{
+    "key": "group_acf_wp_objects_location_rule_wp_options_page",
+    "title": "ACF WP-Objects Test: Location Rule WP options Page",
+    "fields": [
+        {
+            "key": "field_5db2be97f3666",
+            "label": "I am here on a WP Options Page",
+            "name": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "These are the contents of the field.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_5dee696f457b1",
+            "label": "Lalala",
+            "name": "lalala",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "wp_object": "",
+            "show_column": 0,
+            "show_column_sortable": 0,
+            "show_column_weight": 1000,
+            "allow_quickedit": 0,
+            "allow_bulkedit": 0
+        },
+        {
+            "key": "field_5dee6a1e72196",
+            "label": "Repeat",
+            "name": "repeat",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "",
+            "sub_fields": [
+                {
+                    "key": "field_5dee6a2572197",
+                    "label": "Text",
+                    "name": "text",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "wp_object": ""
+                },
+                {
+                    "key": "field_5dee6a2f72198",
+                    "label": "Color",
+                    "name": "color",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": ""
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "wp_options",
+                "operator": "==",
+                "value": "options-general.php"
+            }
+        ],
+        [
+            {
+                "param": "wp_options",
+                "operator": "==",
+                "value": "options-writing.php"
+            }
+        ],
+        [
+            {
+                "param": "wp_options",
+                "operator": "==",
+                "value": "options-reading.php"
+            }
+        ],
+        [
+            {
+                "param": "wp_options",
+                "operator": "==",
+                "value": "options-discussion.php"
+            }
+        ],
+        [
+            {
+                "param": "wp_options",
+                "operator": "==",
+                "value": "options-media.php"
+            }
+        ],
+        [
+            {
+                "param": "wp_options",
+                "operator": "==",
+                "value": "options-permalink.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "Group Description",
+    "modified": 1575909079
+}

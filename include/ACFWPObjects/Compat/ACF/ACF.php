@@ -48,6 +48,10 @@ class ACF extends Core\Singleton {
 			RepeaterChoices::instance();
 		}
 
+		if ( is_admin() ) {
+			Form\WPOptions::instance();
+		}
+
 		add_action( 'acf/enqueue_scripts', array( $this, 'enqueue_style' ) );
 		add_action( 'acf/field_group/admin_enqueue_scripts', array( $this, 'enqueue_field_group' ) );
 		add_action( 'acf/input/admin_enqueue_scripts', array( $this, 'enqueue_input' ) );
@@ -149,9 +153,13 @@ class ACF extends Core\Singleton {
 	 */
 	public function register_location_rules() {
 
+		acf_register_location_rule( 'ACFWPObjects\Compat\ACF\Location\ClassicEditor' );
+
 		acf_register_location_rule( 'ACFWPObjects\Compat\ACF\Location\PostTypeProp' );
 
 		acf_register_location_rule( 'ACFWPObjects\Compat\ACF\Location\TaxonomyProp' );
+
+		acf_register_location_rule( 'ACFWPObjects\Compat\ACF\Location\WPOptionsPage' );
 
 	}
 
