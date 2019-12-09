@@ -7,8 +7,7 @@ ToDo:
 */
 
 
-.acf-block-component,
-.edit-post-meta-boxes-area {
+@include acf-block-editor() {
 	.acf-block-fields {
 		div.acf-field {
 			padding:10px;
@@ -29,10 +28,7 @@ ToDo:
 				}
 			}
 		}
-		&.seamless {
-			padding-left:0;
-			padding-right:0;
-		}
+		@import  'seamless';
 		.acf-label {
 			&:not(.acf-accordion-title) {
 				margin-bottom:0;

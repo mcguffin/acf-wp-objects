@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the ACF WP-Objects plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: ACF WP-Objects 0.2.3\n"
+"Project-Id-Version: ACF WP-Objects 0.2.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/acf-wp-objects\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-11-26T17:42:40+00:00\n"
+"POT-Creation-Date: 2019-12-04T14:06:09+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: acf-wp-objects\n"
@@ -40,7 +40,9 @@ msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:29
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:27
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:27
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:27
+#: include/ACFWPObjects/Compat/ACF/Location/ClassicEditor.php:24
 #: include/ACFWPObjects/Compat/ACF/Location/PostTypeProp.php:24
 #: include/ACFWPObjects/Compat/ACF/Location/TaxonomyProp.php:24
 msgid "WordPress"
@@ -48,12 +50,14 @@ msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:150
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:142
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:125
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:145
 msgid "Return Value"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:151
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:143
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:126
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:146
 msgid "Specify the returned value on front end"
 msgstr ""
@@ -64,6 +68,7 @@ msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:157
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:149
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:132
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:152
 msgid "Slug"
 msgstr ""
@@ -93,6 +98,7 @@ msgid "Select Post Type"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:148
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:131
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:151
 msgid "Label"
 msgstr ""
@@ -120,6 +126,14 @@ msgstr ""
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:259
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:262
 msgid "Show in Nav Menus"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:133
+msgid "Role Object"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/Location/ClassicEditor.php:23
+msgid "Post Editor"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Location/PostTypeProp.php:23
