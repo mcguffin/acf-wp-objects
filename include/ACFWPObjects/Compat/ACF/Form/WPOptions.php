@@ -35,6 +35,7 @@ class WPOptions extends Core\Singleton {
 		global $pagenow;
 
 		$this->field_groups = acf_get_field_groups( [ 'wp_options' => $pagenow ] );
+
 		if ( $pagenow === 'options.php' && isset( $_POST['option_page'] ) ) {
 			$this->optionset = $_POST['option_page'];
 			$this->maybe_save();
@@ -54,10 +55,6 @@ class WPOptions extends Core\Singleton {
 
 		acf_enqueue_scripts();
 
-		register_setting( $this->optionset, 'acf', function($val){
-			var_dump($val,acf_validate_save_post(true));
-
-		} );
 
 		foreach ( $this->field_groups as $group ) {
 			$section = 'acf-'.$group['key'];
