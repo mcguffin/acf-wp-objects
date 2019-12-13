@@ -50,7 +50,7 @@ class WPOptionsPage extends \acf_location {
 			'options-discussion.php'	=> __( 'Discussion', 'acf-wp-objects' ),
 			'options-media.php'			=> __( 'Media', 'acf-wp-objects' ),
 			'options-permalink.php'		=> __( 'Permalinks', 'acf-wp-objects' ),
-			//'options-privacy.php'		=> __( 'Privacy', 'acf-wp-objects' ), // Guys! There's more than just the PP page
+			//'options-privacy.php'		=> __( 'Privacy', 'acf-wp-objects' ), // Guys! There's more than just the PP page!
 		);
 
 		return $choices;

@@ -1,6 +1,18 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.2.8
+-----
+Remove Auto-Update
+
+0.2.7
+-----
+Feature: WP Options page Location
+
+0.2.5 – 0.2.6
+-------------
+Block Editor Styles
+
 0.2.3
 -----
 Fix: Endless Loop when saving post data
