@@ -56,10 +56,16 @@ const SweetSpotField = acf.Field.extend({
 		} else {
 			this.$image().on('load',this.setupImage );
 		}
+
+		this.$marker = false;
+		this.$markerContainer = false;
 		//this.setupImage()
 	},
 	setupImage: function() {
 		let $img = this.$image();
+		if ( ! $img.length ) {
+			return;
+		}
 		//$img.wrap();
 		// if ( $img.parent().css('position') === 'static' ) {
 		// 	$img.parent().css('position', 'relative' );
@@ -104,7 +110,7 @@ const SweetSpotField = acf.Field.extend({
 		}
 
 		// update image marker
-		this.$marker.css({
+		this.$marker && this.$marker.css({
 			'left':this.$inputX().val() + '%',
 			'top':this.$inputY().val() + '%',
 		})
