@@ -20,6 +20,7 @@ Integrate WordPress Objects objects into ACF.
     - Taxonomy
     - Image Size
     - User Role
+    - Sweet Spot (use with media)
  - New Location Rules:
     - Post Type / Taxonomy is public / builtin / show_ui / show_in_menu / show_in_nav_menus
     - Editor is Classic / Block editor
