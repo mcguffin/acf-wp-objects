@@ -51,14 +51,14 @@ const SweetSpotField = acf.Field.extend({
 		console.trace('init')
 		this.clickedContainer = this.clickedContainer.bind(this)
 		this.setupImage = this.setupImage.bind(this);
+		this.$marker = false;
+		this.$markerContainer = false;
 		if ( this.$image().get(0).complete ) {
 			this.setupImage();
 		} else {
 			this.$image().on('load',this.setupImage );
 		}
 
-		this.$marker = false;
-		this.$markerContainer = false;
 		//this.setupImage()
 	},
 	setupImage: function() {
