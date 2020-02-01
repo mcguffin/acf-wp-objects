@@ -1,6 +1,6 @@
 {
   "name": "acf-wp-objects",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "Connecting WordPress Data with ACF Fields",
   "private": true,
   "scripts": {
@@ -111,6 +111,7 @@
       "github"
     ],
     "build": {
+      "versionedFiles": null,
       "prebuild": [
         "wp i18n make-pot . languages/acf-wp-objects.pot --domain=acf-wp-objects --exclude=./tmp,./test",
         "node ./src/run/acf-private.js 1"
