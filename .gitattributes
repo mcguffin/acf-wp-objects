@@ -7,6 +7,7 @@
 # gulp
 gulpfile.js export-ignore
 package*.json export-ignore
+composer.* export-ignore
 src export-ignore
 test export-ignore
 wp-plugin-boilerplate.json export-ignore
@@ -16,3 +17,4 @@ wp-plugin-boilerplate.json export-ignore
 .es* export-ignore
 .editorconfig export-ignore
 .sassrc export-ignore
+phpcs*.xml
