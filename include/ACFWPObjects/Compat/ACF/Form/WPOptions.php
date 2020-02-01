@@ -37,12 +37,9 @@ class WPOptions extends Core\Singleton {
 		$this->field_groups = acf_get_field_groups( [ 'wp_options' => $pagenow ] );
 
 		if ( $pagenow === 'options.php' && isset( $_POST['option_page'] ) ) {
-			$this->optionset = $_POST['option_page'];
-			$this->maybe_save();
-
+			$this->optionset = sanitize_key( wp_unslash( $_POST['option_page'] ) );
 		} else {
 			$this->optionset = preg_replace( '/options-(.*)\.php/', '$1', $pagenow );
-
 		}
 
 		if ( ! count( $this->field_groups ) ) {
@@ -60,7 +57,10 @@ class WPOptions extends Core\Singleton {
 			$section = 'acf-'.$group['key'];
 			add_settings_section( 'acf-'.$group['key'], $group['title'], function() use ($group){
 				if ( ! empty( $group['description'] ) ) {
-					printf( '<p class="description">%s</p>', $group['description'] );
+					printf(
+						'<p class="description">%s</p>',
+						esc_html( $group['description'] )
+					);
 				}
 			}, $this->optionset );
 			$fields = acf_get_fields( $group );
@@ -93,7 +93,7 @@ class WPOptions extends Core\Singleton {
 		}
 
 		// save data
-	    if ( acf_verify_nonce('options')  && acf_validate_save_post(true) ) {
+	    if ( acf_verify_nonce('options') && acf_validate_save_post( true ) ) {
 
 	    	// save
 			acf_save_post( $this->optionset );
