@@ -7,7 +7,7 @@
             "label": "Test Text",
             "name": "test_text",
             "type": "text",
-            "instructions": "",
+            "instructions": "You should retreive the field value with get_field('test_text','acf_wpo_opt_test');",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -145,5 +145,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1571987103
+    "modified": 1580634365
 }

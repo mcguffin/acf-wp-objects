@@ -20,6 +20,23 @@ class PluginTest {
 
 		add_action('init', [ $this,'init' ] );
 
+
+		add_action( 'wp_footer', function(){
+			?>
+			<div style="position:relative;">
+				<code>the_field('test_text','network_opt_test');</code>=
+				<strong>
+					<?php the_field('test_text','network_opt_test'); ?>
+				</strong>
+			</div>
+			<div style="position:relative;">
+				<code>the_field('test_text','acf_wpo_opt_test');</code>=
+				<strong>
+					<?php the_field('test_text','acf_wpo_opt_test'); ?>
+				</strong>
+			</div>
+			<?php
+		} );
 	}
 
 	/**

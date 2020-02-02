@@ -7,7 +7,7 @@
             "label": "Test text",
             "name": "test_text",
             "type": "text",
-            "instructions": "",
+            "instructions": "You should retreive h field value with <code>get_field('test_text','network_opt_test');<\/code>",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -40,5 +40,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1571986934
+    "modified": 1580633328
 }

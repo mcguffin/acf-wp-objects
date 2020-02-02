@@ -35,18 +35,23 @@ class Core extends Plugin implements CoreInterface {
 		if ( function_exists('\acf') && version_compare( acf()->version,'5.6.0','>=') ) {
 			$acf = acf();
 			Compat\ACF\ACF::instance();
-
+			$init_wpmu = false;
 			// So many conditions...
-			if ( is_multisite()
-				&& acf_get_setting('pro')
-				&& function_exists('is_plugin_active_for_network')
-				&& is_plugin_active_for_network( $this->get_wp_plugin() )
-				&& is_plugin_active_for_network( acf_get_setting('basename') )
-			) {
+			if ( is_multisite() && acf_get_setting( 'pro' ) ) {
+
+				if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
+    				require_once ABSPATH . '/wp-admin/includes/plugin.php';
+				}
+				$init_wpmu = is_plugin_active_for_network( $this->get_wp_plugin() )
+							&& is_plugin_active_for_network( acf_get_setting('basename') );
+			}
+
+			if ( $init_wpmu ) {
 				Compat\WPMU::instance();
 			} else {
 				Compat\NoWPMU::instance();
 			}
+
 		} else {
 			add_action('admin_notices', [ $this, 'print_no_acf_notice' ] );
 			return;

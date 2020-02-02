@@ -22,7 +22,7 @@ class WPOptions extends Core\Singleton {
 	 */
 	protected function __construct() {
 
-		add_action( 'admin_init', [ $this, 'admin_init' ] );
+		add_action( 'network_admin_init', [ $this, 'admin_init' ] );
 
 	}
 
@@ -119,7 +119,7 @@ class WPOptions extends Core\Singleton {
 			$this->did_form_data = true;
 		}
 
-		add_filter('acf/get_field_label',[ $this, 'remove_label'] );
+		add_filter('acf/get_field_label', [ $this, 'remove_label' ] );
 
 		$field['value'] = acf_get_value( $this->optionset, $field );
 
@@ -132,7 +132,7 @@ class WPOptions extends Core\Singleton {
 	 */
 	public function remove_label( $label ) {
 		$label = '';
-		remove_filter('acf/get_field_label',[ $this, 'remove_label'] );
+		remove_filter('acf/get_field_label', [ $this, 'remove_label' ] );
 		return $label;
 	}
 }
