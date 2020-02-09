@@ -159,13 +159,16 @@ class ACF extends Core\Singleton {
 
 		acf_register_location_rule( 'ACFWPObjects\Compat\ACF\Location\WPOptionsPage' );
 
+		acf_register_location_rule( 'ACFWPObjects\Compat\ACF\Location\TemplateFileSettings' );
+
 	}
+
 
 	/**
 	 *	@action init
 	 */
 	public function register_field_types() {
-
+error_log('register');
 		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\ImageSweetSpot' );
 
 		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectPostType' );
@@ -176,6 +179,7 @@ class ACF extends Core\Singleton {
 
 		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectRole' );
 
+		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\TemplateFileSelect' );
 	}
 
 }

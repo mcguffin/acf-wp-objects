@@ -1,0 +1,51 @@
+{
+    "key": "group_acf_wp_objects_plugin_template",
+    "title": "ACF WP-Objects Test: Template File",
+    "fields": [
+        {
+            "key": "field_5e3fdb411af9e",
+            "label": "Some Template File",
+            "name": "some_plugin_template",
+            "type": "template_file_select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "template_type": "acf-wp-objects",
+            "multiple": 0,
+            "allow_null": 0,
+            "default_value": [],
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "choices": {
+                "acf-wp-objects\/bar-template": "WP-Objects Bar",
+                "acf-wp-objects\/foo-template": "WP-Objects Foo"
+            },
+            "return_format": "value",
+            "header_key": "Template Name"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1581258130
+}

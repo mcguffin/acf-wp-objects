@@ -1,0 +1,69 @@
+{
+    "key": "group_acf_wp_objects_foo_template_settings",
+    "title": "ACF WP-Objects Test: Foo Template Settings",
+    "fields": [
+        {
+            "key": "field_5e4016b551ec8",
+            "label": "Foo range setting",
+            "name": "foo_range_setting",
+            "type": "range",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "min": "",
+            "max": "",
+            "step": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_5e4016c951ec9",
+            "label": "Foo image setting",
+            "name": "foo_image_setting",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "wp_object": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "template_file_settings",
+                "operator": "==",
+                "value": "acf-wp-objects\/foo-template"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1581259054
+}

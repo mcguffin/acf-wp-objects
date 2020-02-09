@@ -20,6 +20,16 @@ class PluginTest {
 
 		add_action('init', [ $this,'init' ] );
 
+		// add template type
+		add_filter( 'acf_wp_objects_template_types', function($types){
+			$types[ 'acf-wp-objects' ] = [
+				'header_key' => 'ACF WP Objects Template',
+				'theme_location' => 'acf-wp-objects',
+				'plugin_location' => 'test/templates',
+			];
+			return $types;
+		});
+
 
 		add_action( 'wp_footer', function(){
 			?>
@@ -43,11 +53,13 @@ class PluginTest {
 	 *	@action init
 	 */
 	public function init() {
+
 		register_post_type('acf-wp-objects-test',[
 			'label'		=> 'WP-Objects Tests',
 			'public'	=> true,
 			'supports'	=> ['title'],
 		]);
+
 		register_taxonomy('acf-wp-objects-test','acf-wp-objects-test',[
 			'label'		=> 'WP-Objects Test Terms',
 			'labels'	=> [
@@ -55,6 +67,7 @@ class PluginTest {
 			],
 			'public'	=> true,
 		]);
+
 	}
 
 
