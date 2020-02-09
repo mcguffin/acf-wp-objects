@@ -134,6 +134,6 @@
     "jquery": "global:jQuery"
   },
   "dependencies": {
-    "jquery": "^1.12.4"
+    "jquery": "^3.4.0"
   }
 }
