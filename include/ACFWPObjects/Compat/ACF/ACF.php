@@ -153,8 +153,6 @@ class ACF extends Core\Singleton {
 	 */
 	public function register_location_rules() {
 
-		acf_register_location_rule( 'ACFWPObjects\Compat\ACF\Location\ClassicEditor' );
-
 		acf_register_location_rule( 'ACFWPObjects\Compat\ACF\Location\PostTypeProp' );
 
 		acf_register_location_rule( 'ACFWPObjects\Compat\ACF\Location\TaxonomyProp' );
