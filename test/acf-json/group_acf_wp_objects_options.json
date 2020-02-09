@@ -118,6 +118,29 @@
             "max_size": "",
             "mime_types": "",
             "wp_object": "theme_mod:custom_logo"
+        },
+        {
+            "key": "field_5e369a2dc31b6",
+            "label": "Option Page on Front (Post Object)",
+            "name": "page_on_front_po",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "page"
+            ],
+            "taxonomy": "",
+            "allow_null": 0,
+            "multiple": 0,
+            "return_format": "id",
+            "wp_object": "option:page_on_front",
+            "ui": 1
         }
     ],
     "location": [
@@ -126,6 +149,13 @@
                 "param": "options_page",
                 "operator": "==",
                 "value": "wpo-test-options-mods"
+            }
+        ],
+        [
+            {
+                "param": "wp_options",
+                "operator": "==",
+                "value": "options-writing.php"
             }
         ]
     ],
@@ -137,5 +167,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1571993138
+    "modified": 1580650479
 }

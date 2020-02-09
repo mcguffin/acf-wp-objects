@@ -1,46 +1,26 @@
 ACF-WP-Objects Changelog
 ========================
 
-0.2.8
------
-Remove Auto-Update
+0.2.12
+------
+ - Fix network settings
 
-0.2.7
------
-Feature: WP Options page Location
+0.2.11
+------
+ - Security hardening
 
-0.2.5 – 0.2.6
--------------
-Block Editor Styles
-
-0.2.3
------
-Fix: Endless Loop when saving post data
-
-0.2.2
------
-Fix: PHP Warning in Repeater Choices
-
-0.2.1
------
-Fields: Support Ajax loading choices
+0.2.8 - 0.2.10
+--------------
+ - Sweet Spot field
 
 0.2.0
------
- - Feature: Add Network Options Page (PRO)
- - Feature: Implement term properties
- - Fix: Select field choices
- - Fix: repeater choices names
- - Fix: WSOD on activation with no ACF present
- - Fields: Support conditional Logic
- - Fields: Support fancy UI
-
-0.1.21
 ------
+ - Network options pages
  - ESNext
  - Upgrade plugin Boilerplate
  - add tests skeleton
  - allow conditional logic for WP-Object-Fields
+ - Several bugfixes
 
 0.1.16
 ------

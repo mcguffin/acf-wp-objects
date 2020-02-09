@@ -22,7 +22,7 @@ class WPOptions extends Core\Singleton {
 	 */
 	protected function __construct() {
 
-		add_action( 'network_admin_init', [ $this, 'admin_init' ] );
+		add_action( 'admin_init', [ $this, 'admin_init' ] );
 
 	}
 
@@ -47,8 +47,8 @@ class WPOptions extends Core\Singleton {
 		}
 
 		$this->maybe_save();
-
-		add_filter( 'whitelist_options', [ $this, 'whitelist_options' ] );
+		//
+		// add_filter( 'whitelist_options', [ $this, 'whitelist_options' ] );
 
 		acf_enqueue_scripts();
 

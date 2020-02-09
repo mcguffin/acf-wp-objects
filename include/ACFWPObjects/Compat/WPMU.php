@@ -36,6 +36,7 @@ class WPMU extends Core\Singleton implements Core\ComponentInterface {
 
 		if ( is_network_admin() ) {
 			new ACF\NetworkAdminOptionsPage();
+			ACF\Form\WPOptions::instance();
 		}
 
 	}
@@ -100,7 +101,7 @@ class WPMU extends Core\Singleton implements Core\ComponentInterface {
 	}
 
 	/**
-	 *	@filter acf/get_options_pages
+	 *	@filter acf/pre_update_metadata
 	 */
 	public function pre_update_metadata( $null, $post_id, $name, $value, $hidden ) {
 
@@ -111,13 +112,13 @@ class WPMU extends Core\Singleton implements Core\ComponentInterface {
 
 
 		// Decode $post_id for $type and $id.
-		extract( acf_decode_post_id($post_id) );
+		extract( acf_decode_post_id( $post_id ) );
 
 		// Hidden meta uses an underscore prefix.
 		$prefix = $hidden ? '_' : '';
 
 		// Bail early if no $id (possible during new acf_form).
-		if( !$id ) {
+		if( ! $id ) {
 			return $null;
 		}
 

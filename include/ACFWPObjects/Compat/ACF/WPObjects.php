@@ -29,18 +29,6 @@ class WPObjects extends Core\Singleton {
 	 */
 	private $field_choices = array();
 
-	/**
-	 *	@var array supported field types
-	 */
-	private $supported_fields = array(
-		'text',
-		'textarea',
-		'wysiwyg',
-		'image',
-		'post_object',
-		'relationship',
-		'gallery',
-	);
 
 	/**
 	 *	@inheritdoc
@@ -48,35 +36,39 @@ class WPObjects extends Core\Singleton {
 	protected function __construct() {
 
 		$this->field_choices = array(
-			'text'		=> array(
+			'text'		=> [
 				'option:blogname'				=> __('Blogname','acf-wp-objects'),
 				'option:blogdescription'		=> __('Blog description','acf-wp-objects'),
 				'post:post_title'				=> __('Post Title','acf-wp-objects'),
 				'term:term_name'				=> __('Term Title','acf-wp-objects'),
-			),
-			'textarea'	=> array(
+			],
+			'textarea'	=> [
 				'post:post_excerpt'				=> __('Post Excerpt','acf-wp-objects'),
 				'term:term_description'			=> __('Term Description','acf-wp-objects'),
-			),
-			'wysiwyg'	=> array(
+			],
+			'wysiwyg'	=> [
 				'post:post_content'				=> __('Post Content','acf-wp-objects'),
 				'term:term_description'			=> __('Term Description','acf-wp-objects'),
-			),
-			'image'		=> array(
+			],
+			'image'		=> [
 				'theme_mod:custom_logo'			=> __( 'Custom Logo', 'acf-wp-objects' ),
 			//	'theme_mod:background_image'	=> __( 'Background Image', 'acf-wp-objects' ), // can't use ... WP saves a plain URL.
 				'post:post_thumbnail'			=> __( 'Post Thumbnail', 'acf-wp-objects' ),
-			),
-			'relationship'	=> array(
+			],
+			'post_object'	=> [
 				'option:page_for_posts'			=> __( 'Page for Posts', 'acf-wp-objects' ),
 				'option:page_on_front'			=> __( 'Page on Front', 'acf-wp-objects' ),
-			),
-			'gallery'	=> array(
+			],
+			'relationship'	=> [
+				'option:page_for_posts'			=> __( 'Page for Posts', 'acf-wp-objects' ),
+				'option:page_on_front'			=> __( 'Page on Front', 'acf-wp-objects' ),
+			],
+			'gallery'	=> [
 				'post:attachments'				=> __( 'Post Attachments', 'acf-wp-objects' ),
-			),
+			],
 		);
 
-		foreach ( $this->supported_fields as $field_type ) {
+		foreach ( array_keys( $this->field_choices ) as $field_type ) {
 
 			add_action( "acf/render_field_settings/type={$field_type}", array( $this, 'field_settings' ) );
 
@@ -99,6 +91,7 @@ class WPObjects extends Core\Singleton {
 
 		return $field;
 	}
+
 
 
 
@@ -332,8 +325,9 @@ class WPObjects extends Core\Singleton {
 	 *	@action acf/render_field_settings/type={$type}
 	 */
 	public function field_settings( $field ) {
-		// default_value
-		if ( ! $choices = $this->get_wp_objects( $field['type'] ) ) {
+
+		$choices = $this->get_wp_objects( $field['type'] );
+		if ( ! $choices ) {
 			return;
 		}
 
@@ -374,20 +368,11 @@ class WPObjects extends Core\Singleton {
 	 *	@usedby field_settings()
 	 */
 	private function get_wp_objects( $field_type ) {
-		switch ( $field_type ) {
-			case 'relation':
-			case 'post_object':
-				if ( isset( $this->field_choices[ 'relation' ] ) ) {
-					return $this->field_choices[ 'relation' ];
-				}
-				break;
-			case 'text':
-			case 'textarea':
-			case 'image':
-			case 'wysiwyg':
-			default:
-				return $this->field_choices[ $field_type ];
+
+		if ( isset( $this->field_choices[ $field_type ] ) ) {
+			return $this->field_choices[ $field_type ];
 		}
+
 		return false;
 	}
 }
