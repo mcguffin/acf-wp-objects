@@ -17,6 +17,7 @@ class PluginTest {
 		add_action( 'acf/update_field_group', [ $this, 'mutate_field_group' ], 9 );
 
 		add_action('acf/init', [ $this,'add_options_page' ] );
+		add_action( 'acf/init', [ $this, 'register_blocks' ] );
 
 		add_action('init', [ $this,'init' ] );
 
@@ -67,6 +68,36 @@ class PluginTest {
 			],
 			'public'	=> true,
 		]);
+
+	}
+
+	/**
+	 *	@action 'acf/init'
+	 */
+	public function register_blocks() {
+
+		if ( ! function_exists('acf_register_block') ) {
+			error_log("! function_exists('acf_register_block')");
+			return;
+		}
+
+		// register a testimonial block
+		acf_register_block(array(
+			'name'				=> 'wp-objects-template-test',
+			'title'				=> __('WP Objects Template Test'),
+			'description'		=> __('WP Objects Template'),
+			'render_callback'	=> function ( $block, $content, $is_preview, $post_id ) {
+				printf('<div class="align%s">',$block['align']);
+				get_template_part(get_field('some_plugin_template'));
+				//the_field( 'leaflet_map_block' );
+				echo '</div>';
+				?><hr /><?php
+			},
+			'category'			=> 'embed',
+			'icon'				=> 'admin-tools',
+			'mode'				=> 'edit', // auto|preview|edit
+			'keywords'			=> array( 'test' ),
+		));
 
 	}
 

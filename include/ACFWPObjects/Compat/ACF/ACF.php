@@ -36,7 +36,6 @@ class ACF extends Core\Singleton {
 	 */
 	protected function __construct() {
 
-
 		add_action( 'init', array( $this, 'register_field_types' ) );
 
 		add_action( 'acf/include_location_rules', array( $this, 'register_location_rules' ) );
@@ -168,7 +167,7 @@ class ACF extends Core\Singleton {
 	 *	@action init
 	 */
 	public function register_field_types() {
-error_log('register');
+
 		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\ImageSweetSpot' );
 
 		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectPostType' );

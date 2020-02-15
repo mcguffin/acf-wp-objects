@@ -8,7 +8,6 @@ Author: Jörn Lund
 Version: 0.2.11
 Author URI: https://github.com/mcguffin
 License: GPL3
-Github Repository: mcguffin/acf-wp-objects
 GitHub Plugin URI: mcguffin/acf-wp-objects
 Requires WP: 4.8
 Requires PHP: 5.6
@@ -48,5 +47,6 @@ if ( ! defined('ABSPATH') ) {
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'include/autoload.php';
 
 Core\Core::instance( __FILE__ );
+
 Core\Template::instance();
 

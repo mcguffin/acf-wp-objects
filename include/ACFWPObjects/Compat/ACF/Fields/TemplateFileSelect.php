@@ -28,7 +28,7 @@ class TemplateFileSelect extends \acf_field_select {
 			'template_type'	=> 'Template Name'
 		);
 
-		add_filter( 'acf/load_fields', [ $this, 'resolve_fields' ], 3, 2 );
+		add_filter( 'acf/load_fields', [ $this, 'resolve_fields' ], 3 );
 
 	}
 
@@ -72,7 +72,10 @@ class TemplateFileSelect extends \acf_field_select {
 	 *
 	 *	@filter --acf/load_fields--
 	 */
-	public function resolve_fields( $fields, $parent ) {
+	public function resolve_fields( $fields ) {
+		error_log('resolve_fields did acf/init '.did_action('acf/init') );
+		error_log('resolve_fields did plugins_loaded '.did_action('plugins_loaded') );
+		error_log('resolve_fields did after_setup_theme '.did_action('after_setup_theme') );
 
 		if ( ! $this->should_resolve() ) {
 

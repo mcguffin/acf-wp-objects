@@ -21,6 +21,7 @@ class WPMU extends Core\Singleton implements Core\ComponentInterface {
 	 *	@inheritdoc
 	 */
 	protected function __construct() {
+
 		// filter options pages
 		add_filter('acf/validate_options_page', [ $this, 'validate_options_page' ] );
 
@@ -45,10 +46,14 @@ class WPMU extends Core\Singleton implements Core\ComponentInterface {
 	 *	@filter acf/pre_load_metadata
 	 */
 	public function pre_load_metadata( $null, $post_id, $name, $hidden ) {
-		// see if there is a network setting
+
+		// Something else (possibly ACF_Local_Meta) hooked into acf/pre_load_metadata before.
+		if ( ! is_null( $null ) ) {
+			return $null;
+		}
 
 		// Decode $post_id for $type and $id.
-		extract( acf_decode_post_id($post_id) );
+		extract( acf_decode_post_id( $post_id ) );
 
 		// Hidden meta uses an underscore prefix.
 		$prefix = $hidden ? '_' : '';

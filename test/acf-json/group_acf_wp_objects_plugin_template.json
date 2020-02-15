@@ -3,6 +3,26 @@
     "title": "ACF WP-Objects Test: Template File",
     "fields": [
         {
+            "key": "field_5e478ee535ae1",
+            "label": "Plain Test",
+            "name": "plain_test",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "wp_object": ""
+        },
+        {
             "key": "field_5e3fdb411af9e",
             "label": "Some Template File",
             "name": "some_plugin_template",
@@ -33,9 +53,9 @@
     "location": [
         [
             {
-                "param": "post_type",
+                "param": "block",
                 "operator": "==",
-                "value": "page"
+                "value": "acf\/wp-objects-template-test"
             }
         ]
     ],
@@ -47,5 +67,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1581258130
+    "modified": 1581748294
 }
