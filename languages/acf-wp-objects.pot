@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the ACF WP-Objects plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: ACF WP-Objects 0.3.1\n"
+"Project-Id-Version: ACF WP-Objects 0.3.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/acf-wp-objects\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-04-18T16:18:29+00:00\n"
+"POT-Creation-Date: 2020-04-18T17:27:46+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: acf-wp-objects\n"
@@ -142,20 +142,20 @@ msgstr ""
 msgid "Role Object"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/TemplateFileSelect.php:17
+#: include/ACFWPObjects/Compat/ACF/Fields/TemplateFileSelect.php:20
 msgid "Select Template File"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/TemplateFileSelect.php:18
+#: include/ACFWPObjects/Compat/ACF/Fields/TemplateFileSelect.php:21
 #: include/ACFWPObjects/Compat/ACF/Location/TemplateFileSettings.php:23
 msgid "Generic"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/TemplateFileSelect.php:62
+#: include/ACFWPObjects/Compat/ACF/Fields/TemplateFileSelect.php:67
 msgid "Template Type"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/TemplateFileSelect.php:209
+#: include/ACFWPObjects/Compat/ACF/Fields/TemplateFileSelect.php:215
 msgid "Template Settings"
 msgstr ""
 
