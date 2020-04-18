@@ -13,6 +13,7 @@ if ( ! defined('ABSPATH') ) {
 
 
 use ACFWPObjects\Core;
+use ACFWPObjects\Compat\ACF;
 
 class SelectPostType extends \acf_field_select {
 
@@ -80,7 +81,11 @@ class SelectPostType extends \acf_field_select {
 			$choices = $core->get_post_types( $args, 'label' );
 		}
 
-		$field['choices'] = $choices;
+		if ( ! ACF\ACF::instance()->is_fieldgroup_admin() ) {
+
+			$field['choices'] = $choices;
+
+		}
 
 		return $field;
 

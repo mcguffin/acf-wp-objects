@@ -13,6 +13,7 @@ if ( ! defined('ABSPATH') ) {
 
 
 use ACFWPObjects\Core;
+use ACFWPObjects\Compat\ACF;
 
 class SelectTaxonomy extends \acf_field_select {
 
@@ -82,7 +83,11 @@ class SelectTaxonomy extends \acf_field_select {
 			$choices = $core->get_taxonomies( $args, 'label' );
 		}
 
-		$field['choices'] = $choices;
+		if ( ! ACF\ACF::instance()->is_fieldgroup_admin() ) {
+
+			$field['choices'] = $choices;
+
+		}
 
 		return $field;
 

@@ -13,6 +13,7 @@ if ( ! defined('ABSPATH') ) {
 
 
 use ACFWPObjects\Core;
+use ACFWPObjects\Compat\ACF;
 
 class SelectRole extends \acf_field_select {
 
@@ -59,10 +60,9 @@ class SelectRole extends \acf_field_select {
 
 		$field['choices'] = $core_roles;
 
-		if ( ! empty( $field['roles'] ) ) {
+		if (  ! ACF\ACF::instance()->is_fieldgroup_admin() && ! empty( $field['roles'] ) ) {
 			$field['choices'] = array_intersect_key( $core_roles, array_flip( $field['roles'] ) );
 		}
-
 
 		return $field;
 

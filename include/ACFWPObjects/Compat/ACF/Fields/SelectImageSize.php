@@ -13,6 +13,7 @@ if ( ! defined('ABSPATH') ) {
 
 
 use ACFWPObjects\Core;
+use ACFWPObjects\Compat\ACF;
 
 class SelectImageSize extends \acf_field_select {
 
@@ -85,7 +86,9 @@ class SelectImageSize extends \acf_field_select {
 			$choices = $core->get_image_sizes( $args, 'label' );
 		}
 
-		$field['choices'] = $choices;
+ 		if ( ! ACF\ACF::instance()->is_fieldgroup_admin() ) {
+			$field['choices'] = $choices;
+		}
 
 		// return
 		return $field;

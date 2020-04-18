@@ -4,6 +4,7 @@ namespace ACFWPObjects\Compat\ACF\Fields;
 
 use ACFWPObjects\Asset;
 use ACFWPObjects\Core;
+use ACFWPObjects\Compat\ACF;
 
 class TemplateFileSelect extends \acf_field_select {
 
@@ -39,9 +40,9 @@ class TemplateFileSelect extends \acf_field_select {
 	 */
 	function load_field( $field ) {
 
-		$field['choices'] = $this->get_template_choices( $field );
-
 		if ( $this->should_resolve() ) {
+
+			$field['choices'] = $this->get_template_choices( $field );
 
 			$this->get_template_settings_group( $field );
 
@@ -233,16 +234,9 @@ class TemplateFileSelect extends \acf_field_select {
 	 *	@return boolean
 	 */
 	private function should_resolve() {
-		// is sync
-		if ( isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] === 'acf-field-group' ) {
-			return false;
-		}
-		// is field group admin
-		global $pagenow;
-		if (  $pagenow === 'post.php' && 'acf-field-group' === get_post_type() ) {
-			return false;
-		}
-		return true;
+
+		return ! ACF\ACF::instance()->is_fieldgroup_admin();
+
 	}
 
 

@@ -62,6 +62,28 @@ class ACF extends Core\Singleton {
 	}
 
 	/**
+	 *	Whether we are in the fieldgroup admin
+	 *
+	 *	@return boolean
+	 */
+	public function is_fieldgroup_admin() {
+
+		// is sync
+		if ( isset( $_REQUEST['post_type'] ) && 'acf-field-group' === wp_unslash( $_REQUEST['post_type'] ) ) {
+			return true;
+		}
+
+		// is field group admin
+		global $pagenow;
+		if (  $pagenow === 'post.php' && 'acf-field-group' === get_post_type() ) {
+			return true;
+		}
+
+		return false;
+
+	}
+
+	/**
 	 *	@action acf/enqueue_scripts
 	 */
 	public function enqueue_style() {
