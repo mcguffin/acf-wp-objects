@@ -43,11 +43,11 @@ class Template extends Singleton {
 	public function get_template_types() {
 
 		$types = apply_filters('acf_wp_objects_template_types', [
-			'' => [
+		/*	'' => [
 				'header_key' => 'Template Name',
 				'theme_location' => '', // recursive
 				'plugin_location' => false,
-			],
+			], */
 		] );
 
 		foreach ( $types as $slug => &$type ) {
@@ -146,8 +146,8 @@ class Template extends Singleton {
 					$this->templates[ $header_key ][ $name ] = [
 						'label'		=> $data[ $header_key ],
 						'path'		=> $full_path,
-						'file'		=> $file, // name to pass to locate_template
-						'name'		=> $name, //
+						'file'		=> $file, // some-plugin/some-file.php
+						'name'		=> $name, // some-plugin/some-file
 						'slug'		=> str_replace( '-', '_', sanitize_title( $name )),
 						'settings'	=> empty( $data[ "$header_key Settings" ] ) ? false : json_decode( $data[ "$header_key Settings" ], true ),
 					];
