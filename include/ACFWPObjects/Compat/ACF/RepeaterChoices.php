@@ -110,7 +110,7 @@ class RepeaterChoices extends Core\Singleton {
 	 *	@filter acf/render_field_settings/type=*
 	 */
 	public function validate_return_format_field( $field ) {
-		//vaR_dump(count( array_diff( $field['choices'], array( 'value', 'label', 'array' ) ) ));
+
 		if ( $field['name'] === 'return_format' && isset( $field['choices'] ) ) {
 			$field['choices']['row'] = __('Repeater Row', 'acf-wp-objects' );
 		}

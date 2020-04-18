@@ -10,6 +10,9 @@ class TemplateFileSelect extends \acf_field_select {
 
 	private static $_resolved = array();
 
+	/**
+	 *	@inheritdoc
+	 */
 	function initialize() {
 
 		// vars
@@ -38,7 +41,9 @@ class TemplateFileSelect extends \acf_field_select {
 	/**
 	 *	@inheritdoc
 	 */
-	function load_field( $field ) {
+	public function load_field( $field ) {
+
+
 
 		if ( $this->should_resolve() ) {
 
@@ -87,6 +92,7 @@ class TemplateFileSelect extends \acf_field_select {
 			if ( $this->name === $field['type'] ) {
 
 				$field['type'] = 'select'; // 1. Because location rules work, 2. Because it won't resolve twice
+				$field['choices'] = $this->get_template_choices( $field );
 
 				$return_fields[] = $field;
 

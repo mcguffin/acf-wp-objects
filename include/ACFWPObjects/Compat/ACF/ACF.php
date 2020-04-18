@@ -36,7 +36,7 @@ class ACF extends Core\Singleton {
 	 */
 	protected function __construct() {
 
-		add_action( 'init', array( $this, 'register_field_types' ) );
+		add_action( 'acf/include_field_types', array( $this, 'register_field_types' ) );
 
 		add_action( 'acf/include_location_rules', array( $this, 'register_location_rules' ) );
 
