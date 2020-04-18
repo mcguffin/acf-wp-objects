@@ -11,10 +11,11 @@ ToDo:
 	.acf-block-fields {
 		div.acf-field {
 			padding:10px;
+			margin:0;
 		}
 	}
 	@include acf-input-fields() {
-		font-size:13px;
+		font-size:12px;
 	}
 	.acf-field {
 		input[type="checkbox"] {
