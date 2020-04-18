@@ -73,9 +73,6 @@ class TemplateFileSelect extends \acf_field_select {
 	 *	@filter --acf/load_fields--
 	 */
 	public function resolve_fields( $fields ) {
-		error_log('resolve_fields did acf/init '.did_action('acf/init') );
-		error_log('resolve_fields did plugins_loaded '.did_action('plugins_loaded') );
-		error_log('resolve_fields did after_setup_theme '.did_action('after_setup_theme') );
 
 		if ( ! $this->should_resolve() ) {
 
@@ -109,6 +106,8 @@ class TemplateFileSelect extends \acf_field_select {
 	}
 
 	/**
+	 *	Add an ACF loca field with template settings
+	 *
 	 *	@param array $template_select_field
 	 */
 	private function get_template_settings_group( $template_select_field ) {
@@ -167,6 +166,15 @@ class TemplateFileSelect extends \acf_field_select {
 				}
 			}
 		}
+		// if ( false !== $template['settings'] ) {
+		// 	add_filter(
+		// 		sprintf( 'acf/format_value/name=%s', $group_field['name'] ),
+		// 		function( $value, $post_id, $field ) use ($templates) {
+		// 			return $template['settings'] + $value;
+		// 		},
+		// 		10, 3
+		// 	);
+		// }
 		if ( count( $sub_fields ) ) {
 			$sub_fields = array_values( $sub_fields );
 			usort( $sub_fields, function($a,$b) {
@@ -184,15 +192,19 @@ class TemplateFileSelect extends \acf_field_select {
 		return $group_field;
 	}
 
+
 	/**
 	 *	@param array $parent_field ACF Field
 	 */
 	private function create_group_field( $parent_field ) {
 
 		$slug = $parent_field['name'];
+		$key = sprintf( 'field_%s_settings', $slug );
+
+//
 
 		return [
-			'key'			=> sprintf( 'field_%s_settings', $slug ),
+			'key'			=> $key,
 			'label'			=> __( 'Template Settings', 'acf-wp-objects' ),
 			'name'			=> sprintf( '%s_settings', $slug ),
 			'type'			=> 'group',
@@ -213,90 +225,6 @@ class TemplateFileSelect extends \acf_field_select {
 
 	}
 
-	/**
-	 *	Get Settings for Template File
-	 *
-	 *	@param $array $template
-	 *	@param $array $template_select_field
-	 *	@return array a local group field containing the template settings
-	 */
-	private function get_template_settings( $template, $template_select_field ) {
-
-		$slug = str_replace( '-', '_', sanitize_title( $template['name'] ));
-		$group_field_name = 'field_' . $slug . '_settings';
-
-		$group_field = acf_get_local_field( $group_field_name );
-
-		if ( ! $group_field ) {
-
-			$groups = acf_get_field_groups( [ 'template_file_settings' => $template['name'] ] );
-
-			$sub_fields = [];
-
-			$add_condition = [
-				'field'		=> $template_select_field['key'],
-				'operator'	=> '==',
-				'value'		=> $template['name']
-			];
-
-			if ( empty( $groups ) ) {
-				return null;
-			}
-
-
-			foreach ( $groups as $group ) {
-				$group_fields = array_map(
-					function($e) use ( $group_field_name, $add_condition ) {
-						$e['parent'] = $group_field_name;
-						if ( ! $e['conditional_logic'] ) {
-							$e['conditional_logic'] = [ [ $add_condition ] ];
-						} else {
-							foreach ( $e['conditional_logic'] as &$condition ) {
-								$condition[] = $add_condition;
-							}
-						}
-						return $e;
-					},
-					acf_get_fields( $group['key'] )
-				);
-				$sub_fields = array_merge( $sub_fields, $group_fields );
-
-			}
-
-			$group_field = [
-				'key'			=> $group_field_name,
-				'label'			=> $template['label'] . ': '. __( 'Settings', 'acf-wp-objects' ),
-				'name'			=> $slug . '_settings',
-				'type'			=> 'group',
-				'prefix'		=> 'acf',
-				'instructions'	=> '',
-				'required'		=> 0,
-				'parent'		=> $template_select_field['parent'],
-				'conditional_logic'	=> [
-					[
-						[
-							'field'		=> $template_select_field['key'],
-							'operator'	=> '==',
-							'value'		=> $template['name']
-						]
-					]
-				],
-				'wrapper'		=> [
-					'width'			=> '',
-					'class'			=> '',
-					'id'			=> ''
-				],
-				'layout'		=> 'block',
-				'sub_fields'	=> $sub_fields,
-				'value'			=> null,
-			];
-
-			acf_add_local_field( $group_field, true );
-
-		}
-
-		return $group_field;
-	}
 
 	/**
 	 *	Whether includer fields should resolve to fields

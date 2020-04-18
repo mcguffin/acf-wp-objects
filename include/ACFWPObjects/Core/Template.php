@@ -129,7 +129,7 @@ class Template extends Singleton {
 				// plugin templates
 				foreach ( $plugin_files as $full_path ) {
 
-					$data = get_file_data( $full_path, [ $header_key => $header_key ] );
+					$data = get_file_data( $full_path, [ $header_key => $header_key, "$header_key Settings" => "$header_key Settings" ] );
 
 					if ( empty( $data[ $header_key ] ) ) {
 						continue;
@@ -149,6 +149,7 @@ class Template extends Singleton {
 						'file'		=> $file, // name to pass to locate_template
 						'name'		=> $name, //
 						'slug'		=> str_replace( '-', '_', sanitize_title( $name )),
+						'settings'	=> empty( $data[ "$header_key Settings" ] ) ? false : json_decode( $data[ "$header_key Settings" ], true ),
 					];
 				}
 
