@@ -2,7 +2,6 @@
 
 namespace ACFWPObjects\Compat\ACF\Fields;
 
-use ACFWPObjects\Asset;
 use ACFWPObjects\Core;
 use ACFWPObjects\Compat\ACF;
 
@@ -42,8 +41,6 @@ class TemplateFileSelect extends \acf_field_select {
 	 *	@inheritdoc
 	 */
 	public function load_field( $field ) {
-
-
 
 		if ( $this->should_resolve() ) {
 
@@ -173,15 +170,6 @@ class TemplateFileSelect extends \acf_field_select {
 				}
 			}
 		}
-		// if ( false !== $template['settings'] ) {
-		// 	add_filter(
-		// 		sprintf( 'acf/format_value/name=%s', $group_field['name'] ),
-		// 		function( $value, $post_id, $field ) use ($templates) {
-		// 			return $template['settings'] + $value;
-		// 		},
-		// 		10, 3
-		// 	);
-		// }
 		if ( count( $sub_fields ) ) {
 			$sub_fields = array_values( $sub_fields );
 			usort( $sub_fields, function($a,$b) {

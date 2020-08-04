@@ -32,9 +32,12 @@ class Core extends Plugin implements CoreInterface {
 	 *  @action plugins_loaded
 	 */
 	public function init_compat() {
+
 		if ( function_exists('\acf') && version_compare( acf()->version,'5.6.0','>=') ) {
 
 			$acf = acf();
+
+			Template::instance();
 
 			Compat\ACF\ACF::instance();
 			$init_wpmu = false;
