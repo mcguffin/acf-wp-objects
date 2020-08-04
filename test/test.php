@@ -82,7 +82,7 @@ class PluginTest {
 		}
 
 		// register a testimonial block
-		acf_register_block(array(
+		acf_register_block([
 			'name'				=> 'wp-objects-template-test',
 			'title'				=> __('WP Objects Template Test'),
 			'description'		=> __('WP Objects Template'),
@@ -96,8 +96,8 @@ class PluginTest {
 			'category'			=> 'embed',
 			'icon'				=> 'admin-tools',
 			'mode'				=> 'edit', // auto|preview|edit
-			'keywords'			=> array( 'test' ),
-		));
+			'keywords'			=> [ 'test' ],
+		]);
 
 	}
 

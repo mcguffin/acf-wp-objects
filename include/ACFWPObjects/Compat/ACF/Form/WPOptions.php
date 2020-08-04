@@ -75,7 +75,7 @@ class WPOptions extends Core\Singleton {
 				add_settings_field(
 					$field['key'],
 					$field['label'],
-					array( $this, 'render_field' ),
+					[ $this, 'render_field' ],
 					$this->optionset,
 					$section,
 					$field
@@ -101,10 +101,6 @@ class WPOptions extends Core\Singleton {
 
 	    	// save
 			acf_save_post( $this->optionset );
-
-			// redirect
-			// wp_redirect( add_query_arg(array('message' => '1')) );
-			// exit;
 
 		}
 

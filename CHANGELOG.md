@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.4.0
+-----
+ - Feature: Page Layouts
+
 0.2.12
 ------
  - Fix network settings

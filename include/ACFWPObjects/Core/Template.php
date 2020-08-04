@@ -69,15 +69,15 @@ class Template extends Singleton {
 
 	/**
 	 *	@param string $header_key Scan for templates having this header key
-	 *	@return array(
-	 *		file => array(
+	 *	@return [
+	 *		file => [
 	 *			label		=> string Label
 	 *			path		=> string path to file
 	 *			file		=> string path in theme / plugin
 	 *			settings	=> string acf settings field group key
-	 *		),
+	 *		],
 	 *		...
-	 *	)
+	 *	]
 	 */
 	public function get_templates( $header_key ) {
 

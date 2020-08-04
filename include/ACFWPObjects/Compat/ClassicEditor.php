@@ -21,7 +21,7 @@ class ClassicEditor extends Core\Singleton implements Core\ComponentInterface {
 	 *	@inheritdoc
 	 */
 	protected function __construct() {
-		add_action( 'acf/include_location_rules', array( $this, 'register_location_rules' ) );
+		add_action( 'acf/include_location_rules', [ $this, 'register_location_rules' ] );
 	}
 
 	/**

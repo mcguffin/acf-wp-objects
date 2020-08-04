@@ -20,7 +20,7 @@ class PageLayout extends Core\Singleton {
 
 		add_action( 'acf/render_field_group_settings', [ $this, 'field_group_settings' ] );
 
-		add_action( 'acf/include_location_rules', array( $this, 'register_location_rules' ) );
+		add_action( 'acf/include_location_rules', [ $this, 'register_location_rules' ] );
 
 	}
 

@@ -54,13 +54,13 @@ class TaxonomyProp extends \acf_location {
 
 		// global
 
-		$choices = array(
+		$choices = [
 			'_builtin'			=> __('Builtin','acf-wp-obects'),
 			'public'			=> __('Public','acf-wp-obects'),
 			'show_ui'			=> __('Show UI','acf-wp-obects'),
 			'show_in_menu'		=> __('Show in Menus','acf-wp-obects'),
 			'show_in_nav_menus'	=> __('Show in Nav Menus','acf-wp-obects'),
-		);
+		];
 
 		return $choices;
 

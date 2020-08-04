@@ -8,7 +8,7 @@ use ACFWPObjects\Compat\ACF;
 
 class TemplateFileSelect extends \acf_field_select {
 
-	private static $_resolved = array();
+	private static $_resolved = [];
 
 	/**
 	 *	@inheritdoc
@@ -19,7 +19,7 @@ class TemplateFileSelect extends \acf_field_select {
 		$this->name = 'template_file_select';
 		$this->label = __( 'Select Template File', 'acf-wp-objects');
 		$this->category = __('Generic', 'acf-wp-objects' );
-		$this->defaults = array(
+		$this->defaults = [
 			'multiple' 		=> 0,
 			'allow_null' 	=> 0,
 			'default_value'	=> '',
@@ -30,7 +30,7 @@ class TemplateFileSelect extends \acf_field_select {
 			'choices'		=> [],
 			'return_format'	=> 'value',
 			'template_type'	=> 'Template Name'
-		);
+		];
 
 		add_filter( 'acf/load_fields', [ $this, 'resolve_fields' ], 3 );
 
@@ -63,13 +63,13 @@ class TemplateFileSelect extends \acf_field_select {
 	function render_field_settings( $field ) {
 
 		// placeholder
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __( 'Template Type', 'acf-wp-objects' ),
 			'instructions'	=> '', //__( 'Filter Template files having this specific header key.', 'acf-wp-objects' ),
 			'type'			=> 'select',
 			'choices'		=> $this->get_template_type_choices(),
 			'name'			=> 'template_type',
-		));
+		]);
 
 	}
 

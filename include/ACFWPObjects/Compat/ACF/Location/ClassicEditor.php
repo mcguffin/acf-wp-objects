@@ -51,10 +51,10 @@ class ClassicEditor extends \acf_location {
 
 		// global
 
-		$choices = array(
+		$choices = [
 			'block-editor'		=> __('Block Editor','acf-wp-objects'),
 			'classic-editor'	=> __('Classic Editor','acf-wp-objects'),
-		);
+		];
 
 		return $choices;
 

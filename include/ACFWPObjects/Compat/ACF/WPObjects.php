@@ -21,13 +21,13 @@ class WPObjects extends Core\Singleton {
 	 *	storage_type: option, theme_mod, term, post
 	 *	storage_key: post/term property (like post_title), option_name or theme mod name
 	 *
-	 *	@var array field choices array(
-	 *		acf_field_type => array(
+	 *	@var array field choices [
+	 *		acf_field_type => [
 	 *			storage_type:storage_key => label
-	 * 		)
-	 * )
+	 * 		]
+	 * ]
 	 */
-	private $field_choices = array();
+	private $field_choices = [];
 
 
 	/**
@@ -35,7 +35,7 @@ class WPObjects extends Core\Singleton {
 	 */
 	protected function __construct() {
 
-		$this->field_choices = array(
+		$this->field_choices = [
 			'text'		=> [
 				'option:blogname'				=> __('Blogname','acf-wp-objects'),
 				'option:blogdescription'		=> __('Blog description','acf-wp-objects'),
@@ -66,17 +66,17 @@ class WPObjects extends Core\Singleton {
 			'gallery'	=> [
 				'post:attachments'				=> __( 'Post Attachments', 'acf-wp-objects' ),
 			],
-		);
+		];
 
 		foreach ( array_keys( $this->field_choices ) as $field_type ) {
 
-			add_action( "acf/render_field_settings/type={$field_type}", array( $this, 'field_settings' ) );
+			add_action( "acf/render_field_settings/type={$field_type}", [ $this, 'field_settings' ] );
 
-			add_filter( "acf/load_field/type={$field_type}", array( $this, 'load_field') );
+			add_filter( "acf/load_field/type={$field_type}", [ $this, 'load_field'] );
 
 		}
 
-		add_filter( 'acf/pre_update_value', array( $this, 'pre_update_value' ), 10, 4 );
+		add_filter( 'acf/pre_update_value', [ $this, 'pre_update_value' ], 10, 4 );
 
 
 	}
@@ -86,7 +86,7 @@ class WPObjects extends Core\Singleton {
 	 */
 	public function load_field( $field ) {
 		if ( isset( $field['wp_object'] ) && $field['wp_object'] ) {
-			add_filter( "acf/load_value/key={$field['key']}", array( $this, 'load_value' ), 10, 3 );
+			add_filter( "acf/load_value/key={$field['key']}", [ $this, 'load_value' ], 10, 3 );
 		}
 
 		return $field;
@@ -221,7 +221,7 @@ class WPObjects extends Core\Singleton {
 
 				if ( $term = $this->get_term( $post_id ) ) {
 
-					$update_term = array();
+					$update_term = [];
 					if ( 'term_name' === $key ) {
 						$update_term['name'] = $value;
 					} else if ( 'term_description' === $key ) {
@@ -237,7 +237,7 @@ class WPObjects extends Core\Singleton {
 				if ( ! absint( $post_id ) ) {
 					return $check;
 				}
-				$updatepost = array();
+				$updatepost = [];
 
 				if ( 'post_title' === $key ) {
 					$updatepost['post_title'] = $value;
@@ -261,10 +261,10 @@ class WPObjects extends Core\Singleton {
 
 					foreach ( $attachment_ids as $attachment_id ) {
 						if ( ! in_array( $attachment_id, $value ) ) {
-							$update_attachment = array(
+							$update_attachment = [
 								'ID'			=> $attachment_id,
 								'post_parent'	=> 0,
-							);
+							];
 							wp_update_post( $update_attachment );
 						}
 					}
@@ -273,11 +273,11 @@ class WPObjects extends Core\Singleton {
 						return $check;
 					}
 					foreach ( $value as $i => $attachment_id ) {
-						$update_attachment = array(
+						$update_attachment = [
 							'ID'			=> $attachment_id,
 							'post_parent'	=> $post_id,
 							'menu_order'	=> $i,
-						);
+						];
 						wp_update_post( $update_attachment );
 					}
 				}
@@ -308,14 +308,14 @@ class WPObjects extends Core\Singleton {
 	 *	@param int $post_id
 	 */
 	private function get_attachment_ids( $post_id ) {
-		return get_posts( array(
+		return get_posts( [
 			'posts_per_page'	=> -1,
 			'orderby'			=> 'menu_order',
 			'order'				=> 'ASC',
 			'fields'			=> 'ids',
 			'post_type'			=> 'attachment',
 			'post_parent'		=> $post_id,
-		) );
+		] );
 	}
 
 	/**
@@ -331,7 +331,7 @@ class WPObjects extends Core\Singleton {
 			return;
 		}
 
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('WordPress Object','acf-wp-objects'),
 			'instructions'	=> '',
 			'type'			=> 'select',
@@ -341,7 +341,7 @@ class WPObjects extends Core\Singleton {
 			'ui'			=> 0,
 			'allow_null'	=> 1,
 			'placeholder'	=> __( 'Select', 'acf-wp-objects' ),
-		));
+		]);
 
 	}
 
@@ -354,9 +354,9 @@ class WPObjects extends Core\Singleton {
 	 *	@usedby pre_update_value()
 	 */
 	public function get_field_storage( $field ) {
-		$field = wp_parse_args($field, array(
+		$field = wp_parse_args($field, [
 			'wp_object' => false,
-		));
+		]);
 
 		if ( ! $field['wp_object'] ) {
 			return false;

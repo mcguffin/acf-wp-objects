@@ -26,7 +26,7 @@ class ImageSweetSpot extends \acf_field {
 		$this->name = 'image_sweet_spot';
 		$this->label = __("Sweet Spot",'acf');
 		$this->category = __('WordPress', 'acf-wp-objects' );
-		$this->defaults = array(
+		$this->defaults = [
 			'multiple' 		=> 0,
 			'allow_null' 	=> 0,
 			'default_value'	=> ['x'=>50, 'y' => 50 ],
@@ -34,7 +34,7 @@ class ImageSweetSpot extends \acf_field {
 			'ajax'			=> 0,
 			'placeholder'	=> '',
 			'return_format'	=> 'object',
-		);
+		];
 
 	}
 
@@ -71,7 +71,7 @@ class ImageSweetSpot extends \acf_field {
 			<?php
 
 			// the map
-			acf_render_field( array(
+			acf_render_field( [
 				'prepend'	=> __( 'X', 'acf-wp-objects' ),
 				'type'		=> 'range',
 				'name'		=> $field['name'].'[x]',
@@ -81,10 +81,10 @@ class ImageSweetSpot extends \acf_field {
 				'step'		=> 1,
 				'class'		=> '-sweet-spot-x',
 				'append'	=> '%',
-			) );
+			] );
 
 			// the map
-			acf_render_field( array(
+			acf_render_field( [
 				'prepend'	=> __( 'Y', 'acf-wp-objects' ),
 				'type'		=> 'range',
 				'name'		=> $field['name'].'[y]',
@@ -94,7 +94,7 @@ class ImageSweetSpot extends \acf_field {
 				'step'		=> 1,
 				'class'		=> '-sweet-spot-y',
 				'append'	=> '%',
-			) );
+			] );
 			?>
 		</div>
 		<?php

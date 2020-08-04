@@ -17,7 +17,7 @@ use ACFWPObjects\Compat\ACF;
 
 class SelectImageSize extends \acf_field_select {
 
-	private $all_sizes = array();
+	private $all_sizes = [];
 
 	/**
 	 *	@inheritdoc
@@ -28,7 +28,7 @@ class SelectImageSize extends \acf_field_select {
 		$this->name = 'image_size_select';
 		$this->label = __("Select Image Size",'acf-wp-objects');
 		$this->category = __('WordPress', 'acf-wp-objects' );
-		$this->defaults = array(
+		$this->defaults = [
 			'multiple' 		=> 0,
 			'allow_null' 	=> 0,
 			'default_value'	=> '',
@@ -37,17 +37,17 @@ class SelectImageSize extends \acf_field_select {
 			'placeholder'	=> '',
 			'return_format'	=> 'array',
 
-			'image_sizes'	=> array(),
+			'image_sizes'	=> [],
 			'pick'			=> 0,
 			'named'			=> '',
 			'crop'			=> '',
 			'_builtin'		=> '',
-		);
+		];
 
 
 		// ajax
-		add_action('wp_ajax_acf/fields/image_size_select/query',		array($this, 'ajax_query'));
-		add_action('wp_ajax_nopriv_acf/fields/image_size_select/query',	array($this, 'ajax_query'));
+		add_action('wp_ajax_acf/fields/image_size_select/query',		[ $this, 'ajax_query' ] );
+		add_action('wp_ajax_nopriv_acf/fields/image_size_select/query',	[ $this, 'ajax_query' ] );
 
 	}
 
@@ -58,23 +58,23 @@ class SelectImageSize extends \acf_field_select {
 	 */
 	function load_field( $field ) {
 
-		$core = Core\Core::instance();
+		$wp = Core\WP::instance();
 
-		$args_keys = array(
+		$args_keys = [
 			'_builtin',
 			'named',
 			'crop',
-		);
+		];
 
 		if ( $field['pick'] ) {
 			if ( empty( $field['image_sizes'] ) ) {
-				$choices = $core->get_image_sizes( array(), 'label' );
+				$choices = $wp->get_image_sizes( [], 'label' );
 			} else {
-				$choices = $core->get_image_sizes( array( 'names' => $field['image_sizes'] ), 'label' );
+				$choices = $wp->get_image_sizes( [ 'names' => $field['image_sizes'] ], 'label' );
 			}
 		} else {
 
-			$args = array();
+			$args = [];
 
 			foreach ( $args_keys as $key ) {
 
@@ -102,156 +102,156 @@ class SelectImageSize extends \acf_field_select {
 	 */
 	function render_field_settings( $field ) {
 
-		$core = Core\Core::instance();
+		$wp = Core\WP::instance();
 
 		// allow_null
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Allow Null?','acf'),
 			'instructions'	=> '',
 			'name'			=> 'allow_null',
 			'type'			=> 'true_false',
 			'ui'			=> 1,
-		));
+		]);
 
 
 		// multiple
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Select multiple values?','acf'),
 			'instructions'	=> '',
 			'name'			=> 'multiple',
 			'type'			=> 'true_false',
 			'ui'			=> 1,
-		));
+		]);
 
 
 		// ui
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Stylised UI','acf'),
 			'instructions'	=> '',
 			'name'			=> 'ui',
 			'type'			=> 'true_false',
 			'ui'			=> 1,
-		));
+		]);
 
 		// ajax
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Use AJAX to lazy load choices?','acf'),
 			'instructions'	=> '',
 			'name'			=> 'ajax',
 			'type'			=> 'true_false',
 			'ui'			=> 1,
-			'conditions'	=> array(
+			'conditions'	=> [
 				'field'		=> 'ui',
 				'operator'	=> '==',
 				'value'		=> 1
-			)
-		));
+			]
+		]);
 
 
 		// return_format
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Return Value','acf-wp-objects'),
 			'instructions'	=> __('Specify the returned value on front end','acf-wp-objects'),
 			'type'			=> 'radio',
 			'name'			=> 'return_format',
 			'layout'		=> 'horizontal',
-			'choices'		=> array(
+			'choices'		=> [
 				'array'			=> __("Size Array",'acf-wp-objects'),
 				'slug'			=> __("Slug",'acf-wp-objects'),
-			),
-		));
+			],
+		]);
 
 
 
 
 		// return_format
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Pick from List','acf-wp-objects'),
 			'instructions'	=> '',
 			'type'			=> 'true_false',
 			'name'			=> 'pick',
 			'ui'			=> 1,
-		));
+		]);
 
 		// default_value
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Select Image Sizes','acf'),
 			'instructions'	=> '',
 			'type'			=> 'select',
 			'name'			=> 'image_sizes',
-			'choices'		=> $core->get_image_sizes( array(), 'label' ),
+			'choices'		=> $wp->get_image_sizes( [], 'label' ),
 			'multiple'		=> 1,
 			'ui'			=> 1,
 			'allow_null'	=> 1,
 			'placeholder'	=> __("All Image Sizes",'acf'),
-			'conditions'	=> array(
+			'conditions'	=> [
 				'field'		=> 'pick',
 				'operator'	=> '==',
 				'value'		=> 1
-			)
-		));
+			]
+		]);
 
 
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Named ','acf-wp-objects'),
 			'instructions'	=> '',
 			'type'			=> 'button_group',
-			'choices'		=> array(
-				''		=> __( 'Don‘t care', 'wp-acf-objects' ),
+			'choices'		=> [
+				''		=> __( 'Any', 'wp-acf-objects' ),
 				'1'		=> __('Yes', 'wp-acf-objects' ),
 				'0'		=> __('No', 'wp-acf-objects' ),
-			),
+			],
 			'name'			=> 'named',
 			'ui'			=> 1,
-			'conditions'	=> array(
+			'conditions'	=> [
 				'field'		=> 'pick',
 				'operator'	=> '==',
 				'value'		=> 0
-			)
-		));
+			]
+		]);
 
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Cropped ','acf-wp-objects'),
 			'instructions'	=> '',
 			'type'			=> 'button_group',
-			'choices'		=> array(
-				''		=> __( 'Don‘t care', 'wp-acf-objects' ),
+			'choices'		=> [
+				''		=> __( 'Any', 'wp-acf-objects' ),
 				'1'		=> __('Yes', 'wp-acf-objects' ),
 				'0'		=> __('No', 'wp-acf-objects' ),
-			),
+			],
 			'name'			=> 'crop',
 			'ui'			=> 1,
-			'conditions'	=> array(
+			'conditions'	=> [
 				'field'		=> 'pick',
 				'operator'	=> '==',
 				'value'		=> 0
-			)
-		));
+			]
+		]);
 
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Builtin','acf-wp-objects'),
 			'instructions'	=> '',
 			'type'			=> 'button_group',
-			'choices'		=> array(
-				''		=> __( 'Don‘t care', 'wp-acf-objects' ),
+			'choices'		=> [
+				''		=> __( 'Any', 'wp-acf-objects' ),
 				'1'		=> __('Yes', 'wp-acf-objects' ),
 				'0'		=> __('No', 'wp-acf-objects' ),
-			),
+			],
 			'name'			=> '_builtin',
 			'ui'			=> 1,
-			'conditions'	=> array(
+			'conditions'	=> [
 				'field'		=> 'pick',
 				'operator'	=> '==',
 				'value'		=> 0
-			)
-		));
+			]
+		]);
 
 
 		// ajax
-		acf_hidden_input(array(
+		acf_hidden_input([
 			'name'			=> 'ajax',
 			'value'			=> 0,
-		));
+		]);
 
 
 	}
@@ -262,16 +262,16 @@ class SelectImageSize extends \acf_field_select {
 	function format_value_single( $value, $post_id, $field ) {
 
 		// bail ealry if is empty
-		if( acf_is_empty($value) ) {
+		if( acf_is_empty( $value ) ) {
 			return $value;
 		}
 
 
 		// value
 		if( $field['return_format'] == 'array' ) {
-
+			$wp = Core\WP::instance();
 			// do nothing
-			$sizes = $this->get_all_image_sizes();
+			$sizes = $wp->get_all_image_sizes();
 			if ( isset( $sizes[ $value ] ) ) {
 				$value = $sizes[ $value ];
 			}

@@ -18,14 +18,14 @@ use ACFWPObjects\Core;
 
 class ACF extends Core\Singleton {
 
-	private $supported_fields = array(
+	private $supported_fields = [
 		'text',
 		'textarea',
 		'wysiwyg',
 		'image',
 		'post_object',
 		'relation',
-	);
+	];
 
 	private $acf_input_js;
 	private $acf_input_css;
@@ -36,9 +36,9 @@ class ACF extends Core\Singleton {
 	 */
 	protected function __construct() {
 
-		add_action( 'acf/include_field_types', array( $this, 'register_field_types' ) );
+		add_action( 'acf/include_field_types', [ $this, 'register_field_types' ] );
 
-		add_action( 'acf/include_location_rules', array( $this, 'register_location_rules' ) );
+		add_action( 'acf/include_location_rules', [ $this, 'register_location_rules' ] );
 
 		WPObjects::instance();
 
@@ -51,9 +51,9 @@ class ACF extends Core\Singleton {
 			Form\WPOptions::instance();
 		}
 
-		add_action( 'acf/enqueue_scripts', array( $this, 'enqueue_style' ) );
-		add_action( 'acf/field_group/admin_enqueue_scripts', array( $this, 'enqueue_field_group' ) );
-		add_action( 'acf/input/admin_enqueue_scripts', array( $this, 'enqueue_input' ) );
+		add_action( 'acf/enqueue_scripts', [ $this, 'enqueue_style' ] );
+		add_action( 'acf/field_group/admin_enqueue_scripts', [ $this, 'enqueue_field_group' ] );
+		add_action( 'acf/input/admin_enqueue_scripts', [ $this, 'enqueue_input' ] );
 
 		$this->acf_input_js			= Asset\Asset::get( 'js/admin/acf-input.js' );
 		$this->acf_input_css		= Asset\Asset::get( 'css/admin/acf-input.css' );
@@ -98,17 +98,17 @@ class ACF extends Core\Singleton {
 	public function enqueue_field_group() {
 
 		$choices = RepeaterChoices::instance();
-		$core = Core\Core::instance();
+		$wp = Core\WP::instance();
 
 		$this->acf_field_group_js
 			->footer( false )
 			->deps( 'acf-field-group', $this->acf_input_js )
-			->localize(array(
+			->localize( [
 				'repeated_fields' => $choices->get_repeated_fields(),
-				'post_types'	=> array_map( [ $this, 'reduce_pt' ], $core->get_post_types() ),
-				'taxonomies'	=> array_map( [ $this, 'reduce_taxo' ], $core->get_taxonomies() ),
-				'image_sizes'	=> array_map( [ $this, 'mk_image_sizes' ], $core->get_image_sizes() ),
-			), 'acf_wp_objects' )
+				'post_types'	=> array_map( [ $this, 'reduce_pt' ], $wp->get_post_types() ),
+				'taxonomies'	=> array_map( [ $this, 'reduce_taxo' ], $wp->get_taxonomies() ),
+				'image_sizes'	=> array_map( [ $this, 'mk_image_sizes' ], $wp->get_image_sizes() ),
+			], 'acf_wp_objects' )
 			->enqueue();
 
 	}
@@ -129,7 +129,7 @@ class ACF extends Core\Singleton {
 	 *	@param Object $pto Post type object
 	 */
 	private function reduce_pt( $pto ) {
-		return array_intersect_key( get_object_vars( $pto ), array(
+		return array_intersect_key( get_object_vars( $pto ), [
 			'_builtin'			=> 1,
 			'name'				=> 1,
 			'label'				=> 1,
@@ -137,14 +137,14 @@ class ACF extends Core\Singleton {
 			'show_in_nav_menus'	=> 1,
 			'show_in_menu'		=> 1,
 			'public'			=> 1,
-		));
+		]);
 	}
 
 	/**
 	 *	@param Object $tx Taxonomy object
 	 */
 	private function reduce_taxo( $tx ) {
-		return array_intersect_key( get_object_vars( $tx ), array(
+		return array_intersect_key( get_object_vars( $tx ), [
 			'_builtin'			=> 1,
 			'name'				=> 1,
 			'label'				=> 1,
@@ -152,7 +152,7 @@ class ACF extends Core\Singleton {
 			'show_in_nav_menus'	=> 1,
 			'show_in_menu'		=> 1,
 			'public'			=> 1,
-		));
+		]);
 	}
 
 

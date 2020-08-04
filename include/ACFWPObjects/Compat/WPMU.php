@@ -81,9 +81,9 @@ class WPMU extends Core\Singleton implements Core\ComponentInterface {
 	 *	@filter acf/validate_options_page
 	 */
 	public function validate_options_page( $page ) {
-		return wp_parse_args( $page, array(
+		return wp_parse_args( $page, [
 			'network'	=> false,
-		));
+		]);
 	}
 
 	/**

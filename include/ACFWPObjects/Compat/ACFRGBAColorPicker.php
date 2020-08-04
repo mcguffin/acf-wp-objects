@@ -22,7 +22,7 @@ class ACFRGBAColorPicker extends Core\Singleton {
 	 *	@inheritdoc
 	 */
 	protected function __construct() {
-		add_filter( 'acf_wp_objects_repeater_choices_allow_fields', array( $this, 'repeater_choice_fields' ));
+		add_filter( 'acf_wp_objects_repeater_choices_allow_fields', [ $this, 'repeater_choice_fields' ]);
 	}
 
 

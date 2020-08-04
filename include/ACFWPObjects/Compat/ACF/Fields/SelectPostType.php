@@ -26,7 +26,7 @@ class SelectPostType extends \acf_field_select {
 		$this->name = 'post_type_select';
 		$this->label = __("Select Post Type",'acf-wp-objects');
 		$this->category = __('WordPress', 'acf-wp-objects' );
-		$this->defaults = array(
+		$this->defaults = [
 			'multiple' 		=> 0,
 			'allow_null' 	=> 0,
 			'default_value'	=> '',
@@ -40,11 +40,11 @@ class SelectPostType extends \acf_field_select {
 			'show_ui'	=> '',
 			'show_in_menu'	=> '',
 			'show_in_nav_menus'	=> '',
-		);
+		];
 
 		// ajax
-		add_action('wp_ajax_acf/fields/post_type_select/query',			array($this, 'ajax_query'));
-		add_action('wp_ajax_nopriv_acf/fields/post_type_select/query',	array($this, 'ajax_query'));
+		add_action('wp_ajax_acf/fields/post_type_select/query',			[ $this, 'ajax_query' ] );
+		add_action('wp_ajax_nopriv_acf/fields/post_type_select/query',	[ $this, 'ajax_query' ] );
 
 	}
 
@@ -53,32 +53,32 @@ class SelectPostType extends \acf_field_select {
 	 */
 	function load_field( $field ) {
 
-		$core = Core\Core::instance();
+		$wp = Core\WP::instance();
 
-		$args_keys = array(
+		$args_keys = [
 			'_builtin',
 			'public',
 			'show_ui',
 			'show_in_menu',
 			'show_in_nav_menus',
-		);
+		];
 
 		if ( $field['pick'] ) {
 			if ( empty( $field['post_types'] ) ) {
-				$choices = $core->get_post_types( array(), 'label' );
+				$choices = $wp->get_post_types( [], 'label' );
 			} else {
-				$choices = $core->get_post_types( array( 'names' => $field['post_types'] ), 'label' );
+				$choices = $wp->get_post_types( [ 'names' => $field['post_types'] ], 'label' );
 			}
 		} else {
 
-			$args = array();
+			$args = [];
 
 			foreach ( $args_keys as $key ) {
 				if ( $field[$key] !== '' ) {
 					$args[ $key ] = boolval( intval( $field[$key] ) );
 				}
 			}
-			$choices = $core->get_post_types( $args, 'label' );
+			$choices = $wp->get_post_types( $args, 'label' );
 		}
 
 		if ( ! ACF\ACF::instance()->is_fieldgroup_admin() ) {
@@ -97,192 +97,192 @@ class SelectPostType extends \acf_field_select {
 	 */
 	function render_field_settings( $field ) {
 
-		$core = Core\Core::instance();
+		$wp = Core\WP::instance();
 
 		// allow_null
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Allow Null?','acf'),
 			'instructions'	=> '',
 			'name'			=> 'allow_null',
 			'type'			=> 'true_false',
 			'ui'			=> 1,
-		));
+		]);
 
 
 		// multiple
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Select multiple values?','acf'),
 			'instructions'	=> '',
 			'name'			=> 'multiple',
 			'type'			=> 'true_false',
 			'ui'			=> 1,
-		));
+		]);
 
 
 		// ui
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Stylised UI','acf'),
 			'instructions'	=> '',
 			'name'			=> 'ui',
 			'type'			=> 'true_false',
 			'ui'			=> 1,
-		));
+		]);
 
 		// ajax
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Use AJAX to lazy load choices?','acf'),
 			'instructions'	=> '',
 			'name'			=> 'ajax',
 			'type'			=> 'true_false',
 			'ui'			=> 1,
-			'conditions'	=> array(
+			'conditions'	=> [
 				'field'		=> 'ui',
 				'operator'	=> '==',
 				'value'		=> 1
-			)
-		));
+			]
+		]);
 
 		// return_format
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Return Value','acf-wp-objects'),
 			'instructions'	=> __('Specify the returned value on front end','acf-wp-objects'),
 			'type'			=> 'radio',
 			'name'			=> 'return_format',
 			'layout'		=> 'horizontal',
-			'choices'		=> array(
+			'choices'		=> [
 				'label'			=> __("Label",'acf-wp-objects'),
 				'name'			=> __("Slug",'acf-wp-objects'),
 				'object'		=> __("Object",'acf-wp-objects')
-			),
-		));
+			],
+		]);
 
 
 		// return_format
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Pick from List','acf-wp-objects'),
 			'instructions'	=> '',
 			'type'			=> 'true_false',
 			'name'			=> 'pick',
 			'ui'			=> 1,
-		));
+		]);
 
 		// default_value
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Select Post Types','acf'),
 			'instructions'	=> '',
 			'type'			=> 'select',
 			'name'			=> 'post_types',
-			'choices'		=> $core->get_post_types( array(), 'label' ),
+			'choices'		=> $wp->get_post_types( [], 'label' ),
 			'multiple'		=> 1,
 			'ui'			=> 1,
 			'allow_null'	=> 1,
 			'placeholder'	=> __("All Post Types",'acf'),
-			'conditions'	=> array(
+			'conditions'	=> [
 				'field'		=> 'pick',
 				'operator'	=> '==',
 				'value'		=> 1
-			)
-		));
+			]
+		]);
 
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Public','acf-wp-objects'),
 			'instructions'	=> '',
 			'type'			=> 'button_group',
-			'choices'		=> array(
-				''		=> __( 'Don‘t care', 'wp-acf-objects' ),
+			'choices'		=> [
+				''		=> __( 'Any', 'wp-acf-objects' ),
 				'1'		=> __('Yes', 'wp-acf-objects' ),
 				'0'		=> __('No', 'wp-acf-objects' ),
-			),
+			],
 			'name'			=> 'public',
 			'ui'			=> 1,
-			'conditions'	=> array(
+			'conditions'	=> [
 				'field'		=> 'pick',
 				'operator'	=> '==',
 				'value'		=> 0
-			)
-		));
+			]
+		]);
 
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Builtin','acf-wp-objects'),
 			'instructions'	=> '',
 			'type'			=> 'button_group',
-			'choices'		=> array(
-				''		=> __( 'Don‘t care', 'wp-acf-objects' ),
+			'choices'		=> [
+				''		=> __( 'Any', 'wp-acf-objects' ),
 				'1'		=> __('Yes', 'wp-acf-objects' ),
 				'0'		=> __('No', 'wp-acf-objects' ),
-			),
+			],
 			'name'			=> '_builtin',
 			'ui'			=> 1,
-			'conditions'	=> array(
+			'conditions'	=> [
 				'field'		=> 'pick',
 				'operator'	=> '==',
 				'value'		=> 0
-			)
-		));
+			]
+		]);
 
 
 
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Show UI','acf-wp-objects'),
 			'instructions'	=> '',
 			'type'			=> 'button_group',
-			'choices'		=> array(
-				''		=> __( 'Don‘t care', 'wp-acf-objects' ),
+			'choices'		=> [
+				''		=> __( 'Any', 'wp-acf-objects' ),
 				'1'		=> __('Yes', 'wp-acf-objects' ),
 				'0'		=> __('No', 'wp-acf-objects' ),
-			),
+			],
 			'name'			=> 'show_ui',
 			'ui'			=> 1,
-			'conditions'	=> array(
+			'conditions'	=> [
 				'field'		=> 'pick',
 				'operator'	=> '==',
 				'value'		=> 0
-			)
-		));
+			]
+		]);
 
 
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Show in Menus','acf-wp-objects'),
 			'instructions'	=> '',
 			'type'			=> 'button_group',
-			'choices'		=> array(
-				''		=> __( 'Don‘t care', 'wp-acf-objects' ),
+			'choices'		=> [
+				''		=> __( 'Any', 'wp-acf-objects' ),
 				'1'		=> __('Yes', 'wp-acf-objects' ),
 				'0'		=> __('No', 'wp-acf-objects' ),
-			),
+			],
 			'name'			=> 'show_in_menu',
 			'ui'			=> 1,
-			'conditions'	=> array(
+			'conditions'	=> [
 				'field'		=> 'pick',
 				'operator'	=> '==',
 				'value'		=> 0
-			)
-		));
+			]
+		]);
 
 
-		acf_render_field_setting( $field, array(
+		acf_render_field_setting( $field, [
 			'label'			=> __('Show in Nav Menus','acf-wp-objects'),
 			'instructions'	=> '',
 			'type'			=> 'button_group',
-			'choices'		=> array(
-				''		=> __( 'Don‘t care', 'wp-acf-objects' ),
+			'choices'		=> [
+				''		=> __( 'Any', 'wp-acf-objects' ),
 				'1'		=> __('Yes', 'wp-acf-objects' ),
 				'0'		=> __('No', 'wp-acf-objects' ),
-			),
+			],
 			'name'			=> 'show_in_nav_menus',
 			'ui'			=> 1,
-			'conditions'	=> array(
+			'conditions'	=> [
 				'field'		=> 'pick',
 				'operator'	=> '==',
 				'value'		=> 0
-			)
-		));
+			]
+		]);
 
 		// ajax
-		acf_hidden_input(array(
+		acf_hidden_input([
 			'name'			=> 'ajax',
 			'value'			=> 0,
-		));
+		]);
 
 
 	}

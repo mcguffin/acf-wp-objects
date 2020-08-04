@@ -27,7 +27,7 @@ class ACFCustomizer extends Core\Singleton {
 	 *	@inheritdoc
 	 */
 	protected function __construct() {
-		add_action( 'customize_register', array( $this, 'customize_register' ), 20, 1 );
+		add_action( 'customize_register', [ $this, 'customize_register' ], 20, 1 );
 	}
 
 	/**
@@ -38,7 +38,7 @@ class ACFCustomizer extends Core\Singleton {
 		if ( is_customize_preview() && ! is_admin() ) {
 			$preview = \ACFCustomizer\Compat\ACF\CustomizePreview::instance();
 			$this->changeset_data = $preview->changeset_data( $manager );
-			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
+			add_action( 'template_redirect', [ $this, 'template_redirect' ] );
 		}
 	}
 
@@ -65,11 +65,11 @@ class ACFCustomizer extends Core\Singleton {
 
 				if ( 'post' === $storage && is_singular() ) {
 					if ( 'post_title' === $key ) {
-						add_filter( 'the_title', array( new ACF\Hook\Preview( $field, $value ), 'get' ), 0 );
+						add_filter( 'the_title', [ new ACF\Hook\Preview( $field, $value ), 'get' ], 0 );
 					} else if ( 'post_content' === $key ) {
-						add_filter( 'the_content', array( new ACF\Hook\Preview( $field, $value ), 'get' ), 0 );
+						add_filter( 'the_content', [ new ACF\Hook\Preview( $field, $value ), 'get' ], 0 );
 					} else if ( 'post_thumbnail' === $key ) {
-						add_filter('get_post_metadata', array( new ACF\Hook\ThumbnailPreview( $field, $value ), 'get' ), 0, 4 );
+						add_filter('get_post_metadata', [ new ACF\Hook\ThumbnailPreview( $field, $value ), 'get' ], 0, 4 );
 					}
 				}
 
