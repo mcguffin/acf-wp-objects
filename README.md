@@ -4,7 +4,7 @@ ACF-WP-Objects
 Features
 --------
 Integrate WordPress Objects objects into ACF.
- - Use ACF Fields to edit several WP-Post properties:
+ - **Edit WP-Post properties** with ACF fields:
    - Settings: blogname
    - Settings: blogdescription
    - Post: post_title
@@ -15,24 +15,25 @@ Integrate WordPress Objects objects into ACF.
    - Term: term_name
    - Term: term_description
    - Theme-Mod: custom_logo
- - New Field types:
+ - New **Field types**:
     - Post Type
     - Taxonomy
     - Image Size
     - User Role
     - Sweet Spot (use with media)
     - Plugin Tempalte Select (Selector for template file from plugin)
- - New Location Rules:
+ - New **Location Rules**:
     - Post Type / Taxonomy is public / builtin / show_ui / show_in_menu / show_in_nav_menus
     - Editor is Classic / Block editor
-    - WP Options page is general / Writing / Reading / Discussion / Media / Permalinks
+    - WP Options page is General / Writing / Reading / Discussion / Media / Permalinks
     - Plugin Template Settings
- - Choice fields: get choices from a repeater, e.g. from an ACF options page
- - Multisite: 
+ - **Choice fields**: get choices from a repeater, e.g. from an ACF options page
+ - **Multisite**: 
    - Add a network admin page with `acf_add_options_(sub_)page()`. Add `"network" => true,` to the page args (ACF Pro only – both plugins must be network-enabled)
- - Styling:
+ - **Styling**:
    - More compact styles in block editor sidebar
    - Add classes `no-head` and `no-sort` to repeater
+ - **Page Layouts**: Generic flexible content field providing a location rule for field groups. 
 
 
 Installation
@@ -50,12 +51,12 @@ Installation
  - $ `npm run dev`
 
 
-Template Files
---------------
+Template Files (ACF Pro only)
+-----------------------------
 
 1. Filter template types
 ```php
-add_filter('acf_wp_objects_template_types', function($types){
+add_filter('acf_wp_objects_template_types', function( $types ) {
 	$slug = 'foo-plugin';
 	$key = 'Items Template';
 	$theme_location = 'foo-plugin';
@@ -79,15 +80,33 @@ WP Objects will scan for template files having a header key in theme and plugin 
 2. Create a Template select field with name `my_fabulous_template`. 
    Use it like this: `get_template_part( get_field('my_fabulous_template') );`
 3. Place some template files in location
-   ```php
-   <?php
-   /*
-   Items Template: List
-   */
-   $settings = get_field('my_fabulous_template_settings');
-   ```
+	```php
+	<?php
+	/*
+	Items Template: List
+	*/
+	$settings = get_field('my_fabulous_template_settings');
+	```
 
+Page layouts (ACF Pro only)
+---------------------------
 
+Generate a flexible content field and turn field groups to Layouts.
+Ideal if you need an extendible Set of Layouts to choose from.
+
+1. Add a layout section:
+	```php
+	acf_add_page_layout([
+		'title'	=> 'My Layout',
+		'name'	=> 'my-layout',
+	]);
+	```
+2. Create field groups. Set "Page Layouts" "equals" "My Layout" as a location, and enter a row layout slug at the very bottom.
+3. Create template files in your theme corresponding to the slugs chosen above. Filenames should match `acf/layout-<row_layout_slug>.php`. Don't forget to use `get_sub_field()`, you are inside a flexible content field!
+4. In your page.php template file call this inside the loop:
+	```php
+	acf_page_layouts( 'my-layouts' );
+	```
 
 ToDo:
 -----
@@ -121,3 +140,4 @@ Features:
  - [ ] Fix: Connector: handle new post autodraft title
  - [ ] Install: submit to packagist, add composer description
  - [x] Style Fields in Block-Editor sidebar
+ - [ ] Page Layouts

@@ -51,7 +51,9 @@ class Core extends Plugin implements CoreInterface {
 			} else {
 				Compat\NoWPMU::instance();
 			}
-
+			if ( acf_get_setting( 'pro' ) ) {
+				require_once $this->get_plugin_dir() . '/include/api/page-layouts.php';
+			}
 		} else {
 			add_action('admin_notices', [ $this, 'print_no_acf_notice' ] );
 			return;
