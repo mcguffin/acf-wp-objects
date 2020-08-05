@@ -209,7 +209,7 @@ class PageLayout extends Core\Singleton {
 			'title' 	=> $args['title'],
 			'fields'	=> [
 				[
-					'key'				=> 'field_qtlife_sections',
+					'key'				=> 'field_' . $args['name'],
 					'label'				=> $args['title'],
 					'name'				=> $args['name'],
 					'type'				=> $args['type'],
