@@ -7,8 +7,10 @@ Fields
 - [ ] Select Plugin (active, inactive, network-activated, ...)
 - [ ] Select Theme (all, activatable, childs, parents, ...)
 - [ ] Select Page Template
-- [ ] Move [Includer Field](https://github.com/mcguffin/acf-includer-field)
+- [x] Move [Includer Field](https://github.com/mcguffin/acf-includer-field)
 - [ ] Options: readonly, disabled
+- [ ] Includer field:
+  - [ ] Allow and merge conditional Logic
 
 Connectors
 ----------

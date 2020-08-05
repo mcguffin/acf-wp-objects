@@ -19,6 +19,7 @@ Integrate WordPress Objects objects into ACF.
     - Post Type
     - Taxonomy
     - Image Size
+    - Includer (include all fields from a different field group)
     - User Role
     - Sweet Spot (use with media)
     - Plugin Tempalte Select (Selector for template file from plugin)
