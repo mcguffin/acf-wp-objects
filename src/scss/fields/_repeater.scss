@@ -35,43 +35,44 @@
 				}
 			}
 		}
+	}
+}
+.acf-field-repeater {
 
-		&.no-sort {
-			// acf-row-handle order ui-sortable-handle
-			margin-top:4px;
-			@include acf-repeater-table() {
-				& > * > tr { // thead/body > tr
-					& > .acf-row-handle {
-						& > [data-event="add-row"] {
-							display:none;
+	&.no-sort {
+		// acf-row-handle order ui-sortable-handle
+		margin-top:4px;
+		@include acf-repeater-table() {
+			& > * > tr { // thead/body > tr
+				& > .acf-row-handle {
+					& > [data-event="add-row"] {
+						display:none;
+					}
+					&:first-of-type {
+						width:0px;
+						padding:0;
+						& > .acf-icon {
+							z-index:1;
 						}
-						&:first-of-type {
-							width:0px;
-							padding:0;
-							& > .acf-icon {
-								z-index:1;
-							}
-							& > span {
-								display: none;
-							}
-							& + * { // th/td
-								border-left-style:none;
-							}
-							&::before {
-								content:none;
-							}
+						& > span {
+							display: none;
+						}
+						& + * { // th/td
+							border-left-style:none;
+						}
+						&::before {
+							content:none;
 						}
 					}
 				}
 			}
 		}
-		&.no-head {
-			@include acf-repeater-table() {
-				& > thead {
-					display:none;
-				}
+	}
+	&.no-head {
+		@include acf-repeater-table() {
+			& > thead {
+				display:none;
 			}
 		}
 	}
-
 }
