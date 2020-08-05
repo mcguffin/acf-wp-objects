@@ -66,6 +66,7 @@ class Core extends Plugin implements CoreInterface {
 			if ( class_exists( '\Classic_Editor' ) ) {
 				Compat\ClassicEditor::instance();
 			}
+			require_once $this->get_plugin_dir() . '/include/api/json.php';
 
 		} else {
 			add_action('admin_notices', [ $this, 'print_no_acf_notice' ] );
