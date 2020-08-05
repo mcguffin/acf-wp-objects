@@ -17,8 +17,8 @@ class PageLayouts extends \acf_location {
 
 		// vars
 		$this->name = 'page_layouts';
-		$this->label = __( 'Page Layouts', 'qt-life' );
-		$this->category = __( 'Content', 'qt-life' );
+		$this->label = __( 'Page Layout', 'acf-wp-objects' );
+		$this->category = __( 'Generic', 'acf-wp-objects' );
 
 	}
 

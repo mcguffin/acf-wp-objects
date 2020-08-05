@@ -132,16 +132,40 @@ class PageLayout extends Core\Singleton {
 	 *	@action acf_init
 	 */
 	public function init() {
-		array_map( [ $this, 'init_layout' ], array_keys($this->page_layouts) );
+		array_map( [ $this, 'init_layout' ], array_keys( $this->page_layouts ) );
 	}
+
+
+	/**
+	 *	Make sure field keys are not referenced in the db
+	 */
+	private function deep_reset_field_key( $field ) {
+		if ( ! is_array( $field ) ) {
+			return $field;
+		}
+		foreach ( $field as $k => $v ) {
+			if ( is_array( $v ) ) {
+				$field[$k] = $this->deep_reset_field_key( $v );
+			} else if ( in_array( $k, [ 'key', 'field' ] ) ) {
+				$field[$k] = 'field_' . md5( $v );
+			}
+		}
+
+		return $field;
+	}
+
 
 	/**
 	 *	@param string $layout_key
 	 *	@param array $args
 	 */
 	private function init_layout( $layout_key ) {
+
 		$layouts = [];
+
 		$field_groups = acf_get_field_groups( [ 'page_layouts' => $layout_key ] );
+		$field_groups = array_map( [ $this, 'sanitize_field_group'], $field_groups );
+
 		$args = $this->page_layouts[ $layout_key ];
 
 		// usort( $field_groups, function( $a, $b ) {
@@ -149,19 +173,23 @@ class PageLayout extends Core\Singleton {
 		// } );
 
 		foreach ( $field_groups as $field_group ) {
+
 			$key = 'layout_' . $field_group[ 'row_layout' ];// str_replace( 'group_', 'layout_',  );
 
-			$sub_fields = array_map( function( $field ) use ( $field_group ) {
+			$sub_fields = array_map( function( $field ) {
 				// detach field from database
 				foreach ( [ 'ID', 'id', 'prefix', 'parent', 'value', 'menu_order' ] as $k ) {
 					if ( isset( $field[ $k ] ) ) {
 						unset( $field[ $k ] );
 					}
 				}
+
 				// key to be guaranteed not in DB
 				$field['ID'] = 0;
-				$field['key'] = 'field_' . md5( $field['key'] );
+				$field = $this->deep_reset_field_key( $field );
+
 				return $field;
+
 			}, acf_get_fields( $field_group ) );
 
 			$layouts[ $key ] = [
@@ -173,7 +201,7 @@ class PageLayout extends Core\Singleton {
 				'min'			=> '',
 				'max'			=> '',
 			];
-//vaR_dump(array_keys($layouts));
+
 		}
 
 		acf_add_local_field_group([
@@ -210,5 +238,16 @@ class PageLayout extends Core\Singleton {
 		        'excerpt'
 			],
 		]);
+	}
+
+	/**
+	 *	@param array $field_group
+	 *	@return array
+	 */
+	private function sanitize_field_group( $field_group ) {
+		if ( ! isset( $field_group['row_layout'] ) || empty( $field_group['row_layout'] ) ) {
+			$field_group['row_layout'] = sanitize_title( $field_group['title'], sanitize_key( $field_group['title'] ), 'save' );
+		}
+		return $field_group;
 	}
 }
