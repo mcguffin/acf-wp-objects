@@ -7,7 +7,7 @@
  *	@return boolean
  */
 function acf_register_json_path( $path, $active_callback, $search_paths = [] ) {
-	if ( ! path_exists( $path ) ) {
+	if ( ! is_dir( $path ) ) {
 		return false;
 	}
 	if ( ! is_callable( $active_callback ) ) {
