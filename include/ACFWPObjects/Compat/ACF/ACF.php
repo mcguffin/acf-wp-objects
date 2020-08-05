@@ -190,6 +190,8 @@ class ACF extends Core\Singleton {
 
 		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\ImageSweetSpot' );
 
+		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\Includer' );
+
 		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectPostType' );
 
 		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectTaxonomy' );
