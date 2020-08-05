@@ -60,7 +60,7 @@ Consider the follwing Scenario: You are using local json field groups in your th
 This will load and save ACF JSON from the subdirectory `path/to/json-files` inside the theme and child theme directory but only if the field group key is `group_my_fieldgroup_key`.
 
 ```php
-acf_register_json_path(
+acf_register_local_json(
 	'path/to/json-files', // e.g. 'acf-json' in a theme
 	function( $field_group ) { 
 		// callback which should return true, if the field group 

@@ -14,7 +14,7 @@ if ( ! defined('ABSPATH') ) {
 use ACFWPObjects\Core;
 
 
-class JSON {
+class LocalJSON {
 	/** @var array */
 	private static $paths = [];
 
@@ -36,11 +36,19 @@ class JSON {
 	 *	@param callable
 	 *	@return bool
 	 */
-	public static function register_path( $paths, $active_callback, $search_paths = [] ) {
+	public static function register_path( $path, $active_callback, $search_paths = [] ) {
 		if ( isset( self::$paths[ $path ] ) ) {
 			return false;
 		}
-		self::$paths[ $path ] = new self( (array) $paths, $active_callback, $search_paths );
+		$search_paths = array_unique( $search_paths );
+		$search_paths = array_filter( $search_paths, function( $search_path ) use ( $path ) {
+			return is_dir( trailingslashit( $search_path ) . $path );
+		} );
+		//  paths don't exist
+		if ( ! count( $search_paths ) ) {
+			return false;
+		}
+		self::$paths[ $path ] = new self( $path, $active_callback, $search_paths );
 		self::$paths[ $path ]->init();
 		return true;
 	}
@@ -66,7 +74,7 @@ class JSON {
 
 		$this->json_path = $json_path;
 		$this->active_callback = $active_callback;
-		$this->search_paths = $search_paths;
+		$this->search_paths = array_map( 'untrailingslashit', $search_paths );
 
 	}
 
@@ -144,7 +152,6 @@ class JSON {
 	 */
 	public function mutate_field_group( $field_group ) {
 		// default
-
 		if ( call_user_func( $this->active_callback, $field_group ) === false ) {
 			$this->current_json_save_path = null;
 			return;
@@ -152,7 +159,7 @@ class JSON {
 
 		foreach ( $this->search_paths as $path ) {
 
-			$this->current_json_save_path = $path;
+			$this->current_json_save_path = "{$path}/{$this->json_path}";
 
 			$file = trailingslashit( $path ) . trailingslashit( $this->json_path ) . $field_group['key'] .'.json';
 
@@ -161,7 +168,7 @@ class JSON {
 			}
 		}
 
-		$this->current_json_save_path = null; // couldnt find a place to save
+//		$this->current_json_save_path = null; // couldnt find a place to save
 	}
 
 }
