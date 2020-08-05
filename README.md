@@ -34,6 +34,8 @@ Integrate WordPress Objects objects into ACF.
    - More compact styles in block editor sidebar
    - Add classes `no-head` and `no-sort` to repeater
  - **Page Layouts**: Generic flexible content field providing a location rule for field groups. 
+ - **JSON-Paths**: Save Field group JSON in custom places
+ - **Localization**: Localize ACF Field labels through po-files
 
 
 Installation
@@ -49,6 +51,59 @@ Installation
  - $ `cd acf-wp-objects`
  - $ `npm install`
  - $ `npm run dev`
+
+
+JSON-Paths
+----------
+Consider the follwing Scenario: You are using local json field groups in your theme. You want to override them in a child theme. Or alternatively, you have a plugin with an ACF dependency, incorporating field groups as local json.
+
+This will load and save ACF JSON from the subdirectory `path/to/json-files` inside the theme and child theme directory but only if the field group key is `group_my_fieldgroup_key`.
+
+```php
+acf_register_json_path(
+	'path/to/json-files', // e.g. 'acf-json' in a theme
+	function( $field_group ) { 
+		// callback which should return true, if the field group 
+		// JSON should be saved at the given location
+		return $field_group['key'] === 'group_my_fieldgroup_key';
+	},
+	[ // parent paths to check
+		get_template_directory(),
+		get_stylesheet_directory(),
+	]
+);
+```
+
+JSON I18n
+---------
+ACF provides support for WPML to localize Field groups. 
+ACF WP Objects offers a different approach through `.po` files.
+
+```php
+acf_localize_field_groups( 
+	'my-textdomain', 
+	function( $field_group ) { 
+		// callback which should return true, if the field group 
+		// localization is available under the given textdomain
+		return $field_group['key'] === 'group_my_fieldgroup_key';
+	});
+```
+
+If you are using local json, here is a node script allowing you to extract the strings [`src/run/json-i18n.js`](src/run/json-i18n.js) and add them to a pot file:
+
+Install [WP CLI](https://wp-cli.org/).
+
+Place `src/run/json-i18n.js` and `src/run/lib/json-extract.js` in your package directory.
+
+Extract strings from json files and add them to a PHP file:
+```shell
+node ./src/run/json-i18n.js 'my-texdomain' ./path/to/json ./php-output.php
+```
+
+Generate pot with WP CLI:
+```shell
+wp i18n make-pot . languages/my-textdomain.pot --domain=my-textdomain
+```
 
 
 Template Files (ACF Pro only)
@@ -107,37 +162,3 @@ Ideal if you need an extendible Set of Layouts to choose from.
 	```php
 	acf_page_layouts( 'my-layouts' );
 	```
-
-ToDo:
------
-Features:
- - [x] Add Field: Select User-Role
- - [ ] Add Field: Select Plugin (active, inactive, network-activated, ...)
- - [ ] Add Field: Select Theme (all, activatable, childs, parents, ...)
- - [ ] Add Field: Select Page Template
- - [ ] Add Field Option: readonly, disabled
- - [ ] Add Connectors
-   - [ ] User:
-     - [ ] Email
-     - [ ] Avatar
-     - [ ] First name, last name
-     - [ ] Role
-   - [ ] Post
-     - [ ] menu_order
- - [ ] Add Connector: More Options
-   - [ ] Crop Thumbnails
-   - [ ] Permalink structure
- - [ ] Location Rules
-   - [x] Is Classic/Block Editor (depend on classic editor)
-   - [ ] Content Type is Post / Taxonomy / User / Widget
-   - [x] WP-Options page is ... reading, writing 
- - [ ] Add Hiding Options: term title, term description, ...
-   - [ ] Term: Title, Description, Slug
-   - [ ] User: Editor settings, Name, About
- - [ ] Dev: Add Tests
-   - [ ] Cross-Compat with Customizer and RGBA-Color-Picker
-   - [ ] Test with acf free
- - [ ] Fix: Connector: handle new post autodraft title
- - [ ] Install: submit to packagist, add composer description
- - [x] Style Fields in Block-Editor sidebar
- - [ ] Page Layouts

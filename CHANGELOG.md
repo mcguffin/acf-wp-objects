@@ -4,6 +4,8 @@ ACF-WP-Objects Changelog
 0.4.0
 -----
  - Feature: Page Layouts
+ - Feature: Localize field groups through .po
+ - Feature: Customize local JSON paths
 
 0.2.12
 ------
