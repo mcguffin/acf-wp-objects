@@ -73,7 +73,7 @@ class TemplateFileSelect extends \acf_field_select {
 	/**
 	 *	Replace includer field with fields from field group
 	 *
-	 *	@filter --acf/load_fields--
+	 *	@filter acf/load_fields
 	 */
 	public function resolve_fields( $fields ) {
 
@@ -110,7 +110,7 @@ class TemplateFileSelect extends \acf_field_select {
 	}
 
 	/**
-	 *	Add an ACF loca field with template settings
+	 *	Add an ACF local field with template settings
 	 *
 	 *	@param array $template_select_field
 	 */
@@ -167,6 +167,7 @@ class TemplateFileSelect extends \acf_field_select {
 						}
 						//*/
 					}
+					//var_dump($sub_fields[ $field_group_field['key'] ]['conditional_logic']);
 				}
 			}
 		}
