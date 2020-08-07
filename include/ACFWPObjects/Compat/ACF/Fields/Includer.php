@@ -7,10 +7,11 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 use ACFWPObjects\Asset;
 use ACFWPObjects\Core;
+use ACFWPObjects\Compat\ACF\ACF as CompatACF;
 
 class Includer extends \acf_field {
 
-
+	private $counter = 0;
 	/*+
 	 *  @inheritdoc
 	 */
@@ -81,6 +82,7 @@ class Includer extends \acf_field {
 		$return_fields = [];
 		foreach ( $fields as $field ) {
 
+
 			if ( $this->name === $field['type'] ) {
 				$return_fields = array_merge( $return_fields, $this->resolve_field( $field ) );
 
@@ -102,6 +104,9 @@ class Includer extends \acf_field {
 
 		$ret = [];
 		$parent = acf_get_field_group( $field['field_group_key'] );
+
+		$replace_field_keys = [];
+
 		if ( isset( $field['parent_layout'] ) ) {
 			$parent['parent_layout'] = $field['parent_layout'];
 		}
@@ -118,7 +123,17 @@ class Includer extends \acf_field {
 
 			}
 
+			// make sure fieldkey is unique
+			$new_field_key = $include_field['key'] . '_' . ++$this->counter;
+			$replace_field_keys[ $include_field['key'] ] = $new_field_key;
+			$include_field['key'] = $new_field_key;
 			$ret[] = $include_field;
+		}
+
+		$acf = CompatACF::instance();
+
+		foreach ( $replace_field_keys as $search => $replace ) {
+			$ret = $acf->replace_field_key( $ret, $search, $replace );
 		}
 
 		return $ret;

@@ -65,6 +65,7 @@ class PageLayout extends Core\Singleton {
 			'label_placement'		=> 'top',
 			'instruction_placement'	=> 'label',
 			'type'					=> 'flexible_content',
+			'menu_order'			=> 0,
 			'location'				=> [
 				[
 					[
@@ -74,7 +75,10 @@ class PageLayout extends Core\Singleton {
 					],
 				]
 			],
-
+			'hide_on_screen' => [
+				'the_content',
+		        'excerpt'
+			],
 		]);
 
 		$this->page_layouts[ $key ] = $args;
@@ -228,15 +232,12 @@ class PageLayout extends Core\Singleton {
 				]
 			],
 			'location'				=> $args['location'],
-			'menu_order'			=> 0,
+			'menu_order'			=> $args['menu_order'],
 			'position'				=> 'normal',
 			'style'					=> 'seamless',
 			'label_placement'		=> $args['label_placement'],
 			'instruction_placement'	=> $args['instruction_placement'],
-			'hide_on_screen'		=> [
-				'the_content',
-		        'excerpt'
-			],
+			'hide_on_screen'		=> $args['hide_on_screen'],
 		]);
 	}
 

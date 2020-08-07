@@ -316,18 +316,20 @@ class RepeaterChoices extends Core\Singleton {
 				);
 				break;
 			case 'color':
-				if ( ! empty( $value ) ) {
-
-					$html = sprintf('
-						<span class="white"></span>
-						<span class="color-label" style="color:%s;background:%s;">
-							%s
-						</span>',
-						$this->get_matching_color($value),
-						$value,
-						$label
-					);
+				$color = $match_color = $value;
+				if ( empty( $value ) ) {
+					$color = 'rgba(0,0,0,0)';
+					$match_color = '#ffffff';
 				}
+				$html = sprintf('
+					<span class="white"></span>
+					<span class="color-label" style="color:%s;background:%s;">
+						%s
+					</span>',
+					$this->get_matching_color( $match_color ),
+					$color,
+					$label
+				);
 				break;
 			case 'text':
 				$html = $label;

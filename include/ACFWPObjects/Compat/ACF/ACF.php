@@ -59,6 +59,18 @@ class ACF extends Core\Singleton {
 
 	}
 
+	public function replace_field_key( $field, $search, $replace ) {
+		if ( is_array( $field ) ) {
+			foreach ( $field as $k => $v ) {
+				$field[$k] = $this->replace_field_key( $v, $search, $replace );
+			}
+		} else if ( $field === $search ) {
+			return $replace;
+		}
+
+		return $field;
+	}
+
 	/**
 	 *	Whether we are in the fieldgroup admin
 	 *
