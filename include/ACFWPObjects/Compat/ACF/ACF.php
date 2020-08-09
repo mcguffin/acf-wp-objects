@@ -42,10 +42,10 @@ class ACF extends Core\Singleton {
 
 		WPObjects::instance();
 
+		if ( acf_get_setting('pro') ) {
+			RepeaterChoices::instance();
+		}
 		if ( is_admin() ) {
-			if ( acf_get_setting('pro') ) {
-				RepeaterChoices::instance();
-			}
 			Form\WPOptions::instance();
 		}
 
