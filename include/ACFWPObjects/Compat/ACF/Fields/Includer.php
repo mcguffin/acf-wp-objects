@@ -150,9 +150,19 @@ class Includer extends \acf_field {
 		if ( isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] === 'acf-field-group' ) {
 			return false;
 		}
-		global $pagenow;
-		if (  $pagenow === 'post.php' && 'acf-field-group' === get_post_type() ) {
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'trash' ) {
 			return false;
+		}
+		global $pagenow;
+
+		if (  $pagenow === 'post.php' ) {
+
+			// sometimes WP knows post_id already, sometimes not
+			$post = get_post( isset( $_GET['post'] ) ? intval($_GET['post'] ) : null );
+
+			if ( $post && 'acf-field-group' === $post->post_type ) {
+				return false;
+			}
 		}
 		return true;
 	}
