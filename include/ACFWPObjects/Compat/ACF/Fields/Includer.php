@@ -111,7 +111,6 @@ class Includer extends \acf_field {
 		}
 		/* @var  */
 		$include_fields = acf_get_fields( $field['field_group_key'] );
-		$cond_helper = Helper\Conditional::instance();
 		foreach ( $include_fields as $include_field ) {
 
 			$include_field['parent'] = $field['parent'];
@@ -127,9 +126,6 @@ class Includer extends \acf_field {
 			$new_field_key = $include_field['key'] . '_' . ++$this->counter;
 			$replace_field_keys[ $include_field['key'] ] = $new_field_key;
 			$include_field['key'] = $new_field_key;
-			if ( $field['conditional_logic'] ) {
-				$include_field['conditional_logic'] = $cond_helper->combine( $include_field['conditional_logic'], $field['conditional_logic'] );
-			}
 			$ret[] = $include_field;
 		}
 
