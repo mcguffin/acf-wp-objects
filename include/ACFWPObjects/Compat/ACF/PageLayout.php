@@ -114,6 +114,7 @@ class PageLayout extends Core\Singleton {
 		}
 		if ( ! empty( $field_group['row_layout'] ) ) {
 			$instructions = sprintf(
+				/* translators: theme file location */
 				__( 'To render this field group place a template file in your theme: %s', 'acf-wp-objects' ),
 				sprintf( '<code>acf/layout-%s.php</code>', $field_group[ 'row_layout' ] )
 			);
