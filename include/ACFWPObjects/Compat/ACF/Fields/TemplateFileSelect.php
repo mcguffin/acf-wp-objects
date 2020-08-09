@@ -4,6 +4,7 @@ namespace ACFWPObjects\Compat\ACF\Fields;
 
 use ACFWPObjects\Core;
 use ACFWPObjects\Compat\ACF;
+use ACFWPObjects\Compat\ACF\Helper;
 
 class TemplateFileSelect extends \acf_field_select {
 
@@ -126,7 +127,7 @@ class TemplateFileSelect extends \acf_field_select {
 
 		$group_field = $this->create_group_field( $template_select_field );
 		$sub_fields = [];
-
+		$cond_helper = Helper\Conditional::instance();
 		/**
 		 *	TODO: Filter Doc
 		 */
@@ -154,19 +155,16 @@ class TemplateFileSelect extends \acf_field_select {
 					}
 
 					$sub_fields[ $field_group_field['key'] ]['__tmp_sort_key'] = $group['menu_order'];
-
+					// combine conditional logics
+					//*
+					$sub_fields[ $field_group_field['key'] ]['conditional_logic'] = $cond_helper->or( $sub_fields[ $field_group_field['key'] ]['conditional_logic'], $add_condition )
+					/*/
 					if ( ! $sub_fields[ $field_group_field['key'] ]['conditional_logic'] ) {
 						$sub_fields[ $field_group_field['key'] ]['conditional_logic'] = [ [ $add_condition ] ];
 					} else {
-						//*
 						$sub_fields[ $field_group_field['key'] ]['conditional_logic'][] = [ $add_condition ];
-						/*/
-						// modify existing conditions!
-						foreach ( $sub_fields[ $field_group_field['key'] ]['conditional_logic'] as &$condition ) {
-							$condition[] = $add_condition;
-						}
-						//*/
 					}
+					//*/
 					//var_dump($sub_fields[ $field_group_field['key'] ]['conditional_logic']);
 				}
 			}

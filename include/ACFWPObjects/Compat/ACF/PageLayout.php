@@ -220,7 +220,7 @@ class PageLayout extends Core\Singleton {
 					'type'				=> $args['type'],
 					'instructions'		=> '',
 					'required'			=> 0,
-					'conditional_logic'	=> 0,
+					'conditional_logic'	=> [],
 					'wrapper'			=> [
 						'width'	=> '',
 						'class'	=> '',

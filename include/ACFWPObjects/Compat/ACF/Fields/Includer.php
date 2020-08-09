@@ -101,7 +101,6 @@ class Includer extends \acf_field {
 	 *	@return array Fields
 	 */
 	private function resolve_field( $field ) {
-
 		$ret = [];
 		$parent = acf_get_field_group( $field['field_group_key'] );
 
@@ -110,8 +109,9 @@ class Includer extends \acf_field {
 		if ( isset( $field['parent_layout'] ) ) {
 			$parent['parent_layout'] = $field['parent_layout'];
 		}
-		$include_fields = acf_get_fields( $parent  );
-
+		/* @var  */
+		$include_fields = acf_get_fields( $field['field_group_key'] );
+		$cond_helper = Helper\Conditional::instance();
 		foreach ( $include_fields as $include_field ) {
 
 			$include_field['parent'] = $field['parent'];
@@ -127,6 +127,9 @@ class Includer extends \acf_field {
 			$new_field_key = $include_field['key'] . '_' . ++$this->counter;
 			$replace_field_keys[ $include_field['key'] ] = $new_field_key;
 			$include_field['key'] = $new_field_key;
+			if ( $field['conditional_logic'] ) {
+				$include_field['conditional_logic'] = $cond_helper->combine( $include_field['conditional_logic'], $field['conditional_logic'] );
+			}
 			$ret[] = $include_field;
 		}
 
