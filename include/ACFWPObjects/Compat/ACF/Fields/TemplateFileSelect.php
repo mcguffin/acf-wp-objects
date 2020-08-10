@@ -118,6 +118,7 @@ class TemplateFileSelect extends \acf_field_select {
 	private function get_template_settings_group( $template_select_field ) {
 
 		$core_template = Core\Template::instance();
+		$helper = Helper\Conditional::instance();
 
 		$template_type = $core_template->get_template_type( $template_select_field['template_type'] );
 
@@ -156,8 +157,11 @@ class TemplateFileSelect extends \acf_field_select {
 
 					$sub_fields[ $field_group_field['key'] ]['__tmp_sort_key'] = $group['menu_order'];
 					// combine conditional logics
-					/*
-					$sub_fields[ $field_group_field['key'] ]['conditional_logic'] = $cond_helper->or( $sub_fields[ $field_group_field['key'] ]['conditional_logic'], $add_condition )
+					//*
+					$sub_fields[ $field_group_field['key'] ]['conditional_logic'] = $helper->and(
+						$sub_fields[ $field_group_field['key'] ]['conditional_logic'],
+						$add_condition
+					);
 					/*/
 					if ( ! $sub_fields[ $field_group_field['key'] ]['conditional_logic'] ) {
 						$sub_fields[ $field_group_field['key'] ]['conditional_logic'] = [ [ $add_condition ] ];

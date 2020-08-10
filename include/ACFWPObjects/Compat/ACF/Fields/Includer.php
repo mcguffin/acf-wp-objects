@@ -8,6 +8,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
 use ACFWPObjects\Asset;
 use ACFWPObjects\Core;
 use ACFWPObjects\Compat\ACF\ACF as CompatACF;
+use ACFWPObjects\Compat\ACF\Helper;
 
 class Includer extends \acf_field {
 
@@ -101,6 +102,9 @@ class Includer extends \acf_field {
 	 *	@return array Fields
 	 */
 	private function resolve_field( $field ) {
+
+		$helper = Helper\Conditional::instance();
+
 		$ret = [];
 		$parent = acf_get_field_group( $field['field_group_key'] );
 
@@ -111,6 +115,9 @@ class Includer extends \acf_field {
 		}
 		/* @var  */
 		$include_fields = acf_get_fields( $field['field_group_key'] );
+
+		$conditional = $field['conditional_logic'];
+
 		foreach ( $include_fields as $include_field ) {
 
 			$include_field['parent'] = $field['parent'];
@@ -126,6 +133,8 @@ class Includer extends \acf_field {
 			$new_field_key = $include_field['key'] . '_' . ++$this->counter;
 			$replace_field_keys[ $include_field['key'] ] = $new_field_key;
 			$include_field['key'] = $new_field_key;
+			$include_field['conditional_logic'] = $helper->combine( $include_field['conditional_logic'], $field['conditional_logic'] );
+
 			$ret[] = $include_field;
 		}
 
