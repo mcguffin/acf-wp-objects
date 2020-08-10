@@ -109,6 +109,12 @@ class PageLayout extends Core\Singleton {
 		$field_group = wp_parse_args( $field_group, [ 'row_layout' => $default_title ] );
 		$instructions = '';
 
+		$field_group = wp_parse_args($field_group, [
+			'row_layout' => '',
+			'layout_min' => '',
+			'layout_max' => '',
+		]);
+
 		if ( empty( $field_group['row_layout'] ) ) {
 			$field_group['row_layout'] = $default_title;
 		}
@@ -129,6 +135,26 @@ class PageLayout extends Core\Singleton {
 			'prefix'		=> 'acf_field_group',
 			'value'			=> $field_group[ 'row_layout' ],
 		] );
+
+
+		acf_render_field_wrap( [
+			'label'			=> __('Min Layouts','acf-wp-objects'),
+			'instructions'	=> '',
+			'type'			=> 'text',
+			'name'			=> 'layout_min',
+			'prefix'		=> 'acf_field_group',
+			'value'			=> $field_group[ 'layout_min' ],
+		] );
+
+		acf_render_field_wrap( [
+			'label'			=> __('Max Layouts','acf-wp-objects'),
+			'instructions'	=> '',
+			'type'			=> 'text',
+			'name'			=> 'layout_max',
+			'prefix'		=> 'acf_field_group',
+			'value'			=> $field_group[ 'layout_max' ],
+		] );
+
 	}
 
 
@@ -178,7 +204,10 @@ class PageLayout extends Core\Singleton {
 		// } );
 
 		foreach ( $field_groups as $field_group ) {
-
+			$field_group = wp_parse_args($field_group,[
+				'layout_min' => '',
+				'layout_max' => '',
+			]);
 			$key = 'layout_' . $field_group[ 'row_layout' ];// str_replace( 'group_', 'layout_',  );
 
 			$sub_fields = array_map( function( $field ) {
@@ -203,8 +232,8 @@ class PageLayout extends Core\Singleton {
 				'label'			=> $field_group['title'],
 				'display'		=> $field_group['label_placement'] === 'top' ? 'block' : 'row',
 				'sub_fields'	=> $sub_fields,
-				'min'			=> '',
-				'max'			=> '',
+				'min'			=> $field_group[ 'layout_min' ],
+				'max'			=> $field_group[ 'layout_max' ],
 			];
 
 		}
