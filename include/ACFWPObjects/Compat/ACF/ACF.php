@@ -36,6 +36,8 @@ class ACF extends Core\Singleton {
 	 */
 	protected function __construct() {
 
+		add_action( 'acf/init', [ $this, 'init' ] );
+
 		add_action( 'acf/include_field_types', [ $this, 'register_field_types' ] );
 
 		add_action( 'acf/include_location_rules', [ $this, 'register_location_rules' ] );
@@ -59,6 +61,24 @@ class ACF extends Core\Singleton {
 
 	}
 
+	/**
+	 *	@action acf/init
+	 */
+	public function init() {
+		if ( apply_filters( 'acf_image_sweetspot_enable', false ) ) {
+			ImageSweetSpot::instance();
+		}
+	}
+
+	/**
+	 *	Recursivley search-replace a string in a field
+	 *
+	 *	@param array $field
+	 *	@param string $search
+	 *	@param string $replace
+	 *
+	 *	@return array The field
+	 */
 	public function replace_field_key( $field, $search, $replace ) {
 		if ( is_array( $field ) ) {
 			foreach ( $field as $k => $v ) {
@@ -124,7 +144,7 @@ class ACF extends Core\Singleton {
 	}
 
 	/**
-	 *	@param Array $im Image size
+	 *	@param Array $size Image size
 	 */
 	private function mk_image_sizes( $size ) {
 		$size['label'] = sprintf( '%s (%d×%d)',

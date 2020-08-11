@@ -75,6 +75,20 @@ acf_register_local_json(
 );
 ```
 
+Sweet Spot Field
+----------------
+An easy way to choose the right clipping for images having `object-fit: cover`.  
+
+The easyest way to enable the Sweet Spot feature for all images is the follwing bit of php code, living in your Theme's `functions.php` or in a mu-plugin.
+
+```php
+add_filter( 'acf_image_sweetspot_enable', '__return_true' );
+```
+
+The plugin will then register a field group for image attachments including a sweet spot field and in the frontend add an inline style rule to the image attributes, e.g. `object-position: 12.3% 81.4%;`.
+
+![Sweet Spot Field UI](.wporg/screenshot-1.png)
+
 JSON I18n
 ---------
 ACF provides support for WPML to localize Field groups. 
