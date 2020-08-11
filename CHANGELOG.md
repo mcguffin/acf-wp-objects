@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.4.1
+-----
+ - Feature: Sweet Spot Auto
+
 0.4.0
 -----
  - Feature: Page Layouts

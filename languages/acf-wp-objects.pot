@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the ACF WP-Objects plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: ACF WP-Objects 0.4.0\n"
+"Project-Id-Version: ACF WP-Objects 0.4.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/acf-wp-objects\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-08-10T18:00:14+00:00\n"
+"POT-Creation-Date: 2020-08-11T14:44:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: acf-wp-objects\n"
@@ -170,6 +170,10 @@ msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/TemplateFileSelect.php:206
 msgid "Template Settings"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/ImageSweetSpot.php:31
+msgid "Sweet Spot"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Location/ClassicEditor.php:23
