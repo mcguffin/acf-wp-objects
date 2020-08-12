@@ -118,7 +118,8 @@ class LocalJSON {
 	public function load_json( $paths ) {
 
 		$core = Core\Core::instance();
-
+		// remove default
+		$paths = array_filter( $paths, [ $this, 'is_not_default_json_path' ] );
 		$add_paths = array_map( [ $this, 'add_json_path' ], $this->search_paths );
 
 		return array_merge( $paths, $add_paths );
@@ -133,6 +134,18 @@ class LocalJSON {
 	 */
 	private function add_json_path( $path ) {
 		return trailingslashit( $path ) . $this->json_path;
+	}
+
+	/**
+	 *	array_filter callback
+	 */
+	private function is_not_default_json_path( $path ) {
+		foreach ( $this->search_paths as $search_path ) {
+			if ( $path === trailingslashit( $search_path ) . 'acf-json' ) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**
