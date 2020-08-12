@@ -43,7 +43,7 @@ class PageLayouts extends \acf_location {
 	function rule_values( $choices, $rule ) {
 
 		// global
-		$choices = apply_filters('acf_page_layout_locations', [ ] );
+		$choices = apply_filters( 'acf_page_layout_locations', [ ] );
 
 		return $choices;
 
