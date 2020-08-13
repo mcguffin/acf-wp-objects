@@ -48,7 +48,7 @@ class Template extends Singleton {
 				'theme_location' => '', // recursive
 				'plugin_location' => false,
 			], */
-		] );
+		], $this );
 
 		foreach ( $types as $slug => &$type ) {
 			if ( is_string( $type ) ) {
