@@ -32,18 +32,21 @@ class LocalJSON {
 
 
 	/**
-	 *	@param string $path
-	 *	@param callable
+	 *	@param string $path Path within $search paths
+	 *	@param callable $active_callback Whether a field group should be saved DEPRECATED AS OF ACF 5.9
+	 *	@param array $search_paths Where to search for Fields. Typically a plugin, theme and/or child theme path
 	 *	@return bool
 	 */
 	public static function register_path( $path, $active_callback, $search_paths = [] ) {
 		if ( isset( self::$paths[ $path ] ) ) {
 			return false;
 		}
+
 		$search_paths = array_unique( $search_paths );
 		$search_paths = array_filter( $search_paths, function( $search_path ) use ( $path ) {
 			return is_dir( trailingslashit( $search_path ) . $path );
 		} );
+
 		//  paths don't exist
 		if ( ! count( $search_paths ) ) {
 			return false;

@@ -7,14 +7,20 @@ class PluginTest {
 	private $current_json_save_path = null;
 
 	public function __construct() {
-		add_filter( 'acf/settings/load_json', [ $this, 'load_json' ] );
 
-		add_filter( 'acf/settings/save_json', [ $this, 'save_json' ] );
+		add_action( 'plugins_loaded', function() {
+			acf_register_local_json( 'acf-json', '__return_true', [ dirname( __FILE__ ) ] );
+		} );
 
-		add_action( 'acf/delete_field_group', [ $this, 'mutate_field_group' ], 9 );
-		add_action( 'acf/trash_field_group', [ $this, 'mutate_field_group' ], 9 );
-		add_action( 'acf/untrash_field_group', [ $this, 'mutate_field_group' ], 9 );
-		add_action( 'acf/update_field_group', [ $this, 'mutate_field_group' ], 9 );
+
+		// add_filter( 'acf/settings/load_json', [ $this, 'load_json' ] );
+		//
+		// add_filter( 'acf/settings/save_json', [ $this, 'save_json' ] );
+		//
+		// add_action( 'acf/delete_field_group', [ $this, 'mutate_field_group' ], 9 );
+		// add_action( 'acf/trash_field_group', [ $this, 'mutate_field_group' ], 9 );
+		// add_action( 'acf/untrash_field_group', [ $this, 'mutate_field_group' ], 9 );
+		// add_action( 'acf/update_field_group', [ $this, 'mutate_field_group' ], 9 );
 
 		add_action('acf/init', [ $this,'add_options_page' ] );
 		add_action( 'acf/init', [ $this, 'register_blocks' ] );
@@ -82,7 +88,7 @@ class PluginTest {
 		}
 
 		// register a testimonial block
-		acf_register_block([
+		acf_register_block(array(
 			'name'				=> 'wp-objects-template-test',
 			'title'				=> __('WP Objects Template Test'),
 			'description'		=> __('WP Objects Template'),
@@ -96,8 +102,8 @@ class PluginTest {
 			'category'			=> 'embed',
 			'icon'				=> 'admin-tools',
 			'mode'				=> 'edit', // auto|preview|edit
-			'keywords'			=> [ 'test' ],
-		]);
+			'keywords'			=> array( 'test' ),
+		));
 
 	}
 
