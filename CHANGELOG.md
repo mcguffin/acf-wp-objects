@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.4.4
+-----
+ - Compatibility: Use ACF 5.9+ native save json path
+
 0.4.1
 -----
  - Feature: Sweet Spot Auto
