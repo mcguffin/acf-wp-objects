@@ -19,7 +19,7 @@ class LocalJSON {
 	private static $paths = [];
 
 	/** @var string */
-	private $current_json_save_path = null;
+	private $current_json_save_path = null; // ACF < 5.9
 
 	/** @var string */
 	private $json_path = ''; // acf-json elsewhere ...
@@ -28,17 +28,21 @@ class LocalJSON {
 	private $search_paths = [];
 
 	/** @var callable */
-	private $active_callback = ''; // acf-json elsewhere ...
+	private $active_callback = ''; // acf-json elsewhere ... ACF < 5.9
 
 
 	/**
-	 *	@param string $path Path within $search paths
-	 *	@param callable $active_callback Whether a field group should be saved DEPRECATED AS OF ACF 5.9
-	 *	@param array $search_paths Where to search for Fields. Typically a plugin, theme and/or child theme path
-	 *	@return bool
+	 *	@param String $path Path within $search paths
+	 *	@param Callable $active_callback Whether a field group should be saved DEPRECATED AS OF ACF 5.9
+	 *	@param Array $search_paths Where to search for Fields. Typically a plugin, theme and/or child theme path
+	 *	@return Boolean|String ID of local JSON
 	 */
-	public static function register_path( $path, $active_callback, $search_paths = [] ) {
+	public static function register_path( $path, $active_callback, $search_paths ) {
 		if ( isset( self::$paths[ $path ] ) ) {
+			return false;
+		}
+		// save json needs a verification callback
+		if ( ! is_callable( $active_callback ) && version_compare( acf()->version, '5.9.0', '<' ) ) {
 			return false;
 		}
 
@@ -51,16 +55,17 @@ class LocalJSON {
 		if ( ! count( $search_paths ) ) {
 			return false;
 		}
-		self::$paths[ $path ] = new self( $path, $active_callback, $search_paths );
-		self::$paths[ $path ]->init();
-		return true;
+		$key = implode( ';', $search_paths ) . ';' . $path;
+		self::$paths[ $key ] = new self( $path, $active_callback, (array) $search_paths );
+		self::$paths[ $key ]->init();
+		return $key;
 	}
 
 	/**
 	 *	@param string $path
 	 *	@return bool
 	 */
-	public static function unregister_path( $path ) {
+	public static function unregister_path( $path, $search_paths ) {
 		if ( isset( self::$paths[ $path ] ) ) {
 			self::$paths[ $path ]->deinit();
 			unset( self::$paths[ $path ] );
@@ -73,7 +78,7 @@ class LocalJSON {
 	 *	@param string $json_path
 	 *	@param string $active_callback
 	 */
-	protected function __construct( $json_path, $active_callback, $search_paths = [] ) {
+	protected function __construct( $json_path, $active_callback, $search_paths ) {
 
 		$this->json_path = $json_path;
 		$this->active_callback = $active_callback;
@@ -88,13 +93,18 @@ class LocalJSON {
 
 		// local json paths
 		add_filter( 'acf/settings/load_json', [ $this, 'load_json' ] );
-		add_filter( 'acf/settings/save_json', [ $this, 'save_json' ] );
 
-		// handle json files
-		add_action( 'acf/delete_field_group', [ $this, 'mutate_field_group' ], 9 );
-		add_action( 'acf/trash_field_group', [ $this, 'mutate_field_group' ], 9 );
-		add_action( 'acf/untrash_field_group', [ $this, 'mutate_field_group' ], 9 );
-		add_action( 'acf/update_field_group', [ $this, 'mutate_field_group' ], 9 );
+		if ( version_compare( acf()->version, '5.9.0', '<' ) ) {
+
+			add_filter( 'acf/settings/save_json', [ $this, 'save_json' ] );
+
+			// handle json files
+			add_action( 'acf/delete_field_group', [ $this, 'mutate_field_group' ], 9 );
+			add_action( 'acf/trash_field_group', [ $this, 'mutate_field_group' ], 9 );
+			add_action( 'acf/untrash_field_group', [ $this, 'mutate_field_group' ], 9 );
+			add_action( 'acf/update_field_group', [ $this, 'mutate_field_group' ], 9 );
+
+		}
 
 	}
 
@@ -105,14 +115,17 @@ class LocalJSON {
 
 		// local json paths
 		remove_filter( 'acf/settings/load_json', [ $this, 'load_json' ] );
-		remove_filter( 'acf/settings/save_json', [ $this, 'save_json' ] );
 
-		// handle json files
-		remove_action( 'acf/delete_field_group', [ $this, 'mutate_field_group' ], 9 );
-		remove_action( 'acf/trash_field_group', [ $this, 'mutate_field_group' ], 9 );
-		remove_action( 'acf/untrash_field_group', [ $this, 'mutate_field_group' ], 9 );
-		remove_action( 'acf/update_field_group', [ $this, 'mutate_field_group' ], 9 );
+		if ( version_compare( acf()->version, '5.9.0', '<' ) ) {
 
+			remove_filter( 'acf/settings/save_json', [ $this, 'save_json' ] );
+
+			// handle json files
+			remove_action( 'acf/delete_field_group', [ $this, 'mutate_field_group' ], 9 );
+			remove_action( 'acf/trash_field_group', [ $this, 'mutate_field_group' ], 9 );
+			remove_action( 'acf/untrash_field_group', [ $this, 'mutate_field_group' ], 9 );
+			remove_action( 'acf/update_field_group', [ $this, 'mutate_field_group' ], 9 );
+		}
 	}
 
 	/**
@@ -131,7 +144,8 @@ class LocalJSON {
 
 	/**
 	 *	array_map callback
-	 *	append replative json path
+	 *	append relative json path
+	 *
 	 *	@param string $path
 	 *	@return string
 	 */
@@ -141,6 +155,9 @@ class LocalJSON {
 
 	/**
 	 *	array_filter callback
+	 *	Whether a path is a custom json path (not ending with 'acf-json')
+	 *
+	 *	@return boolean
 	 */
 	private function is_not_default_json_path( $path ) {
 		foreach ( $this->search_paths as $search_path ) {
@@ -152,6 +169,8 @@ class LocalJSON {
 	}
 
 	/**
+	 *	ACF < 5.9
+	 *
 	 *	@filter 'acf/settings/save_json'
 	 */
 	public function save_json( $path ) {
@@ -163,6 +182,7 @@ class LocalJSON {
 
 	/**
 	 *	Figure out where to save ACF JSON
+	 *	ACF < 5.9
 	 *
 	 *	@action 'acf/update_field_group'
 	 */

@@ -2,18 +2,12 @@
 
 
 /**
- *	@param string $path where to save ACF-JSON files
+ *	@param String $path where to save ACF-JSON files
  *	@param callable $active_callback Whether the field group should be translated.
- *	@return boolean
+ *	@param String|Array $search_paths Where to look for field groups
+ *	@return Boolean
  */
-function acf_register_local_json( $path, $active_callback, $search_paths = [] ) {
-//var_dump(is_callable( $active_callback ),is_array( $search_paths ));
-	if ( ! is_callable( $active_callback ) ) {
-		return false;
-	}
-	if ( ! is_array( $search_paths ) ) {
-		return false;
-	}
+function acf_register_local_json( $path, $active_callback, $search_paths ) {
 	return ACFWPObjects\Compat\ACF\LocalJSON::register_path( $path, $active_callback, $search_paths );
 }
 
