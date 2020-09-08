@@ -1,6 +1,11 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.4.5
+-----
+ - Repeater Choices: Fix local fields not showing in field settings
+ - Fix: JSON Load Paths
+
 0.4.4
 -----
  - Compatibility: Use ACF 5.9+ native save json path

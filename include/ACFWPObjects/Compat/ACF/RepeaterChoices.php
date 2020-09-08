@@ -255,34 +255,39 @@ class RepeaterChoices extends Core\Singleton {
 			}
 		}
 
-		if ( $field['repeater_choices'] && have_rows( $field['repeater_field'], $post_id ) ) {
-
+		if ( $field['repeater_choices'] ) {
 			$choices = [];
 
-			while ( have_rows( $field['repeater_field'], $post_id ) ) {
-				the_row();
-				$label = get_sub_field( $field['repeater_label_field'] );
-				$value = get_sub_field( $field['repeater_value_field'] );
+			if ( have_rows( $field['repeater_field'], $post_id ) ) {
+
+
+				while ( have_rows( $field['repeater_field'], $post_id ) ) {
+					the_row();
+
+					$label = get_sub_field( $field['repeater_label_field'] );
+					$value = get_sub_field( $field['repeater_value_field'] );
+					if ( $field['repeater_display_value'] ) {
+						$value_field = acf_get_field( $field['repeater_value_field'] );
+						$label = $this->get_value_display( $value_field, $label, $value );
+						$value_type = $value_field['type'];
+					}
+					// value might be image object, term object, ...
+					$key = $value;
+
+					if ( ! is_array( $key ) ) {
+						if ( isset($key['ID']) )
+						$key = $key['ID'];
+					}
+
+					$choices[ $key ] = $label;
+				}
+
 				if ( $field['repeater_display_value'] ) {
-					$value_field = acf_get_field( $field['repeater_value_field'] );
-					$label = $this->get_value_display( $value_field, $label, $value );
-					$value_type = $value_field['type'];
+					$field['wrapper']['class'] .= ' repeater-choice-visualize-' . $value_type;
 				}
-				// value might be image object, term object, ...
-				$key = $value;
-
-				if ( ! is_array( $key ) ) {
-					if ( isset($key['ID']) )
-					$key = $key['ID'];
-				}
-
-				$choices[ $key ] = $label;
 			}
+
 			$field['choices'] = $choices;
-
-			if ( $field['repeater_display_value'] ) {
-				$field['wrapper']['class'] .= ' repeater-choice-visualize-' . $value_type;
-			}
 		}
 		return $field;
 	}
@@ -402,7 +407,14 @@ class RepeaterChoices extends Core\Singleton {
 	private function get_first_level_repeater_fields() {
 		if ( is_null( $this->repeater_fields ) ) {
 			$groups = [];
+			$local_enabled = acf_is_local_enabled();
+			if ( ! $local_enabled ) {
+				acf_enable_local();
+			}
 			$acf_groups = acf_get_field_groups();
+			if ( ! $local_enabled ) {
+				acf_enable_local();
+			}
 			foreach ( $acf_groups as $group ) {
 				$fields = acf_get_fields( $group );
 				if ( ! $fields ) {
