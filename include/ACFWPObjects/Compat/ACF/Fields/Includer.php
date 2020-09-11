@@ -154,24 +154,16 @@ class Includer extends \acf_field {
 	 *	@return boolean
 	 */
 	private function should_resolve() {
-		// is sync
-		if ( isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] === 'acf-field-group' ) {
+
+		if ( CompatACF::instance()->is_fieldgroup_admin() ) {
 			return false;
 		}
+
+		// is trash action
 		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'trash' ) {
 			return false;
 		}
-		global $pagenow;
 
-		if (  $pagenow === 'post.php' ) {
-
-			// sometimes WP knows post_id already, sometimes not
-			$post = get_post( isset( $_GET['post'] ) ? intval($_GET['post'] ) : null );
-
-			if ( $post && 'acf-field-group' === $post->post_type ) {
-				return false;
-			}
-		}
 		return true;
 	}
 

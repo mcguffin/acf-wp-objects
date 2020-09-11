@@ -98,6 +98,11 @@ class ACF extends Core\Singleton {
 	 */
 	public function is_fieldgroup_admin() {
 
+		// local json compare ajax request
+		if ( wp_doing_ajax() && isset( $_REQUEST['action'] ) && wp_unslash($_REQUEST['action']) === 'acf/ajax/local_json_diff' ) {
+			return true;
+		}
+
 		// is sync
 		if ( isset( $_REQUEST['post_type'] ) && 'acf-field-group' === wp_unslash( $_REQUEST['post_type'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			return true;
@@ -105,8 +110,16 @@ class ACF extends Core\Singleton {
 
 		// is field group admin
 		global $pagenow;
-		if (  $pagenow === 'post.php' && 'acf-field-group' === get_post_type() ) {
-			return true;
+
+		if (  $pagenow === 'post.php' ) {
+
+			// sometimes WP knows post_id already, sometimes not
+			$post = get_post( isset( $_REQUEST['post'] ) ? intval( $_REQUEST['post'] ) : null );
+
+			if ( $post && 'acf-field-group' === $post->post_type ) {
+
+				return true;
+			}
 		}
 
 		return false;

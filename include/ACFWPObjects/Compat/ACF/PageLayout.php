@@ -160,7 +160,7 @@ class PageLayout extends Core\Singleton {
 
 
 	/**
-	 *	@action acf_init
+	 *	@action acf/init
 	 */
 	public function init() {
 		array_map( [ $this, 'init_layout' ], array_keys( $this->page_layouts ) );
@@ -191,6 +191,7 @@ class PageLayout extends Core\Singleton {
 	 *	@param array $args
 	 */
 	private function init_layout( $layout_key ) {
+
 
 		$layouts = [];
 
