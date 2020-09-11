@@ -1,6 +1,11 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.4.6
+-----
+ - CSS: Compact styles
+ - Fix: includer field bug in field group admin
+
 0.4.5
 -----
  - Repeater Choices: Fix local fields not showing in field settings
