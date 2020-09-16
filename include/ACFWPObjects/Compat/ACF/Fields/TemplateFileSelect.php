@@ -5,6 +5,7 @@ namespace ACFWPObjects\Compat\ACF\Fields;
 use ACFWPObjects\Core;
 use ACFWPObjects\Compat\ACF;
 use ACFWPObjects\Compat\ACF\Helper;
+use ACFWPObjects\Compat\ACF\ACF as CompatACF;
 
 class TemplateFileSelect extends \acf_field_select {
 
@@ -32,7 +33,7 @@ class TemplateFileSelect extends \acf_field_select {
 			'template_type'	=> 'Template Name'
 		];
 
-		add_filter( 'acf/load_fields', [ $this, 'resolve_fields' ], 3 );
+		add_filter( 'acf/load_fields', [ $this, 'resolve_fields' ], 6, 2 );
 
 	}
 
@@ -76,7 +77,7 @@ class TemplateFileSelect extends \acf_field_select {
 	 *
 	 *	@filter acf/load_fields
 	 */
-	public function resolve_fields( $fields ) {
+	public function resolve_fields( $fields, $parent ) {
 
 		if ( ! $this->should_resolve() ) {
 
@@ -196,8 +197,8 @@ class TemplateFileSelect extends \acf_field_select {
 	 */
 	private function create_group_field( $parent_field ) {
 
-		$slug = $parent_field['name'];
-		$key = sprintf( 'field_%s_settings', $slug );
+		$slug = $parent_field['key'];
+		$key = sprintf( '%s_settings', $slug );
 
 //
 
@@ -232,8 +233,16 @@ class TemplateFileSelect extends \acf_field_select {
 	 */
 	private function should_resolve() {
 
-		return ! ACF\ACF::instance()->is_fieldgroup_admin();
+		if ( CompatACF::instance()->is_fieldgroup_admin() ) {
+			return false;
+		}
 
+		// is trash action
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'trash' ) {
+			return false;
+		}
+
+		return true;
 	}
 
 
