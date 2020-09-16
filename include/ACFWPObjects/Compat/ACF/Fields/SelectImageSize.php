@@ -83,7 +83,7 @@ class SelectImageSize extends \acf_field_select {
 				}
 			}
 
-			$choices = $core->get_image_sizes( $args, 'label' );
+			$choices = $wp->get_image_sizes( $args, 'label' );
 		}
 
  		if ( ! ACF\ACF::instance()->is_fieldgroup_admin() ) {

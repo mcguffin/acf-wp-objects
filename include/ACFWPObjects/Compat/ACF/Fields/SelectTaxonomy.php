@@ -100,7 +100,7 @@ class SelectTaxonomy extends \acf_field_select {
 	 */
 	function render_field_settings( $field ) {
 
-		$core = Core\Core::instance();
+		$wp = Core\WP::instance();
 
 		// allow_null
 		acf_render_field_setting( $field, [
@@ -175,7 +175,7 @@ class SelectTaxonomy extends \acf_field_select {
 			'instructions'	=> '',
 			'type'			=> 'select',
 			'name'			=> 'taxonomies',
-			'choices'		=> $core->get_taxonomies( [], 'label' ),
+			'choices'		=> $wp->get_taxonomies( [], 'label' ),
 			'multiple'		=> 1,
 			'ui'			=> 1,
 			'allow_null'	=> 1,
