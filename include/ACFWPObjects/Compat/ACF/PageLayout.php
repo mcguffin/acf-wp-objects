@@ -177,7 +177,7 @@ class PageLayout extends Core\Singleton {
 		foreach ( $field as $k => $v ) {
 			if ( is_array( $v ) ) {
 				$field[$k] = $this->deep_reset_field_key( $v );
-			} else if ( in_array( $k, [ 'key', 'field' ] ) ) {
+			} else if ( in_array( $k, [ 'key', 'field' ], true ) ) {
 				$field[$k] = 'field_' . md5( $v );
 			}
 		}
