@@ -9,6 +9,8 @@ class PageLayout extends Core\Singleton {
 
 	private $page_layouts = [];
 
+	private $should_save_post_content = false;
+
 	/**
 	 *	@param string $group_key
 	 *	@param string $name
@@ -22,6 +24,29 @@ class PageLayout extends Core\Singleton {
 
 		add_action( 'acf/include_location_rules', [ $this, 'register_location_rules' ] );
 
+	}
+
+
+
+	/**
+	 *	@action save_post
+	 */
+	public function save_post( $post_ID, $post, $update ) {
+		if ( $this->should_save_post_content ) {
+
+			ob_start();
+
+			acf_page_layouts( 'sections', $post_ID );
+
+			$contents = ob_get_clean();
+
+			$this->should_save_post_content = false;
+
+			wp_update_post([
+				'ID' => $post_ID,
+				'post_content' => $contents,
+			]);
+		}
 	}
 
 
@@ -55,17 +80,20 @@ class PageLayout extends Core\Singleton {
 			return null;
 		}
 		if ( is_string( $args ) ) {
-			$args = [ 'title' => $args ];
+			$args = [
+				'title' => $args,
+			];
 		}
 		$key = sanitize_title( $args['title'], sanitize_key( $args['title'] ), 'save' ); //
 		$args = wp_parse_args( $args, [
-			'key'					=> 'group_' . $key,
+			'key'					=> 'group_' . $key, // ?
 			'name'					=> $key,
 			'style'					=> 'seamless',
 			'label_placement'		=> 'top',
 			'instruction_placement'	=> 'label',
 			'type'					=> 'flexible_content',
 			'menu_order'			=> 0,
+			'save_post_content'		=> false,
 			'location'				=> [
 				[
 					[
@@ -270,6 +298,24 @@ class PageLayout extends Core\Singleton {
 			'instruction_placement'	=> $args['instruction_placement'],
 			'hide_on_screen'		=> $args['hide_on_screen'],
 		]);
+
+		if ( $args['save_post_content'] ) {
+			add_filter( 'acf/update_value?key=field_' . $args['name'], [ $this, 'update_value' ] );
+		}
+
+	}
+
+	/**
+	 *	Whenever a page layout filed is updated
+	 *
+	 *	@filter acf/update_value
+	 */
+	public function update_value( $value ) {
+
+		$this->should_save_post_content = true;
+
+		return $value;
+
 	}
 
 	/**
