@@ -21,6 +21,9 @@ class I18N {
 	/** @var string */
 	private $textdomain = '';
 
+	/** @var string */
+	private $context = false;
+
 	/** @var callable */
 	private $active_callback = null;
 
@@ -58,11 +61,11 @@ class I18N {
 	 *	@param callable
 	 *	@return bool
 	 */
-	public static function register_localization( $textdomain, $active_callback ) {
+	public static function register_localization( $textdomain, $active_callback, $context = false ) {
 		if ( isset( self::$localizations[ $textdomain ] ) ) {
 			return false;
 		}
-		self::$localizations[ $textdomain ] = new self( $textdomain, $active_callback );
+		self::$localizations[ $textdomain ] = new self( $textdomain, $active_callback, $context );
 		self::$localizations[ $textdomain ]->init();
 		return true;
 	}
@@ -83,9 +86,10 @@ class I18N {
 	/**
 	 *	@inheritdoc
 	 */
-	protected function __construct( $textdomain, $active_callback ) {
+	protected function __construct( $textdomain, $active_callback, $context = false ) {
 
 		$this->textdomain = $textdomain;
+		$this->context = $context;
 		$this->active_callback = $active_callback;
 
 		// localization
@@ -179,7 +183,7 @@ class I18N {
 
 				if ( ! empty( $value ) && is_scalar( $value ) ) {
 
-					$object[$key] = __( $value, $this->textdomain );
+					$object[$key] = $this->translate_string( $value );
 				}
 
 			} else if ( in_array( $key, $this->sub_fields, true ) ) {
@@ -190,7 +194,7 @@ class I18N {
 
 				foreach ( $value as $c => $choice ) {
 					if ( ! empty( $choice ) && is_scalar( $choice ) ) {
-						$object[$key][$c] = __( $choice, $this->textdomain );
+						$object[$key][$c] = $this->translate_string( $choice );
 					}
 				}
 
@@ -203,6 +207,16 @@ class I18N {
 
 		}
 		return $object;
+	}
+	/**
+	 *	@param String $string To translate
+	 *	@return String
+	 */
+	private function translate_string( $string ) {
+		if ( false === $this->context ) {
+			return __( $string, $this->textdomain );
+		}
+		return _x( $string, $this->context, $this->textdomain );
 	}
 
 
