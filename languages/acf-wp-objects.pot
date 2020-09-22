@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the ACF WP-Objects plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: ACF WP-Objects 0.4.9\n"
+"Project-Id-Version: ACF WP-Objects 0.4.10\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/acf-wp-objects\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-09-17T14:25:49+00:00\n"
+"POT-Creation-Date: 2020-09-22T15:06:10+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: acf-wp-objects\n"
@@ -233,23 +233,23 @@ msgid "Permalinks"
 msgstr ""
 
 #. translators: theme file location
-#: include/ACFWPObjects/Compat/ACF/PageLayout.php:124
+#: include/ACFWPObjects/Compat/ACF/PageLayout.php:152
 msgid "To render this field group place a template file in your theme: %s"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/PageLayout.php:131
+#: include/ACFWPObjects/Compat/ACF/PageLayout.php:159
 msgid "Row Layout Slug"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/PageLayout.php:141
+#: include/ACFWPObjects/Compat/ACF/PageLayout.php:169
 msgid "Min Layouts"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/PageLayout.php:150
+#: include/ACFWPObjects/Compat/ACF/PageLayout.php:178
 msgid "Max Layouts"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/PageLayout.php:260
+#: include/ACFWPObjects/Compat/ACF/PageLayout.php:288
 msgid "Add section"
 msgstr ""
 
