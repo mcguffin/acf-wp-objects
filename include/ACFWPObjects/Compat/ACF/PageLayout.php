@@ -227,8 +227,6 @@ class PageLayout extends Core\Singleton {
 
 		$field_groups = acf_get_field_groups( [ 'page_layouts' => $layout_key ] );
 		$field_groups = array_map( [ $this, 'sanitize_field_group'], $field_groups );
-		error_log($layout_key);
-		error_log(var_export($field_groups,true));
 
 		$args = $this->page_layouts[ $layout_key ];
 
