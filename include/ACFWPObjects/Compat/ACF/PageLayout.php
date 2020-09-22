@@ -82,9 +82,10 @@ class PageLayout extends Core\Singleton {
 		if ( is_string( $args ) ) {
 			$args = [
 				'title' => $args,
+				'name' => $args,
 			];
 		}
-		$key = sanitize_title( $args['title'], sanitize_key( $args['title'] ), 'save' ); //
+		$key = sanitize_title( $args['name'], sanitize_key( $args['name'] ), 'save' ); //
 		$args = wp_parse_args( $args, [
 			'key'					=> 'group_' . $key, // ?
 			'name'					=> $key,
@@ -94,6 +95,7 @@ class PageLayout extends Core\Singleton {
 			'type'					=> 'flexible_content',
 			'menu_order'			=> 0,
 			'save_post_content'		=> false,
+			'button_label'			=> __( 'Add section', 'acf-wp-objects' ),
 			'location'				=> [
 				[
 					[
@@ -225,6 +227,8 @@ class PageLayout extends Core\Singleton {
 
 		$field_groups = acf_get_field_groups( [ 'page_layouts' => $layout_key ] );
 		$field_groups = array_map( [ $this, 'sanitize_field_group'], $field_groups );
+		error_log($layout_key);
+		error_log(var_export($field_groups,true));
 
 		$args = $this->page_layouts[ $layout_key ];
 
@@ -266,8 +270,7 @@ class PageLayout extends Core\Singleton {
 			];
 
 		}
-
-		acf_add_local_field_group([
+		$local_field_group = [
 			'key'		=> 'group_'.$layout_key,
 			'title' 	=> $args['title'],
 			'fields'	=> [
@@ -285,7 +288,7 @@ class PageLayout extends Core\Singleton {
 						'id'	=> '',
 					],
 					'layouts'			=> $layouts,
-					'button_label'		=> __( 'Add section', 'acf-wp-objects' ),
+					'button_label'		=> $args['button_label'],
 					'min'				=> '',
 					'max'				=> '',
 				]
@@ -297,7 +300,8 @@ class PageLayout extends Core\Singleton {
 			'label_placement'		=> $args['label_placement'],
 			'instruction_placement'	=> $args['instruction_placement'],
 			'hide_on_screen'		=> $args['hide_on_screen'],
-		]);
+		];
+		acf_add_local_field_group( $local_field_group );
 
 		if ( $args['save_post_content'] ) {
 			add_filter( 'acf/update_value?key=field_' . $args['name'], [ $this, 'update_value' ] );
