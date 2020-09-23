@@ -104,7 +104,7 @@ class Includer extends \acf_field {
 	private function resolve_field( $field ) {
 
 		$helper = Helper\Conditional::instance();
-
+		$key_suffix = str_replace( 'field_', '', $field['key'] );
 		$ret = [];
 		$parent = acf_get_field_group( $field['field_group_key'] );
 
@@ -130,7 +130,7 @@ class Includer extends \acf_field {
 			}
 
 			// make sure fieldkey is unique
-			$new_field_key = $include_field['key'] . '_' . ++$this->counter;
+			$new_field_key = $include_field['key'] . '_' . $key_suffix;
 			$replace_field_keys[ $include_field['key'] ] = $new_field_key;
 			$include_field['key'] = $new_field_key;
 			$include_field['conditional_logic'] = $helper->combine( $include_field['conditional_logic'], $field['conditional_logic'] );
@@ -143,6 +143,10 @@ class Includer extends \acf_field {
 		foreach ( $replace_field_keys as $search => $replace ) {
 			$ret = $acf->replace_field_key( $ret, $search, $replace );
 		}
+
+		array_map( function($field) {
+			acf_get_store( 'fields' )->set( $field['key'], $field );
+		}, $ret );
 
 		return $ret;
 	}
