@@ -439,10 +439,10 @@ class RepeaterChoices extends Core\Singleton {
 	/**
 	 *	@return array
 	 */
-	public function get_repeated_fields(  ) {
+	public function get_repeated_fields() {
 		$repeater_groups = $this->get_first_level_repeater_fields();
 		$repeated = [];
-		$allow_fields = apply_filters('acf_wp_objects_repeater_choices_allow_fields', $this->allow_fields );
+		$allow_fields = apply_filters( 'acf_wp_objects_repeater_choices_allow_fields', $this->allow_fields );
 		$allow_fields = array_keys( $allow_fields );
 		foreach ( $repeater_groups as $repeaters ) {
 			foreach ( array_keys( $repeaters ) as $repeater_key ) {

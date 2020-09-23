@@ -145,7 +145,7 @@ class Includer extends \acf_field {
 		}
 
 		array_map( function($field) {
-			acf_get_store( 'fields' )->set( $field['key'], $field );
+			acf_get_store( 'fields' )->set( $field['key'], $field )->alias( $field['key'], $field['name'] );
 		}, $ret );
 
 		return $ret;

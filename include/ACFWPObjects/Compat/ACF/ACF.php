@@ -59,12 +59,24 @@ class ACF extends Core\Singleton {
 		$this->acf_input_css		= Asset\Asset::get( 'css/admin/acf-input.css' );
 		$this->acf_field_group_js	= Asset\Asset::get( 'js/admin/acf-field-group.js' );
 
+		add_action( 'acf_wpo_load_fields', [ $this, 'load_all_fields' ] );
+	}
+
+	/**
+	 *	@action acf_load_all_fields
+	 */
+	public function load_all_fields() {
+		// we need this only once...
+		foreach ( acf_get_field_groups() as $field_group ) {
+			acf_get_fields( $field_group );
+		}
 	}
 
 	/**
 	 *	@action acf/init
 	 */
 	public function init() {
+
 		if ( apply_filters( 'acf_image_sweetspot_enable', false ) ) {
 			ImageSweetSpot::instance();
 		}

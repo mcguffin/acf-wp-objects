@@ -19,7 +19,7 @@ Integrate WordPress Objects objects into ACF.
     - Post Type
     - Taxonomy
     - Image Size
-    - Includer (include all fields from a different field group)
+    - Includer (include all fields from a different field group)  
     - User Role
     - Sweet Spot (use with media)
     - Plugin Tempalte Select (Selector for template file from plugin)
@@ -37,6 +37,7 @@ Integrate WordPress Objects objects into ACF.
  - **Page Layouts**: Generic flexible content field providing a location rule for field groups. 
  - **JSON-Paths**: Save Field group JSON in custom places
  - **Localization**: Localize ACF Field labels through po-files
+
 
 
 Installation
@@ -177,3 +178,10 @@ Ideal if you need an extendible Set of Layouts to choose from.
 	```php
 	acf_page_layouts( 'my-layouts' );
 	```
+
+Repeater Choices with repeater row return
+----------------------------------------------
+ACF doesn't load the field groups in the frontend by default.
+To retrieve the value of a Repeater Choice in the frontend, ACF has to know about this.
+
+You can achieve this ba adding `do_action( 'acf_wpo_load_fields' );`
