@@ -288,6 +288,13 @@ class RepeaterChoices extends Core\Singleton {
 			}
 
 			$field['choices'] = $choices;
+			if ( ! count( $choices ) ) {
+				$field['disabled'] = 1; // wont work with select fields, js is interfering
+				$field['readonly'] = 1;
+				$field['conditional_logic'] = [
+					[ 'field' => $field['key'], 'operator' => '!=empty' ],
+				]; // this condition is never true
+			}
 		}
 		return $field;
 	}
