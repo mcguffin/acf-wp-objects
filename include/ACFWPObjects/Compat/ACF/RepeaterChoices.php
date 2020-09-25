@@ -265,7 +265,11 @@ class RepeaterChoices extends Core\Singleton {
 					the_row();
 
 					$label = get_sub_field( $field['repeater_label_field'] );
-					$value = get_sub_field( $field['repeater_value_field'] );
+					if ( $field['return_format'] === 'label' ) {
+						$value = $label;
+					} else {
+						$value = get_sub_field( $field['repeater_value_field'] );
+					}
 					if ( $field['repeater_display_value'] ) {
 						$value_field = acf_get_field( $field['repeater_value_field'] );
 						$label = $this->get_value_display( $value_field, $label, $value );
