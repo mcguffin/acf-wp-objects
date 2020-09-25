@@ -12,8 +12,7 @@ class PageLayout extends Core\Singleton {
 	private $should_save_post_content = false;
 
 	/**
-	 *	@param string $group_key
-	 *	@param string $name
+	 *	@inheritdoc
 	 */
 	public function __construct() {
 
