@@ -1,23 +1,14 @@
 &.seamless {
 	&,
-	&.acf-field-group > .acf-input > .acf-fields > .acf-field {
-		padding-left:0;
-		padding-right:0;
-	}
 	&.acf-field-group {
-		padding-left:0;
-		padding-right:0;
-		& > .acf-label {
-			padding-left:16px;
-			padding-right:16px;
-		}
-		& > .acf-input {
-			& > .acf-fields {
-				padding-left:16px;
-				padding-right:16px;
-				border-style: solid none;
+		padding:0;
+		&  > .acf-input > .acf-fields {
+			border-style:none;
+			&.-left,
+			& > .acf-field {
+				padding-left:0;
+				padding-right:0;
 			}
 		}
 	}
-
 }

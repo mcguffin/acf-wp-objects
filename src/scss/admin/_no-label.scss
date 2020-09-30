@@ -1,0 +1,5 @@
+&.no-label {
+	& > .acf-label {
+		display:none;
+	}
+}
