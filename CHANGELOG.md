@@ -1,6 +1,12 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.4.16
+------
+ - CSS: Fix seamless
+ - CSS: Introduce no-label
+ - Repeater Choice: disable field if there are no choices
+
 0.4.6
 -----
  - CSS: Compact styles
