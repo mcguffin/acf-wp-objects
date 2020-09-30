@@ -6,6 +6,7 @@ ACF-WP-Objects Changelog
  - CSS: Fix seamless
  - CSS: Introduce no-label
  - Repeater Choice: disable field if there are no choices
+ - Repeater Choice: Choose visualize field
 
 0.4.6
 -----

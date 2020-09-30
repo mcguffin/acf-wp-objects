@@ -2,6 +2,12 @@
 	&,
 	&.acf-field-group {
 		padding:0;
+		.-left > & {
+			& > .acf-label {
+				padding-top:15px;
+				padding-bottom:15px;
+			}
+		}
 		&  > .acf-input > .acf-fields {
 			border-style:none;
 			&.-left,
