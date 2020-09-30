@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-09-23T15:59:49+00:00\n"
+"POT-Creation-Date: 2020-09-30T11:05:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: acf-wp-objects\n"
@@ -232,61 +232,61 @@ msgstr ""
 msgid "Permalinks"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/PageLayout.php:98
+#: include/ACFWPObjects/Compat/ACF/PageLayout.php:97
 msgid "Add section"
 msgstr ""
 
 #. translators: theme file location
-#: include/ACFWPObjects/Compat/ACF/PageLayout.php:154
+#: include/ACFWPObjects/Compat/ACF/PageLayout.php:153
 msgid "To render this field group place a template file in your theme: %s"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/PageLayout.php:161
+#: include/ACFWPObjects/Compat/ACF/PageLayout.php:160
 msgid "Row Layout Slug"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/PageLayout.php:171
+#: include/ACFWPObjects/Compat/ACF/PageLayout.php:170
 msgid "Min Layouts"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/PageLayout.php:180
+#: include/ACFWPObjects/Compat/ACF/PageLayout.php:179
 msgid "Max Layouts"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:115
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:119
 msgid "Repeater Row"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:130
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:134
 msgid "Get choices from repeater"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:139
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:143
 msgid "Repeater Field"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:155
-msgid "Label Field"
-msgstr ""
-
-#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:177
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:160
 msgid "Value Field"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:204
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:181
+msgid "Label Field"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:203
+msgid "Visualize field"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:226
 msgid "Post ID"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:205
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:227
 msgid "Leave empty for current Post ID."
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:208
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:230
 msgid "Current Post"
-msgstr ""
-
-#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:219
-msgid "Visualize value"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/WPObjects.php:40
