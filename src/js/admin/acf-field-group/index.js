@@ -20,7 +20,7 @@ const setupRepeaterChoices = function() {
 
 		// setup options
 		$(this).closest('.acf-field-settings')
-			.find('[data-key="repeater_label_field"] select,[data-key="repeater_value_field"] select')
+			.find('[data-key="repeater_label_field"] select,[data-key="repeater_value_field"] select,[data-key="repeater_display_field"] select')
 			.each( ( i, el ) => {
 				const $el = $(el);
 				const val = $el.val();

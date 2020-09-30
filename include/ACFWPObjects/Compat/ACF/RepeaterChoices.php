@@ -38,6 +38,11 @@ class RepeaterChoices extends Core\Singleton {
 		add_filter( 'acf/prepare_field/type=button_group', [ $this, 'prepare' ] );
 		add_filter( 'acf/prepare_field/type=checkbox', [ $this, 'prepare' ] );
 
+		add_filter( 'acf/load_field/type=select', [ $this, 'migrate_field' ], 5 );
+		add_filter( 'acf/load_field/type=radio', [ $this, 'migrate_field' ], 5 );
+		add_filter( 'acf/load_field/type=button_group', [ $this, 'migrate_field' ], 5 );
+		add_filter( 'acf/load_field/type=checkbox', [ $this, 'migrate_field' ], 5 );
+
 		add_action( 'acf/render_field_settings/type=select', [ $this, 'add_choice_filter' ], 9 );
 		add_action( 'acf/render_field_settings/type=radio', [ $this, 'add_choice_filter' ], 9 );
 		add_action( 'acf/render_field_settings/type=button_group', [ $this, 'add_choice_filter' ], 9 );
@@ -95,8 +100,7 @@ class RepeaterChoices extends Core\Singleton {
 
 		// generate value cache
 		while ( have_rows( $field['repeater_field'], $field['repeater_post_id'] ) ) {
-			the_row();
-			$raw_row = get_row( false );
+			$raw_row = the_row( false );
 			$key = sprintf( '%s-%s-%s', $field['repeater_field'], $field['repeater_post_id'], $raw_row[ $field['repeater_value_field'] ] );
 			$this->value_cache[ $key ] = get_row( true );
 			if ( $cache_key === $key ) {
@@ -150,6 +154,28 @@ class RepeaterChoices extends Core\Singleton {
 			]
 		]);
 
+
+		// value field
+		acf_render_field_setting( $field, [
+			'label'			=> __('Value Field','acf-wp-objects'),
+			'instructions'	=> '',
+			'name'			=> 'repeater_value_field',
+			'type'			=> 'select',
+			'ui'			=> 0,
+			'allow_null'	=> 0,
+			'choices'		=> $value_field_choices,
+			'conditions'	=> [
+				[
+					'field'		=> 'repeater_choices',
+					'operator'	=> '==',
+					'value'		=> 1
+				],
+				[
+					'field'		=> 'repeater_field',
+					'operator'	=> '!=empty',
+				],
+			]
+		]);
 		// label field
 		acf_render_field_setting( $field, [
 			'label'			=> __('Label Field','acf-wp-objects'),
@@ -171,33 +197,29 @@ class RepeaterChoices extends Core\Singleton {
 				],
 			]
 		]);
-
-		// value field
-		acf_render_field_setting( $field, [
-			'label'			=> __('Value Field','acf-wp-objects'),
-			'instructions'	=> '',
-			'name'			=> 'repeater_value_field',
-			'type'			=> 'select',
-			'ui'			=> 0,
-			'allow_null'	=> 0,
-			'choices'		=> $value_field_choices,
-			'conditions'	=> [
-				[
-					'field'		=> 'repeater_choices',
-					'operator'	=> '==',
-					'value'		=> 1
-				],
-				[
-					'field'		=> 'return_format',
-					'operator'	=> '!=',
-					'value'		=> 'label'
-				],
-				[
-					'field'		=> 'repeater_field',
-					'operator'	=> '!=empty',
-				],
-			]
-		]);
+		if ( $field['type'] !== 'select' ) {
+			// enable
+			acf_render_field_setting( $field, [
+				'label'			=> __('Visualize field','acf-wp-objects'),
+				'instructions'	=> '',
+				'name'			=> 'repeater_display_field',
+				'type'			=> 'select',
+				'ui'			=> 0,
+				'allow_null'	=> 1,
+				'choices'		=> $label_field_choices,
+				'conditions'	=> [
+					[
+						'field'		=> 'repeater_choices',
+						'operator'	=> '==',
+						'value'		=> 1
+					],
+					[
+						'field'		=> 'repeater_field',
+						'operator'	=> '!=empty',
+					],
+				]
+			]);
+		}
 
 		// post id
 		acf_render_field_setting( $field, [
@@ -213,23 +235,33 @@ class RepeaterChoices extends Core\Singleton {
 				'value'		=> 1
 			]
 		]);
-		if ( $field['type'] !== 'select' ) {
-			// enable
-			acf_render_field_setting( $field, [
-				'label'			=> __('Visualize value','acf-wp-objects'),
-				'instructions'	=> '',
-				'name'			=> 'repeater_display_value',
-				'type'			=> 'true_false',
-				'ui'			=> 1,
-				'conditions'	=> [
-					'field'		=> 'repeater_choices',
-					'operator'	=> '==',
-					'value'		=> 1
-				],
-			]);
-		}
 
 	}
+
+	/**
+	 *	@filter acf/load_field/type=*
+	 */
+	public function migrate_field( $field ) {
+
+		$field = wp_parse_args( $field, [
+			'repeater_choices'			=> false,
+			'repeater_field'			=> '',
+			'repeater_label_field'		=> '', // text, num, range, url, email, date, time, datetime, image, color
+			'repeater_value_field'		=> '', // text, num, range, url, email, date, time, datetime, image, color
+			'repeater_post_id'			=> 0,
+			'repeater_display_value'	=> 0, // media | string + media
+		]);
+
+		// migrate from boolean display value to display field
+		if ( $field['repeater_choices'] ) {
+			if ( $field['repeater_display_value'] ) {
+				unset( $field['repeater_display_value'] );
+				$field['repeater_display_field'] = $field['repeater_value_field'];
+			}
+		}
+		return $field;
+	}
+
 
 	/**
 	 *	@filter acf/prepare_field/type=*
@@ -242,7 +274,7 @@ class RepeaterChoices extends Core\Singleton {
 			'repeater_label_field'		=> '', // text, num, range, url, email, date, time, datetime, image, color
 			'repeater_value_field'		=> '', // text, num, range, url, email, date, time, datetime, image, color
 			'repeater_post_id'			=> 0,
-			'repeater_display_value'	=> 0, // media | string + media
+			'repeater_display_field'	=> '', // media | string + media
 		]);
 
 		$post_id = $field['repeater_post_id'];
@@ -256,39 +288,47 @@ class RepeaterChoices extends Core\Singleton {
 		}
 
 		if ( $field['repeater_choices'] ) {
-			$choices = [];
+
+			$raw_choices = [];
+			$visuals = [];
 
 			if ( have_rows( $field['repeater_field'], $post_id ) ) {
-
-
 				while ( have_rows( $field['repeater_field'], $post_id ) ) {
 					the_row();
 
 					$label = get_sub_field( $field['repeater_label_field'] );
-					if ( $field['return_format'] === 'label' ) {
-						$value = $label;
-					} else {
-						$value = get_sub_field( $field['repeater_value_field'] );
-					}
-					if ( $field['repeater_display_value'] ) {
-						$value_field = acf_get_field( $field['repeater_value_field'] );
-						$label = $this->get_value_display( $value_field, $label, $value );
-						$value_type = $value_field['type'];
-					}
-					// value might be image object, term object, ...
-					$key = $value;
+					$value = get_sub_field( $field['repeater_value_field'] );
+					$visual = get_sub_field( $field['repeater_display_field'] );
 
-					if ( ! is_array( $key ) ) {
-						if ( isset($key['ID']) )
-						$key = $key['ID'];
-					}
+					$raw_choices[ $value ] = [ 'label' => $label, 'visual' => $visual ];
+				}
+			}
 
-					$choices[ $key ] = $label;
+			$raw_choices = apply_filters( 'acf_wpo_repeater_choices', $raw_choices, $field );
+			$raw_choices = apply_filters( 'acf_wpo_repeater_choices/key=' . $field['repeater_field'], $raw_choices, $field );
+
+			$choices = [];
+
+			// format choices
+			foreach ( $raw_choices as $value => $choice ) {
+				extract( $choice );
+				if ( $field['repeater_display_field'] ) {
+					$display_field = acf_get_field( $field['repeater_display_field'] );
+					$label = $this->get_value_display( $display_field, $label, $visual );
+				}
+				// value might be image object, term object, ...
+				$key = $value;
+
+				if ( ! is_array( $key ) ) {
+					if ( isset($key['ID']) )
+					$key = $key['ID'];
 				}
 
-				if ( $field['repeater_display_value'] ) {
-					$field['wrapper']['class'] .= ' repeater-choice-visualize-' . $value_type;
-				}
+				$choices[ $key ] = $label;
+			}
+
+			if ( $field['repeater_display_value'] ) {
+				$field['wrapper']['class'] .= ' repeater-choice-visualize-' . $value_type;
 			}
 
 			$field['choices'] = $choices;
