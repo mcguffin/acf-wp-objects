@@ -54,6 +54,67 @@ class PluginTest {
 			</div>
 			<?php
 		} );
+
+		//$this->conditions();
+
+
+	}
+
+
+	public function conditions() {
+		$helper = Compat\ACF\Helper\Conditional::instance();
+		$cond1 = [ 'field' => 'field_foo1', 'operator' => '==', 'value' => 1 ];
+		$cond2 = [ 'field' => 'field_foo2', 'operator' => '==', 'value' => 2 ];
+		$cond3 = [ 'field' => 'field_foo3', 'operator' => '==', 'value' => 3 ];
+		$cond4 = [ 'field' => 'field_foo4', 'operator' => '==', 'value' => 4 ];
+
+		// [ $cond1 ] x [ ] = [ [ $cond1 ] ]
+		// [ ] x [ $cond1 ] = [ [ $cond1 ] ]
+		// [ $cond1 ] x [ $cond2 ] = [ [ $cond1, $cond2 ] ]
+		// [ $cond1, $cond2 ] x [ $cond3 ] = [ [ $cond1, $cond2 ] ] x [ [ $cond3 ] ] = [ [ $cond1, $cond2, $cond3 ] ]
+		// [ [ $cond1 ], [ $cond2 ] ] x [ [ $cond3, $cond4 ] ] = [ [ $cond1, $cond3, $cond4 ], [ $cond2, $cond3, $cond4 ] ]
+		//
+		// [ [ $cond1 ], [ $cond2 ] ] x [ $cond3 ] = [ [ $cond1 ], [ $cond2 ] ] x [ [ $cond3 ] ] = [ [ $cond1, $cond3 ], [ $cond2, $cond3 ] ]
+		// [ [ $cond1 ], [ $cond2 ] ] x [ [ $cond3 ], [ $cond4 ] ] = [ [ $cond1, $cond3 ], [ $cond1, $cond4 ], [ $cond2, $cond3 ], [ $cond2, $cond4 ] ]
+
+
+
+		simple!
+		error_log( 'COMBINE C1 C2' );
+		error_log( 'EXPECTED [[C1 C2]]' );
+		error_log( var_export( $helper->combine( $cond1, $cond2 ), true ) );
+		// OKAY
+
+		error_log( 'COMBINE [C1] [C2]' );
+		error_log( 'EXPECTED [[C1 C2]]' );
+		error_log( var_export( $helper->combine( [$cond1], [$cond2] ), true ) );
+		// OKAY
+
+		error_log( 'COMBINE [[C1]] [[C2]] OR!' );
+		error_log( 'EXPECTED [[C1] [C2]]' );
+		error_log( var_export( $helper->combine( [[$cond1]], [[$cond2]], false ), true ) );
+		// OKAY
+
+		error_log( 'COMBINE [C1 C2] C3' );
+		error_log( 'EXPECTED [[C1 C2 C3]]' );
+		error_log( var_export( $helper->combine( [$cond1, $cond2], $cond3 ), true ) );
+		// OKAY
+
+		error_log( 'COMBINE [[C1] [C2]] C3' );
+		error_log( 'EXPECTED [[C1 C3] [C2 C3]]' );
+		error_log( var_export( $helper->combine( [[$cond1], [$cond2]], $cond3 ), true ) );
+		// OKAY
+
+		error_log( 'COMBINE [[C1] [C2]] [C3,C4]' );
+		error_log( 'EXPECTED [[C1 C3 C4] [C2 C3 C4]]' );
+		error_log( var_export( $helper->combine( [[$cond1], [$cond2]], [$cond3,$cond4] ), true ) );
+		// OKAY
+
+		error_log( 'COMBINE  [[C1] [C2]] [[C3] [C4]]' );
+		error_log( 'EXPECTED [[C1 C3] [C1 C4] [C2 C3] [C2 C4]]' );
+		error_log( var_export( $helper->combine( [[$cond1], [$cond2]], [[$cond3],[$cond4]] ), true ) );
+		// OKAY
+
 	}
 
 	/**

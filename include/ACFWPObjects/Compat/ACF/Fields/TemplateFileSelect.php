@@ -149,19 +149,21 @@ class TemplateFileSelect extends \acf_field_select {
 				$field_group_fields = acf_get_fields( $group['key'] );
 
 				foreach ( $field_group_fields as $field_group_field ) {
-
+					$and = false;
 					if ( ! isset( $sub_fields[ $field_group_field['key'] ] ) ) {
 						// add condition to field
 						$field_group_field['parent'] = $group_field['key'];
 						$sub_fields[ $field_group_field['key'] ] = $field_group_field;
+						$and = true;
 					}
 
 					$sub_fields[ $field_group_field['key'] ]['__tmp_sort_key'] = $group['menu_order'];
 					// combine conditional logics
 					//*
-					$sub_fields[ $field_group_field['key'] ]['conditional_logic'] = $helper->and(
+					$sub_fields[ $field_group_field['key'] ]['conditional_logic'] = $helper->combine(
 						$sub_fields[ $field_group_field['key'] ]['conditional_logic'],
-						$add_condition
+						$add_condition,
+						$and
 					);
 					/*/
 					if ( ! $sub_fields[ $field_group_field['key'] ]['conditional_logic'] ) {
@@ -181,10 +183,11 @@ class TemplateFileSelect extends \acf_field_select {
 					? 0
 					: ( $b['__tmp_sort_key'] > $a['__tmp_sort_key'] ? -1 : 1 );
 			});
-			array_map( function( &$el ) {
+			$sub_fields = array_map( function( &$el ) {
 				unset( $el['__tmp_sort_key'] );
+				return $el;
 			}, $sub_fields );
-			$group_field['sub_fields'] = $sub_fields;
+			$group_field['sub_fields'] = array_values( $sub_fields );
 			acf_add_local_field( $group_field, true );
 		}
 
