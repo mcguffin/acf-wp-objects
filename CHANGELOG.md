@@ -7,6 +7,7 @@ ACF-WP-Objects Changelog
  - CSS: Introduce no-label
  - Repeater Choice: disable field if there are no choices
  - Repeater Choice: Choose visualize field
+ - Fix: Helper\Conditionals combine function
 
 0.4.6
 -----
