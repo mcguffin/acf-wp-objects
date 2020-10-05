@@ -200,15 +200,16 @@ class TemplateFileSelect extends \acf_field_select {
 	 */
 	private function create_group_field( $parent_field ) {
 
-		$slug = $parent_field['key'];
-		$key = sprintf( '%s_settings', $slug );
+
+		$key = sprintf( '%s_settings', $parent_field['key'] );
 
 //
 
 		return [
-			'key'			=> $key,
+			'key'			=> 'field_template_settings',
 			'label'			=> __( 'Template Settings', 'acf-wp-objects' ),
-			'name'			=> sprintf( '%s_settings', $slug ),
+			//'name'			=> $key,
+			'name'			=> 'template_settings',
 			'type'			=> 'group',
 			'prefix'		=> 'acf',
 			'instructions'	=> '',
