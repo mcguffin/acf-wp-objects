@@ -149,22 +149,33 @@ class TemplateFileSelect extends \acf_field_select {
 				$field_group_fields = acf_get_fields( $group['key'] );
 
 				foreach ( $field_group_fields as $field_group_field ) {
-					$and = false;
+
 					if ( ! isset( $sub_fields[ $field_group_field['key'] ] ) ) {
 						// add condition to field
 						$field_group_field['parent'] = $group_field['key'];
 						$sub_fields[ $field_group_field['key'] ] = $field_group_field;
-						$and = true;
+						$add_condition = [];
+
+						foreach ( $group['location'] as $locations ) {
+							foreach ( $locations as $location ) {
+								$add_condition[] = [
+									[
+										'field'		=> $template_select_field['key'],
+										'operator'	=> '==',
+										'value'		=> $location['value'],
+									]
+								];
+							}
+						}
+						$sub_fields[ $field_group_field['key'] ]['conditional_logic'] = $helper->combine(
+							$sub_fields[ $field_group_field['key'] ]['conditional_logic'],
+							$add_condition
+						);
 					}
 
 					$sub_fields[ $field_group_field['key'] ]['__tmp_sort_key'] = $group['menu_order'];
 					// combine conditional logics
 					//*
-					$sub_fields[ $field_group_field['key'] ]['conditional_logic'] = $helper->combine(
-						$sub_fields[ $field_group_field['key'] ]['conditional_logic'],
-						$add_condition,
-						$and
-					);
 					/*/
 					if ( ! $sub_fields[ $field_group_field['key'] ]['conditional_logic'] ) {
 						$sub_fields[ $field_group_field['key'] ]['conditional_logic'] = [ [ $add_condition ] ];
@@ -201,15 +212,16 @@ class TemplateFileSelect extends \acf_field_select {
 	private function create_group_field( $parent_field ) {
 
 
-		$key = sprintf( '%s_settings', $parent_field['key'] );
+		$key = sprintf( 'field_%s_settings', $parent_field['name'] );
+		$name = sprintf( '%s_settings', $parent_field['name'] );
 
 //
 
 		return [
-			'key'			=> 'field_template_settings',
+			'key'			=> $key,
 			'label'			=> __( 'Template Settings', 'acf-wp-objects' ),
 			//'name'			=> $key,
-			'name'			=> 'template_settings',
+			'name'			=> $name,
 			'type'			=> 'group',
 			'prefix'		=> 'acf',
 			'instructions'	=> '',
