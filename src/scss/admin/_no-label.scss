@@ -2,4 +2,7 @@
 	& > .acf-label {
 		display:none;
 	}
+	.acf-fields.-left > &:before {
+		content:none;
+	}
 }
