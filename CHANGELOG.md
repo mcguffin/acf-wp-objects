@@ -1,6 +1,11 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.4.18
+------
+ - Fix: Post content not saved
+ - Styles: fix seamless, no-label
+
 0.4.16
 ------
  - CSS: Fix seamless
