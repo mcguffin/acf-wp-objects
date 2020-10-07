@@ -23,6 +23,8 @@ class PageLayout extends Core\Singleton {
 
 		add_action( 'acf/include_location_rules', [ $this, 'register_location_rules' ] );
 
+		add_action('save_post', [ $this, 'save_post' ], 20, 3 );
+
 	}
 
 
@@ -31,11 +33,12 @@ class PageLayout extends Core\Singleton {
 	 *	@action save_post
 	 */
 	public function save_post( $post_ID, $post, $update ) {
-		if ( $this->should_save_post_content ) {
+
+		if ( false !== $this->should_save_post_content ) {
 
 			ob_start();
 
-			acf_page_layouts( 'sections', $post_ID );
+			acf_page_layouts( $this->should_save_post_content, $post_ID );
 
 			$contents = ob_get_clean();
 
@@ -301,7 +304,7 @@ class PageLayout extends Core\Singleton {
 		acf_add_local_field_group( $local_field_group );
 
 		if ( $args['save_post_content'] ) {
-			add_filter( 'acf/update_value?key=field_' . $args['name'], [ $this, 'update_value' ] );
+			add_filter( 'acf/update_value/key=field_' . $args['name'], [ $this, 'update_value' ], 10, 3 );
 		}
 
 	}
@@ -311,9 +314,9 @@ class PageLayout extends Core\Singleton {
 	 *
 	 *	@filter acf/update_value
 	 */
-	public function update_value( $value ) {
+	public function update_value( $value, $post_id, $field ) {
 
-		$this->should_save_post_content = true;
+		$this->should_save_post_content = $field['name'];
 
 		return $value;
 
