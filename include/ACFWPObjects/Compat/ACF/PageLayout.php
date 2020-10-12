@@ -48,6 +48,7 @@ class PageLayout extends Core\Singleton {
 				'ID' => $post_ID,
 				'post_content' => $contents,
 			]);
+
 		}
 	}
 
@@ -114,6 +115,20 @@ class PageLayout extends Core\Singleton {
 		]);
 
 		$this->page_layouts[ $key ] = $args;
+		return $args;
+	}
+
+	public function get( $layout, $property = false ) {
+		if ( ! isset( $this->page_layouts[ $layout ] ) ) {
+			return null;
+		}
+		if ( false !== $property ) {
+			if ( isset( $this->page_layouts[ $layout ][ $property ] ) ) {
+				return $this->page_layouts[ $layout ][ $property ];
+			}
+			return null;
+		}
+		return $this->page_layouts[ $layout ];
 	}
 
 	/**
