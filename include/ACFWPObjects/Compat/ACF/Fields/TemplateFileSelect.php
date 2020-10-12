@@ -100,9 +100,9 @@ class TemplateFileSelect extends \acf_field_select {
 				}
 				self::$_resolved[] = $field['key'];
 
-				$group_field = $this->get_template_settings_group( $field );
-
-				$return_fields[] = $group_field;
+				if ( $group_field = $this->get_template_settings_group( $field ) ) {
+					$return_fields[] = $group_field;
+				}
 
 			} else {
 				$return_fields[] = $field;
@@ -187,6 +187,7 @@ class TemplateFileSelect extends \acf_field_select {
 				}
 			}
 		}
+
 		if ( count( $sub_fields ) ) {
 			$sub_fields = array_values( $sub_fields );
 			usort( $sub_fields, function($a,$b) {
@@ -200,9 +201,9 @@ class TemplateFileSelect extends \acf_field_select {
 			}, $sub_fields );
 			$group_field['sub_fields'] = array_values( $sub_fields );
 			acf_add_local_field( $group_field, true );
+			return $group_field;
 		}
-
-		return $group_field;
+		return false;
 	}
 
 
