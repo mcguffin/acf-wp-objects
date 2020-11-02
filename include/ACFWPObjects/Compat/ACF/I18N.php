@@ -194,7 +194,15 @@ class I18N {
 
 				foreach ( $value as $c => $choice ) {
 					if ( ! empty( $choice ) && is_scalar( $choice ) ) {
+						// flat
 						$object[$key][$c] = $this->translate_string( $choice );
+					} else if ( is_array( $choice ) ) {
+						// nasty nested optgroup
+						$translated_c = $this->translate_string( $c );
+						if ( $translated_c !== $c ) {
+							unset( $object[$key][$c] );
+							$object[$key][ $translated_c ] = array_map( [  $this, 'translate_string' ], $choice );
+						}
 					}
 				}
 
