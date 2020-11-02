@@ -1,24 +1,39 @@
+// .acf-fields.-left > .acf-field > .acf-input { p }
 &.seamless {
+
 	&,
-	&.acf-field-group {
+	& > .acf-input,
+	.acf-fields.-left > & > .acf-input  {
 		padding:0;
-		.-left > & {
-			& > .acf-label {
-				padding-top:15px;
-				padding-bottom:15px;
-			}
-		}
-		&  > .acf-input > .acf-fields {
+		& > .acf-fields {
 			border-style:none;
-			&.-left,
-			& > .acf-field {
-				padding-left:0;
-				padding-right:0;
-			}
 		}
 	}
-	.acf-fields.-left & > .acf-input > .acf-fields {
-		margin-left:-11px;
-		margin-right:-11px;
+	.acf-fields.-left > & > .acf-input  {
+		padding-left:1px;
+		margin-top:-15px;
+		margin-bottom:-15px;
 	}
+	// &,
+	// &.acf-field-group {
+	// 	padding:0;
+	// 	.-left > & {
+	// 		& > .acf-label {
+	// 			padding-top:15px;
+	// 			padding-bottom:15px;
+	// 		}
+	// 	}
+	// 	&  > .acf-input > .acf-fields {
+	// 		border-style:none;
+	// 		&.-left,
+	// 		& > .acf-field {
+	// 			padding-left:0;
+	// 			padding-right:0;
+	// 		}
+	// 	}
+	// }
+	// .acf-fields.-left & > .acf-input > .acf-fields {
+	// 	margin-left:-11px;
+	// 	margin-right:-11px;
+	// }
 }
