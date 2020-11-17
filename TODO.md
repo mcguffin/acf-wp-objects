@@ -3,6 +3,7 @@ ACF-WP-Objects ToDo
 
 Fields
 ------
+- [ ] Wizard Page
 - [x] Select User-Role
 - [ ] Select Plugin (active, inactive, network-activated, ...)
 - [ ] Select Theme (all, activatable, childs, parents, ...)
@@ -26,6 +27,7 @@ Location Rules
 --------------
  - [ ] Content Type is Post / Taxonomy / User / Widget
  - [ ] Image has [image_size] (loosely filter by uploaded size)
+ - [ ] Wizard / acf_add_wizard / acf_render_wizard
 
 Field Group
 -----------
