@@ -189,7 +189,17 @@ class WPObjects extends Core\Singleton {
 					}
 
 				} else if ( 'post_thumbnail' == $key ) {
-					$value = get_post_thumbnail_id( $post_id );
+
+					if ( is_preview() ) {
+						if ( isset( $_GET['_thumbnail_id'] ) ) {
+							$value = wp_unslash( $_GET['_thumbnail_id'] );
+						} else {
+							$value = '';
+						}
+					} else {
+						$value = get_post_thumbnail_id( $post_id );
+					}
+
 				} else if ( 'attachments' == $key ) {
 					// IDs of children
 					$value = $this->get_attachment_ids( $post_id );
@@ -199,6 +209,13 @@ class WPObjects extends Core\Singleton {
 		return $value;
 
 	}
+
+
+	public function wp_preview_post_thumbnail_filter( $value, $post_id, $meta_key ) {
+
+	}
+
+
 	/**
 	 *	@filter acf/pre_update_value
 	 */
@@ -217,7 +234,7 @@ class WPObjects extends Core\Singleton {
 				update_option( $key, $value );
 				return true;
 			case 'term':
-				// update term .. works on create too
+				// update term ... works on create too
 
 				if ( $term = $this->get_term( $post_id ) ) {
 
@@ -234,9 +251,10 @@ class WPObjects extends Core\Singleton {
 				}
 				return true;
 			case 'post':
-				if ( ! absint( $post_id ) ) {
+				if ( /*$this->is_post_preview() ||*/ ! absint( $post_id ) ) {
 					return $check;
 				}
+
 				$updatepost = [];
 
 				if ( 'post_title' === $key ) {
@@ -246,11 +264,20 @@ class WPObjects extends Core\Singleton {
 				} else if ( 'post_excerpt' === $key ) {
 					$updatepost['post_excerpt'] = $value;
 				} else if ( 'post_thumbnail' === $key ) {
+error_log("SAVE THUMBNAIL $post_id $value");
+
 					if ( $value ) {
-						set_post_thumbnail( $post_id, $value );
+						if ( $this->is_post_preview_saving() ) {
+							$_POST['_thumbnail_id'] = $value;
+						} else {
+							set_post_thumbnail( $post_id, $value );
+						}
 					} else {
-						delete_post_thumbnail( $post_id );
+						if ( ! $this->is_post_preview_saving() ) {
+							delete_post_thumbnail( $post_id );
+						}
 					}
+					return $check;
 				} else if ( 'attachments' === $key ) {
 					// set attachment parent ID if not set
 					$value = (array) $value;
@@ -291,6 +318,28 @@ class WPObjects extends Core\Singleton {
 				return true;
 		}
 	}
+
+	/**
+	 *	Whether this is a post preview
+	 *	@return Boolean
+	 */
+	private function is_post_preview() {
+
+		return is_preview() || $this->is_post_preview_save();
+	}
+
+
+	/**
+	 *	Whether a post preview is currently saving
+	 *
+	 *	@return Boolean
+	 */
+	private function is_post_preview_saving() {
+
+		return isset( $_POST['wp-preview'] ) && 'dopreview' === $_POST['wp-preview'];
+
+	}
+
 
 	/**
 	 *	@param string|int $post_id ACF post_id
