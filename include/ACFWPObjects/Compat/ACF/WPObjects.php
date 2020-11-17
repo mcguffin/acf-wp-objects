@@ -191,10 +191,10 @@ class WPObjects extends Core\Singleton {
 				} else if ( 'post_thumbnail' == $key ) {
 
 					if ( is_preview() ) {
-						if ( isset( $_GET['_thumbnail_id'] ) ) {
+						if ( isset( $_GET['_thumbnail_id'] ) && wp_unslash( $_GET['_thumbnail_id']) > 1 ) {
 							$value = wp_unslash( $_GET['_thumbnail_id'] );
 						} else {
-							$value = '';
+							$value = 0;
 						}
 					} else {
 						$value = get_post_thumbnail_id( $post_id );
@@ -264,7 +264,6 @@ class WPObjects extends Core\Singleton {
 				} else if ( 'post_excerpt' === $key ) {
 					$updatepost['post_excerpt'] = $value;
 				} else if ( 'post_thumbnail' === $key ) {
-error_log("SAVE THUMBNAIL $post_id $value");
 
 					if ( $value ) {
 						if ( $this->is_post_preview_saving() ) {
@@ -273,7 +272,9 @@ error_log("SAVE THUMBNAIL $post_id $value");
 							set_post_thumbnail( $post_id, $value );
 						}
 					} else {
-						if ( ! $this->is_post_preview_saving() ) {
+						if ( $this->is_post_preview_saving() ) {
+							$_POST['_thumbnail_id'] = 0;
+						} else {
 							delete_post_thumbnail( $post_id );
 						}
 					}
