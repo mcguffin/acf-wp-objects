@@ -1,6 +1,6 @@
 {
   "name": "acf-wp-objects",
-  "version": "0.4.25",
+  "version": "0.5.0",
   "description": "Connecting WordPress Data with ACF Fields",
   "private": true,
   "scripts": {
@@ -37,6 +37,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.9.5",
     "@babel/plugin-transform-react-jsx": "^7.9.4",
     "@babel/preset-env": "^7.9.5",
+    "@selfisekai/gulp-sass": "^4.2.0",
     "babelify": "^10.0.0",
     "browserify": "^16.5.1",
     "browserify-shim": "^3.8.14",
@@ -45,10 +46,10 @@
     "gulp-autoprefixer": "^7.0.1",
     "gulp-concat": "*",
     "gulp-rename": "*",
-    "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify": "^3.0.2",
     "gulp-util": "*",
+    "node-sass": "^5.0.0",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
   },
