@@ -37,6 +37,7 @@ class I18N {
 		'prepend',
 		'append',
 		'message',
+		'placeholder',
 	];
 	/** @var string field keys to recurse */
 	private $sub_fields = [
