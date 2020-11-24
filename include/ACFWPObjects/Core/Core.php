@@ -66,6 +66,11 @@ class Core extends Plugin implements CoreInterface {
 			if ( class_exists( '\Classic_Editor' ) ) {
 				Compat\ClassicEditor::instance();
 			}
+
+			if ( defined( 'POLYLANG_VERSION' ) ) {
+				Compat\Polylang::instance();
+			}
+
 			require_once $this->get_plugin_dir() . '/include/api/local-json.php';
 			require_once $this->get_plugin_dir() . '/include/api/localization.php';
 
