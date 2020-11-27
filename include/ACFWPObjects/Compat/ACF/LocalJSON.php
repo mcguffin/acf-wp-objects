@@ -11,9 +11,6 @@ if ( ! defined('ABSPATH') ) {
 	die('FU!');
 }
 
-use ACFWPObjects\Core;
-
-
 class LocalJSON {
 	/** @var array */
 	private static $paths = [];
@@ -94,17 +91,13 @@ class LocalJSON {
 		// local json paths
 		add_filter( 'acf/settings/load_json', [ $this, 'load_json' ] );
 
-		if ( version_compare( acf()->version, '5.9.0', '<' ) ) {
+		add_filter( 'acf/settings/save_json', [ $this, 'save_json' ] );
 
-			add_filter( 'acf/settings/save_json', [ $this, 'save_json' ] );
-
-			// handle json files
-			add_action( 'acf/delete_field_group', [ $this, 'mutate_field_group' ], 9 );
-			add_action( 'acf/trash_field_group', [ $this, 'mutate_field_group' ], 9 );
-			add_action( 'acf/untrash_field_group', [ $this, 'mutate_field_group' ], 9 );
-			add_action( 'acf/update_field_group', [ $this, 'mutate_field_group' ], 9 );
-
-		}
+		// handle json files
+		add_action( 'acf/delete_field_group', [ $this, 'mutate_field_group' ], 9 );
+		add_action( 'acf/trash_field_group', [ $this, 'mutate_field_group' ], 9 );
+		add_action( 'acf/untrash_field_group', [ $this, 'mutate_field_group' ], 9 );
+		add_action( 'acf/update_field_group', [ $this, 'mutate_field_group' ], 9 );
 
 	}
 
@@ -116,16 +109,14 @@ class LocalJSON {
 		// local json paths
 		remove_filter( 'acf/settings/load_json', [ $this, 'load_json' ] );
 
-		if ( version_compare( acf()->version, '5.9.0', '<' ) ) {
+		remove_filter( 'acf/settings/save_json', [ $this, 'save_json' ] );
 
-			remove_filter( 'acf/settings/save_json', [ $this, 'save_json' ] );
+		// handle json files
+		remove_action( 'acf/delete_field_group', [ $this, 'mutate_field_group' ], 9 );
+		remove_action( 'acf/trash_field_group', [ $this, 'mutate_field_group' ], 9 );
+		remove_action( 'acf/untrash_field_group', [ $this, 'mutate_field_group' ], 9 );
+		remove_action( 'acf/update_field_group', [ $this, 'mutate_field_group' ], 9 );
 
-			// handle json files
-			remove_action( 'acf/delete_field_group', [ $this, 'mutate_field_group' ], 9 );
-			remove_action( 'acf/trash_field_group', [ $this, 'mutate_field_group' ], 9 );
-			remove_action( 'acf/untrash_field_group', [ $this, 'mutate_field_group' ], 9 );
-			remove_action( 'acf/update_field_group', [ $this, 'mutate_field_group' ], 9 );
-		}
 	}
 
 	/**
@@ -133,7 +124,6 @@ class LocalJSON {
 	 */
 	public function load_json( $paths ) {
 
-		$core = Core\Core::instance();
 		// remove default
 		$paths = array_filter( $paths, [ $this, 'is_not_default_json_path' ] );
 		$add_paths = array_map( [ $this, 'add_json_path' ], $this->search_paths );
