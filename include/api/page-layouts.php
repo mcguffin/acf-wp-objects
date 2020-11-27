@@ -9,6 +9,23 @@ function acf_add_page_layout( $args = '' ) {
 }
 
 /**
+ *	@param String $page_layout
+ *	@return Array
+ */
+function acf_get_page_layout( $page_layout ) {
+	return ACFWPObjects\Compat\ACF\PageLayout::instance()->get( $page_layout );
+}
+
+
+/**
+ *	@param String $page_layout
+ *	@return Array
+ */
+function acf_get_page_layouts() {
+	return ACFWPObjects\Compat\ACF\PageLayout::instance()->get();
+}
+
+/**
  *	render layout template
  */
 function acf_page_layouts( $page_layout, $post_id = false ) {

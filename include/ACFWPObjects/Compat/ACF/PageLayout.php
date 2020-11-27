@@ -92,6 +92,7 @@ class PageLayout extends Core\Singleton {
 		$args = wp_parse_args( $args, [
 			'key'					=> 'group_' . $key, // ?
 			'name'					=> $key,
+			'title'					=> $args['name'],
 			'style'					=> 'seamless',
 			'label_placement'		=> 'top',
 			'instruction_placement'	=> 'label',
@@ -118,7 +119,10 @@ class PageLayout extends Core\Singleton {
 		return $args;
 	}
 
-	public function get( $layout, $property = false ) {
+	public function get( $layout = false, $property = false ) {
+		if ( false === $layout ) {
+			return $this->page_layouts;
+		}
 		if ( ! isset( $this->page_layouts[ $layout ] ) ) {
 			return null;
 		}
@@ -255,7 +259,13 @@ class PageLayout extends Core\Singleton {
 			$field_group = wp_parse_args($field_group,[
 				'layout_min' => '',
 				'layout_max' => '',
+				'row_layout' => '',
 			]);
+
+			if ( empty( $field_group[ 'row_layout' ] ) ) {
+				continue;
+			}
+
 			$key = 'layout_' . $field_group[ 'row_layout' ];// str_replace( 'group_', 'layout_',  );
 
 			$sub_fields = array_map( function( $field ) {

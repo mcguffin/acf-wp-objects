@@ -1,6 +1,15 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.5.1
+-----
+ - Fix: LocalJSON not saving under custom paths in ACF 5.9+
+ - API: introduce `acf_get_page_layouts()` and `acf_get_page_layout( $page_layout )`
+ 
+0.5.0
+-----
+ - Feature: Polylang compatibiity – assign ACF fields to polylang languages
+
 0.4.18
 ------
  - Fix: Post content not saved
