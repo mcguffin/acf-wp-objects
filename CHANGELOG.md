@@ -3,8 +3,10 @@ ACF-WP-Objects Changelog
 
 0.5.1
 -----
+ - Feature: Location Rule Everywhere
  - Fix: LocalJSON not saving under custom paths in ACF 5.9+
  - API: introduce `acf_get_page_layouts()` and `acf_get_page_layout( $page_layout )`
+ - Page-Layout: skip layouts with `row_layout` not set
  
 0.5.0
 -----

@@ -1,6 +1,8 @@
 ACF-WP-Objects
 ===============
 
+Filling some gaps between WordPress and ACF.
+
 Features
 --------
 Integrate WordPress Objects objects into ACF.
@@ -28,16 +30,17 @@ Integrate WordPress Objects objects into ACF.
     - Editor is Classic / Block editor
     - WP Options page is General / Writing / Reading / Discussion / Media / Permalinks
     - Plugin Template Settings
+    - Everywhere
  - **Choice fields**: get choices from a repeater, e.g. from an ACF options page
  - **Multisite**: 
    - Add a network admin page with `acf_add_options_(sub_)page()`. Add `"network" => true,` to the page args (ACF Pro only – both plugins must be network-enabled)
  - **Styling**:
    - More compact styles in block editor sidebar
-   - Add classes `no-head` and `no-sort` to repeater
- - **Page Layouts**: Generic flexible content field providing a location rule for field groups. 
- - **JSON-Paths**: Save Field group JSON in custom places
+   - Add classes `no-head` and `no-sort` to repeaters
+   - Add classes `seamless` and `no-label` to fields
+ - **Page Layouts**: Generic flexible content field providing a location rule for field groups. Init `acf_add_page_layout('foobar')`, render with `acf_page_layouts('foobar')`
+ - **JSON-Paths**: Save Field group JSON in custom places (like plugins)
  - **Localization**: Localize ACF Field labels through po-files
-
 
 
 Installation
@@ -80,7 +83,7 @@ Sweet Spot Field
 ----------------
 An easy way to choose the right clipping for images having `object-fit: cover`.  
 
-The easyest way to enable the Sweet Spot feature for all images is the follwing bit of php code, living in your Theme's `functions.php` or in a mu-plugin.
+The easyest way to enable the Sweet Spot feature for all images is the following bit of php code, living in your Theme's `functions.php` or in a mu-plugin.
 
 ```php
 add_filter( 'acf_image_sweetspot_enable', '__return_true' );
@@ -151,13 +154,12 @@ WP Objects will scan for template files having a header key in theme and plugin 
 2. Create a Template select field with name `my_fabulous_template`. 
    Use it like this: `get_template_part( get_field('my_fabulous_template') );`
 3. Place some template files in location
-	```php
-	<?php
-	/*
-	Items Template: List
-	*/
-	$settings = get_field('my_fabulous_template_settings');
-	```
+```php
+/*
+Items Template: List
+*/
+$settings = get_field('my_fabulous_template_settings');
+```
 
 Page layouts (ACF Pro only)
 ---------------------------
@@ -166,18 +168,18 @@ Generate a flexible content field and turn field groups to Layouts.
 Ideal if you need an extendible Set of Layouts to choose from.
 
 1. Add a layout section:
-	```php
-	acf_add_page_layout([
-		'title'	=> 'My Layout',
-		'name'	=> 'my-layout',
-	]);
-	```
+```php
+acf_add_page_layout([
+	'title'	=> 'My Layout',
+	'name'	=> 'my-layout',
+]);
+```
 2. Create field groups. Set "Page Layouts" "equals" "My Layout" as a location, and enter a row layout slug at the very bottom.
 3. Create template files in your theme corresponding to the slugs chosen above. Filenames should match `acf/layout-<row_layout_slug>.php`. Don't forget to use `get_sub_field()`, you are inside a flexible content field!
 4. In your page.php template file call this inside the loop:
-	```php
-	acf_page_layouts( 'my-layouts' );
-	```
+```php
+acf_page_layouts( 'my-layouts' );
+```
 
 Repeater Choices with repeater row return
 ----------------------------------------------

@@ -237,6 +237,8 @@ class ACF extends Core\Singleton {
 
 		acf_register_location_rule( 'ACFWPObjects\Compat\ACF\Location\TemplateFileSettings' );
 
+		acf_register_location_rule( 'ACFWPObjects\Compat\ACF\Location\Everywhere' );
+
 	}
 
 
