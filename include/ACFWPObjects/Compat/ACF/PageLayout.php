@@ -7,15 +7,16 @@ use ACFWPObjects\Core;
 
 class PageLayout extends Core\Singleton {
 
+	/** @var Array */
 	private $page_layouts = [];
 
+	/** @var Boolean|String Layout name to save */
 	private $should_save_post_content = false;
 
 	/**
 	 *	@inheritdoc
 	 */
 	public function __construct() {
-
 
 		add_action( 'acf/init', [ $this, 'init' ] );
 
@@ -32,22 +33,36 @@ class PageLayout extends Core\Singleton {
 	/**
 	 *	@action save_post
 	 */
-	public function save_post( $post_ID, $post, $update ) {
+	public function save_post( $post_id, $post, $update ) {
 
 		if ( false !== $this->should_save_post_content ) {
 
-			ob_start();
+			$content = false;
 
-			acf_page_layouts( $this->should_save_post_content, $post_ID );
-
-			$contents = ob_get_clean();
+			$layout = $this->should_save_post_content;
 
 			$this->should_save_post_content = false;
 
-			wp_update_post([
-				'ID' => $post_ID,
-				'post_content' => $contents,
-			]);
+			$save_post_content = $this->get( $layout, 'save_post_content' );
+
+			if ( true === $save_post_content ) {
+
+				ob_start();
+
+				acf_page_layouts( $layout, $post_id );
+
+				$contents = ob_get_clean();
+
+				wp_update_post([
+					'ID' => $post_id,
+					'post_content' => $contents,
+				]);
+
+			} else if ( is_callable( $save_post_content ) ) {
+
+				$content = call_user_func_array( $save_post_content, [ $layout, $post_id, $this ] );
+
+			}
 
 		}
 	}
@@ -76,7 +91,19 @@ class PageLayout extends Core\Singleton {
 	}
 
 	/**
-	 *	@param string|array $args
+	 *	@param string|array $args [
+	 *		'key'					=> String '',
+	 *		'name'					=> String '',
+	 *		'title'					=> String '',
+	 *		'label_placement'		=> String '',
+	 *		'instruction_placement'	=> String '',
+	 *		'type'					=> String '',
+	 *		'menu_order'			=> Integer,
+	 *		'save_post_content'		=> Boolean|Callable True: runs acf_page_layouts, callable: must save the post itself
+	 *		'button_label'			=> String '',
+	 *		'location'				=> Array,
+	 *		'hide_on_screen'		=> Array,
+ 	 * ]
 	 */
 	public function register( $args = '' ) {
 		if ( empty( $args ) ) {
@@ -93,12 +120,12 @@ class PageLayout extends Core\Singleton {
 			'key'					=> 'group_' . $key, // ?
 			'name'					=> $key,
 			'title'					=> $args['name'],
-			'style'					=> 'seamless',
 			'label_placement'		=> 'top',
 			'instruction_placement'	=> 'label',
 			'type'					=> 'flexible_content',
 			'menu_order'			=> 0,
 			'save_post_content'		=> false,
+			'style'					=> 'seamless',
 			'button_label'			=> __( 'Add section', 'acf-wp-objects' ),
 			'location'				=> [
 				[
@@ -119,6 +146,12 @@ class PageLayout extends Core\Singleton {
 		return $args;
 	}
 
+
+	/**
+	 *	@param Boolean|String $layout
+	 *	@param Boolean|String $property
+	 *	@return mixed
+	 */
 	public function get( $layout = false, $property = false ) {
 		if ( false === $layout ) {
 			return $this->page_layouts;
@@ -321,26 +354,27 @@ class PageLayout extends Core\Singleton {
 			'location'				=> $args['location'],
 			'menu_order'			=> $args['menu_order'],
 			'position'				=> 'normal',
-			'style'					=> 'seamless',
+			'style'					=> $args['style'],
 			'label_placement'		=> $args['label_placement'],
 			'instruction_placement'	=> $args['instruction_placement'],
 			'hide_on_screen'		=> $args['hide_on_screen'],
 		];
 		acf_add_local_field_group( $local_field_group );
 
-		if ( $args['save_post_content'] ) {
+		if ( false !== $args['save_post_content'] ) {
 			add_filter( 'acf/update_value/key=field_' . $args['name'], [ $this, 'update_value' ], 10, 3 );
 		}
 
 	}
 
 	/**
-	 *	Whenever a page layout filed is updated
+	 *	Whenever a page layout field is updated
 	 *
 	 *	@filter acf/update_value
 	 */
 	public function update_value( $value, $post_id, $field ) {
 
+		/** @var layout name */
 		$this->should_save_post_content = $field['name'];
 
 		return $value;
