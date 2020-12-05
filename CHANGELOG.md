@@ -1,6 +1,12 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.5.2
+-----
+ - CSS: fix seamless style for repeaters inside accordions
+ - Page Layout: Fix repeater collapsed fields
+ - Page Layout: Allow `save_post_content` to be callable
+
 0.5.1
 -----
  - Feature: Location Rule Everywhere
