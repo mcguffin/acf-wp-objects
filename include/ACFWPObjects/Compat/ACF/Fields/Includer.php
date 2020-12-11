@@ -39,11 +39,20 @@ class Includer extends \acf_field {
 
 		$current_field_group_key = isset( $_REQUEST['post'] ) ? intval($_REQUEST['post']) : null;
 
+		$local_enabled = acf_is_local_enabled();
+		if ( ! $local_enabled ) {
+			acf_enable_local();
+		}
+
 		foreach ( acf_get_field_groups() as $field_group ) {
 			if ( $current_field_group_key === $field_group['ID'] ) {
 				continue;
 			}
 			$field_group_choices[ $field_group['key'] ] = $field_group['title'];
+		}
+
+		if ( ! $local_enabled ) {
+			acf_disable_local();
 		}
 
 		acf_render_field_setting( $field, array(
