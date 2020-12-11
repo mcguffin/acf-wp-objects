@@ -1,12 +1,17 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.5.3
+-----
+ - Page Layout: Fix repeater collapsed fields
+ - Feature: ID-Option for Text fields. Ensures uniqueness the on screen. Use with repeaters!
+ - Feature: introduce api functions `acf_recreate_field_keys( $fields )` and `acf_is_fieldgroup_admin()`
+
+
 0.5.2
 -----
  - CSS: fix seamless style for repeaters inside accordions
- - Page Layout: Fix repeater collapsed fields
  - Page Layout: Allow `save_post_content` to be callable
- - Fix: RepeaterChoices init causing weird behaviour in field group admin
 
 0.5.1
 -----
