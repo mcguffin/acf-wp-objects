@@ -6,6 +6,7 @@ ACF-WP-Objects Changelog
  - CSS: fix seamless style for repeaters inside accordions
  - Page Layout: Fix repeater collapsed fields
  - Page Layout: Allow `save_post_content` to be callable
+ - Fix: RepeaterChoices init causing weird behaviour in field group admin
 
 0.5.1
 -----

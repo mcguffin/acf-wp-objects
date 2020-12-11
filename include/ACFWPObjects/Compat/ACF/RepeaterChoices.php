@@ -472,7 +472,7 @@ class RepeaterChoices extends Core\Singleton {
 			}
 			$acf_groups = acf_get_field_groups();
 			if ( ! $local_enabled ) {
-				acf_enable_local();
+				acf_disable_local();
 			}
 			foreach ( $acf_groups as $group ) {
 				$fields = acf_get_fields( $group );
