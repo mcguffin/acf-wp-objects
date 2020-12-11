@@ -1,11 +1,16 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.5.4
+-----
+ - Fix: Includer field admin local field groups
+
 0.5.3
 -----
  - Page Layout: Fix repeater collapsed fields
  - Feature: ID-Option for Text fields. Ensures uniqueness the on screen. Use with repeaters!
  - Feature: introduce api functions `acf_recreate_field_keys( $fields )` and `acf_is_fieldgroup_admin()`
+ - Fix: RepeaterChoices init causing weird behaviour in field group admin
 
 
 0.5.2
