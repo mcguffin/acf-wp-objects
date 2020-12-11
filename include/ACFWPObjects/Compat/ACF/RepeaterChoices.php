@@ -291,6 +291,7 @@ class RepeaterChoices extends Core\Singleton {
 
 			$raw_choices = [];
 			$visuals = [];
+			$classname = '-repeater-choice';
 
 			if ( have_rows( $field['repeater_field'], $post_id ) ) {
 				while ( have_rows( $field['repeater_field'], $post_id ) ) {
@@ -315,6 +316,7 @@ class RepeaterChoices extends Core\Singleton {
 				if ( $field['repeater_display_field'] ) {
 					$display_field = acf_get_field( $field['repeater_display_field'] );
 					$label = $this->get_value_display( $display_field, $label, $visual );
+					$field['wrapper']['class'] .= ' repeater-choice-visualize-' . $display_field['type'];
 				}
 				// value might be image object, term object, ...
 				$key = $value;
@@ -328,7 +330,7 @@ class RepeaterChoices extends Core\Singleton {
 			}
 
 			if ( $field['repeater_display_value'] ) {
-				$field['wrapper']['class'] .= ' repeater-choice-visualize-' . $value_type;
+
 			}
 
 			$field['choices'] = $choices;

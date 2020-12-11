@@ -5,8 +5,7 @@
 		flex-wrap:wrap;
 		label {
 			.postbox-container & {
-				//max-width:20%;
-				//flex:0;
+				flex:0 0 0;
 			}
 		}
 	}
