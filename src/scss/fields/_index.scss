@@ -4,8 +4,9 @@
 @import 'select';
 @import 'repeater';
 
+@import 'seamless';
+.block-editor .edit-post-sidebar .acf-fields > .acf-field, // override block editor
 .acf-field {
-	@import 'seamless';
 	@import 'compact';
 	@import 'no-label';
 }

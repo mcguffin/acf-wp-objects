@@ -1,5 +1,6 @@
 @mixin acf-block-editor() {
 	.acf-block-component,
+	.block-editor .edit-post-sidebar,
 	.edit-post-meta-boxes-area {
 		@content;
 	}
