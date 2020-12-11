@@ -43,6 +43,7 @@ class ACF extends Core\Singleton {
 		add_action( 'acf/include_location_rules', [ $this, 'register_location_rules' ] );
 
 		WPObjects::instance();
+		FieldOptionID::instance();
 
 		if ( acf_get_setting('pro') ) {
 			RepeaterChoices::instance();

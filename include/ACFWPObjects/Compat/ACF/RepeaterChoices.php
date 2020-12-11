@@ -293,7 +293,11 @@ class RepeaterChoices extends Core\Singleton {
 			$visuals = [];
 			$classname = '-repeater-choice';
 
+			$repeater_value_field = get_field_object( $field['repeater_value_field'] );
+			$repeater_value_field = wp_parse_args( $repeater_value_field, [ 'is_id' => false ] );
+
 			if ( have_rows( $field['repeater_field'], $post_id ) ) {
+
 				while ( have_rows( $field['repeater_field'], $post_id ) ) {
 					the_row();
 
@@ -318,20 +322,22 @@ class RepeaterChoices extends Core\Singleton {
 					$label = $this->get_value_display( $display_field, $label, $visual );
 					$field['wrapper']['class'] .= ' repeater-choice-visualize-' . $display_field['type'];
 				}
-				// value might be image object, term object, ...
 				$key = $value;
 
-				if ( ! is_array( $key ) ) {
-					if ( isset($key['ID']) )
-					$key = $key['ID'];
+				// value might be image object, term object, ...
+				if ( is_array( $key ) ) {
+					if ( isset($key['ID']) ) {
+						$key = $key['ID'];
+					}
 				}
-
+				// handle text fields with ID option
+				if ( 'text' === $repeater_value_field['type'] && $repeater_value_field['is_id'] ) {
+					$key = sanitize_title( $key );
+					$key = sanitize_key( $key );
+				}
 				$choices[ $key ] = $label;
 			}
 
-			if ( $field['repeater_display_value'] ) {
-
-			}
 
 			$field['choices'] = $choices;
 			if ( ! count( $choices ) ) {
