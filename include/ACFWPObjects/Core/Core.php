@@ -71,6 +71,7 @@ class Core extends Plugin implements CoreInterface {
 				Compat\Polylang::instance();
 			}
 
+			require_once $this->get_plugin_dir() . '/include/api/api.php';
 			require_once $this->get_plugin_dir() . '/include/api/local-json.php';
 			require_once $this->get_plugin_dir() . '/include/api/localization.php';
 

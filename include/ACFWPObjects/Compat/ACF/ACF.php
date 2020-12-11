@@ -105,6 +105,50 @@ class ACF extends Core\Singleton {
 	}
 
 	/**
+	 *	@param Array $fields
+	 */
+	public function recreate_field_keys( $fields = [] ) {
+		$replace_keys = [];
+		$this->prepare_key_replace( $fields, null, $replace_keys );
+
+		$replace_keys = array_map( function($key) {
+			return 'field_'.$key;
+		}, $replace_keys );
+
+		foreach ( $replace_keys as $search => $replace ) {
+			$fields = $this->replace_field_key( $fields, $search, $replace );
+		}
+		return $fields;
+	}
+
+	/**
+	 *	Recurse fields
+	 */
+	private function prepare_key_replace( &$fields, $parent_field, &$keys ) {
+		foreach ( $fields as &$field ) {
+			$field['_tmp_key'] = '';
+			if ( isset( $field['name'] ) && ! empty( $field['name'] ) ) {
+
+				if ( ! is_null( $parent_field ) ) {
+					$field['_tmp_key'] .= $parent_field['_tmp_key'] . '_';
+				}
+				$field['_tmp_key'] .= $field['name'];
+				$keys[ $field['key'] ] = $field['_tmp_key'];
+			}
+			if ( isset( $field['sub_fields'] ) ) {
+				$this->prepare_key_replace( $field['sub_fields'], $field, $keys );
+			}
+			if ( isset( $field['layouts'] ) ) {
+				foreach ( $field['layouts'] as &$layout ) {
+					$this->prepare_key_replace( $layout['sub_fields'], [
+						'_tmp_key' => $field['_tmp_key'] . '_' . $layout['name'],
+					], $keys );
+				}
+			}
+		}
+	}
+
+	/**
 	 *	Whether we are in the fieldgroup admin
 	 *
 	 *	@return boolean
