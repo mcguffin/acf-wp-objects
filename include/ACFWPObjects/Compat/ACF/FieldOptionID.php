@@ -39,9 +39,15 @@ class FieldOptionID extends Core\Singleton {
 
 			$field['wrapper']['class'] .= ' acf-id-field';
 
-			if ( ! empty( $field[ 'value' ] ) && $field['is_id_once'] ) {
-				$field['readonly'] = 1;
+			if ( $field['is_id_once'] ) {
+
+				$field['wrapper']['class'] .= ' acf-id-once';
+
+				if ( ! empty( $field[ 'value' ] ) ) {
+					$field['readonly'] = 1;
+				}
 			}
+
 
 		}
 		return $field;
