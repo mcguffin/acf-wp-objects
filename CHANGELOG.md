@@ -4,6 +4,7 @@ ACF-WP-Objects Changelog
 0.5.4
 -----
  - Fix: Includer field admin local field groups
+ - ID-Option: slugify value on set-once-fields
 
 0.5.3
 -----
