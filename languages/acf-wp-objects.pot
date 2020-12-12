@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the ACF WP-Objects plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: ACF WP-Objects 0.5.3\n"
+"Project-Id-Version: ACF WP-Objects 0.5.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/acf-wp-objects\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-12-11T11:52:04+00:00\n"
+"POT-Creation-Date: 2020-12-12T13:50:48+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: acf-wp-objects\n"
@@ -34,19 +34,19 @@ msgstr ""
 msgid "https://github.com/mcguffin"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:54
+#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:60
 msgid "ID Field"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:55
+#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:61
 msgid "ID Fields are always unique and required."
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:62
+#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:68
 msgid "Edit Once"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:63
+#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:69
 msgid "Disable input, if field has a value."
 msgstr ""
 
@@ -74,11 +74,11 @@ msgstr ""
 msgid "Include Fields"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/Includer.php:51
+#: include/ACFWPObjects/Compat/ACF/Fields/Includer.php:60
 msgid "Field Group"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/Includer.php:52
+#: include/ACFWPObjects/Compat/ACF/Fields/Includer.php:61
 msgid "Include all fields from selected Field Group"
 msgstr ""
 
