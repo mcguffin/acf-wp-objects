@@ -471,11 +471,10 @@ class RepeaterChoices extends Core\Singleton {
 				acf_enable_local();
 			}
 			$acf_groups = acf_get_field_groups();
-			if ( ! $local_enabled ) {
-				acf_disable_local();
-			}
+
 			foreach ( $acf_groups as $group ) {
 				$fields = acf_get_fields( $group );
+
 				if ( ! $fields ) {
 					continue;
 				}
@@ -488,6 +487,11 @@ class RepeaterChoices extends Core\Singleton {
 					}
 					$groups[ $group['title'] ][ $field['key'] ] = $field['label'];
 				}
+
+			}
+
+			if ( ! $local_enabled ) {
+				acf_disable_local();
 			}
 			$this->repeater_fields = $groups;
 		}
