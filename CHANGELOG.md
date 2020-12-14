@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.5.5
+-----
+ - Fix: acf_recreate_field_keys() didn't recreate conditional logic with message fields
+
 0.5.4
 -----
  - Fix: Includer field admin local field groups

@@ -114,7 +114,7 @@ class ACF extends Core\Singleton {
 		$replace_keys = array_map( function($key) {
 			return 'field_'.$key;
 		}, $replace_keys );
-
+var_dump($replace_keys);
 		foreach ( $replace_keys as $search => $replace ) {
 			$fields = $this->replace_field_key( $fields, $search, $replace );
 		}
@@ -128,13 +128,16 @@ class ACF extends Core\Singleton {
 		foreach ( $fields as &$field ) {
 			$field['_tmp_key'] = '';
 			if ( isset( $field['name'] ) && ! empty( $field['name'] ) ) {
-
-				if ( ! is_null( $parent_field ) ) {
-					$field['_tmp_key'] .= $parent_field['_tmp_key'] . '_';
-				}
-				$field['_tmp_key'] .= $field['name'];
-				$keys[ $field['key'] ] = $field['_tmp_key'];
+				$field_name = $field['name'];
+			} else {
+				$field_name = str_replace( 'field_', '', $field['key'] );
 			}
+			if ( ! is_null( $parent_field ) ) {
+				$field['_tmp_key'] .= $parent_field['_tmp_key'] . '_';
+			}
+			$field['_tmp_key'] .= $field_name;
+			$keys[ $field['key'] ] = $field['_tmp_key'];
+
 			if ( isset( $field['sub_fields'] ) ) {
 				$this->prepare_key_replace( $field['sub_fields'], $field, $keys );
 			}
