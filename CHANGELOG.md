@@ -1,6 +1,14 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.5.7
+-----
+ - Fix: repeater choices with local json
+
+0.5.6
+-----
+ - rm var_dump
+
 0.5.5
 -----
  - Fix: acf_recreate_field_keys() didn't recreate conditional logic with message fields
