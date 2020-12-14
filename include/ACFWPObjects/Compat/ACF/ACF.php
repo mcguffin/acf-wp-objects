@@ -114,7 +114,8 @@ class ACF extends Core\Singleton {
 		$replace_keys = array_map( function($key) {
 			return 'field_'.$key;
 		}, $replace_keys );
-var_dump($replace_keys);
+
+
 		foreach ( $replace_keys as $search => $replace ) {
 			$fields = $this->replace_field_key( $fields, $search, $replace );
 		}
