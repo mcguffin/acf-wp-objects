@@ -48,7 +48,6 @@ const SweetSpotField = acf.Field.extend({
 	},
 
 	initialize: function() {
-		console.trace('init')
 		this.clickedContainer = this.clickedContainer.bind(this)
 		this.setupImage = this.setupImage.bind(this);
 		this.$marker = false;
