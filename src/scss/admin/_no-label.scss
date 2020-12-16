@@ -1,8 +1,16 @@
 &.no-label {
 	& > .acf-label {
 		display:none;
+		& + .acf-input {
+			width:100%;
+		}
 	}
-	.acf-fields.-left > &:before {
-		content:none;
+	.acf-fields.-left > & {
+		&:before {
+			content:none;
+		}
+		&.seamless > .acf-input {
+			padding-left:0;
+		}
 	}
 }
