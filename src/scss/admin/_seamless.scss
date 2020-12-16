@@ -2,6 +2,7 @@
 .block-editor .edit-post-sidebar .acf-fields > .acf-field, // override block editor
 .acf-field {
 	&.seamless {
+
 		&,
 		& > .acf-input,
 		.acf-fields.-left > & > .acf-input  {
@@ -15,6 +16,22 @@
 			padding-left:1px;
 			margin-top:-15px;
 			margin-bottom:-15px;
+		}
+		&.acf-field-wysiwyg {
+			.acf-editor-wrap .wp-editor-container {
+				border-style:none;
+			}
+			.mce-top-part::before {
+				box-shadow: none;
+			}
+			div.mce-statusbar {
+				background:#f5f5f5;
+			}
+		}
+		&.acf-field-oembed {
+			.acf-oembed {
+				border-style: none;
+			}
 		}
 		&.acf-field-repeater {
 			& > .acf-input {
@@ -30,6 +47,44 @@
 				}
 			}
 		}
+
+		&.acf-field-group:not(.no-label) {
+
+			& > .acf-label {
+				margin:0;
+				padding:10px;
+			}
+			& > .acf-input {
+				& > .acf-fields.-left {
+					border-top:1px solid #eeeeee;
+				}
+				.acf-fields.-top > & {
+					& > .acf-fields:not(.-left) {
+						border-top:1px dashed #eeeeee;
+						& > .acf-field {
+
+							border-top-style:dashed;
+							&:first-child {
+								border-top-style:none;
+							}
+							&[data-width] + .acf-field[data-width] {
+								border-left-style:dashed;
+							}
+						}
+					}
+				}
+				& > .acf-table {
+					//
+					border-width: 1px 0 0 0;
+					border-top-style:dashed;
+					& > thead > tr > th,
+					& > tbody > tr > td {
+						border-style:dashed;
+					}
+				}
+			}
+		}
+
 		// &,
 		// &.acf-field-group {
 		// 	padding:0;

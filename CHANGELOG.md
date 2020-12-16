@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.5.8
+-----
+ - Styles: improve seamless style
+
 0.5.7
 -----
  - Fix: repeater choices with local json
