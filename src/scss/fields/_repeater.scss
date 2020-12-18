@@ -38,7 +38,11 @@
 	}
 }
 .acf-field-repeater {
-
+	&.deny-sort {
+		.acf-repeater .acf-row-handle.order {
+			cursor: default;
+		}
+	}
 	&.no-sort {
 		// acf-row-handle order ui-sortable-handle
 		margin-top:4px;
