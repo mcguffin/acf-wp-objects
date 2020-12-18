@@ -28,7 +28,7 @@ class FieldOptionID extends Core\Singleton {
 
 	public function prepare_field( $field ) {
 
-		$field = wp_parse_args( $field, [ 'is_id' => false, 'is_id_once' => false ] );
+		$field = wp_parse_args( $field, [ 'is_id' => false, 'is_id_once' => false, 'is_slug' => false ] );
 
 		if ( $field['is_id'] ) {
 			// $field['pattern'] = '[0-9a-z_-]+';
@@ -46,6 +46,9 @@ class FieldOptionID extends Core\Singleton {
 				if ( ! empty( $field[ 'value' ] ) ) {
 					$field['readonly'] = 1;
 				}
+			}
+			if ( $field['is_slug'] ) {
+				$field['wrapper']['class'] .= ' acf-id-slug';
 			}
 
 
@@ -68,6 +71,19 @@ class FieldOptionID extends Core\Singleton {
 			'label'			=> __('Edit Once','acf-wp-objects'),
 			'instructions'	=> __('Disable input, if field has a value.', 'acf-wp-objects' ),
 			'name'			=> 'is_id_once',
+			'type'			=> 'true_false',
+			'ui'			=> 1,
+			'conditions'	=> [
+				'field'		=> 'is_id',
+				'operator'	=> '==',
+				'value'		=> 1
+			],
+		));
+
+		acf_render_field_setting( $field, array(
+			'label'			=> __('Slug','acf-wp-objects'),
+			'instructions'	=> __('Convert input to slug (only letters, digits and dashes).', 'acf-wp-objects' ),
+			'name'			=> 'is_slug',
 			'type'			=> 'true_false',
 			'ui'			=> 1,
 			'conditions'	=> [

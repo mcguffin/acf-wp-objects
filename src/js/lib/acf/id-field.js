@@ -24,15 +24,15 @@ const hasVal = ( key, v, own ) => {
 //
 $(document).on('change','.acf-field.acf-id-field [type="text"]', e => {
 	const key = $(e.target).closest('.acf-field').attr('data-key');
-	const is_once = $(e.target).closest('.acf-field').hasClass('acf-id-once');
+	const is_slug = $(e.target).closest('.acf-field').hasClass('acf-id-slug');
 	const val = $(e.target).val();
 	let new_val = val
-	if ( is_once ) {
+	if ( is_slug ) {
 		new_val = new_val.toLowerCase().normalize("NFD").replace(/(\s+)/g,'-').replace(/[\u0000-\u0020\u007F-\uffff]/g, "")
 	}
 	let i = 0;
 	while ( hasVal( key, new_val, e.target ) ) {
-		new_val = is_once ? `${val}-${++i}` : `${val} ${++i}`
+		new_val = is_slug ? `${val}-${++i}` : `${val} ${++i}`
 	}
 	$(e.target).val( new_val )
 
