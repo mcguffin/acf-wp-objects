@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the ACF WP-Objects plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: ACF WP-Objects 0.5.8\n"
+"Project-Id-Version: ACF WP-Objects 0.5.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/acf-wp-objects\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-12-16T17:35:30+00:00\n"
+"POT-Creation-Date: 2020-12-18T14:58:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: acf-wp-objects\n"
@@ -34,20 +34,32 @@ msgstr ""
 msgid "https://github.com/mcguffin"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:60
+#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:63
 msgid "ID Field"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:61
+#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:64
 msgid "ID Fields are always unique and required."
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:68
+#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:71
 msgid "Edit Once"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:69
+#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:72
 msgid "Disable input, if field has a value."
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:84
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:160
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:154
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:132
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:157
+msgid "Slug"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:85
+msgid "Convert input to slug (only letters, digits and dashes)."
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/ImageSweetSpot.php:28
@@ -102,13 +114,6 @@ msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:159
 msgid "Size Array"
-msgstr ""
-
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:160
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:154
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:132
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:157
-msgid "Slug"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:169
