@@ -385,15 +385,27 @@ class RepeaterChoices extends Core\Singleton {
 					$color = 'rgba(0,0,0,0)';
 					$match_color = '#ffffff';
 				}
-				$html = sprintf('
-					<span class="white"></span>
-					<span class="color-label" style="color:%s;background:%s;">
-						%s
-					</span>',
-					$this->get_matching_color( $match_color ),
-					$color,
-					$label
-				);
+				if ( empty( $label ) ) {
+					$html = sprintf('
+						<span class="white"></span>
+						<span class="color-label" style="color:%1$s;background:%2$s;">
+							<span class="screen-reader-text">%2$s</span>
+						</span>',
+						$this->get_matching_color( $match_color ),
+						$color
+					);
+				} else {
+					$html = sprintf('
+						<span class="white"></span>
+						<span class="acf-js-tooltip color-label" style="color:%1$s;background:%2$s;" title="%3$s">
+							%4$s
+						</span>',
+						$this->get_matching_color( $match_color ),
+						$color,
+						esc_attr($label),
+						$label
+					);
+				}
 				break;
 			case 'text':
 				$html = $label;

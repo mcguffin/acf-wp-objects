@@ -1,6 +1,11 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.5.9
+-----
+ - ID Field: make slugify an extra setting
+ - Repeater Choices: Introduce css class `color-spots`
+
 0.5.8
 -----
  - Styles: improve seamless style

@@ -5,32 +5,73 @@
 		flex-wrap:wrap;
 		label {
 			.postbox-container & {
+				//max-width:20%;
 				flex:0 0 0;
 			}
 		}
 	}
+	.acf-field-button-group.color-spots & {
+		label {
+			flex: 0 0 32px;
+			height:32px;
+			overflow:hidden;
+			box-sizing:border-box;
+			margin:2px;
+			border-radius:50%;
+			padding:0;
+		}
+	}
 	.color-label {
-		padding:4px 9px;
-		margin:-4px -9px;
-		width:100%;
-		text-align:left;
-		min-height:24px;
+		.acf-field-button-group:not(.color-spots) & {
+			padding:4px 9px;
+			margin:-4px -9px;
+			width:100%;
+			text-align:left;
+			min-height:24px;
+		}
+		.acf-field-button-group.color-spots & {
+			padding:0;
+			margin:2px;
+			width:26px;
+			height:26px;
+			border-radius:50%;
+			box-sizing:border-box;
+
+		}
 
 		&::before {
 			content: "";
 			font-family: dashicons;
-			width:30px;
-			height:24px;
-			font-size:30px;
-			line-height:24px;
 			display:inline-block;
 			//margin:-5px 5px;
 			vertical-align:middle;
 			text-align:center;
+			.acf-field-button-group:not(.color-spots) & {
+				width:30px;
+				height:24px;
+				font-size:30px;
+				line-height:24px;
+			}
+			.acf-field-button-group.color-spots & {
+				width:100%;
+				height:100%;
+				font-size:24px;
+				line-height:26px;
+			}
 		}
 	}
 	.selected {
 		position:relative;
+		.acf-field-button-group.color-spots & {
+			border-color:rgba($wp-blue,0.7);
+			border-width: 3px;
+			flex-basis: 36px;
+			height: 36px;
+			margin: 0;
+			.color-label {
+
+			}
+		}
 		.color-label {
 			opacity:1;
 			&::before {
@@ -44,10 +85,19 @@
 	.white  {
 		position:absolute;
 		display:block;
-		left:2px;
-		top:2px;
-		bottom:2px;
-		right:2px;
+
+		.acf-field-button-group:not(.color-spots) & {
+			left:2px;
+			top:2px;
+			bottom:2px;
+			right:2px;
+		}
+		.acf-field-button-group.color-spots & {
+			left:0;
+			top:0;
+			bottom:0;
+			right:0;
+		}
 		background:#fff;
 		background-image:	linear-gradient(45deg, #ededed 25%, transparent 25%),
 							linear-gradient(-45deg, #ededed 25%, transparent 25%),
