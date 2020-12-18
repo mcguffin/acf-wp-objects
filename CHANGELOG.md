@@ -6,6 +6,7 @@ ACF-WP-Objects Changelog
  - ID Field: make slugify an extra setting
  - ID Field: handle duplicated fields
  - Repeater Choices: Introduce css class `color-spots`
+ - CSS: introduce `deny-sort` class for repeaters to disable sorting
 
 0.5.8
 -----
