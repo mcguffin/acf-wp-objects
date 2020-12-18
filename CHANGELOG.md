@@ -4,6 +4,7 @@ ACF-WP-Objects Changelog
 0.5.9
 -----
  - ID Field: make slugify an extra setting
+ - ID Field: handle duplicated fields
  - Repeater Choices: Introduce css class `color-spots`
 
 0.5.8
