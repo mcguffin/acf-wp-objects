@@ -94,7 +94,20 @@ class Includer extends \acf_field {
 
 
 			if ( $this->name === $field['type'] ) {
-				$return_fields = array_merge( $return_fields, $this->resolve_field( $field ) );
+
+				$resolved_fields = $this->resolve_field( $field );
+
+
+				if ( isset( $parent['type'] ) && 'repeater' === $parent['type'] && $parent['collapsed'] === $field['key'] ) {
+					// add collapsed-target class
+					$resolved_fields = array_map( function( $field ) {
+						$field['wrapper']['class'] .= ' -collapsed-target';
+						return $field;
+					}, $resolved_fields );
+
+				}
+
+				$return_fields = array_merge( $return_fields, $resolved_fields );
 
 			} else {
 				$return_fields[] = $field;

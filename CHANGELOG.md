@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.5.10
+------
+ - Includer field: fix collapse target field inside repeater
+
 0.5.9
 -----
  - ID Field: make slugify an extra setting
