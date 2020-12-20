@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the ACF WP-Objects plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: ACF WP-Objects 0.5.10\n"
+"Project-Id-Version: ACF WP-Objects 0.5.11\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/acf-wp-objects\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-12-19T14:25:12+00:00\n"
+"POT-Creation-Date: 2020-12-20T19:30:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: acf-wp-objects\n"
@@ -53,7 +53,7 @@ msgstr ""
 #: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:84
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:160
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:154
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:132
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:133
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:157
 msgid "Slug"
 msgstr ""
@@ -100,14 +100,14 @@ msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:153
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:147
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:125
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:126
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:150
 msgid "Return Value"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:154
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:148
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:126
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:127
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:151
 msgid "Specify the returned value on front end"
 msgstr ""
@@ -141,7 +141,7 @@ msgid "Select Post Type"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:153
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:131
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:132
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:156
 msgid "Label"
 msgstr ""
@@ -171,7 +171,7 @@ msgstr ""
 msgid "Show in Nav Menus"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:133
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:134
 msgid "Role Object"
 msgstr ""
 
