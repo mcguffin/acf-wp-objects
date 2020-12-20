@@ -3,6 +3,11 @@ ACF-WP-Objects Changelog
 
 0.5.10
 ------
+ - Fix: PHP  faltal in Fields/SelectRole
+ - Fix: php warning in wp-includes/formatting.php
+
+0.5.10
+------
  - Includer field: fix collapse target field inside repeater
 
 0.5.9
