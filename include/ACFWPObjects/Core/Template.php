@@ -113,7 +113,7 @@ class Template extends Singleton {
 			$paths_to_scan = [ trailingslashit( get_stylesheet_directory() ) . $type['theme_location'] ];
 
 			if ( is_child_theme() ) {
-				$paths_to_scan[] = [ trailingslashit( get_template_directory() ) . $type['theme_location'] ];
+				$paths_to_scan[] = trailingslashit( get_template_directory() ) . $type['theme_location'];
 			}
 			if ( false !== $type['plugin_location'] ) {
 				$paths_to_scan[] = trailingslashit( WP_PLUGIN_DIR ) . trailingslashit( $slug ) . $type['plugin_location'];
