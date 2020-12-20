@@ -79,7 +79,7 @@ class PluginTest {
 
 
 
-		simple!
+		// simple!
 		error_log( 'COMBINE C1 C2' );
 		error_log( 'EXPECTED [[C1 C2]]' );
 		error_log( var_export( $helper->combine( $cond1, $cond2 ), true ) );
