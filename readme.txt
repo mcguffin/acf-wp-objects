@@ -1,10 +1,10 @@
 === ACF-WP-Objects ===
-Contributors: #### Your wordpress.org Username ####
+Contributors: podpirate
 Donate link: #### donate link ####
 Tags: #### donate link ####
-Requires at least: 3.8
-Requires PHP: 5.3
-Tested up to: 4.9
+Requires at least: 5.0
+Requires PHP: 7.2
+Tested up to: 5.6
 Stable tag: 0.5.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
