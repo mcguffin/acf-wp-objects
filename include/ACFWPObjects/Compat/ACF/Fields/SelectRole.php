@@ -55,7 +55,8 @@ class SelectRole extends \acf_field_select {
 	 */
 	function load_field( $field ) {
 
-		$core_roles = Core\Core::instance()->get_roles();
+		$wp = Core\WP::instance();
+		$core_roles = $wp->get_roles();
 
 
 		$field['choices'] = $core_roles;
