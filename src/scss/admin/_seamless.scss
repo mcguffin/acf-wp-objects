@@ -1,4 +1,10 @@
 // .acf-fields.-left > .acf-field > .acf-input { p }
+.acf-block-body .acf-fields > .acf-field {
+	&.seamless {
+	}
+}
+
+.acf-block-body .acf-fields > .acf-field,
 .block-editor .edit-post-sidebar .acf-fields > .acf-field, // override block editor
 .acf-field {
 	&.seamless {
@@ -47,19 +53,28 @@
 				}
 			}
 		}
+	}
+}
+.block-editor .edit-post-sidebar .acf-fields > .acf-field, // override block editor
+.acf-field {
+	&.seamless {
 
 		&.acf-field-group:not(.no-label) {
 
 			& > .acf-label {
 				margin:0;
 				padding:10px;
+				.acf-block-body & {
+					padding:10px 20px 0 20px;
+				}
 			}
 			& > .acf-input {
 				& > .acf-fields.-left {
 					border-top:1px solid #eeeeee;
 				}
+				.acf-block-body & ,
 				.acf-fields.-top > & {
-					& > .acf-fields:not(.-left) {
+					& > .acf-fields.-top {
 						border-top:1px dashed #eeeeee;
 						& > .acf-field {
 

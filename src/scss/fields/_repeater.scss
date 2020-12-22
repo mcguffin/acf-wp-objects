@@ -45,7 +45,9 @@
 	}
 	&.no-sort {
 		// acf-row-handle order ui-sortable-handle
-		margin-top:4px;
+		.acf-fields.-top > & {
+			margin-top:4px;
+		}
 		@include acf-repeater-table() {
 			& > * > tr { // thead/body > tr
 				& > .acf-row-handle {
