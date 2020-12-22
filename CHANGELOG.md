@@ -1,9 +1,14 @@
 ACF-WP-Objects Changelog
 ========================
 
-0.5.10
+0.5.12
 ------
- - Fix: PHP  faltal in Fields/SelectRole
+ - Fix: PostType Object PHP warning
+ - CSS: improve block editor styles
+
+0.5.11
+------
+ - Fix: PHP fatal in Fields/SelectRole
  - Fix: php warning in wp-includes/formatting.php
 
 0.5.10
