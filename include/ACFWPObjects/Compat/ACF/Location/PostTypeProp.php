@@ -41,15 +41,18 @@ class PostTypeProp extends \acf_location {
 
 		}
 
-		if( ! $post_type ) return false;
+		if( ! $post_type ) {
+			return false;
+		}
 
-		$prop = $rule['value'];
+		if ( $pto = get_post_type_object( $post_type ) ) {
 
-		$pto = get_post_type_object( $post_type );
+			$prop = $rule['value'];
 
-        // return
-        return $this->compare( $pto->$prop, $rule );
+	        return $this->compare( $pto->$prop, $rule );
 
+		}
+		return false;
 	}
 
 
