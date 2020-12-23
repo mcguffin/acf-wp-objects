@@ -1,10 +1,10 @@
 <?php
 
-namespace ACFWPObjects\Compat\ACF;
+namespace ACFWPObjects\Compat\ACF\FieldOption;
 
 use ACFWPObjects\Core;
 
-class FieldOptionID extends Core\Singleton {
+class ID extends Core\Singleton {
 
 	/**
 	 *	@inheritdoc

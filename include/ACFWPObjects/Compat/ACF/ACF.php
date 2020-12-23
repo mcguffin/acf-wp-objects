@@ -14,6 +14,7 @@ if ( ! defined('ABSPATH') ) {
 
 use ACFWPObjects\Asset;
 use ACFWPObjects\Core;
+use ACFWPObjects\Compat\ACF\FieldOption;
 
 
 class ACF extends Core\Singleton {
@@ -43,7 +44,7 @@ class ACF extends Core\Singleton {
 		add_action( 'acf/include_location_rules', [ $this, 'register_location_rules' ] );
 
 		WPObjects::instance();
-		FieldOptionID::instance();
+		FieldOption\ID::instance();
 
 		if ( acf_get_setting('pro') ) {
 			RepeaterChoices::instance();
