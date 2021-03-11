@@ -186,7 +186,7 @@ class Includer extends \acf_field {
 		}
 
 		// is trash action
-		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'trash' ) {
+		if ( isset( $_REQUEST['action'] ) && in_array( $_REQUEST['action'], [ 'trash',  'acf/field_group/move_field' ] ) ) {
 			return false;
 		}
 
