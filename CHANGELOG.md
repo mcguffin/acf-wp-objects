@@ -1,6 +1,12 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.5.13
+------
+ - Fix: ACF Move fields broken with includer fields involved
+ - Repeater Choice: Use row index for display and key
+ - CSS: introduce .btn-Ncols classes (2-6 columns) for acf button group grid
+
 0.5.12
 ------
  - Fix: PostType Object PHP warning

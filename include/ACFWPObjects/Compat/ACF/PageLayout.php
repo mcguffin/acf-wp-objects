@@ -138,7 +138,7 @@ class PageLayout extends Core\Singleton {
 			],
 			'hide_on_screen' => [
 				'the_content',
-		        'excerpt'
+				'excerpt'
 			],
 		]);
 
