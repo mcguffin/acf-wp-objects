@@ -127,6 +127,7 @@ class PageLayout extends Core\Singleton {
 			'save_post_content'		=> false,
 			'style'					=> 'seamless',
 			'button_label'			=> __( 'Add section', 'acf-wp-objects' ),
+			'fields'				=> [],
 			'location'				=> [
 				[
 					[
@@ -328,10 +329,13 @@ class PageLayout extends Core\Singleton {
 			];
 
 		}
+
+
+
 		$local_field_group = [
 			'key'		=> 'group_'.$layout_key,
 			'title' 	=> $args['title'],
-			'fields'	=> [
+			'fields'	=> array_merge( $args['fields'], [
 				[
 					'key'				=> 'field_' . $args['name'],
 					'label'				=> $args['title'],
@@ -350,7 +354,7 @@ class PageLayout extends Core\Singleton {
 					'min'				=> '',
 					'max'				=> '',
 				]
-			],
+			] ),
 			'location'				=> $args['location'],
 			'menu_order'			=> $args['menu_order'],
 			'position'				=> 'normal',

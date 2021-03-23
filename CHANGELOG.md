@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.5.14
+------
+ - Feature: acf_add_page_layout() allow prefilled fields
+
 0.5.13
 ------
  - Fix: ACF Move fields broken with includer fields involved
