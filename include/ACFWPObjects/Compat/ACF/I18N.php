@@ -193,7 +193,7 @@ class I18N {
 
 			} else if ( in_array( $key, $this->choices_fields, true ) ) {
 
-				foreach ( $value as $c => $choice ) {
+				foreach ( (array) $value as $c => $choice ) {
 					if ( ! empty( $choice ) && is_scalar( $choice ) ) {
 						// flat
 						$object[$key][$c] = $this->translate_string( $choice );

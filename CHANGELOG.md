@@ -1,9 +1,13 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.5.15
+------
+ - Fixes: PHP Warnings
+
 0.5.14
 ------
- - Feature: acf_add_page_layout() allow prefilled fields
+ - Feature: acf_add_page_layout() merge with existing fields
 
 0.5.13
 ------

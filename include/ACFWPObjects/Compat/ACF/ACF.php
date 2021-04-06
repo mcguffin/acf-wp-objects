@@ -130,8 +130,10 @@ class ACF extends Core\Singleton {
 			$field['_tmp_key'] = '';
 			if ( isset( $field['name'] ) && ! empty( $field['name'] ) ) {
 				$field_name = $field['name'];
-			} else {
+			} else if ( isset( $field['key'] ) && ! empty( $field['key'] ) ) {
 				$field_name = str_replace( 'field_', '', $field['key'] );
+			} else {
+				continue;
 			}
 			if ( ! is_null( $parent_field ) ) {
 				$field['_tmp_key'] .= $parent_field['_tmp_key'] . '_';
