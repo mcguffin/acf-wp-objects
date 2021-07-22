@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @import 'variables/index';
 
 @import 'mixins/index';
@@ -15,8 +17,8 @@
 	position: absolute;
 	left:50%;
 	top:50%;
-	margin-left:-$size / 2;
-	margin-top:-$size / 2;
+	margin-left:math.div(-$size, 2);
+	margin-top:math.div(-$size, 2);
 	width:$size;
 	height:$size;
 	border-radius:50%;
