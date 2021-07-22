@@ -32,7 +32,16 @@ class WPOptionsPage extends \acf_location {
 
 		global $pagenow;
 
-        return $this->compare( $pagenow, $rule );
+		if ( $pagenow === 'options.php' && isset( $_POST['option_page'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$options_page = sprintf(
+				'options-%s.php',
+				sanitize_key( wp_unslash( $_POST['option_page'] ) ) // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			);
+		} else {
+			$options_page = $pagenow;
+		}
+
+		return $this->compare( $options_page, $rule );
 
 	}
 

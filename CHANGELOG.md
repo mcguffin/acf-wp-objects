@@ -1,6 +1,11 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.5.16
+------
+ - Fix WP Options Page location with ACF free
+ - Fix JS error with ACF Free
+
 0.5.15
 ------
  - Fixes: PHP Warnings
