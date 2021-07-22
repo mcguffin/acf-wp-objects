@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the ACF WP-Objects plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: ACF WP-Objects 0.5.15\n"
+"Project-Id-Version: ACF WP-Objects 0.5.16\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/acf-wp-objects\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-04-06T15:50:34+00:00\n"
+"POT-Creation-Date: 2021-07-22T18:27:40+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: acf-wp-objects\n"
@@ -238,27 +238,27 @@ msgstr ""
 msgid "WP Options Page"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Location/WPOptionsPage.php:47
+#: include/ACFWPObjects/Compat/ACF/Location/WPOptionsPage.php:56
 msgid "General"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Location/WPOptionsPage.php:48
+#: include/ACFWPObjects/Compat/ACF/Location/WPOptionsPage.php:57
 msgid "Writing"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Location/WPOptionsPage.php:49
+#: include/ACFWPObjects/Compat/ACF/Location/WPOptionsPage.php:58
 msgid "Reading"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Location/WPOptionsPage.php:50
+#: include/ACFWPObjects/Compat/ACF/Location/WPOptionsPage.php:59
 msgid "Discussion"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Location/WPOptionsPage.php:51
+#: include/ACFWPObjects/Compat/ACF/Location/WPOptionsPage.php:60
 msgid "Media"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Location/WPOptionsPage.php:52
+#: include/ACFWPObjects/Compat/ACF/Location/WPOptionsPage.php:61
 msgid "Permalinks"
 msgstr ""
 
