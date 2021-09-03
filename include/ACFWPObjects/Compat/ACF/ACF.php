@@ -294,7 +294,7 @@ class ACF extends Core\Singleton {
 
 
 	/**
-	 *	@action init
+	 *	@action acf/include_field_types
 	 */
 	public function register_field_types() {
 
