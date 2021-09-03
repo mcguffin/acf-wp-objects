@@ -223,9 +223,9 @@ class I18N {
 	 */
 	private function translate_string( $string ) {
 		if ( false === $this->context ) {
-			return __( $string, $this->textdomain );
+			return __( $string, $this->textdomain ); // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralDomain
 		}
-		return _x( $string, $this->context, $this->textdomain );
+		return _x( $string, $this->context, $this->textdomain ); // phpcs:ignore WordPress.WP.I18n
 	}
 
 

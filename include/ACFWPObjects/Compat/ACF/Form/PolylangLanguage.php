@@ -30,7 +30,7 @@ class PolylangLanguage extends \acf_form_taxonomy {
 		global $pagenow;
 
 		// validate page
-		if( $pagenow === 'admin.php' && isset($_GET['page']) && 'mlang' === wp_unslash( $_GET['page'] ) ) {
+		if( $pagenow === 'admin.php' && isset($_GET['page']) && 'mlang' === wp_unslash( $_GET['page'] ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 			return true;
 

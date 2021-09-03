@@ -191,8 +191,8 @@ class WPObjects extends Core\Singleton {
 				} else if ( 'post_thumbnail' == $key ) {
 
 					if ( is_preview() ) {
-						if ( isset( $_GET['_thumbnail_id'] ) && wp_unslash( $_GET['_thumbnail_id']) > 1 ) {
-							$value = wp_unslash( $_GET['_thumbnail_id'] );
+						if ( isset( $_GET['_thumbnail_id'] ) && wp_unslash( $_GET['_thumbnail_id']) > 1 ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+							$value = wp_unslash( $_GET['_thumbnail_id'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 						} else {
 							$value = 0;
 						}
@@ -337,7 +337,7 @@ class WPObjects extends Core\Singleton {
 	 */
 	private function is_post_preview_saving() {
 
-		return isset( $_POST['wp-preview'] ) && 'dopreview' === $_POST['wp-preview'];
+		return isset( $_POST['wp-preview'] ) && 'dopreview' === $_POST['wp-preview'];  // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 	}
 

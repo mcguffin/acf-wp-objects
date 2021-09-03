@@ -162,7 +162,7 @@ class ACF extends Core\Singleton {
 	public function is_fieldgroup_admin() {
 
 		// local json compare ajax request
-		if ( wp_doing_ajax() && isset( $_REQUEST['action'] ) && wp_unslash($_REQUEST['action']) === 'acf/ajax/local_json_diff' ) {
+		if ( wp_doing_ajax() && isset( $_REQUEST['action'] ) && wp_unslash($_REQUEST['action']) === 'acf/ajax/local_json_diff' ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			return true;
 		}
 
