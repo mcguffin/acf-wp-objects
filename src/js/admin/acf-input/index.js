@@ -1,6 +1,7 @@
 import 'acf/field-sweet-spot';
 import 'acf/select-conditions';
 import 'acf/id-field';
+import 'acf/accordion-layout';
 
 // repeater field deny sorting
 const RepeaterField = acf.getFieldType('repeater')

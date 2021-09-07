@@ -4,7 +4,7 @@ namespace ACFWPObjects\Compat\ACF\FieldOption;
 
 use ACFWPObjects\Core;
 
-class ID extends Core\Singleton {
+class TextID extends Core\Singleton {
 
 	/**
 	 *	@inheritdoc
@@ -18,10 +18,10 @@ class ID extends Core\Singleton {
 
 
 	public function update_value( $value, $post_id, $field ) {
-		$field = wp_parse_args( $field, [ 'is_id' => false ] );
-		if ( $field['is_id'] ) {
-			// $value = sanitize_title($value);
-			// $value = sanitize_key($value);
+		$field = wp_parse_args( $field, [ 'is_id' => false, 'is_slug' => false  ] );
+		if ( $field['is_id'] && $field['is_slug'] ) {
+			$value = sanitize_title($value);
+			$value = sanitize_key($value);
 		}
 		return $value;
 	}

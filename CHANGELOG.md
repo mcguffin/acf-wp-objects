@@ -1,6 +1,11 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.5.13
+------
+ - Feature: Accordion Option for Flexible Content Fields
+ - Code: Refactor namespaces
+
 0.5.12
 ------
  - Fix: PostType Object PHP warning
