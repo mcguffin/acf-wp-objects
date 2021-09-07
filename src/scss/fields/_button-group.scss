@@ -65,7 +65,8 @@
 	.selected {
 		position:relative;
 		.acf-field-button-group.color-spots & {
-			border-color:rgba($wp-blue,0.7);
+			// border-color:rgba(wp-color(blue-50),0.7);
+			border-color: rgba( $acf-blue, 0.7 );
 			border-width: 3px;
 			flex-basis: 36px;
 			height: 36px;
