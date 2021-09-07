@@ -36,12 +36,11 @@ Field Group
 
 Development
 -----------
- - [ ] PHPCS Audit
+ - [x] PHPCS Audit
  - [ ] Submit to packagist
  - [ ] Write Automated Tests for all components
  - [ ] Test Compatibility
    - [ ] ACF Free
-   - [ ] RGBA-Color-Picker
    - [ ] ...
 
 
