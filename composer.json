@@ -1,6 +1,6 @@
 {
   "name": "mcguffin/acf-wp-objects",
-  "description": "ACF WP-Objects",
+  "description": "Integrating WordPress and ACF",
   "license": "GPL-3.0-or-later",
   "keywords": [
     "WordPress",
@@ -9,7 +9,7 @@
   "homepage": "https://github.com/mcguffin/acf-wp-object.git",
   "type": "wordpress-plugin",
   "require": {
-	"composer/installers": "~1.2",
+	"composer/installers": "~2.0",
     "php": ">=5.6.0"
   },
   "require-dev": {
