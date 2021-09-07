@@ -1,6 +1,15 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.5.18
+------
+ - Fix: Composer
+
+0.5.17
+------
+ - CSS: Introduce `accordion` class for flexibe content
+ - CSS: Introduce `buttongroup` class for checkboxes
+
 0.5.16
 ------
  - Fix WP Options Page location with ACF free
