@@ -3,6 +3,7 @@ import 'acf/select-conditions';
 import 'acf/id-field';
 import scrollIntoView from 'scroll-into-view-if-needed'
 import $ from 'jquery';
+import 'acf/accordion-layout';
 
 // repeater field deny sorting
 const RepeaterField = acf.getFieldType('repeater')

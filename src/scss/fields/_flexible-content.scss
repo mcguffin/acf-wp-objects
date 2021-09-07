@@ -1,15 +1,10 @@
-.acf-field-flexible-content {
-	&.accordion {
-		> .acf-input {
-			> .acf-flexible-content {
-				> .ui-sortable {
-					.layout {
-						margin-top:0;
-						&:not(:first-child) {
-							border-top-style:none;
-						}
-					}
-				}
+.acf-flexible-content {
+	.acf-accordion-layout > .acf-input > & {
+		.layout {
+			margin-top:0;
+			border-top-style:none;
+			&:first-child {
+				border-top-style:solid;
 			}
 		}
 	}
