@@ -1,0 +1,11 @@
+.acf-flexible-content {
+	.acf-accordion-layout > .acf-input > & {
+		.layout {
+			margin-top:0;
+			border-top-style:none;
+			&:first-child {
+				border-top-style:solid;
+			}
+		}
+	}
+}
