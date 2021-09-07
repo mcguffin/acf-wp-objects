@@ -1,6 +1,34 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.5.18
+------
+ - Fix: Composer
+
+0.5.17
+------
+ - CSS: Introduce `accordion` class for flexibe content
+ - CSS: Introduce `buttongroup` class for checkboxes
+
+0.5.16
+------
+ - Fix WP Options Page location with ACF free
+ - Fix JS error with ACF Free
+
+0.5.15
+------
+ - Fixes: PHP Warnings
+
+0.5.14
+------
+ - Feature: acf_add_page_layout() merge with existing fields
+
+0.5.13
+------
+ - Fix: ACF Move fields broken with includer fields involved
+ - Repeater Choice: Use row index for display and key
+ - CSS: introduce .btn-Ncols classes (2-6 columns) for acf button group grid
+
 0.5.12
 ------
  - Fix: PostType Object PHP warning

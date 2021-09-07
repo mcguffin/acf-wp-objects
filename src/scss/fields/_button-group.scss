@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .acf-button-group  {
 	.edit-post-meta-boxes-area.is-side &, // block editor sidebar
 	.repeater-choice-visualize-extended-color-picker &,
@@ -63,7 +65,8 @@
 	.selected {
 		position:relative;
 		.acf-field-button-group.color-spots & {
-			border-color:rgba($wp-blue,0.7);
+			// border-color:rgba(wp-color(blue-50),0.7);
+			border-color: rgba( $acf-blue, 0.7 );
 			border-width: 3px;
 			flex-basis: 36px;
 			height: 36px;
@@ -111,6 +114,45 @@
 		height: 100%;
 		object-fit: none;
 	}
+
+	.acf-field-button-group.btn-2col &,
+	.acf-field-button-group.btn-3col &,
+	.acf-field-button-group.btn-4col &,
+	.acf-field-button-group.btn-5col &,
+	.acf-field-button-group.btn-6col & {
+		flex-wrap: wrap;
+		label {
+			&:first-of-type {
+				border-radius:3px 0 0 0;
+			}
+			&:last-of-type {
+				border-radius:0 0 3px 0;
+			}
+		}
+	}
+	@each $n in 2,3,4,5,6 {
+		.acf-field-button-group.btn-#{$n}col & {
+			label {
+				flex:1 0 percentage( math.div(1, $n) );
+				box-sizing:border-box;
+				border-bottom-width:0;
+				&:nth-of-type(#{$n}) {
+					border-radius:0 3px 0 0;
+					& ~ label {
+						flex-basis:auto;
+					}
+				}
+				&:nth-last-of-type(#{$n}) {
+					border-radius:0 0 0 3px;
+					&,
+					& ~ label {
+						border-bottom-width:1px;
+					}
+				}
+			}
+		}
+	}
+
 }
 .acf-transparent {
 	background-image:	linear-gradient(45deg, #ededed 25%, transparent 25%),

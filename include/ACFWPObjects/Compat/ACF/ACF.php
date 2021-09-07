@@ -131,8 +131,10 @@ class ACF extends Core\Singleton {
 			$field['_tmp_key'] = '';
 			if ( isset( $field['name'] ) && ! empty( $field['name'] ) ) {
 				$field_name = $field['name'];
-			} else {
+			} else if ( isset( $field['key'] ) && ! empty( $field['key'] ) ) {
 				$field_name = str_replace( 'field_', '', $field['key'] );
+			} else {
+				continue;
 			}
 			if ( ! is_null( $parent_field ) ) {
 				$field['_tmp_key'] .= $parent_field['_tmp_key'] . '_';
@@ -161,7 +163,7 @@ class ACF extends Core\Singleton {
 	public function is_fieldgroup_admin() {
 
 		// local json compare ajax request
-		if ( wp_doing_ajax() && isset( $_REQUEST['action'] ) && wp_unslash($_REQUEST['action']) === 'acf/ajax/local_json_diff' ) {
+		if ( wp_doing_ajax() && isset( $_REQUEST['action'] ) && wp_unslash($_REQUEST['action']) === 'acf/ajax/local_json_diff' ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			return true;
 		}
 
@@ -293,7 +295,7 @@ class ACF extends Core\Singleton {
 
 
 	/**
-	 *	@action init
+	 *	@action acf/include_field_types
 	 */
 	public function register_field_types() {
 

@@ -1,6 +1,6 @@
 {
   "name": "acf-wp-objects",
-  "version": "0.5.12",
+  "version": "0.5.18",
   "description": "Connecting WordPress Data with ACF Fields",
   "private": true,
   "scripts": {
@@ -31,32 +31,33 @@
     "> 0.25%",
     "IE 10"
   ],
+  "browserify-shim": {
+    "jquery": "global:jQuery"
+  },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/plugin-proposal-class-properties": "^7.7.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.9.5",
-    "@babel/plugin-transform-react-jsx": "^7.9.4",
-    "@babel/preset-env": "^7.9.5",
-    "@selfisekai/gulp-sass": "^4.2.0",
+    "@babel/core": "^7.14.8",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.14.7",
+    "@babel/plugin-transform-react-jsx": "^7.14.5",
+    "@babel/preset-env": "^7.14.8",
     "babelify": "^10.0.0",
-    "browserify": "^16.5.1",
+    "browserify": "^17.0.0",
     "browserify-shim": "^3.8.14",
     "event-stream": "^4.0.1",
     "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^7.0.1",
-    "gulp-concat": "*",
-    "gulp-rename": "*",
-    "gulp-sourcemaps": "^2.6.5",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.0.0",
+    "gulp-sourcemaps": "^3.0.0",
     "gulp-uglify": "^3.0.2",
-    "gulp-util": "*",
-    "node-sass": "^5.0.0",
+    "gulp-util": "^3.0.8",
+    "loose-envify": "^1.4.0",
+    "sass": "^1.39.0",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
   },
-  "engines": {
-    "node": "12.4.0",
-    "npm": "^6.9.0"
-  },
+  "engines": {},
   "wpPlugin": {
     "components": {
       "core": {
@@ -131,10 +132,8 @@
       "assets": ".wporg"
     }
   },
-  "browserify-shim": {
-    "jquery": "global:jQuery"
-  },
   "dependencies": {
-    "jquery": "^1.12.4"
+    "jquery": "^3.6.0",
+    "scroll-into-view-if-needed": "^2.2.28"
   }
 }

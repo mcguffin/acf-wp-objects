@@ -1,0 +1,67 @@
+.acf-checkbox-list {
+	.acf-field-checkbox.button-group & { // ul
+		&.acf-hl {
+			li {
+				margin-right:0;
+				&:first-child {
+					label {
+						border-radius:3px 0 0 3px;
+					}
+				}
+				&:last-child {
+					label {
+						border-radius:0 3px 3px 0;
+						border-right-width:1px;
+					}
+				}
+				label {
+					display: inline-block;
+					border-width: 1px 0 1px 1px;
+				}
+			}
+		}
+		&.acf-bl {
+			display:inline-block;
+			li {
+				margin-right:0;
+				&:first-child {
+					label {
+						border-radius:3px 3px 0 0;
+					}
+				}
+				&:last-child {
+					label {
+						border-radius:0 0 3px 3px;
+						border-bottom-width:1px;
+					}
+				}
+				label {
+					display: block;
+					border-width: 1px 1px 0 1px;
+				}
+			}
+		}
+		li {
+
+			label {
+				padding: 5px 10px;
+				border-color: $acf-gray;
+				border-style: solid;
+
+				&.selected {
+					// background-color:wp-color(blue-50);
+					background-color:$acf-blue;
+					border-color: $acf-blue-darker;
+					color:#fff;
+				}
+				input {
+					display: none;
+					& + * {
+
+					}
+				}
+			}
+		}
+
+	}
+}

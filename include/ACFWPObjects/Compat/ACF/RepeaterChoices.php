@@ -100,9 +100,12 @@ class RepeaterChoices extends Core\Singleton {
 
 		// generate value cache
 		while ( have_rows( $field['repeater_field'], $field['repeater_post_id'] ) ) {
-			$raw_row = the_row( false );
-			$key = sprintf( '%s-%s-%s', $field['repeater_field'], $field['repeater_post_id'], $raw_row[ $field['repeater_value_field'] ] );
+			the_row();
+			$raw_row = get_row( false );
+
+			$key = sprintf( '%s-%s-%s', $field['repeater_field'], $field['repeater_post_id'], sanitize_key( $raw_row[ $field['repeater_value_field'] ] ) );
 			$this->value_cache[ $key ] = get_row( true );
+
 			if ( $cache_key === $key ) {
 				$value = $this->value_cache[ $key ];
 			}
@@ -292,17 +295,31 @@ class RepeaterChoices extends Core\Singleton {
 			$raw_choices = [];
 			$visuals = [];
 			$classname = '-repeater-choice';
-
-			$repeater_value_field = get_field_object( $field['repeater_value_field'] );
-			$repeater_value_field = wp_parse_args( $repeater_value_field, [ 'is_id' => false ] );
+			if ( '__idx__' === $field['repeater_value_field'] ) {
+				$repeater_value_field = [
+					'type' => 'index',
+					'is_id' => false,
+				];
+			} else {
+				$repeater_value_field = get_field_object( $field['repeater_value_field'] );
+				$repeater_value_field = wp_parse_args( $repeater_value_field, [ 'is_id' => false ] );
+			}
 
 			if ( have_rows( $field['repeater_field'], $post_id ) ) {
-
 				while ( have_rows( $field['repeater_field'], $post_id ) ) {
 					the_row();
+					if ( '__idx__' ===  $field['repeater_label_field'] ) {
+						$label = get_row_index() + 1;
+					} else {
+						$label = get_sub_field( $field['repeater_label_field'] );
+					}
+// var_dump($field['repeater_label_field'],get_row(false),get_sub_field( $field['repeater_label_field'] ));
+					if ( '__idx__' === $field['repeater_value_field'] ) {
+						$value = $label = get_row_index();
+					} else {
+						$value = get_sub_field( $field['repeater_value_field'] );
+					}
 
-					$label = get_sub_field( $field['repeater_label_field'] );
-					$value = get_sub_field( $field['repeater_value_field'] );
 					$visual = get_sub_field( $field['repeater_display_field'] );
 
 					$raw_choices[ $value ] = [ 'label' => $label, 'visual' => $visual ];
@@ -527,7 +544,7 @@ class RepeaterChoices extends Core\Singleton {
 				}
 
 				$results = [];
-
+				$repeated[ $parent_field['key'] ][ '__idx__' ] = __( '(Index)', 'acf-wp-objets' );
 				foreach ( $parent_field['sub_fields'] as $field ) {
 					if ( ! in_array( $field['type'], $allow_fields ) ) {
 						continue;

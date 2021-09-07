@@ -1,6 +1,6 @@
 {
   "name": "mcguffin/acf-wp-objects",
-  "description": "ACF WP-Objects",
+  "description": "Integrating WordPress and ACF",
   "license": "GPL-3.0-or-later",
   "keywords": [
     "WordPress",
