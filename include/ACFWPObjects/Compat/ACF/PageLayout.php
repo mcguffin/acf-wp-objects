@@ -128,6 +128,7 @@ class PageLayout extends Core\Singleton {
 			'style'					=> 'seamless',
 			'button_label'			=> __( 'Add section', 'acf-wp-objects' ),
 			'fields'				=> [],
+			'wrapper'				=> [],
 			'location'				=> [
 				[
 					[
@@ -344,11 +345,7 @@ class PageLayout extends Core\Singleton {
 					'instructions'		=> '',
 					'required'			=> 0,
 					'conditional_logic'	=> [],
-					'wrapper'			=> [
-						'width'	=> '',
-						'class'	=> '',
-						'id'	=> '',
-					],
+					'wrapper'			=> $args['wrapper'],
 					'layouts'			=> $layouts,
 					'button_label'		=> $args['button_label'],
 					'min'				=> '',
