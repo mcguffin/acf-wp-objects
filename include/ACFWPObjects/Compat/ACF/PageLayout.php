@@ -122,9 +122,9 @@ class PageLayout extends Core\Singleton {
 			'title'					=> $args['name'],
 			'label_placement'		=> 'top',
 			'instruction_placement'	=> 'label',
-			'type'					=> 'flexible_content',
 			'menu_order'			=> 0,
 			'save_post_content'		=> false,
+			'is_accordion'			=> false,
 			'style'					=> 'seamless',
 			'button_label'			=> __( 'Add section', 'acf-wp-objects' ),
 			'fields'				=> [],
@@ -143,6 +143,9 @@ class PageLayout extends Core\Singleton {
 				'excerpt'
 			],
 		]);
+		$args['key'] =  'group_' . $key;
+		$args['type'] = 'flexible_content';
+
 
 		$this->page_layouts[ $key ] = $args;
 		return $args;
@@ -341,13 +344,14 @@ class PageLayout extends Core\Singleton {
 					'key'				=> 'field_' . $args['name'],
 					'label'				=> $args['title'],
 					'name'				=> $args['name'],
-					'type'				=> $args['type'],
+					'type'				=> 'flexible_content',
 					'instructions'		=> '',
 					'required'			=> 0,
 					'conditional_logic'	=> [],
 					'wrapper'			=> $args['wrapper'],
 					'layouts'			=> $layouts,
 					'button_label'		=> $args['button_label'],
+					'is_accordion'		=> $args['is_accordion'],
 					'min'				=> '',
 					'max'				=> '',
 				]

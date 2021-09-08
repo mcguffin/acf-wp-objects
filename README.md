@@ -38,7 +38,6 @@ Integrate WordPress Objects objects into ACF.
    - More compact styles in block editor sidebar
    - Add classes `no-head` and `no-sort` to repeaters
    - Add classes `seamless` and `no-label` to fields
-   - Add class `accordion` to flexible content
    - Add class `button-group` to checkboxes (make them look like button groups)
  - **Page Layouts**: Generic flexible content field providing a location rule for field groups. Init `acf_add_page_layout('foobar')`, render with `acf_page_layouts('foobar')`
  - **JSON-Paths**: Save Field group JSON in custom places (like plugins)
