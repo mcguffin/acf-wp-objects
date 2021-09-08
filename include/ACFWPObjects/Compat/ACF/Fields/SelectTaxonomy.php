@@ -24,7 +24,7 @@ class SelectTaxonomy extends \acf_field_select {
 
 		// vars
 		$this->name = 'taxonomy_select';
-		$this->label = __("Select Taxonomy",'acf');
+		$this->label = __("Select Taxonomy",'acf-wp-objects');
 		$this->category = __('WordPress', 'acf-wp-objects' );
 		$this->defaults = [
 			'multiple' 		=> 0,

@@ -24,7 +24,7 @@ class SelectRole extends \acf_field_select {
 
 		// vars
 		$this->name = 'role_select';
-		$this->label = __("Select Role",'acf');
+		$this->label = __("Select Role",'acf-wp-objects');
 		$this->category = __('WordPress', 'acf-wp-objects' );
 		$this->defaults = [
 			'multiple' 		=> 0,

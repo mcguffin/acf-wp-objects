@@ -24,7 +24,7 @@ class ImageSweetSpot extends \acf_field {
 
 		// vars
 		$this->name = 'image_sweet_spot';
-		$this->label = __("Sweet Spot",'acf');
+		$this->label = __("Sweet Spot",'acf-wp-objects');
 		$this->category = __('WordPress', 'acf-wp-objects' );
 		$this->defaults = [
 			'multiple' 		=> 0,
