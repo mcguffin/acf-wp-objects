@@ -331,13 +331,18 @@ class RepeaterChoices extends Core\Singleton {
 
 			$choices = [];
 
+			$display_field = acf_get_field( $field['repeater_display_field'] );
+
+			$field_classes = explode( ' ', $field['wrapper']['class'] );
+			$field_classes[] = 'repeater-choice-visualize-' . $display_field['type'];
+			$field['wrapper']['class'] = implode( ' ', array_unique( $field_classes ) );
+
 			// format choices
 			foreach ( $raw_choices as $value => $choice ) {
+				/* @vars $label, $visual */
 				extract( $choice );
 				if ( $field['repeater_display_field'] ) {
-					$display_field = acf_get_field( $field['repeater_display_field'] );
 					$label = $this->get_value_display( $display_field, $label, $visual );
-					$field['wrapper']['class'] .= ' repeater-choice-visualize-' . $display_field['type'];
 				}
 				$key = $value;
 
@@ -354,7 +359,6 @@ class RepeaterChoices extends Core\Singleton {
 				}
 				$choices[ $key ] = $label;
 			}
-
 
 			$field['choices'] = $choices;
 			if ( ! count( $choices ) ) {
