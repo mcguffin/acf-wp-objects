@@ -4,14 +4,14 @@ ACF-WP-Objects ToDo
 Fields
 ------
 - [ ] Wizard Page
+  - [ ] Location?
+  - [ ] Field? (like Accordion / Tab)
 - [x] Select User-Role
 - [ ] Select Plugin (active, inactive, network-activated, ...)
 - [ ] Select Theme (all, activatable, childs, parents, ...)
 - [ ] Select Page Template
 - [x] Move [Includer Field](https://github.com/mcguffin/acf-includer-field)
 - [ ] Options: readonly, disabled
-- [ ] Includer field:
-  - [ ] Allow and merge conditional Logic
 
 Connectors
 ----------
@@ -36,11 +36,12 @@ Field Group
 
 Development
 -----------
- - [x] PHPCS Audit
+ - [ ] PHPCS Audit
  - [ ] Submit to packagist
  - [ ] Write Automated Tests for all components
  - [ ] Test Compatibility
    - [ ] ACF Free
+   - [ ] RGBA-Color-Picker
    - [ ] ...
 
 
