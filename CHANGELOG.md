@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.5.19
+------
+ - Page Layout: Revise $args
+
 0.5.18
 ------
  - Fix: Composer

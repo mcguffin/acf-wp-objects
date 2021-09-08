@@ -23,6 +23,7 @@ class PluginTest {
 		// add_action( 'acf/update_field_group', [ $this, 'mutate_field_group' ], 9 );
 
 		add_action('acf/init', [ $this,'add_options_page' ] );
+		add_action('after_setup_theme', [ $this,'add_page_layout' ] );
 		add_action( 'acf/init', [ $this, 'register_blocks' ] );
 
 		add_action('init', [ $this,'init' ] );
@@ -115,6 +116,32 @@ class PluginTest {
 		error_log( var_export( $helper->combine( [[$cond1], [$cond2]], [[$cond3],[$cond4]] ), true ) );
 		// OKAY
 
+	}
+
+	public function add_page_layout() {
+		$ret = acf_add_page_layout([
+			'title'				=> __( 'ACFWPO Test Page Layouts', 'acf-wp-objects' ),
+			'name'				=> 'sections',
+			'menu_order'		=> -10,
+			'save_post_content'	=> true,
+			'is_accordion'		=> true,
+			'fields'			=> [],
+			'location'			=> [
+				[
+					[
+						'param'		=> 'post_type',
+						'operator'	=> '==',
+						'value'		=> 'page',
+					],
+				]
+			],
+			'hide_on_screen'	=> [
+				'the_content',
+				'excerpt',
+				'revisions',
+				'featured_image',
+			],
+		]);
 	}
 
 	/**
