@@ -3,15 +3,16 @@ ACF-WP-Objects ToDo
 
 Fields
 ------
-- [ ] Wizard Page
-  - [ ] Location?
-  - [ ] Field? (like Accordion / Tab)
-- [x] Select User-Role
-- [ ] Select Plugin (active, inactive, network-activated, ...)
+- [ ] Wizard
+  - [ ] Field: Wizard State
+  - [ ] Field: Wizard Page (like Accordion / Tab)
+- [ ] Select Plugin (active, inactive, network-activated, must-use, dropins, activatable)
 - [ ] Select Theme (all, activatable, childs, parents, ...)
 - [ ] Select Page Template
-- [x] Move [Includer Field](https://github.com/mcguffin/acf-includer-field)
+- [ ] Select Menu Location
 - [ ] Options: readonly, disabled
+- [ ] Select Nav-Menu (choose menu for Location)
+- [ ] Select Nav-Menu Location
 
 Connectors
 ----------

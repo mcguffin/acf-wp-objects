@@ -1,0 +1,9 @@
+.acf-field-nav-menu-select {
+	& > .acf-label {
+		.create-menu-link,
+		.edit-menu-link {
+			float:right;
+			font-weight:normal;
+		}
+	}
+}

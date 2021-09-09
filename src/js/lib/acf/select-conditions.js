@@ -2,9 +2,11 @@ const selectField = acf.getFieldType('select');
 // make select2 work
 [
 	'image_size_select',
+	'nav_menu_select_select',
+	'nav_menu_location_select',
 	'post_type_select',
-	'taxonomy_select',
-	'role_select'
+	'role_select',
+	'taxonomy_select'
 ].forEach(
 	type => {
 

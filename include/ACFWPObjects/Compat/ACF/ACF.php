@@ -304,13 +304,17 @@ class ACF extends Core\Singleton {
 
 		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\Includer' );
 
-		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectPostType' );
-
-		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectTaxonomy' );
-
 		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectImageSize' );
 
+		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectNavMenu' );
+
+		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectNavMenuLocation' );
+
+		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectPostType' );
+
 		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectRole' );
+
+		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectTaxonomy' );
 
 		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\TemplateFileSelect' );
 	}
