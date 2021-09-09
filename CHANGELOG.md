@@ -4,6 +4,9 @@ ACF-WP-Objects Changelog
 0.5.19
 ------
  - Page Layout: Revise $args
+ - Flexible Content: Add Accordion to field options
+ - New Field Type: Select Nav Menu
+ - New Field Type: Select Nav Menu Location
 
 0.5.18
 ------

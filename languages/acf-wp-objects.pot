@@ -2,14 +2,14 @@
 # This file is distributed under the GPL3.
 msgid ""
 msgstr ""
-"Project-Id-Version: ACF WP-Objects 0.5.18\n"
+"Project-Id-Version: ACF WP-Objects 0.5.19\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/acf-wp-objects\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-09-07T10:50:48+00:00\n"
+"POT-Creation-Date: 2021-09-09T07:51:48+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.1-alpha-0d94e07\n"
 "X-Domain: acf-wp-objects\n"
@@ -34,36 +34,53 @@ msgstr ""
 msgid "https://github.com/mcguffin"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:63
+#: include/ACFWPObjects/Compat/ACF/FieldOption/LayoutAccordion.php:45
+msgid "Accordion"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/FieldOption/LayoutAccordion.php:46
+msgid "Close other layouts when opening a Layout."
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/FieldOption/TextID.php:63
 msgid "ID Field"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:64
+#: include/ACFWPObjects/Compat/ACF/FieldOption/TextID.php:64
 msgid "ID Fields are always unique and required."
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:71
+#: include/ACFWPObjects/Compat/ACF/FieldOption/TextID.php:71
 msgid "Edit Once"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:72
+#: include/ACFWPObjects/Compat/ACF/FieldOption/TextID.php:72
 msgid "Disable input, if field has a value."
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:84
+#: include/ACFWPObjects/Compat/ACF/FieldOption/TextID.php:84
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:160
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:160
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenuLocation.php:126
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:154
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:133
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:157
 msgid "Slug"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOptionID.php:85
+#: include/ACFWPObjects/Compat/ACF/FieldOption/TextID.php:85
 msgid "Convert input to slug (only letters, digits and dashes)."
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/Fields/ImageSweetSpot.php:27
+#: include/ACFWPObjects/Compat/ACF/ImageSweetSpot.php:31
+msgid "Sweet Spot"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/ImageSweetSpot.php:28
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:30
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:28
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenuLocation.php:28
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:28
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:28
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:28
@@ -99,6 +116,8 @@ msgid "Select Image Size"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:153
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:154
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenuLocation.php:119
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:147
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:126
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:150
@@ -106,6 +125,7 @@ msgid "Return Value"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:154
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenuLocation.php:120
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:148
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:127
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:151
@@ -136,19 +156,52 @@ msgstr ""
 msgid "Builtin"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:27
-msgid "Select Post Type"
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:27
+msgid "Select Nav-Menu"
 msgstr ""
 
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:78
+msgid "Edit"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:83
+msgid "Create Menu"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:159
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenuLocation.php:125
+msgid "ID"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:161
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenuLocation.php:127
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:153
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:132
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:156
 msgid "Label"
 msgstr ""
 
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:162
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenuLocation.php:128
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:155
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:158
 msgid "Object"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:167
+msgid "Menu Location"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:168
+msgid "Save selected menu in in menu location"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenuLocation.php:27
+msgid "Select Nav Menu Location"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:27
+msgid "Select Post Type"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:188
@@ -171,8 +224,16 @@ msgstr ""
 msgid "Show in Nav Menus"
 msgstr ""
 
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:27
+msgid "Select Role"
+msgstr ""
+
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:134
 msgid "Role Object"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:27
+msgid "Select Taxonomy"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/TemplateFileSelect.php:21
@@ -192,10 +253,6 @@ msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/TemplateFileSelect.php:223
 msgid "Template Settings"
-msgstr ""
-
-#: include/ACFWPObjects/Compat/ACF/ImageSweetSpot.php:31
-msgid "Sweet Spot"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Location/ClassicEditor.php:23
@@ -267,19 +324,19 @@ msgid "Add section"
 msgstr ""
 
 #. translators: theme file location
-#: include/ACFWPObjects/Compat/ACF/PageLayout.php:210
+#: include/ACFWPObjects/Compat/ACF/PageLayout.php:213
 msgid "To render this field group place a template file in your theme: %s"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/PageLayout.php:217
+#: include/ACFWPObjects/Compat/ACF/PageLayout.php:220
 msgid "Row Layout Slug"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/PageLayout.php:227
+#: include/ACFWPObjects/Compat/ACF/PageLayout.php:230
 msgid "Min Layouts"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/PageLayout.php:236
+#: include/ACFWPObjects/Compat/ACF/PageLayout.php:239
 msgid "Max Layouts"
 msgstr ""
 
@@ -376,4 +433,8 @@ msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/WPObjects.php:393
 msgid "Select"
+msgstr ""
+
+#: test/test.php:123
+msgid "ACFWPO Test Page Layouts"
 msgstr ""
