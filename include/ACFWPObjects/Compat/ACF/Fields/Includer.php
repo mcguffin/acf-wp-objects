@@ -22,7 +22,8 @@ class Includer extends \acf_field {
 		$this->label = __('Include Fields', 'acf-wp-objects');
 		$this->category = 'relational';
 		$this->defaults = array(
-			'field_group_key' => 0,
+			'field_group_key' => '',
+			'field_group_key_custom' => '',
 		);
 
 		add_action( 'acf/field_group/admin_enqueue_scripts',	[ $this, 'field_group_admin_enqueue_scripts' ] );
@@ -60,7 +61,20 @@ class Includer extends \acf_field {
 			'label'			=> __('Field Group','acf-wp-objects'),
 			'instructions'	=> __('Include all fields from selected Field Group','acf-wp-objects'),
 			'type'			=> 'select',
+			'allow_null'	=> '1',
 			'choices'		=> $field_group_choices,
+		));
+
+		acf_render_field_setting( $field, array(
+			'name'			=> 'field_group_key_custom',
+			'label'			=> __('Custom Field Group Key','acf-wp-objects'),
+			'instructions'	=> '',
+			'type'			=> 'text',
+			'conditions'	=> [
+				'field'		=> 'field_group_key',
+				'operator'	=> '==',
+				'value'		=> ''
+			]
 		));
 
 	}
@@ -128,7 +142,13 @@ class Includer extends \acf_field {
 		$helper = Helper\Conditional::instance();
 		$key_suffix = str_replace( 'field_', '', $field['key'] );
 		$ret = [];
-		$parent = acf_get_field_group( $field['field_group_key'] );
+
+
+		$field_group_key = $field['field_group_key'];
+		if ( empty( $field_group_key ) ) {
+			$field_group_key = $field['field_group_key_custom'];
+		}
+		$parent = acf_get_field_group( $field_group_key );
 
 		$replace_field_keys = [];
 
@@ -136,7 +156,7 @@ class Includer extends \acf_field {
 			$parent['parent_layout'] = $field['parent_layout'];
 		}
 		/* @var  */
-		$include_fields = acf_get_fields( $field['field_group_key'] );
+		$include_fields = acf_get_fields( $field_group_key );
 
 		$conditional = $field['conditional_logic'];
 
