@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.5.20
+------
+ - includer field: allow custom field group key
+
 0.5.19
 ------
  - Page Layout: Revise $args
