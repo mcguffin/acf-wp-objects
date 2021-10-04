@@ -1,0 +1,14 @@
+.acf-field-radio {
+	&.acf-popup {
+		 > .acf-input {
+			 > .acf-radio-list {
+ 				label:not(.selected) {
+ 					&,
+ 					& ~ * {
+ 						display:none;
+ 					}
+ 				}
+ 			}
+		}
+	}
+}
