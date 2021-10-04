@@ -206,18 +206,13 @@ class SelectNavMenu extends \acf_field_select {
 
 			$locations = get_nav_menu_locations();
 
-			if ( isset( $locations[ $field['menu_location'] ] ) ) {
-
-				if ( $value ) {
-					$locations[ $field['menu_location'] ] = $value;
-				} else {
-					unset( $locations[ $field['menu_location'] ] );
-				}
-				set_theme_mod( 'nav_menu_locations', $locations );
-
-				return null;
-
+			if ( $value ) {
+				$locations[ $field['menu_location'] ] = $value;
+			} else {
+				$locations[ $field['menu_location'] ] = '';
 			}
+			set_theme_mod( 'nav_menu_locations', $locations );
+			return null;
 		}
 
 		return $ret;
