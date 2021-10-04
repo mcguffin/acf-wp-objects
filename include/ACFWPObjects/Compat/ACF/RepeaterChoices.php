@@ -342,7 +342,7 @@ class RepeaterChoices extends Core\Singleton {
 				/* @vars $label, $visual */
 				extract( $choice );
 				if ( $field['repeater_display_field'] ) {
-					$label = $this->get_value_display( $display_field, $label, $visual );
+					$label = $this->get_value_display( $display_field, $label, $visual, $field );
 				}
 				$key = $value;
 
@@ -379,7 +379,7 @@ class RepeaterChoices extends Core\Singleton {
 	 *	@param array $label
 	 *	@param array $value
 	 */
-	private function get_value_display( $field, $label, $value ) {
+	private function get_value_display( $field, $label, $value, $select_field ) {
 
 		$html = '';
 
@@ -432,9 +432,14 @@ class RepeaterChoices extends Core\Singleton {
 				$html = $label;
 				break;
 			default:
-				$html = apply_filters('acf_wp_objects_repeater_choice_label', $label, $value, $field );
+				$html = apply_filters('acf_wp_objects_repeater_choice_label', $label, $value, $field, $select_field );
 		}
-		return apply_filters('acf_value_display_html', $html, $value, $field );
+		$html = apply_filters('acf_value_display_html', $html, $value, $field, $select_field );
+
+		$html = apply_filters('acf_value_display_html/name='.$select_field['_name'], $html, $value, $field, $select_field );
+		$html = apply_filters('acf_value_display_html/type='.$select_field['type'], $html, $value, $field, $select_field );
+		$html = apply_filters('acf_value_display_html/key='.$select_field['key'], $html, $value, $field, $select_field );
+		return $html;
 	}
 
 	/**
