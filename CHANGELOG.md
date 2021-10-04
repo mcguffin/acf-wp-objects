@@ -1,6 +1,12 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.5.51
+------
+ - Fix: nav menu location sometimes not saved
+ - Repeater choices: introduce more specific filters for value visualization
+ - Field Options: Add popup option to radio buttons.
+
 0.5.20
 ------
  - includer field: allow custom field group key
