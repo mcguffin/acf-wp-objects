@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.5.52
+------
+ - Flexible Content Accordion Style: simplify css selector
+
 0.5.51
 ------
  - Fix: nav menu location sometimes not saved
