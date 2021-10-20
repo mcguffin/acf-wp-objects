@@ -260,6 +260,15 @@ class OptionsPage extends Core\Singleton {
 	 *	@action acf/options_page/submitbox_before_major_actions
 	 */
 	public function submitbox_before_major_actions( $page ) {
+		if ( $page['export'] ) {
+			?>
+			<div class="acf-wpo-export">
+				<button type="submit" name="options_page_action" value="export" class="button button-large widefat" id="export">
+					<?php _e( 'Export Settings', 'acf-wp-objects' ); ?>
+				</button>
+			</div>
+			<?php
+		}
 		if ( $page['import'] ) {
 			?>
 			<div class="acf-wpo-import">
@@ -271,15 +280,6 @@ class OptionsPage extends Core\Singleton {
 				</label>
 				<button type="submit" name="options_page_action" value="import" class="button button-primary button-large widefat" id="import" disabled>
 					<?php _e( 'Import', 'acf-wp-objects' ); ?>
-				</button>
-			</div>
-			<?php
-		}
-		if ( $page['export'] ) {
-			?>
-			<div class="acf-wpo-export">
-				<button type="submit" name="options_page_action" value="export" class="button button-large widefat" id="export">
-					<?php _e( 'Export', 'acf-wp-objects' ); ?>
 				</button>
 			</div>
 			<?php
