@@ -250,9 +250,13 @@ class OptionsPage extends Core\Singleton {
 			'import' => false,
 			'import_message' => __( 'Options Imported', 'acf-wp-objects' ),
 			'import_error_message' => __( 'Invalid Import Data', 'acf-wp-objects' ),
+			'reset_message' => __( 'Options Reset to Defaults', 'acf-wp-objects' ),
 			'export' => false,
 			'reset' => false,
-			'reset_message' => __( 'Options Reset to Defaults', 'acf-wp-objects' ),
+			'reset_button' => __( 'Restore defaults', 'acf-wp-objects' ),
+			'import_button' => __( 'Import', 'acf-wp-objects' ),
+			'import_select_file' => __( 'Select File…', 'acf-wp-objects' ),
+			'export_button' => __( 'Export Settings', 'acf-wp-objects' ),
 		]);
 	}
 
@@ -264,7 +268,7 @@ class OptionsPage extends Core\Singleton {
 			?>
 			<div class="acf-wpo-export">
 				<button type="submit" name="options_page_action" value="export" class="button button-large widefat" id="export">
-					<?php _e( 'Export Settings', 'acf-wp-objects' ); ?>
+					<?php echo $page['export_button']; ?>
 				</button>
 			</div>
 			<?php
@@ -276,10 +280,10 @@ class OptionsPage extends Core\Singleton {
 				<input type="text" class="acf-hidden" id="acf-wpo-import-json" name="import_json" value="" />
 				<input type="file" class="acf-hidden" id="acf-wpo-import-file" accept="application/json" />
 				<label class="button button-large widefat" for="acf-wpo-import-file">
-					<?php _e('Select File…', 'acf-wp-objects' ); ?>
+					<?php echo $page['import_select_file']; ?>
 				</label>
 				<button type="submit" name="options_page_action" value="import" class="button button-primary button-large widefat" id="import" disabled>
-					<?php _e( 'Import', 'acf-wp-objects' ); ?>
+					<?php echo $page['import_button']; ?>
 				</button>
 			</div>
 			<?php
@@ -295,13 +299,10 @@ class OptionsPage extends Core\Singleton {
 			<input type="hidden" name="options_page_slug" value="<?php echo esc_attr( $page['menu_slug'] ); ?>" />
 			<?php
 		}
-		if ( false !== $page['reset'] ) {
-			if ( ! is_string( $page['reset'] ) ) {
-				$page['reset'] = __( 'Reset Default', 'acf-wp-objects' );
-			}
+		if ( $page['reset'] ) {
 			?>
 			<button type="submit" name="options_page_action" value="reset" class="button button-large" id="reset">
-				<?php echo $page['reset_message']; ?>
+				<?php echo $page['reset_button']; ?>
 			</button>
 			<?php
 		}

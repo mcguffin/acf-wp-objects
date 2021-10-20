@@ -16,6 +16,8 @@ $(document)
 			if ( !! fileInput.files[0] ) {
 				fileReader.readAsText( fileInput.files[0] )
 			}
+		} else {
+			$('#import').prop('disabled', true );
 		}
 
 	})
