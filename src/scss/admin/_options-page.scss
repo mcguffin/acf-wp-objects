@@ -1,0 +1,20 @@
+.acf-wpo-import,
+.acf-wpo-export {
+	padding:10px;
+}
+.acf-wpo-import + .acf-wpo-export {
+	border-top:1px solid #dcdcde;
+}
+.acf-wpo-import {
+	h4 {
+		margin-top:0;
+		margin-bottom:10px;
+	}
+	label, #import {
+		width:calc( 50% - 5px  );
+	}
+	#import {
+		float:right;
+//		margin-top:10px;
+	}
+}

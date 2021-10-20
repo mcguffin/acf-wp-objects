@@ -44,6 +44,7 @@ class ACF extends Core\Singleton {
 		add_action( 'acf/include_location_rules', [ $this, 'register_location_rules' ] );
 
 		WPObjects::instance();
+		OptionsPage::instance();
 		FieldOption\Popup::instance();
 		FieldOption\LayoutAccordion::instance();
 		FieldOption\TextID::instance();

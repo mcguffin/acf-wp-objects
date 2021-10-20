@@ -1,6 +1,11 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.6.0
+------
+ - ACF Options Pages: Add Import/Export and reset feature
+ - WPCLI: Import, export and reset ACF Options pages in WP-CLI
+
 0.5.52
 ------
  - Flexible Content Accordion Style: simplify css selector

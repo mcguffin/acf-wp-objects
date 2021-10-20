@@ -42,6 +42,7 @@ Integrate WordPress Objects objects into ACF.
  - **Page Layouts**: Generic flexible content field providing a location rule for field groups. Init `acf_add_page_layout('foobar')`, render with `acf_page_layouts('foobar')`
  - **JSON-Paths**: Save Field group JSON in custom places (like plugins)
  - **Localization**: Localize ACF Field labels through po-files
+ - **ACF Options Page**: Optionally for Reset, Export and Import in the Backend and from [WPCLI](https://wp-cli.org).
 
 
 Installation

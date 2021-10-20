@@ -12,6 +12,7 @@ if ( ! defined('ABSPATH') ) {
 }
 use ACFWPObjects\Asset;
 use ACFWPObjects\Compat;
+use ACFWPObjects\WPCLI;
 
 class Core extends Plugin implements CoreInterface {
 
@@ -69,6 +70,10 @@ class Core extends Plugin implements CoreInterface {
 
 			if ( defined( 'POLYLANG_VERSION' ) ) {
 				Compat\Polylang::instance();
+			}
+
+			if ( defined( 'WP_CLI' ) && WP_CLI ) {
+				WPCLI\WPCLI::instance();
 			}
 
 			require_once $this->get_plugin_dir() . '/include/api/api.php';
