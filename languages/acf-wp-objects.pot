@@ -2,14 +2,14 @@
 # This file is distributed under the GPL3.
 msgid ""
 msgstr ""
-"Project-Id-Version: ACF WP-Objects 0.5.22\n"
+"Project-Id-Version: ACF WP-Objects 0.6.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/acf-wp-objects\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-10-19T20:09:01+00:00\n"
+"POT-Creation-Date: 2021-10-20T08:14:04+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.1-alpha-0d94e07\n"
 "X-Domain: acf-wp-objects\n"
@@ -331,6 +331,35 @@ msgstr ""
 msgid "Permalinks"
 msgstr ""
 
+#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:251
+msgid "Options Imported"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:252
+msgid "Invalid Import Data"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:255
+msgid "Options Reset to Defaults"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:267
+msgid "Export Settings"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:275
+#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:282
+msgid "Import"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:279
+msgid "Select File…"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:300
+msgid "Reset Default"
+msgstr ""
+
 #: include/ACFWPObjects/Compat/ACF/PageLayout.php:129
 msgid "Add section"
 msgstr ""
@@ -445,6 +474,18 @@ msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/WPObjects.php:393
 msgid "Select"
+msgstr ""
+
+#: include/ACFWPObjects/WPCLI/WPCLI.php:28
+msgid "Export ACF Options Page to JSON"
+msgstr ""
+
+#: include/ACFWPObjects/WPCLI/WPCLI.php:36
+msgid "Import ACF Options Page from JSON file"
+msgstr ""
+
+#: include/ACFWPObjects/WPCLI/WPCLI.php:45
+msgid "Reset ACF Options Page to defaults"
 msgstr ""
 
 #: test/test.php:123
