@@ -43,6 +43,7 @@ Integrate WordPress Objects objects into ACF.
  - **JSON-Paths**: Save Field group JSON in custom places (like plugins)
  - **Localization**: Localize ACF Field labels through po-files
  - **ACF Options Page**: Optionally for Reset, Export and Import in the Backend and from [WPCLI](https://wp-cli.org).
+ - **Tab Field** Open a tab by URL. Just append `#Tab Label`
 
 
 Installation

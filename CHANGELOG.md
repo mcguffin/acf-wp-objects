@@ -1,6 +1,15 @@
 ACF-WP-Objects Changelog
 ========================
 
+
+0.6.2
+------
+ - Tab Field: Open a tab by URL. Just append `#Tab Label`
+
+0.6.1
+------
+ - ACF Options Pages: Wording
+
 0.6.0
 ------
  - ACF Options Pages: Add Import/Export and reset feature
