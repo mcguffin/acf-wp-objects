@@ -4,6 +4,10 @@ ACF-WP-Objects Changelog
 
 0.6.2
 ------
+ - Tab Field: Open a tab by URL: remove hash after opening tab
+
+0.6.2
+------
  - Tab Field: Open a tab by URL. Just append `#Tab Label`
 
 0.6.1
