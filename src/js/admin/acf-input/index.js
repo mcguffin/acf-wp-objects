@@ -6,6 +6,7 @@ import 'acf/select-nav-menu';
 import scrollIntoView from 'scroll-into-view-if-needed'
 import $ from 'jquery';
 import 'acf/accordion-layout';
+import 'acf/tab-url-navigation';
 
 // repeater field deny sorting
 const RepeaterField = acf.getFieldType('repeater')
