@@ -2,7 +2,11 @@ ACF-WP-Objects Changelog
 ========================
 
 
-0.6.2
+0.6.4
+------
+ - Open a tab by URL: support nested tabs
+
+0.6.3
 ------
  - Tab Field: Open a tab by URL: remove hash after opening tab
 
