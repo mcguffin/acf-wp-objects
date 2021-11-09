@@ -13,11 +13,29 @@ class Popup extends Core\Singleton {
 
 		add_action( 'acf/render_field_settings/type=radio', [ $this, 'field_settings' ] );
 		add_filter( 'acf/prepare_field/type=radio', [ $this, 'prepare_field' ] );
-
+		add_filter( 'acf/prepare_field/type=radio', [ $this, 'prepare_field_late' ], 100 );
+		add_filter( 'acf_wpo_repeater_choices/type=radio', [ $this, 'repeater_choices' ], 10, 2 );
 	}
 
 	/**
-	 *	@filter acf/prepare_field/type=radio_button
+	 *	@filter acf_wpo_repeater_choices/type=radio
+	 */
+	public function repeater_choices( $choices, $field ) {
+		if ( $field['is_popup'] && $field['allow_null'] && ! isset( $choices[''] ) ) {
+			// add NULL choice
+			$choices = [ '' =>
+				[
+					'label' => __('– none –', 'acf-wp-objects' ),
+					'visual' => '',
+					'index' => 0,
+				]
+			] + $choices;
+		}
+		return $choices;
+	}
+
+	/**
+	 *	@filter acf/prepare_field/type=radio
 	 */
 	public function prepare_field( $field ) {
 
@@ -28,15 +46,23 @@ class Popup extends Core\Singleton {
 			$field['wrapper'] = wp_parse_args( $field['wrapper'], [
 				'class' => '',
 			] );
-
 			$field['wrapper']['class'] .= ' acf-popup';
 
 		}
 		return $field;
 	}
+	/**
+	 *	@filter acf/prepare_field/type=radio
+	 */
+	public function prepare_field_late( $field ) {
+		if ( /*$field['repeater_choices'] &&*/ $field['is_popup'] && $field['allow_null'] ) {
+			$field['allow_null'] = 0;
+		}
+		return $field;
+	}
 
 	/**
-	 *	@action acf/render_field_settings/type=flexible_content
+	 *	@action acf/render_field_settings/type=radio
 	 */
 	public function field_settings( $field ) {
 

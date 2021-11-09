@@ -22,9 +22,58 @@ class RepeaterChoices extends Core\Singleton {
 		'image'				=> 'image',
 		'color_picker'		=> 'color',
 		'select'			=> 'text',
-		'radio'				=> 'text'
+		'radio'				=> 'text',
+		// post object
 	];
+
+	private $display_templates = [
+		'text' => '[value:value]',
+		'image' => [
+			'label' =>'<span class="acf-image-choice">
+				[label:value]
+				<span class="image-label">[display:value]</span>
+			</span>',
+			'no-label' =>'<span class="acf-image-choice">
+				[display:value:label]
+				<span class="image-label">[display:value:image]</span>
+			</span>',
+		],
+		'color' => [
+			'no-label' => '<span class="white"></span>
+				<span class="color-label" style="color:[display:value:contrast];background:[display:value];">
+					<span class="screen-reader-text">[value:value]</span>
+				</span>',
+
+			'label' => '<span class="white"></span>
+				<span class="acf-js-tooltip color-label" style="color:[display:value:contrast];background:[display:value];" title="[label:value]">
+				</span>',
+		],
+	];
+
+	/**
+	 *	Choices for select repeater field dropdown
+	 *
+	 *	@var Array [
+	 *		<field_group_title> => [
+	 *			<field_key> => <field_label>,
+	 *			...
+	 *		],
+	 *		...
+	 *	]
+	 */
 	private $repeater_fields = null;
+
+	/**
+	 *	@var Array [
+	 *		<field_key> => [
+	 *			<subfield_key> => <subfield_value>
+	 *			...
+	 *		],
+	 *		...
+	 *	]
+	 */
+	private $repeater_values = null;
+
 
 	private $value_cache = [];
 
@@ -66,7 +115,7 @@ class RepeaterChoices extends Core\Singleton {
 	}
 
 	/**
-	 *	@action
+	 *	@action acf/render_field_settings/type=*
 	 */
 	public function add_choice_filter( $field ) {
 
@@ -75,7 +124,7 @@ class RepeaterChoices extends Core\Singleton {
 	}
 
 	/**
-	 *	@action
+	 *	@action acf/render_field_settings/type=*
 	 */
 	public function remove_choice_filter( $field ) {
 
@@ -114,7 +163,7 @@ class RepeaterChoices extends Core\Singleton {
 	}
 
 	/**
-	 *	@filter acf/render_field_settings/type=*
+	 *	@filter acf/validate_field
 	 */
 	public function validate_return_format_field( $field ) {
 
@@ -125,7 +174,7 @@ class RepeaterChoices extends Core\Singleton {
 	}
 
 	/**
-	 *	@filter acf/render_field_settings/type=*
+	 *	@action acf/render_field_settings/type=*
 	 */
 	public function render_settings( $field ) {
 
@@ -209,7 +258,7 @@ class RepeaterChoices extends Core\Singleton {
 				'type'			=> 'select',
 				'ui'			=> 0,
 				'allow_null'	=> 1,
-				'choices'		=> $label_field_choices,
+				'choices'		=> $label_field_choices + [ '__custom__' => __('Custom','acf-wp-objects') ],
 				'conditions'	=> [
 					[
 						'field'		=> 'repeater_choices',
@@ -220,6 +269,33 @@ class RepeaterChoices extends Core\Singleton {
 						'field'		=> 'repeater_field',
 						'operator'	=> '!=empty',
 					],
+				]
+			]);
+
+			$instructions = __( 'Leave empty for default.','acf-wp-objects')
+				. '<br />'
+				. __( 'Placeholder format: <code>[index]</code> (the repeater row index) or <code>[&lt;field&gt;:&lt;property&gt;]</code>.', 'acf-wp-objects' )
+				. '<br />'
+				. __( '<code>&lt;field&gt;</code> can be <code>value</code>, <code>label</code> or <code>display</code> to refer to either the label-, value- or display field selected above.', 'acf-wp-objects' )
+				. '<br />'
+				. __( '<code>&lt;property&gt;</code> can be <code>name</code>, <code>value</code>, <code>label</code> or <code>key</code> to refert to the field‘s name, value, label or key', 'acf-wp-objects' );
+
+			// enable
+			acf_render_field_setting( $field, [
+				'label'			=> __('Visualize Template','acf-wp-objects'),
+				'instructions'	=> $instructions,
+				'name'			=> 'repeater_choice_template',
+				'type'			=> 'textarea',
+				'conditions'	=> [
+					[
+						'field'		=> 'repeater_choices',
+						'operator'	=> '==',
+						'value'		=> 1
+					],
+					[
+						'field'		=> 'repeater_field',
+						'operator'	=> '!=empty',
+					]
 				]
 			]);
 		}
@@ -253,6 +329,7 @@ class RepeaterChoices extends Core\Singleton {
 			'repeater_value_field'		=> '', // text, num, range, url, email, date, time, datetime, image, color
 			'repeater_post_id'			=> 0,
 			'repeater_display_value'	=> 0, // media | string + media
+			'repeater_choice_template'	=> '',
 		]);
 
 		// migrate from boolean display value to display field
@@ -278,6 +355,7 @@ class RepeaterChoices extends Core\Singleton {
 			'repeater_value_field'		=> '', // text, num, range, url, email, date, time, datetime, image, color
 			'repeater_post_id'			=> 0,
 			'repeater_display_field'	=> '', // media | string + media
+			'repeater_choice_template'	=> '',
 		]);
 
 		$post_id = $field['repeater_post_id'];
@@ -305,15 +383,32 @@ class RepeaterChoices extends Core\Singleton {
 				$repeater_value_field = wp_parse_args( $repeater_value_field, [ 'is_id' => false ] );
 			}
 
+			if ( $field['repeater_label_field'] ) {
+				$repeater_label_field = get_field_object( $field['repeater_label_field'] );
+				$repeater_label_field = wp_parse_args( $repeater_label_field, [ 'is_id' => false ] );
+			} else {
+				$repeater_label_field = false;
+			}
+			if ( $field['repeater_display_field'] ) {
+				$repeater_display_field = get_field_object( $field['repeater_display_field'] );
+				$repeater_display_field = wp_parse_args( $repeater_display_field, [ 'is_id' => false ] );
+			} else {
+				$repeater_display_field = false;
+			}
+
 			if ( have_rows( $field['repeater_field'], $post_id ) ) {
+				if ( ! isset( $this->repeater_values[ $field['repeater_field'] ] ) ) {
+					$this->repeater_values[ $field['repeater_field'] ] = [];
+				}
 				while ( have_rows( $field['repeater_field'], $post_id ) ) {
 					the_row();
+					$index = get_row_index() + 1;
 					if ( '__idx__' ===  $field['repeater_label_field'] ) {
-						$label = get_row_index() + 1;
+						$label = $index;
 					} else {
 						$label = get_sub_field( $field['repeater_label_field'] );
 					}
-// var_dump($field['repeater_label_field'],get_row(false),get_sub_field( $field['repeater_label_field'] ));
+
 					if ( '__idx__' === $field['repeater_value_field'] ) {
 						$value = $label = get_row_index();
 					} else {
@@ -322,12 +417,13 @@ class RepeaterChoices extends Core\Singleton {
 
 					$visual = get_sub_field( $field['repeater_display_field'] );
 
-					$raw_choices[ $value ] = [ 'label' => $label, 'visual' => $visual ];
+					$raw_choices[ $value ] = [ 'label' => $label, 'visual' => $visual, 'index' => $index ];
 				}
 			}
 
 			$raw_choices = apply_filters( 'acf_wpo_repeater_choices', $raw_choices, $field );
 			$raw_choices = apply_filters( 'acf_wpo_repeater_choices/key=' . $field['repeater_field'], $raw_choices, $field );
+			$raw_choices = apply_filters( 'acf_wpo_repeater_choices/type=' . $field['type'], $raw_choices, $field );
 
 			$choices = [];
 
@@ -342,7 +438,12 @@ class RepeaterChoices extends Core\Singleton {
 				/* @vars $label, $visual */
 				extract( $choice );
 				if ( $field['repeater_display_field'] ) {
-					$label = $this->get_value_display( $display_field, $label, $visual, $field );
+					$label = $this->visualize_value(
+						$repeater_value_field, $repeater_label_field, $repeater_display_field,
+						$value, $choice['label'], $choice['visual'],
+						$field,
+						$choice['index']
+					);
 				}
 				$key = $value;
 
@@ -361,6 +462,8 @@ class RepeaterChoices extends Core\Singleton {
 			}
 
 			$field['choices'] = $choices;
+
+			// hide and disable field if empty choices
 			if ( ! count( $choices ) ) {
 				$field['disabled'] = 1; // wont work with select fields, js is interfering
 				$field['readonly'] = 1;
@@ -372,74 +475,116 @@ class RepeaterChoices extends Core\Singleton {
 		return $field;
 	}
 
+
 	/**
 	 *	Display Value Visualization
 	 *
-	 *	@param array $field
-	 *	@param array $label
-	 *	@param array $value
+	 *	@param Array $value_field Value field from field settings
+	 *	@param Array|Boolean $label_field Label field from field settings
+	 *	@param Array|Boolean $display_field Display field from field settings
+	 *	@param mixed $value Value of value field
+	 *	@param String|Boolean $label Value of label field
+	 *	@param mixed $display Value of display field
+	 *	@param Array $field This field
 	 */
-	private function get_value_display( $field, $label, $value, $select_field ) {
+	private function visualize_value( $value_field, $label_field, $display_field, $value, $label, $display, $field, $index ) {
 
 		$html = '';
+		$template = '';
 
-		$allow_fields = apply_filters('acf_wp_objects_repeater_choices_allow_fields', $this->allow_fields );
-		if ( ! isset( $allow_fields[ $field['type'] ] ) ) {
-			$allow_fields[ $field['type'] ] = 'text';
+		$template_replace = [
+			'[index]'			=> $index,
+			'[value:value]'		=> $value,
+			'[value:value:key]'	=> sanitize_key( sanitize_title( $value ) ),
+			'[value:name]'		=> $value_field['name'],
+			'[value:label]'		=> $value_field['label'],
+			'[value:key]'		=> $value_field['key'],
+		];
+
+		if ( is_array( $label_field ) ) {
+			$template_replace['[label:value]'] = $label;
+			$template_replace['[label:value:key]'] = sanitize_key( sanitize_title( $label ) );
+			$template_replace['[label:name]'] = $label_field['name'];
+			$template_replace['[label:label]'] = $label_field['label'];
+			$template_replace['[label:key]'] = $label_field['key'];
+
+		} else {
+			$template_replace['[label:value]'] = '';
+			$template_replace['[label:value:key]'] = '';
+			$template_replace['[label:name]'] = '';
+			$template_replace['[label:label]'] = '';
+			$template_replace['[label:key]'] = '';
 		}
 
-		$treat_as = $allow_fields[ $field['type'] ];
-		switch ( $allow_fields[ $field['type'] ] ) {
-			case 'image';
-				$attachment = get_post( $value );
-				$html = sprintf('<span class="acf-image-choice">
-						%s
-						<span class="image-label">%s</span>
-					</span>',
-					wp_get_attachment_image($value,'thumbnail', null, [ 'title' => $label ] ),
-					$label
-				);
-				break;
-			case 'color':
-				$color = $match_color = $value;
+		if ( is_array( $display_field ) ) {
+			$template_replace['[display:value]'] = $display;
+			$template_replace['[label:value:key]'] = sanitize_key( sanitize_title( $display ) );
+			$template_replace['[display:name]'] = $display_field['name'];
+			$template_replace['[display:label]'] = $display_field['label'];
+			$template_replace['[display:key]'] = $display_field['key'];
+		} else {
+			$template_replace['[display:value]'] = '';
+			$template_replace['[display:value:key]'] = '';
+			$template_replace['[display:name]'] = '';
+			$template_replace['[display:label]'] = '';
+			$template_replace['[display:key]'] = '';
+		}
+
+		$allow_fields = apply_filters('acf_wp_objects_repeater_choices_allow_fields', $this->allow_fields );
+		$display_templates = apply_filters('acf_wp_objects_repeater_choices_display_templates', $this->display_templates );
+
+		if ( empty( $field['repeater_choice_template'] ) ) {
+			// default behaviour according to $display_field type
+			$display_field_type = $allow_fields[ $display_field['type'] ];
+			$template = $display_templates[ $display_field_type ];
+
+			if ( 'image' === $display_field_type ) {
+
+				$template_replace['[display:value:image]'] = wp_get_attachment_image( $value, 'thumbnail', null, [ 'title' => $label ] );
+
+			} else if ( 'color' === $display_field_type ) {
+				if ( empty( $template_replace['[display:value]'] ) ) {
+					$template_replace['[display:value]'] = 'rgba(0,0,0,0)';
+				}
+				$color = $match_color = $display;
 				if ( empty( $value ) ) {
 					$color = 'rgba(0,0,0,0)';
 					$match_color = '#ffffff';
 				}
-				if ( empty( $label ) ) {
-					$html = sprintf('
-						<span class="white"></span>
-						<span class="color-label" style="color:%1$s;background:%2$s;">
-							<span class="screen-reader-text">%2$s</span>
-						</span>',
-						$this->get_matching_color( $match_color ),
-						$color
-					);
-				} else {
-					$html = sprintf('
-						<span class="white"></span>
-						<span class="acf-js-tooltip color-label" style="color:%1$s;background:%2$s;" title="%3$s">
-							%4$s
-						</span>',
-						$this->get_matching_color( $match_color ),
-						$color,
-						esc_attr($label),
-						$label
-					);
-				}
-				break;
-			case 'text':
-				$html = $label;
-				break;
-			default:
-				$html = apply_filters('acf_wp_objects_repeater_choice_label', $label, $value, $field, $select_field );
-		}
-		$html = apply_filters('acf_value_display_html', $html, $value, $field, $select_field );
+				$template_replace['[display:value:contrast]'] = $this->get_matching_color( $match_color );
 
+			}
+
+		} else {
+			$template = $field['repeater_choice_template'];
+		}
+		if ( is_array( $template ) ) {
+			if ( empty( $label ) ) {
+				$template = $template['no-label'];
+			} else {
+				$template = $template['label'];
+			}
+		}
+
+		$html = str_replace(
+			array_keys( $template_replace ),
+			array_values( $template_replace ),
+			$template
+		);
+
+		// // legacy behaviour
+		if ( ! in_array( $display_field_type, [ 'image', 'text', 'color' ] ) ) {
+			$html = apply_filters('acf_wp_objects_repeater_choice_label', $html, $value, $field, $select_field );
+		}
+
+		$html = apply_filters('acf_value_display_html', $html, $value, $field, $select_field );
 		$html = apply_filters('acf_value_display_html/name='.$select_field['_name'], $html, $value, $field, $select_field );
+
 		$html = apply_filters('acf_value_display_html/type='.$select_field['type'], $html, $value, $field, $select_field );
 		$html = apply_filters('acf_value_display_html/key='.$select_field['key'], $html, $value, $field, $select_field );
+
 		return $html;
+
 	}
 
 	/**
@@ -499,7 +644,13 @@ class RepeaterChoices extends Core\Singleton {
 	}
 
 	/**
-	 *	@return array
+	 *	@return Array [
+	 *		<field_group_title> => [
+	 *			<field_key> => <field_label>,
+	 *			...
+	 *		],
+	 *		...
+	 *	]
 	 */
 	private function get_first_level_repeater_fields() {
 		if ( is_null( $this->repeater_fields ) ) {
