@@ -2,14 +2,14 @@
 # This file is distributed under the GPL3.
 msgid ""
 msgstr ""
-"Project-Id-Version: ACF WP-Objects 0.6.4\n"
+"Project-Id-Version: ACF WP-Objects 0.6.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/acf-wp-objects\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-11-04T15:51:15+00:00\n"
+"POT-Creation-Date: 2021-11-09T17:17:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.1-alpha-0d94e07\n"
 "X-Domain: acf-wp-objects\n"
@@ -42,11 +42,16 @@ msgstr ""
 msgid "Close other layouts when opening a Layout."
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOption/Popup.php:45
+#: include/ACFWPObjects/Compat/ACF/FieldOption/Popup.php:28
+#: include/ACFWPObjects/Compat/ACF/FieldOption/Popup.php:62
+msgid "– none –"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/FieldOption/Popup.php:76
 msgid "Popup"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOption/Popup.php:46
+#: include/ACFWPObjects/Compat/ACF/FieldOption/Popup.php:77
 msgid "Only show selected choice, open choices in Popup."
 msgstr ""
 
@@ -111,16 +116,24 @@ msgstr ""
 msgid "Include Fields"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/Includer.php:61
+#: include/ACFWPObjects/Compat/ACF/Fields/Includer.php:68
 msgid "Field Group"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/Includer.php:62
+#: include/ACFWPObjects/Compat/ACF/Fields/Includer.php:69
 msgid "Include all fields from selected Field Group"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/Includer.php:70
+#: include/ACFWPObjects/Compat/ACF/Fields/Includer.php:77
 msgid "Custom Field Group Key"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/Fields/Includer.php:89
+msgid "Prepend to field labels"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/Fields/Includer.php:96
+msgid "Append to field labels"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:29
@@ -381,39 +394,63 @@ msgstr ""
 msgid "Max Layouts"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:122
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:171
 msgid "Repeater Row"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:137
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:186
 msgid "Get choices from repeater"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:146
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:195
 msgid "Repeater Field"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:163
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:212
 msgid "Value Field"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:184
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:233
 msgid "Label Field"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:206
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:255
 msgid "Visualize field"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:229
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:261
+msgid "Custom"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:275
+msgid "Leave empty for default."
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:277
+msgid "Placeholder format: <code>[index]</code> (the repeater row index) or <code>[&lt;field&gt;:&lt;property&gt;]</code>."
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:279
+msgid "<code>&lt;field&gt;</code> can be <code>value</code>, <code>label</code> or <code>display</code> to refer to either the label-, value- or display field selected above."
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:281
+msgid "<code>&lt;property&gt;</code> can be <code>name</code>, <code>value</code>, <code>label</code> or <code>key</code> to refert to the field‘s name, value, label or key"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:285
+msgid "Visualize Template"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:305
 msgid "Post ID"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:230
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:306
 msgid "Leave empty for current Post ID."
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:233
+#: include/ACFWPObjects/Compat/ACF/RepeaterChoices.php:309
 msgid "Current Post"
 msgstr ""
 
