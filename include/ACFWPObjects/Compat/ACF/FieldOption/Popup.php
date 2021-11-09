@@ -57,6 +57,11 @@ class Popup extends Core\Singleton {
 	public function prepare_field_late( $field ) {
 		if ( /*$field['repeater_choices'] &&*/ $field['is_popup'] && $field['allow_null'] ) {
 			$field['allow_null'] = 0;
+			if ( ! isset( $field['choices'][''] ) ) {
+				$field['choices'] = [
+					'' =>  __('– none –', 'acf-wp-objects' )
+				] + $field['choices'];
+			}
 		}
 		return $field;
 	}

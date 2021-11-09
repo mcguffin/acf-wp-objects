@@ -2,6 +2,13 @@ ACF-WP-Objects Changelog
 ========================
 
 
+0.6.5
+------
+ - Radio: Auto-add NULL option if popup & allow null
+ - Repeater Choices: Introduce html template string
+ - Includer Field: inherit wrapper attributes
+ - Includer Field: introduce label prefix and suffix
+
 0.6.4
 ------
  - Open a tab by URL: support nested tabs

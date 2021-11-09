@@ -24,6 +24,13 @@ class Includer extends \acf_field {
 		$this->defaults = array(
 			'field_group_key' => '',
 			'field_group_key_custom' => '',
+			'prefix_label' => '',
+			'suffix_label' => '',
+			'wrapper' => [
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			],
 		);
 
 		add_action( 'acf/field_group/admin_enqueue_scripts',	[ $this, 'field_group_admin_enqueue_scripts' ] );
@@ -75,6 +82,21 @@ class Includer extends \acf_field {
 				'operator'	=> '==',
 				'value'		=> ''
 			]
+		));
+
+		acf_render_field_setting( $field, array(
+			'name'			=> 'prefix_label',
+			'label'			=> __('Prepend to field labels','acf-wp-objects'),
+			'instructions'	=> '',
+			'type'			=> 'text',
+			'allow_null'	=> '1',
+		));
+		acf_render_field_setting( $field, array(
+			'name'			=> 'suffix_label',
+			'label'			=> __('Append to field labels','acf-wp-objects'),
+			'instructions'	=> '',
+			'type'			=> 'text',
+			'allow_null'	=> '1',
 		));
 
 	}
@@ -162,6 +184,31 @@ class Includer extends \acf_field {
 
 		foreach ( $include_fields as $include_field ) {
 
+			if ( $field['prefix_label'] ) {
+				$include_field['label'] = $field['prefix_label'] . $include_field['label'];
+			}
+
+			if ( $field['suffix_label'] ) {
+				$include_field['label'] .= $field['suffix_label'];
+			}
+
+			$include_field['wrapper'] = wp_parse_args( $include_field['wrapper'], [
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			] );
+			// inherit wrapper attributes
+			if ( $field['wrapper']['width'] ) {
+				$include_field['wrapper']['width'] = $field['wrapper']['width'];
+			}
+			if ( $field['wrapper']['id'] ) {
+				$include_field['wrapper']['id'] = $field['wrapper']['id'];
+			}
+			if ( $field['wrapper']['class'] ) {
+				$include_field['wrapper']['class'] .= ' ' . $field['wrapper']['class'];
+				$include_field['wrapper']['class'] = trim( $include_field['wrapper']['class'] );
+			}
+
 			$include_field['parent'] = $field['parent'];
 
 			// support flexible content field
@@ -186,6 +233,7 @@ class Includer extends \acf_field {
 			$ret = $acf->replace_field_key( $ret, $search, $replace );
 		}
 
+		// cache fields
 		array_map( function($field) {
 			acf_get_store( 'fields' )->set( $field['key'], $field )->alias( $field['key'], $field['name'] );
 		}, $ret );
