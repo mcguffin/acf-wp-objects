@@ -1,6 +1,11 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.6.6
+-----
+ - Page Layouts: pass `get_row()` as $args to `get_template_part()`
+ - Introduce filter `acf_page_layout_args/{$page_layout}`
+ - Introduce filter `acf_page_layout_args/{$page_layout}/layout={$layout}`
 
 0.6.5
 ------
