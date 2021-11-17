@@ -33,6 +33,11 @@ function acf_page_layouts( $page_layout, $post_id = false ) {
 	while ( have_rows( $page_layout, $post_id ) ) {
 		the_row();
 
-		get_template_part( 'acf/layout', get_row_layout() );
+		$args = get_row( true );
+
+		$args = apply_filters( 'acf_page_layout_args/' . $page_layout, $args );
+		$args = apply_filters( 'acf_page_layout_args/' . $page_layout . '/layout=' . get_row_layout(), $args );
+
+		get_template_part( 'acf/layout', get_row_layout(), $args );
 	}
 }

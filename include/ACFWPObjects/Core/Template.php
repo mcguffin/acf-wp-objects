@@ -152,7 +152,6 @@ class Template extends Singleton {
 						'settings'	=> empty( $data[ "$header_key Settings" ] ) ? false : json_decode( $data[ "$header_key Settings" ], true ),
 					];
 				}
-
 			}
 		}
 	}
