@@ -1,7 +1,9 @@
 import $ from 'jquery';
 
 
-
+/**
+ *	Do the same for nested accordions, flexible content, repeaters
+ */
 if ( !! document.location.hash ) {
 	const tabTitle = decodeURIComponent(document.location.hash.substr(1));
 	const parentTab = tab => {
