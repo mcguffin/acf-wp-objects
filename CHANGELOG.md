@@ -1,6 +1,11 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.6.7
+-----
+ - Fix: translate Includer field label prefix and suffix
+ - I18N: prevent save translations in field group admin
+
 0.6.6
 -----
  - Page Layouts: pass `get_row()` as $args to `get_template_part()`

@@ -139,6 +139,9 @@ class I18N {
 	 *	Destructor ... remove
 	 */
 	protected function init() {
+		if ( ACF::instance()->is_fieldgroup_admin() ) {
+			return;
+		}
 		add_filter( 'acf/load_fields', [ $this, 'translate_fields' ], 10, 2 );
 		add_filter( 'acf/load_field_group', [ $this, 'translate_field_group' ] );
 	}
