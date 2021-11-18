@@ -9,6 +9,7 @@ use ACFWPObjects\Asset;
 use ACFWPObjects\Core;
 use ACFWPObjects\Compat\ACF\ACF as CompatACF;
 use ACFWPObjects\Compat\ACF\Helper;
+use ACFWPObjects\Compat\ACF\I18n;
 
 class Includer extends \acf_field {
 
@@ -26,6 +27,7 @@ class Includer extends \acf_field {
 			'field_group_key_custom' => '',
 			'prefix_label' => '',
 			'suffix_label' => '',
+			'textdomain' => '',
 			'wrapper' => [
 				'width' => '',
 				'class' => '',
@@ -99,6 +101,18 @@ class Includer extends \acf_field {
 			'allow_null'	=> '1',
 		));
 
+		acf_render_field_setting( $field, array(
+			'name'			=> 'textdomain',
+			'label'			=> __('Textdomain','acf-wp-objects'),
+			'instructions'	=> '',
+			'type'			=> 'select',
+			'allow_null'	=> '1',
+			'choices'		=> array_combine(
+				I18N::get_localizations(),
+				I18N::get_localizations()
+			),
+		));
+
 	}
 
 	/**
@@ -160,6 +174,10 @@ class Includer extends \acf_field {
 	 *	@return array Fields
 	 */
 	private function resolve_field( $field ) {
+
+		if ( ! empty( $field['textdomain'] ) && ( $i18n = I18N::get_localization( $field['textdomain'] ) ) ) {
+			$field = $i18n->translate_acf_object( $field );
+		}
 
 		$helper = Helper\Conditional::instance();
 		$key_suffix = str_replace( 'field_', '', $field['key'] );

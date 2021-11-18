@@ -38,6 +38,8 @@ class I18N {
 		'append',
 		'message',
 		'placeholder',
+		'prefix_label',
+		'suffix_label',
 	];
 	/** @var string field keys to recurse */
 	private $sub_fields = [
@@ -57,13 +59,46 @@ class I18N {
 		'key',
 	];
 
+	private $should_translate_cache = [];
+
 	/**
-	 *	@param string $textdomain
-	 *	@param callable
+	 *	@param String $textdomain
+	 *	@return bool
+	 */
+	public static function has_localization( $textdomain = null ) {
+		if ( is_null( $textdomain ) ) {
+			return count( self::$localizations ) > 0;
+		}
+		return isset( self::$localizations[ $textdomain ] );
+	}
+
+	/**
+	 *	@param String $textdomain
+	 *	@return Boolean|I18N
+	 */
+	public static function get_localization( $textdomain ) {
+		if ( isset( self::$localizations[ $textdomain ] ) ) {
+			return self::$localizations[ $textdomain ];
+		}
+		return false;
+	}
+
+	/**
+	 *	@return Array
+	 */
+	public static function get_localizations() {
+		return array_keys( self::$localizations );
+	}
+
+
+	/**
+	 *	@param String $textdomain
+	 *	@param Callable $active_callback
+	 *	@param Boolean|String $context
 	 *	@return bool
 	 */
 	public static function register_localization( $textdomain, $active_callback, $context = false ) {
-		if ( isset( self::$localizations[ $textdomain ] ) ) {
+		if ( self::has_localization( $textdomain ) ) {
 			return false;
 		}
 		self::$localizations[ $textdomain ] = new self( $textdomain, $active_callback, $context );
@@ -72,8 +107,8 @@ class I18N {
 	}
 
 	/**
-	 *	@param string $textdomain
-	 *	@return bool
+	 *	@param String $textdomain
+	 *	@return Booelan
 	 */
 	public static function unregister_localization( $textdomain ) {
 		if ( isset( self::$localizations[ $textdomain ] ) ) {
@@ -85,7 +120,9 @@ class I18N {
 	}
 
 	/**
-	 *	@inheritdoc
+	 *	@param String $textdomain
+	 *	@param Callable $active_callback
+	 *	@param Boolean|String $context
 	 */
 	protected function __construct( $textdomain, $active_callback, $context = false ) {
 
@@ -154,19 +191,22 @@ class I18N {
 	 */
 	private function should_translate( $field_group ) {
 
-		// is sync
-		if ( isset( $_REQUEST['post_status'], $_REQUEST['post_type'] ) && 'sync' === $_REQUEST['post_status'] && 'acf-field-group' === $_REQUEST['post_type'] ) {
-			return false;
-		}
+		if ( ! isset( $this->should_translate_cache[ $field_group['key'] ] ) ) {
+			// is sync
+			if ( isset( $_REQUEST['post_status'], $_REQUEST['post_type'] ) && 'sync' === $_REQUEST['post_status'] && 'acf-field-group' === $_REQUEST['post_type'] ) {
+				return false;
+			}
 
-		// is field group admin
-		global $pagenow;
-		if (  $pagenow === 'post.php' && 'acf-field-group' === get_post_type() ) {
-			return false;
-		}
+			// is field group admin
+			global $pagenow;
+			if (  $pagenow === 'post.php' && 'acf-field-group' === get_post_type() ) {
+				return false;
+			}
 
-		// implemented by register
-		return call_user_func( $this->active_callback, $field_group );
+			// given through constructor
+			$this->should_translate_cache[ $field_group['key'] ] = call_user_func( $this->active_callback, $field_group );
+		}
+		return $this->should_translate_cache[ $field_group['key'] ];
 	}
 
 	/**
