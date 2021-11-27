@@ -573,15 +573,15 @@ class RepeaterChoices extends Core\Singleton {
 		);
 
 		// // legacy behaviour
-		if ( ! in_array( $display_field_type, [ 'image', 'text', 'color' ] ) ) {
-			$html = apply_filters('acf_wp_objects_repeater_choice_label', $html, $value, $field, $select_field );
+		if ( ! in_array( $display_field['type'], [ 'image', 'text', 'color' ] ) ) {
+			$html = apply_filters('acf_wp_objects_repeater_choice_label', $html, $value, $field, $field );
 		}
 
-		$html = apply_filters('acf_value_display_html', $html, $value, $field, $select_field );
-		$html = apply_filters('acf_value_display_html/name='.$select_field['_name'], $html, $value, $field, $select_field );
+		$html = apply_filters('acf_value_display_html', $html, $value, $field, $field );
+		$html = apply_filters('acf_value_display_html/name='.$field['_name'], $html, $value, $field, $field );
 
-		$html = apply_filters('acf_value_display_html/type='.$select_field['type'], $html, $value, $field, $select_field );
-		$html = apply_filters('acf_value_display_html/key='.$select_field['key'], $html, $value, $field, $select_field );
+		$html = apply_filters('acf_value_display_html/type='.$field['type'], $html, $value, $field, $field );
+		$html = apply_filters('acf_value_display_html/key='.$field['key'], $html, $value, $field, $field );
 
 		return $html;
 
