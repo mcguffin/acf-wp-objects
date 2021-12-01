@@ -1,5 +1,6 @@
 import 'acf/field-sweet-spot';
 import 'acf/select-conditions';
+import 'acf/condition-type-regex';
 import 'acf/id-field';
 import 'acf/radio-popup';
 import 'acf/select-nav-menu';

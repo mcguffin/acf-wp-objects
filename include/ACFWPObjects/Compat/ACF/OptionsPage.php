@@ -176,7 +176,7 @@ class OptionsPage extends Core\Singleton {
 	 */
 	public function action_export_after() {
 
-		$data = $rhis->get_export_data( $this->current_page );
+		$data = $this->get_export_data( $this->current_page );
 		$json_str = json_encode( $data );
 
 		header('Content-Type: application/json; charset=utf-8' );
