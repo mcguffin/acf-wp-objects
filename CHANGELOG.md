@@ -4,6 +4,8 @@ ACF-WP-Objects Changelog
 0.6.8
 -----
  - Fix PHP warnings in RepeaterChoices.php
+ - add condition type RegExp to conditional logic
+ - CLI: Fix acf-options-page import
 
 0.6.7
 -----
