@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.6.8
+-----
+ - Fix PHP warnings in RepeaterChoices.php
+
 0.6.7
 -----
  - Fix: translate Includer field label prefix and suffix
