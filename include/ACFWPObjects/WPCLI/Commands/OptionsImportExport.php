@@ -71,7 +71,8 @@ class OptionsImportExport extends \WP_CLI_Command {
 			\WP_CLI::error( sprintf( 'no such file %s', $args[0] ) );
 			return;
 		}
-		$contents = file_get_contents( realpath( getcwd() . DIRECTORY_SEPARATOR . $args[0] ) );
+
+		$contents = file_get_contents( $args[0] );
 
 		if ( empty( $contents ) ) {
 			\WP_CLI::error( sprintf( 'file %s is empty', $args[0] ) );
