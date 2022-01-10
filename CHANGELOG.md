@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.6.9
+-----
+ - Feature: add Post name (slug) to wp objects
+
 0.6.8
 -----
  - Fix PHP warnings in RepeaterChoices.php
