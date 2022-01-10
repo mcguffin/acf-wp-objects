@@ -40,6 +40,7 @@ class WPObjects extends Core\Singleton {
 				'option:blogname'				=> __('Blogname','acf-wp-objects'),
 				'option:blogdescription'		=> __('Blog description','acf-wp-objects'),
 				'post:post_title'				=> __('Post Title','acf-wp-objects'),
+				'post:post_name'				=> __('Post Slug','acf-wp-objects'),
 				'term:term_name'				=> __('Term Title','acf-wp-objects'),
 			],
 			'textarea'	=> [
@@ -178,6 +179,8 @@ class WPObjects extends Core\Singleton {
 
 				if ( 'post_title' == $key ) {
 					$value = get_the_title( $post_id );
+				} else if ( 'post_name' == $key ) {
+					$value = get_post_field( 'post_name', $post_id );
 				} else if ( 'post_content' == $key ) {
 					if ( $post = get_post( $post_id ) ) {
 						$value = $post->post_content;
@@ -259,6 +262,8 @@ class WPObjects extends Core\Singleton {
 
 				if ( 'post_title' === $key ) {
 					$updatepost['post_title'] = $value;
+				} else if ( 'post_name' === $key ) {
+					$updatepost['post_name'] = $value;
 				} else if ( 'post_content' === $key ) {
 					$updatepost['post_content'] = $value;
 				} else if ( 'post_excerpt' === $key ) {
