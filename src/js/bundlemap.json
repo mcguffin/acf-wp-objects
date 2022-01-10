@@ -17,7 +17,7 @@
   "src/js/lib/acf/select-conditions.js": [
     "js/admin/acf-input.js"
   ],
-  "src/js/lib/acf/select-nav-menu.js": [
+  "src/js/lib/acf/condition-type-regex.js": [
     "js/admin/acf-input.js"
   ],
   "src/js/lib/acf/radio-popup.js": [
@@ -26,13 +26,13 @@
   "src/js/lib/acf/id-field.js": [
     "js/admin/acf-input.js"
   ],
-  "src/js/lib/acf/tab-url-navigation.js": [
-    "js/admin/acf-input.js"
-  ],
-  "src/js/lib/acf/condition-type-regex.js": [
+  "src/js/lib/acf/select-nav-menu.js": [
     "js/admin/acf-input.js"
   ],
   "src/js/lib/acf/accordion-layout.js": [
+    "js/admin/acf-input.js"
+  ],
+  "src/js/lib/acf/tab-url-navigation.js": [
     "js/admin/acf-input.js"
   ]
 }
