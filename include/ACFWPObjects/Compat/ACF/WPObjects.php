@@ -259,10 +259,18 @@ class WPObjects extends Core\Singleton {
 				}
 
 				$updatepost = [];
-
 				if ( 'post_title' === $key ) {
 					$updatepost['post_title'] = $value;
 				} else if ( 'post_name' === $key ) {
+					$post = get_post( $post_id );
+
+					// default value
+					if ( empty( $value ) ) {
+						$value = sanitize_title( $post->post_title, $post_id );
+					} else {
+						$value = sanitize_title( $value, $post_id );
+					}
+					$value = wp_unique_post_slug( $value, $post_id, $post->post_status, $post->post_type, $post->post_parent );
 					$updatepost['post_name'] = $value;
 				} else if ( 'post_content' === $key ) {
 					$updatepost['post_content'] = $value;
