@@ -21,8 +21,19 @@ $(document)
 		}
 
 	})
-	.on('click', '.acf-wpo-export [type="submit"]', e => {
+	.on('click', '.acf-wpo-export [name="options_page_action"]', e => {
 
-		setTimeout( () => acf.unlockForm( $(e.target).closest('form') ) );
+		setTimeout( () => {
+			const $form = $(e.target).closest('form');
+			console.log($form)
+			acf.unlockForm( $form )
+			$form.submit()
+		} );
 
+	})
+	.on('focus', '[name="options_page_action"]', e => {
+		$( e.target ).prop( 'type', 'submit' )
+	})
+	.on('blur', '[name="options_page_action"]', e => {
+		$( e.target ).prop( 'type', 'button' )
 	})

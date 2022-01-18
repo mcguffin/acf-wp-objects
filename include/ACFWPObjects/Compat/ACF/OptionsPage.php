@@ -27,6 +27,7 @@ class OptionsPage extends Core\Singleton {
 	 *	@inheritdoc
 	 */
 	protected function __construct() {
+
 		add_action('acf/options_page/submitbox_before_major_actions', [ $this, 'submitbox_before_major_actions' ]);
 		add_action('acf/options_page/submitbox_major_actions', [ $this, 'submitbox_major_actions' ]);
 		add_filter('acf/validate_options_page', [ $this, 'validate_options_page'] );
@@ -149,7 +150,7 @@ class OptionsPage extends Core\Singleton {
 	}
 
 	public function action_import( $page ) {
-		if ( isset( $_POST['import_json'] ) ) {
+		if ( isset( $_POST['import_json'] ) && ! empty( $_POST['import_json'] ) ) {
 			$data = json_decode( wp_unslash( $_POST['import_json'] ), true );
 			if ( is_null( $data ) || ! isset( $data['values'] ) ) {
 				wp_redirect( add_query_arg( array( 'message' => 'import_error' ) ) );
@@ -211,7 +212,9 @@ class OptionsPage extends Core\Singleton {
 		];
 
 	}
-
+	/**
+	 *
+	 */
 	public function reset_page( $page ) {
 
 		$fields = $this->get_fields( $page );
@@ -267,7 +270,7 @@ class OptionsPage extends Core\Singleton {
 		if ( $page['export'] ) {
 			?>
 			<div class="acf-wpo-export">
-				<button type="submit" name="options_page_action" value="export" class="button button-large widefat" id="export">
+				<button type="button" name="options_page_action" value="export" class="button button-large widefat" id="export">
 					<?php echo $page['export_button']; ?>
 				</button>
 			</div>
@@ -282,7 +285,7 @@ class OptionsPage extends Core\Singleton {
 				<label class="button button-large widefat" for="acf-wpo-import-file">
 					<?php echo $page['import_select_file']; ?>
 				</label>
-				<button type="submit" name="options_page_action" value="import" class="button button-primary button-large widefat" id="import" disabled>
+				<button type="button" name="options_page_action" value="import" class="button button-primary button-large widefat" id="import" disabled>
 					<?php echo $page['import_button']; ?>
 				</button>
 			</div>
@@ -301,7 +304,7 @@ class OptionsPage extends Core\Singleton {
 		}
 		if ( $page['reset'] ) {
 			?>
-			<button type="submit" name="options_page_action" value="reset" class="button button-large" id="reset">
+			<button type="button" name="options_page_action" value="reset" class="button button-large" id="reset">
 				<?php echo $page['reset_button']; ?>
 			</button>
 			<?php
