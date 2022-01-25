@@ -43,6 +43,7 @@ class SelectNavMenu extends \acf_field_select {
 
 		add_filter('acf/get_field_label', [ $this, 'get_field_label' ], 10, 3 );
 
+		add_filter('acf/update_field/type=' . $this->name, [ $this, 'update_field' ] );
 	}
 
 	/**
@@ -259,6 +260,14 @@ class SelectNavMenu extends \acf_field_select {
 		// return
 		return $value;
 
+	}
+
+	/**
+	 *	@filter acf/update_field/type=nav_menu_select
+	 */
+	public function update_field( $field ) {
+		$field['choices'] = [];
+		return $field;
 	}
 
 }

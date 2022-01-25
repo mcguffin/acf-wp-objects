@@ -40,6 +40,7 @@ class SelectNavMenuLocation extends \acf_field_select {
 		add_action('wp_ajax_acf/fields/nav_menu_location_select/query',			[ $this, 'ajax_query' ] );
 		add_action('wp_ajax_nopriv_acf/fields/nav_menu_location_select/query',	[ $this, 'ajax_query' ] );
 
+		add_filter('acf/update_field/type=' . $this->name, [ $this, 'update_field' ] );
 
 	}
 
@@ -169,6 +170,15 @@ class SelectNavMenuLocation extends \acf_field_select {
 		// return
 		return $value;
 
+	}
+
+
+	/**
+	 *	@filter acf/update_field/type=nav_menu_select
+	 */
+	public function update_field( $field ) {
+		$field['choices'] = [];
+		return $field;
 	}
 
 }
