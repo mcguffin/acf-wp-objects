@@ -2,14 +2,14 @@
 # This file is distributed under the GPL3.
 msgid ""
 msgstr ""
-"Project-Id-Version: ACF WP-Objects 0.6.11\n"
+"Project-Id-Version: ACF WP-Objects 0.6.12\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/acf-wp-objects\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-01-18T16:50:57+00:00\n"
+"POT-Creation-Date: 2022-01-25T15:39:48+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.1-alpha-0d94e07\n"
 "X-Domain: acf-wp-objects\n"
@@ -73,8 +73,8 @@ msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/FieldOption/TextID.php:84
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:160
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:160
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenuLocation.php:126
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:161
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenuLocation.php:127
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:154
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:133
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:157
@@ -145,8 +145,8 @@ msgid "Select Image Size"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:153
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:154
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenuLocation.php:119
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:155
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenuLocation.php:120
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:147
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:126
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:150
@@ -154,7 +154,7 @@ msgid "Return Value"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectImageSize.php:154
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenuLocation.php:120
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenuLocation.php:121
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:148
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:127
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:151
@@ -189,39 +189,39 @@ msgstr ""
 msgid "Select Nav-Menu"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:78
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:79
 msgid "Edit"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:83
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:84
 msgid "Create Menu"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:159
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenuLocation.php:125
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:160
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenuLocation.php:126
 msgid "ID"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:161
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenuLocation.php:127
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:162
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenuLocation.php:128
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:153
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectRole.php:132
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:156
 msgid "Label"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:162
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenuLocation.php:128
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:163
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenuLocation.php:129
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectPostType.php:155
 #: include/ACFWPObjects/Compat/ACF/Fields/SelectTaxonomy.php:158
 msgid "Object"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:167
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:168
 msgid "Menu Location"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:168
+#: include/ACFWPObjects/Compat/ACF/Fields/SelectNavMenu.php:169
 msgid "Save selected menu in in menu location"
 msgstr ""
 
