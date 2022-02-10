@@ -1,6 +1,22 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.6.13
+------
+ - Under the hood: Refactor field key management
+
+0.6.12
+-----
+ - Fix: Discard choices in Nav menu and nav menu location fields
+
+0.6.11
+-----
+ - UI Fix: Don't submit import/export in return key is pressed
+
+0.6.10
+-----
+ - Fix: fix multiple and invalid slugs in post_name
+
 0.6.9
 -----
  - Feature: add Post name (slug) to wp objects

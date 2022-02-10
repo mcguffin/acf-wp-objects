@@ -11,8 +11,6 @@ if ( ! defined('ABSPATH') ) {
 	die('FU!');
 }
 
-
-use ACFWPObjects\Asset;
 use ACFWPObjects\Core;
 
 /*

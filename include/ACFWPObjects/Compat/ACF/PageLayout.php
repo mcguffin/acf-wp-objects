@@ -4,6 +4,7 @@
 namespace ACFWPObjects\Compat\ACF;
 
 use ACFWPObjects\Core;
+// use ACFWPObjects\Compat\ACF\Helper;
 
 class PageLayout extends Core\Singleton {
 
@@ -257,31 +258,12 @@ class PageLayout extends Core\Singleton {
 
 
 	/**
-	 *	Make sure field keys are not referenced in the db
-	 */
-	private function deep_reset_field_key( $field ) {
-		if ( ! is_array( $field ) ) {
-			return $field;
-		}
-		foreach ( $field as $k => $v ) {
-			if ( is_array( $v ) ) {
-				$field[$k] = $this->deep_reset_field_key( $v );
-			} else if ( in_array( $k, [ 'key', 'field', 'collapsed' ], true ) ) {
-				$field[$k] = 'field_' . md5( $v );
-			}
-		}
-
-		return $field;
-	}
-
-
-	/**
 	 *	@param string $layout_key
 	 *	@param array $args
 	 */
 	private function init_layout( $layout_key ) {
 
-
+		$fieldKey = Helper\FieldKey::instance();
 		$layouts = [];
 
 		$field_groups = acf_get_field_groups( [ 'page_layouts' => $layout_key ] );
@@ -306,7 +288,7 @@ class PageLayout extends Core\Singleton {
 
 			$key = 'layout_' . $field_group[ 'row_layout' ];// str_replace( 'group_', 'layout_',  );
 
-			$sub_fields = array_map( function( $field ) {
+			$sub_fields = array_map( function( $field ) use ( $fieldKey ) {
 				// detach field from database
 				foreach ( [ 'ID', 'id', 'prefix', 'parent', 'value', 'menu_order' ] as $k ) {
 					if ( isset( $field[ $k ] ) ) {
@@ -316,12 +298,11 @@ class PageLayout extends Core\Singleton {
 
 				// key to be guaranteed not in DB
 				$field['ID'] = 0;
-				$field = $this->deep_reset_field_key( $field );
+				$field = $fieldKey->deep_reset_field_key( $field );
 
 				return $field;
 
 			}, acf_get_fields( $field_group ) );
-
 			$layouts[ $key ] = [
 				'key'			=> $key,
 				'name'			=> $field_group[ 'row_layout' ],
@@ -331,7 +312,6 @@ class PageLayout extends Core\Singleton {
 				'min'			=> $field_group[ 'layout_min' ],
 				'max'			=> $field_group[ 'layout_max' ],
 			];
-
 		}
 
 

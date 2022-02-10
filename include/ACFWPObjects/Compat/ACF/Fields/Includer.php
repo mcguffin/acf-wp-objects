@@ -180,6 +180,8 @@ class Includer extends \acf_field {
 		}
 
 		$helper = Helper\Conditional::instance();
+		$fieldKey = Helper\FieldKey::instance();
+
 		$key_suffix = str_replace( 'field_', '', $field['key'] );
 		$ret = [];
 
@@ -245,10 +247,9 @@ class Includer extends \acf_field {
 			$ret[] = $include_field;
 		}
 
-		$acf = CompatACF::instance();
 
 		foreach ( $replace_field_keys as $search => $replace ) {
-			$ret = $acf->replace_field_key( $ret, $search, $replace );
+			$ret = $fieldKey->replace_field_key( $ret, $search, $replace );
 		}
 
 		// cache fields

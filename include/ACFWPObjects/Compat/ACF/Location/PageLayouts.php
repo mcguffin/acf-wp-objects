@@ -31,8 +31,8 @@ class PageLayouts extends \acf_location {
 			return false;
 		}
 
-        // return
-        return $this->compare( $screen[ $this->name ], $rule );
+		// return
+		return $this->compare( $screen[ $this->name ], $rule );
 
 	}
 
