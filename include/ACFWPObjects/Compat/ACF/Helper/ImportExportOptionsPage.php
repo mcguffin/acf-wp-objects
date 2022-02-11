@@ -250,13 +250,32 @@ class ImportExportOptionsPage extends Core\Singleton {
 	 *	@filter acf/format_value/type=post_object|relationship
 	 */
 	public function reference_posts( $value, $post_id, $field ) {
-		$refs = array_map( function( $post_id ) use ( $ref ) {
-			$post = get_post( $post_id );
+		$refs = array_map( function( $post_id ) {
 			$reference = "post:$post_id";
 			if ( ! isset( $this->export_references[ $reference ] ) ) {
+
+				$post = get_post( $post_id );
+
+				$post_data = get_object_vars( $post );
+				$post_meta = get_post_meta( $post->ID );
+
+				// cleanup post data
+				foreach ( [ 'ID','post_author','to_ping','pinged','guid','comment_count','filter', ] as $prop ) {
+					if ( isset( $post_data[$prop] ) ) {
+						 unset( $post_data[$prop] );
+					}
+				}
+
+				// cleanup post meta
+				foreach ( [ '_edit_lock', '_edit_last', '_wp_old_date', '_wp_old_slug', ] as $prop ) {
+					if ( isset( $post_meta[$prop] ) ) {
+						 unset( $post_meta[$prop] );
+					}
+				}
+
 				$this->export_references[ $reference ] = [
-					'post' => get_object_vars( $post ),
-					'meta' => get_post_meta( $post->ID ),
+					'post' => $post_data,
+					'meta' => $post_meta,
 				];
 			}
 			return $reference;
@@ -274,13 +293,23 @@ class ImportExportOptionsPage extends Core\Singleton {
 	 *	@filter acf/format_value/type=txonomy
 	 */
 	public function reference_terms( $value, $post_id, $field ) {
-		$refs = array_map( function( $term_id ) use ( $ref ) {
-			$post = get_term( absint( $term_id ) );
+		$refs = array_map( function( $term_id ) {
 			$reference = "term:$term_id";
 			if ( ! isset( $this->export_references[ $reference ] ) ) {
+				$term = get_term( absint( $term_id ) );
+
+				$term_data = get_object_vars( $term );
+				$term_meta = get_term_meta( $term->term_id );
+
+				foreach ( [ 'term_id', 'term_taxonomy_id', 'parent', 'count', 'filter', ] as $prop ) {
+					if ( isset( $term_data[ $prop ] ) ) {
+						unset( $term_data[ $prop ] );
+					}
+				}
+
 				$this->export_references[ $reference ] = [
-					'post' => get_object_vars( $term ),
-					'meta' => get_term_meta( $term->term_id ),
+					'post' => $term_data
+					'meta' => $term_meta,
 				];
 			}
 			return $reference;
