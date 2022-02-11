@@ -203,8 +203,12 @@ class OptionsPage extends Core\Singleton {
 
 		$helper = Helper\ImportExportOptionsPage::instance();
 
-		$data = $helper->export( $this->current_page, true );
-		$json_str = json_encode( $data );
+		$json_str = json_encode(
+			$helper->export( $this->current_page, true ),
+			defined('WP_DEBUG') && WP_DEBUG
+				? JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE
+				: 0
+		);
 
 		header('Content-Type: application/json; charset=utf-8' );
 		header( sprintf('Content-Disposition: attachment; filename="%s_%s.json"', $this->current_page['post_id'], date( 'YmdHis' ) ) );

@@ -66,7 +66,7 @@
                 "id": ""
             },
             "role": "",
-            "allow_null": 0,
+            "allow_null": 1,
             "multiple": 0,
             "return_format": "array"
         },
@@ -83,7 +83,7 @@
                 "class": "",
                 "id": ""
             },
-            "allow_null": 0,
+            "allow_null": 1,
             "ui": 0,
             "return_format": "object",
             "menu_location": "",

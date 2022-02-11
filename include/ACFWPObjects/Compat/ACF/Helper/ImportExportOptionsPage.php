@@ -22,7 +22,7 @@ class ImportExportOptionsPage extends Core\Singleton {
 	private $export_references = null;
 
 	/** @var Array mapping reference => ID  */
-	private $resolve_references = null;
+	private $resolve_references = [];
 
 	/** @var Array  mapping post_id:fieldname => reference */
 	private $field_export_references = null;
@@ -34,13 +34,40 @@ class ImportExportOptionsPage extends Core\Singleton {
 	 */
 	public function import( $data ) {
 
-		$data = $this->sanitize_import_data( $data );
+		if ( ! ( $data = $this->sanitize_import_data( $data ) ) ) {
+			return false;
+		}
 
 		if ( is_array( $data['references'] ) ) {
 			$this->init_reference_import( $data['references'] );
 		}
-		acf_update_values( $data['values'], $data['page']['post_id'] );
+		if ( is_array( $data['page']['export'] ) ) {
+			foreach ( $data['page']['export'] as $page ) {
+				if ( isset( $data['values'][$page] ) ) {
+					$this->_import( $data['values'][$page], $page );
+				}
+			}
+		} else {
+			$this->_import( $data['values'], $data['page']['menu_slug'] );
+		}
+
 		return true;
+	}
+
+	/**
+	 *	@param String|Array $data
+	 *	@param String|Array $page
+	 *	@return Boolean Success
+	 */
+	private function _import( $values, $page ) {
+		if ( is_string( $page ) ) {
+			$page = acf_get_options_page( $page );
+		}
+		if ( ! $page ) {
+			return;
+		}
+		var_dump($values,$page);
+		acf_update_values( $values, $page['post_id'] );
 	}
 
 	/**
@@ -125,8 +152,8 @@ class ImportExportOptionsPage extends Core\Singleton {
 
 		$this->resolve_references = [];
 
+		// import all references
 		foreach ( $references as $key => $reference ) {
-
 			if ( strpos( $key, 'attachment:' ) === 0 ) {
 				// create attachment
 				$attachment_id = $this->import_attachment( $reference['file'] );
@@ -134,14 +161,18 @@ class ImportExportOptionsPage extends Core\Singleton {
 				// $reference['file']['name'];
 			} else if ( strpos( $key, 'post:' ) === 0 ) {
 				// create post
+				$post_id = $this->import_post( $reference );
+				$this->resolve_references[$key] = $post_id;
 			} else if ( strpos( $key, 'term:' ) === 0 ) {
 				// create term
+				$term_id = $this->import_term( $reference );
+				$this->resolve_references[$key] = $term_id;
 			}
 		}
 
 		add_filter('acf/update_value/type=file', [ $this, 'resolve_reference' ], 9, 3 );
 		add_filter('acf/update_value/type=image', [ $this, 'resolve_reference' ], 9, 3 );
-		//add_filter('acf/format_value/type=gallery', [ $this, 'resolve_reference' ], 9, 3 );
+		add_filter('acf/update_value/type=gallery', [ $this, 'resolve_reference' ], 9, 3 );
 		add_filter('acf/update_value/type=post_object', [ $this, 'resolve_reference' ], 9, 3 );
 		add_filter('acf/update_value/type=relationship', [ $this, 'resolve_reference' ], 9, 3 );
 		add_filter('acf/update_value/type=taxonomy', [ $this, 'resolve_reference' ], 9, 3 );
@@ -155,15 +186,31 @@ class ImportExportOptionsPage extends Core\Singleton {
 	 *	@filter acf/update_value/type=*
 	 */
 	public function resolve_reference( $value, $post_id, $field ) {
-		if ( isset( $this->resolve_references[ $value ] ) ) {
-			return $this->resolve_references[ $value ];
+
+		if ( empty( $value ) ) {
+			return $value;
 		}
+
+		$refs = array_map( function( $value ) {
+			if ( isset( $this->resolve_references[ $value ] ) ) {
+				return $this->resolve_references[ $value ];
+			}
+			return $value;
+		}, array_filter( (array) $value ) );
+
+		if ( is_array( $value ) ) {
+			return $refs;
+		} else if ( count($refs) ) {
+			return $refs[0];
+		}
+
 		return $value;
+
 	}
 
 
 	/**
-	 *	@param Array $attachment_data [ 'name' => 'xxx.jpg', 'hash', <md5 fingerprint of file contents> => <base64 encoded file contents> ]
+	 *	@param Array $attachment_data [ 'name' => 'xxx.jpg', 'hash' => <md5 fingerprint of file contents>, 'contents' => <base64 encoded file contents> ]
 	 *	@return Integer Attachment ID
 	 */
 	private function import_attachment( $attachment_data ) {
@@ -222,6 +269,78 @@ class ImportExportOptionsPage extends Core\Singleton {
 		return $attachment_id;
 	}
 
+	/**
+	 *	@param Array $post_data [ 'post' => [ ... ], 'meta' => [ ... ] ]
+	 *	@return Integer Post ID
+	 */
+	private function import_post( $post_data ) {
+		global $wpdb;
+		// see if posts already exists
+		$post_ids = $wpdb->get_col( $wpdb->prepare(
+			"SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type = %s;",
+			$post_data['post']['post_name'],
+			$post_data['post']['post_type']
+		) );
+		// post found.
+		foreach ( $post_ids as $post_id ) {
+			return $post_id;
+		}
+
+		$post_id = wp_insert_post( $post_data['post'] );
+		// didnt work ...
+		if ( 0 === $post_id ) {
+			return null;
+		}
+		// add meta
+		foreach ( $post_data['meta'] as $meta_key => $meta_values ) {
+			foreach ( $meta_values as $meta_value ) {
+				add_post_meta( $post_id, $meta_key, $meta_value );
+			}
+		}
+		return $post_id;
+	}
+
+	/**
+	 *	@param Array $term_data [ 'post' => [ ... ], 'meta' => [ ... ] ]
+	 *	@return Integer Term ID
+	 */
+	private function import_term( $term_data ) {
+		global $wpdb;
+		// see if posts already exists
+		$term_ids = $wpdb->get_col( $wpdb->prepare(
+			"SELECT
+				t.term_id
+			FROM $wpdb->terms AS t
+			LEFT JOIN $wpdb->term_taxonomy AS tt ON t.term_id = tt.term_id
+			WHERE t.slug = %s AND tt.taxonomy = %s;",
+			$term_data['term']['slug'],
+			$term_data['term']['taxonomy']
+		) );
+		// post found.
+		foreach ( $term_ids as $term_id ) {
+			return $term_id;
+		}
+
+		// insert new term
+		$inserted_term = wp_insert_term( $term_data['term']['name'], $term_data['term']['taxonomy'], [
+			'description' => $term_data['term']['description'],
+			'slug' => $term_data['term']['slug'],
+		] );
+		// idn't work
+		if ( is_wp_error( $inserted_term ) ) {
+			return null;
+		}
+
+		// add meta
+		foreach ( $term_data['meta'] as $meta_key => $meta_values ) {
+			foreach ( $meta_values as $meta_value ) {
+				add_term_meta( $inserted_term['term_id'], $meta_key, $meta_value );
+			}
+		}
+
+		return $inserted_term['term_id'];
+
+	}
 
 	/**
 	 *	Export: Add necessary filters to acf/format_value
@@ -234,6 +353,7 @@ class ImportExportOptionsPage extends Core\Singleton {
 
 		add_filter('acf/format_value/type=file', [ $this, 'reference_file' ], 9, 3 );
 		add_filter('acf/format_value/type=image', [ $this, 'reference_file' ], 9, 3 );
+		add_filter('acf/format_value/type=gallery', [ $this, 'reference_file' ], 9, 3 );
 		add_filter('acf/format_value/type=post_object', [ $this, 'reference_posts' ], 9, 3 );
 		add_filter('acf/format_value/type=relationship', [ $this, 'reference_posts' ], 9, 3 );
 		add_filter('acf/format_value/type=taxonomy', [ $this, 'reference_terms' ], 9, 3 );
@@ -245,37 +365,46 @@ class ImportExportOptionsPage extends Core\Singleton {
 		add_filter('acf/format_value/type=relationship', [ $this, 'get_reference' ], 11, 3 );
 		add_filter('acf/format_value/type=taxonomy', [ $this, 'get_reference' ], 11, 3 );
 		add_filter('acf/format_value/type=nav_menu_select', [ $this, 'get_reference' ], 11, 3 );
+		add_filter('acf/format_value/type=gallery', [ $this, 'get_reference' ], 11, 3 );
 
 		add_filter('acf/format_value/type=user', '__return_empty_string', 11, 3 ); // we do not export users
-		add_filter('acf/format_value/type=gallery', '__return_empty_array', 11, 3 ); // too many files
 	}
 
 	/**
 	 *	Export: generate post reference
 	 *
-	 *	@filter acf/format_value/type=file|image
+	 *	@filter acf/format_value/type=file|image|gallery
 	 */
 	public function reference_file( $value, $post_id, $field ) {
-		$reference = "attachment:{$value}";
-		if ( isset( $this->export_references[ $reference ] ) ) {
-			$this->field_export_references[ $post_id.':'.$field['name'] ] = $reference;
+		if ( empty( $value ) ) {
 			return $value;
 		}
-		if ( $attachment = get_post( $value ) ) {
-			if ( ( $file = get_attached_file( $attachment->ID ) ) && file_exists( $file ) ) {
-				$contents = file_get_contents( $file );
-				$this->export_references[ $reference ] = [
-					'type' => $field['type'],
-					'file' => [
-						'name' => basename( $file ),
-						'hash' => md5( $contents ),
-						'contents' => base64_encode( $contents ),
-					],
-				];
-				// Files in repeaters?
-				$this->field_export_references[ $post_id.':'.$field['name'] ] = $reference;
+		$refs = array_map( function( $value ) use ( $field ) {
+			$reference = "attachment:{$value}";
+			if ( ! isset( $this->export_references[ $reference ] ) ) {
+				if ( $attachment = get_post( $value ) ) {
+					if ( ( $file = get_attached_file( $attachment->ID ) ) && file_exists( $file ) ) {
+						$contents = file_get_contents( $file );
+						$this->export_references[ $reference ] = [
+							'type' => $field['type'],
+							'file' => [
+								'name' => basename( $file ),
+								'hash' => md5( $contents ),
+								'contents' => base64_encode( $contents ),
+							],
+						];
+					}
+				}
 			}
+			return $reference;
+		}, array_filter( (array) $value ) );
+
+		if ( ! is_array( $value ) ) {
+			$this->field_export_references[ $post_id.':'.$field['name'] ] = $refs[0];
+		} else {
+			$this->field_export_references[ $post_id.':'.$field['name'] ] = $refs;
 		}
+
 		return $value;
 	}
 
@@ -285,6 +414,9 @@ class ImportExportOptionsPage extends Core\Singleton {
 	 *	@filter acf/format_value/type=post_object|relationship
 	 */
 	public function reference_posts( $value, $post_id, $field ) {
+		if ( empty( $value ) ) {
+			return $value;
+		}
 		$refs = array_map( function( $post_id ) {
 			$reference = "post:$post_id";
 			if ( ! isset( $this->export_references[ $reference ] ) ) {
@@ -330,6 +462,10 @@ class ImportExportOptionsPage extends Core\Singleton {
 	 *	@filter acf/format_value/type=txonomy
 	 */
 	public function reference_terms( $value, $post_id, $field ) {
+		if ( empty( $value ) ) {
+			return $value;
+		}
+
 		$refs = array_map( function( $term_id ) {
 			$reference = "term:$term_id";
 			if ( ! isset( $this->export_references[ $reference ] ) ) {
@@ -345,7 +481,7 @@ class ImportExportOptionsPage extends Core\Singleton {
 				}
 
 				$this->export_references[ $reference ] = [
-					'post' => $term_data
+					'term' => $term_data,
 					'meta' => $term_meta,
 				];
 			}
