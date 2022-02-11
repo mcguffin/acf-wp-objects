@@ -227,7 +227,8 @@ acf_add_options_page([
  - **`reset_message`** `String` Message after a sucessful reset
  - **`reset_button`** `String` Reset button label
 
-Enable options import and export.
+### Examples
+Enable import and export.
 ```php
 acf_add_options_page([
 	'page_title' => 'Configure Foobar Options',
@@ -240,7 +241,7 @@ acf_add_options_page([
 ]);
 ```
 
-Enable options reset too.
+Enable reset too.
 ```php
 acf_add_options_page([
 	'page_title' => 'Configure Foobar Options',
