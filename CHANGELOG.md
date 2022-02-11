@@ -3,6 +3,8 @@ ACF-WP-Objects Changelog
 
 0.6.13
 ------
+ - Feature: import/export referenced content on options pages
+ - Feature: reset options page from export-json file
  - Under the hood: Refactor field key management
 
 0.6.12

@@ -14,11 +14,13 @@ if ( ! defined('ABSPATH') ) {
 
 use ACFWPObjects\Asset;
 use ACFWPObjects\Core;
+use ACFWPObjects\Compat\ACF\Helper;
 
 
 
 class OptionsPage extends Core\Singleton {
 
+	/** @var Array $curent_page ACF options Page */
 	private $current_page = null;
 
 	private $pages_by_slug = [];
@@ -38,6 +40,9 @@ class OptionsPage extends Core\Singleton {
 
 	}
 
+	/**
+	 *	@action admin_init
+	 */
 	public function admin_init() {
 		$pages = acf_get_options_pages();
 
@@ -82,6 +87,7 @@ class OptionsPage extends Core\Singleton {
 
 		add_action( 'acf/input/admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
 
+		// show import/export status messages
 		if ( ! empty( $_GET['message'] ) ) {
 			$page = $this->pages_by_slug[ $page_hook ];
 			if ( $_GET['message'] === 'reset' ) {
@@ -89,6 +95,7 @@ class OptionsPage extends Core\Singleton {
 			} else if ( $_GET['message'] === 'import' ) {
 				acf_add_admin_notice( $page['import_message'], 'success' );
 			} else if ( $_GET['message'] === 'import_error' ) {
+				acf_add_admin_notice( $page['import_error_message'], 'success' );
 			}
 		}
 	}
@@ -141,7 +148,16 @@ class OptionsPage extends Core\Singleton {
 	 */
 	public function action_reset( $page ) {
 
-		$this->reset_page( $page );
+		$helper = Helper\ImportExportOptionsPage::instance();
+		$helper->reset( $page );
+
+		if ( is_string( $page['reset'] ) && file_exists( $page['reset'] ) ) {
+
+			$helper = Helper\ImportExportOptionsPage::instance();
+
+			$helper->import( file_get_contents( $page['reset'] ) );
+
+		}
 
 		wp_redirect( add_query_arg( array( 'message' => 'reset' ) ) );
 
@@ -149,25 +165,33 @@ class OptionsPage extends Core\Singleton {
 
 	}
 
+	/**
+	 *	@param Array $page ACF Options Page
+	 */
 	public function action_import( $page ) {
+		// import values.
 		if ( isset( $_POST['import_json'] ) && ! empty( $_POST['import_json'] ) ) {
-			$data = json_decode( wp_unslash( $_POST['import_json'] ), true );
-			if ( is_null( $data ) || ! isset( $data['values'] ) ) {
+
+			$helper = Helper\ImportExportOptionsPage::instance();
+
+			if ( $helper->import( wp_unslash( $_POST['import_json'] ) ) ) {
+				wp_redirect( add_query_arg( array( 'message' => 'import' ) ) );
+			} else {
 				wp_redirect( add_query_arg( array( 'message' => 'import_error' ) ) );
-				exit();
 			}
-			$_POST['acf'] = $data['values'];
+
+			exit();
 		}
 	}
 
 	/**
 	 *	Export values from options page
 	 *
-	 *	@param Array $page ACF options page
+	 *	@param Array $page ACF Options Page
 	 */
 	public function action_export( $page ) {
 
-		// export after values have been saved
+		// save values from form first, then export.
 		add_action( 'acf/save_post', [ $this, 'action_export_after' ], 99 );
 
 	}
@@ -177,7 +201,9 @@ class OptionsPage extends Core\Singleton {
 	 */
 	public function action_export_after() {
 
-		$data = $this->get_export_data( $this->current_page );
+		$helper = Helper\ImportExportOptionsPage::instance();
+
+		$data = $helper->export( $this->current_page, true );
 		$json_str = json_encode( $data );
 
 		header('Content-Type: application/json; charset=utf-8' );
@@ -189,61 +215,6 @@ class OptionsPage extends Core\Singleton {
 		exit();
 	}
 
-	/**
-	 *	@param String|Array $page Options page slug or config
-	 */
-	public function get_export_data( $page ) {
-
-		if ( is_string( $page ) ) {
-			$page = acf_get_options_page( $page );
-		}
-
-		$fields = $this->get_fields( $page );
-		$values = [];
-		foreach ( $fields as $field ) {
-			$value = get_field( $field['name'], $page['post_id'], false );
-			if ( ! is_null( $value ) ) {
-				$values += [ $field['key'] => $value ];
-			}
-		}
-		return [
-			'page' => $page,
-			'values' => $values,
-		];
-
-	}
-	/**
-	 *
-	 */
-	public function reset_page( $page ) {
-
-		$fields = $this->get_fields( $page );
-
-		foreach ( $fields as $field ) {
-			acf_delete_value( $page['post_id'], $field );
-		}
-
-	}
-
-
-	/**
-	 *	@param Array $page
-	 *	@return Array
-	 */
-	private function get_fields( $page ) {
-
-		$fields = [];
-
-		$field_groups = acf_get_field_groups( [ 'options_page' => $page['menu_slug'] ] );
-
-		foreach ( $field_groups as $i => $field_group ) {
-
-			$fields = array_merge( $fields, acf_get_fields( $field_group ) );
-
-		}
-
-		return $fields;
-	}
 
 	/**
 	 *	@filter acf/validate_options_page
@@ -253,13 +224,16 @@ class OptionsPage extends Core\Singleton {
 			'import' => false,
 			'import_message' => __( 'Options Imported', 'acf-wp-objects' ),
 			'import_error_message' => __( 'Invalid Import Data', 'acf-wp-objects' ),
-			'reset_message' => __( 'Options Reset to Defaults', 'acf-wp-objects' ),
-			'export' => false,
-			'reset' => false,
-			'reset_button' => __( 'Restore defaults', 'acf-wp-objects' ),
 			'import_button' => __( 'Import', 'acf-wp-objects' ),
 			'import_select_file' => __( 'Select File…', 'acf-wp-objects' ),
+
+			'export' => false,
+			'export_references' => false,
 			'export_button' => __( 'Export Settings', 'acf-wp-objects' ),
+
+			'reset' => false,
+			'reset_button' => __( 'Restore defaults', 'acf-wp-objects' ),
+			'reset_message' => __( 'Options Reset to Defaults', 'acf-wp-objects' ),
 		]);
 	}
 

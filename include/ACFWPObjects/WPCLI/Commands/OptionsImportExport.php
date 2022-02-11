@@ -12,7 +12,7 @@ if ( ! defined('ABSPATH') ) {
 }
 
 use ACFWPObjects\Core;
-use ACFWPObjects\Compat\ACF;
+use ACFWPObjects\Compat\ACF\Helper;
 
 class OptionsImportExport extends \WP_CLI_Command {
 
@@ -24,16 +24,28 @@ class OptionsImportExport extends \WP_CLI_Command {
 	 *
 	 * <page_slug>
 	 * : ACF options page slug
+	 *
+	 * [<file>]
+	 * : File with Exported ACF options JSON
+	 *
 	 */
 	public function reset( $args, $assoc_args ) {
 
-		$options = ACF\OptionsPage::instance();
+		$helper = Helper\ImportExportOptionsPage::instance();
+
 		$page = acf_get_options_page( $args[0] );
 		if ( ! $page ) {
 			\WP_CLI::error( 'Options page not found' );
 			return;
 		}
-		$options->reset_page( $page );
+		if ( isset( $args[1] ) && file_exists( $args[1] ) ) {
+			$page['reset'] = $args[1];
+		} else {
+			$page['reset'] = true;
+		}
+
+		$helper->reset( $page );
+
 		\WP_CLI::success( sprintf( 'Options Page %s has been reset', $page['menu_slug'] ) );
 
 	}
@@ -45,17 +57,35 @@ class OptionsImportExport extends \WP_CLI_Command {
 	 *
 	 * <page_slug>
 	 * : ACF options page slug
+	 *
+	 * [--references]
+	 * : Export referenced Objects like posts or files too
+	 *
+	 * [--pretty]
+	 * : Pretty print JSON output
+	 *
+	 * --
+	 * default: false
 	 */
 	public function export( $args, $assoc_args ) {
 
-		$options = ACF\OptionsPage::instance();
+		$pretty = isset( $assoc_args['pretty'] ) && $assoc_args['pretty'];
+		$references = isset( $assoc_args['references'] ) && $assoc_args['references'];
+
+		$helper = Helper\ImportExportOptionsPage::instance();
 		$page = acf_get_options_page( $args[0] );
+
 		if ( ! $page ) {
 			\WP_CLI::error( 'Options page not found' );
 			return;
 		}
-		echo json_encode( $options->get_export_data( $page ) );
-
+		echo wp_json_encode(
+			$helper->export( $page, $references ),
+			$pretty
+				? JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE
+				: 0
+		);
+		\WP_CLI::line('');
 	}
 
 	/**
@@ -72,24 +102,16 @@ class OptionsImportExport extends \WP_CLI_Command {
 			return;
 		}
 
+		$helper = Helper\ImportExportOptionsPage::instance();
+
 		$contents = file_get_contents( $args[0] );
 
-		if ( empty( $contents ) ) {
-			\WP_CLI::error( sprintf( 'file %s is empty', $args[0] ) );
-			return;
-		}
-		$data = json_decode( $contents, true );
-		if ( is_null( $data ) ) {
-			\WP_CLI::error( sprintf( 'Could not parse file %s', $args[0] ) );
-			return;
-		}
-		if ( ! isset( $data['values'] ) || ! isset( $data['page'] ) || ! isset( $data['page']['post_id'] ) ) {
+		if ( $helper->import( $contents ) ) {
+			\WP_CLI::success( sprintf( 'Options imported' ) );
+		} else {
 			\WP_CLI::error( sprintf( 'invalid data in file %s', $args[0] ) );
-			return;
 		}
 
-		acf_update_values( $data['values'], $data['page']['post_id'] );
-		\WP_CLI::success( sprintf( 'Options Page %s imported', $data['page']['menu_slug'] ) );
 	}
 
 
