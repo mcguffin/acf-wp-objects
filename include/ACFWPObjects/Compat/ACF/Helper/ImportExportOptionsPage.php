@@ -66,7 +66,6 @@ class ImportExportOptionsPage extends Core\Singleton {
 		if ( ! $page ) {
 			return;
 		}
-		var_dump($values,$page);
 		acf_update_values( $values, $page['post_id'] );
 	}
 
