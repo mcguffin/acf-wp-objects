@@ -16,6 +16,9 @@ use ACFWPObjects\Core;
 class ImportExportOptionsPage extends Core\Singleton {
 
 	/** @var Array referenced data */
+	private $reference_cache = [];
+
+	/** @var Array referenced data */
 	private $export_references = null;
 
 	/** @var Array mapping reference => ID  */
@@ -46,16 +49,45 @@ class ImportExportOptionsPage extends Core\Singleton {
 	 *	@return Array
 	 */
 	public function export( $page, $references = false ) {
+		if ( is_string( $page ) ) {
+			$page = acf_get_options_page( $page );
+		}
 
+		if ( $references ) {
+			$this->init_reference_export();
+		}
+
+		if ( is_array( $page['export'] ) ) {
+			$export_data = [
+				'page' => $page,
+				'values' => [],
+				'references' => [],
+			];
+			foreach ( $page['export'] as $page_slug ) {
+				$exported = $this->_export( $page_slug, $references );
+				$export_data['values'][$page_slug] = $exported['values'];
+				$export_data['references'] += $exported['references'];
+				$this->reference_cache = $export_data['references'];
+			}
+			return $export_data;
+		} else {
+			return $this->_export( $page, $references );
+		}
+	}
+
+	/**
+	 *	@param String|Array $page Options page slug or config
+	 *	@param Boolean $reference Whether reference values like post objects or images should be exported too. Implies format_values
+	 *	@return Array
+	 */
+	private function _export( $page, $references = false ) {
+
+		// resolve page slug
 		if ( is_string( $page ) ) {
 			$page = acf_get_options_page( $page );
 		}
 
 		$page['reset'] = $page['reset'] !== false; // convert to boolean. Will disclose directory structure otherwise
-
-		if ( $references ) {
-			$this->init_reference_export();
-		}
 
 		$fields = $this->get_fields( $page );
 		$values = [];
@@ -65,14 +97,12 @@ class ImportExportOptionsPage extends Core\Singleton {
 				$values += [ $field['name'] => $value ];
 			}
 		}
-		$export_data = [
+		return [
 			'page' => $page,
 			'values' => $values,
 			'references' => $this->export_references,
 		];
-		return $export_data;
 	}
-
 
 	/**
 	 *	Reset an options page. Maybe load default values
@@ -192,12 +222,13 @@ class ImportExportOptionsPage extends Core\Singleton {
 		return $attachment_id;
 	}
 
+
 	/**
-	 *	Add necessary filters to acf/format_value
+	 *	Export: Add necessary filters to acf/format_value
 	 */
 	private function init_reference_export() {
 
-		$this->export_references = [];
+		$this->export_references = $this->reference_cache;
 
 		$this->field_export_references = [];
 
@@ -220,6 +251,8 @@ class ImportExportOptionsPage extends Core\Singleton {
 	}
 
 	/**
+	 *	Export: generate post reference
+	 *
 	 *	@filter acf/format_value/type=file|image
 	 */
 	public function reference_file( $value, $post_id, $field ) {
@@ -247,6 +280,8 @@ class ImportExportOptionsPage extends Core\Singleton {
 	}
 
 	/**
+	 *	Export: generate post reference
+	 *
 	 *	@filter acf/format_value/type=post_object|relationship
 	 */
 	public function reference_posts( $value, $post_id, $field ) {
@@ -290,6 +325,8 @@ class ImportExportOptionsPage extends Core\Singleton {
 	}
 
 	/**
+	 *	Export: generate post reference
+	 *term
 	 *	@filter acf/format_value/type=txonomy
 	 */
 	public function reference_terms( $value, $post_id, $field ) {
@@ -324,7 +361,7 @@ class ImportExportOptionsPage extends Core\Singleton {
 	}
 
 	/**
-	 *	Replace ACF value with reference
+	 *	Export: Replace ACF value with reference
 	 *
 	 *	@filter acf/format_value/type=*
 	 */
@@ -336,6 +373,8 @@ class ImportExportOptionsPage extends Core\Singleton {
 	}
 
 	/**
+	 *	Import: Replace ACF value with reference
+	 *
 	 *	@param String|Array $data
 	 *	@return Array|Boolean json decoded $data or false on failure
 	 */
