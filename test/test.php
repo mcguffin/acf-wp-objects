@@ -13,9 +13,9 @@ class PluginTest {
 		} );
 
 
-		// add_filter( 'acf/settings/load_json', [ $this, 'load_json' ] );
+		add_filter( 'acf/settings/load_json', [ $this, 'load_json' ] );
 		//
-		// add_filter( 'acf/settings/save_json', [ $this, 'save_json' ] );
+		add_filter( 'acf/settings/save_json', [ $this, 'save_json' ] );
 		//
 		// add_action( 'acf/delete_field_group', [ $this, 'mutate_field_group' ], 9 );
 		// add_action( 'acf/trash_field_group', [ $this, 'mutate_field_group' ], 9 );
@@ -257,6 +257,49 @@ class PluginTest {
 			'post_id'		=> 'acf_wpo_fields_test_repeater',
 			'menu_slug'		=> 'wpo-test-options-mods',
 			'parent'		=> $blp['menu_slug'],
+		]);
+		acf_add_options_sub_page([
+			'page_title'	=> 'ACF WP-Objects Import/Export/Reset',
+			'menu_title'	=> 'Import/Export',
+			'post_id'		=> 'acf_wpo_fields_test_repeater',
+			'menu_slug'		=> 'wpo-test-options-migrate',
+			'parent'		=> $blp['menu_slug'],
+
+			'import' => true,
+			'import_message' => __( 'Options Imported', 'acf-wp-objects' ),
+			'import_error_message' => __( 'Invalid Import Data', 'acf-wp-objects' ),
+			'import_button' => __( 'Import', 'acf-wp-objects' ),
+			'import_select_file' => __( 'Select File…', 'acf-wp-objects' ),
+
+			'export' => true,
+			'export_references' => true,
+			'export_button' => __( 'Export Settings', 'acf-wp-objects' ),
+
+			'reset' => true,
+			'reset_button' => __( 'Restore defaults', 'acf-wp-objects' ),
+			'reset_message' => __( 'Options Reset to Defaults', 'acf-wp-objects' ),
+		]);
+
+		acf_add_options_sub_page([
+			'page_title'	=> 'ACF WP-Objects Import/Export/Reset',
+			'menu_title'	=> 'Import/Export multiple',
+			'post_id'		=> 'acf_wpo_fields_test_repeater',
+			'menu_slug'		=> 'wpo-test-options-migrate-multiple',
+			'parent'		=> $blp['menu_slug'],
+
+			'import' => true,
+			'import_message' => __( 'Options Imported', 'acf-wp-objects' ),
+			'import_error_message' => __( 'Invalid Import Data', 'acf-wp-objects' ),
+			'import_button' => __( 'Import', 'acf-wp-objects' ),
+			'import_select_file' => __( 'Select File…', 'acf-wp-objects' ),
+
+			'export' => ['wpo-test-options-migrate','wpo-test-options-migrate-multiple'],
+			'export_references' => true,
+			'export_button' => __( 'Export Settings', 'acf-wp-objects' ),
+
+			'reset' => true,
+			'reset_button' => __( 'Restore defaults', 'acf-wp-objects' ),
+			'reset_message' => __( 'Options Reset to Defaults', 'acf-wp-objects' ),
 		]);
 	}
 

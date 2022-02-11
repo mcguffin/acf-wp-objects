@@ -1,0 +1,118 @@
+{
+    "key": "group_acf_wp_objects_export_multiple",
+    "title": "ACF WP-Objects Test: Export II",
+    "fields": [
+        {
+            "key": "field_62064a9161bf3",
+            "label": "First",
+            "name": "first",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "wp_object": "",
+            "is_id": 0
+        },
+        {
+            "key": "field_62064a9661bf4",
+            "label": "Gallery",
+            "name": "gallery",
+            "type": "gallery",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "medium",
+            "insert": "append",
+            "library": "all",
+            "min": "",
+            "max": "",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "wp_object": "",
+            "dropzone": 0
+        },
+        {
+            "key": "field_62064aa161bf5",
+            "label": "User",
+            "name": "user",
+            "type": "user",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "role": "",
+            "allow_null": 0,
+            "multiple": 0,
+            "return_format": "array"
+        },
+        {
+            "key": "field_62064ab661bf6",
+            "label": "NavMenu",
+            "name": "nav_menu_select",
+            "type": "nav_menu_select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "allow_null": 0,
+            "ui": 0,
+            "return_format": "object",
+            "menu_location": "",
+            "multiple": 0,
+            "default_value": "",
+            "ajax": 0,
+            "placeholder": "",
+            "choices": {
+                "27": "Primary Menu"
+            }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "wpo-test-options-migrate-multiple"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1644579535
+}
