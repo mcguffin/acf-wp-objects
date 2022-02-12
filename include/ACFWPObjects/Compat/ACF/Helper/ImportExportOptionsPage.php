@@ -92,8 +92,10 @@ class ImportExportOptionsPage extends Core\Singleton {
 			foreach ( $page['export'] as $page_slug ) {
 				$exported = $this->_export( $page_slug, $references );
 				$export_data['values'][$page_slug] = $exported['values'];
-				$export_data['references'] += $exported['references'];
-				$this->reference_cache = $export_data['references'];
+				if ( $references ) {
+					$export_data['references'] += $exported['references'];
+					$this->reference_cache = $export_data['references'];
+				}
 			}
 			return $export_data;
 		} else {
