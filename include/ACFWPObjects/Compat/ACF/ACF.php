@@ -82,6 +82,24 @@ class ACF extends Core\Singleton {
 	 */
 	public function init() {
 
+		$choices = RepeaterChoices::instance();
+		$wp = Core\WP::instance();
+
+		$this->acf_input_js->localize( [
+			'repeated_fields' => $choices->get_repeated_fields(),
+			'post_types'	=> array_map( [ $this, 'reduce_pt' ], $wp->get_post_types() ),
+			'taxonomies'	=> array_map( [ $this, 'reduce_taxo' ], $wp->get_taxonomies() ),
+			'image_sizes'	=> array_map( [ $this, 'mk_image_sizes' ], $wp->get_image_sizes() ),
+			'object_type_props' => [
+				'_builtin'			=> __( 'Builtin', 'acf-wp-objects' ),
+				'public'			=> __( 'Public', 'acf-wp-objects' ),
+				'show_ui'			=> __( 'Show UI', 'acf-wp-objects' ),
+				'show_in_menu'		=> __( 'Show in Menus', 'acf-wp-objects' ),
+				'show_in_nav_menus'	=> __( 'Show in Nav Menus', 'acf-wp-objects' ),
+				'hierarchical'		=> __( 'Hierarchical', 'acf-wp-objects' ),
+			],
+		], 'acf_wp_objects' );
+
 		if ( apply_filters( 'acf_image_sweetspot_enable', false ) ) {
 			ImageSweetSpot::instance();
 		}
@@ -136,18 +154,9 @@ class ACF extends Core\Singleton {
 	 */
 	public function enqueue_field_group() {
 
-		$choices = RepeaterChoices::instance();
-		$wp = Core\WP::instance();
-
 		$this->acf_field_group_js
 			->footer( false )
 			->deps( 'acf-field-group', $this->acf_input_js )
-			->localize( [
-				'repeated_fields' => $choices->get_repeated_fields(),
-				'post_types'	=> array_map( [ $this, 'reduce_pt' ], $wp->get_post_types() ),
-				'taxonomies'	=> array_map( [ $this, 'reduce_taxo' ], $wp->get_taxonomies() ),
-				'image_sizes'	=> array_map( [ $this, 'mk_image_sizes' ], $wp->get_image_sizes() ),
-			], 'acf_wp_objects' )
 			->enqueue();
 
 	}

@@ -5,6 +5,9 @@ ACF-WP-Objects Changelog
 ------
  - Feature: introduce filter `acf_options_page_export_data`
  - Feature: introduce API Functions `acf_export_options_page`, `acf_import_options_page` and `acf_reset_options_page`
+ - Feature: add hierarchical to taxonomy and post type field conditions
+ - Feature: add hierarchical post type and taxonomy to location rules
+ - Feature: Add Object type conditional logic for post type / taxonomy field
  - Fix: export broken in wpcli when reference paramater is not present
  - Fix: Avoid additional Post revision when page sections post is saved
 
