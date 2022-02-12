@@ -176,6 +176,7 @@ class ACF extends Core\Singleton {
 			'show_in_nav_menus'	=> 1,
 			'show_in_menu'		=> 1,
 			'public'			=> 1,
+			'hierarchical'		=> 1,
 		]);
 	}
 
@@ -191,6 +192,7 @@ class ACF extends Core\Singleton {
 			'show_in_nav_menus'	=> 1,
 			'show_in_menu'		=> 1,
 			'public'			=> 1,
+			'hierarchical'		=> 1,
 		]);
 	}
 

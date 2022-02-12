@@ -281,6 +281,23 @@ class SelectTaxonomy extends \acf_field_select {
 			]
 		]);
 
+		acf_render_field_setting( $field, [
+			'label'			=> __('Hierarchical','acf-wp-objects'),
+			'instructions'	=> '',
+			'type'			=> 'button_group',
+			'choices'		=> [
+				''		=> __( 'Any', 'wp-acf-objects' ),
+				'1'		=> __('Yes', 'wp-acf-objects' ),
+				'0'		=> __('No', 'wp-acf-objects' ),
+			],
+			'name'			=> 'hierarchical',
+			'ui'			=> 1,
+			'conditions'	=> [
+				'field'		=> 'pick',
+				'operator'	=> '==',
+				'value'		=> 0
+			]
+		]);
 
 		// ajax
 		acf_hidden_input([
