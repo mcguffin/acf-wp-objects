@@ -54,11 +54,15 @@ class PageLayout extends Core\Singleton {
 
 				$contents = ob_get_clean();
 
+				// don't save a revision of previous post
+				remove_action( 'post_updated', 'wp_save_post_revision', 10 );
+
 				wp_update_post([
 					'ID' => $post_id,
 					'post_content' => $contents,
 				]);
 
+				add_action( 'post_updated', 'wp_save_post_revision', 10 );
 			} else if ( is_callable( $save_post_content ) ) {
 
 				$content = call_user_func_array( $save_post_content, [ $layout, $post_id, $this ] );

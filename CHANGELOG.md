@@ -1,6 +1,17 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.6.15
+------
+ - Feature: introduce filter `acf_options_page_export_data`
+ - Feature: introduce API Functions `acf_export_options_page`, `acf_import_options_page` and `acf_reset_options_page`
+ - Fix: export broken in wpcli when reference paramater is not present
+ - Fix: Avoid additional Post revision when page sections post is saved
+
+0.6.14
+------
+ - Fix: remove debugging code
+
 0.6.13
 ------
  - Feature: import/export referenced content on options pages
