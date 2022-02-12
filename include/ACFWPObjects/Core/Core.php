@@ -57,8 +57,10 @@ class Core extends Plugin implements CoreInterface {
 			} else {
 				Compat\NoWPMU::instance();
 			}
+
 			if ( acf_get_setting( 'pro' ) ) {
 				require_once $this->get_plugin_dir() . '/include/api/page-layouts.php';
+				require_once $this->get_plugin_dir() . '/include/api/options-page.php';
 			}
 
 			if ( class_exists( '\ACFCustomizer\Core\Core' ) ) {
