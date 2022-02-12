@@ -75,17 +75,18 @@ class ImportExportOptionsPage extends Core\Singleton {
 	 *	@return Array
 	 */
 	public function export( $page, $references = false ) {
-		if ( is_string( $page ) ) {
-			$page = acf_get_options_page( $page );
-		}
 
 		if ( $references ) {
 			$this->init_reference_export();
 		}
 
 		if ( is_array( $page['export'] ) ) {
+			// multiple pages
+			if ( is_string( $page ) ) {
+				$page = acf_get_options_page( $page );
+			}
 			$export_data = [
-				'page' => $page,
+				'page' =>  $this->get_export_page_data( $page ),
 				'values' => [],
 				'references' => [],
 			];
@@ -97,10 +98,30 @@ class ImportExportOptionsPage extends Core\Singleton {
 					$this->reference_cache = $export_data['references'];
 				}
 			}
-			return $export_data;
 		} else {
-			return $this->_export( $page, $references );
+			// single page
+			$export_data = $this->_export( $page, $references );
 		}
+
+		/**
+		 *	Filter export data
+		 *	@param Array $export_data [
+		 *		'page' => [
+		 *			'page_title' => String,
+		 *			'menu_slug'  => String,
+		 *			'post_id'    => String,
+		 *			'export'     => Boolean|Array,
+		 *		],
+		 *		'values' => [
+		 *			...
+		 *		],
+		 *		'references' => [
+		 *			...
+		 *		],
+		 *	]
+		 *	@param Boolean $references
+		 */
+		return apply_filters( 'acf_options_page_export_data', $export_data, $references );
 	}
 
 	/**
@@ -115,8 +136,6 @@ class ImportExportOptionsPage extends Core\Singleton {
 			$page = acf_get_options_page( $page );
 		}
 
-		$page['reset'] = $page['reset'] !== false; // convert to boolean. Will disclose directory structure otherwise
-
 		$fields = $this->get_fields( $page );
 		$values = [];
 		foreach ( $fields as $field ) {
@@ -126,10 +145,24 @@ class ImportExportOptionsPage extends Core\Singleton {
 			}
 		}
 		return [
-			'page' => $page,
+			'page' => $this->get_export_page_data( $page ),
 			'values' => $values,
 			'references' => $this->export_references,
 		];
+	}
+
+
+	/**
+	 *	reduce ACF Options page to exportable
+	 *
+	 *	@param Array $page ACF Options page config
+	 *	@return Array
+	 */
+	private function get_export_page_data( $page ) {
+		return array_intersect_key(
+			$page,
+			array_flip( [ 'page_title', 'menu_slug', 'post_id', 'export' ] )
+		);
 	}
 
 	/**
@@ -137,6 +170,11 @@ class ImportExportOptionsPage extends Core\Singleton {
 	 *	@param Array $page Options page config
 	 */
 	public function reset( $page ) {
+
+		// resolve page slug
+		if ( is_string( $page ) ) {
+			$page = acf_get_options_page( $page );
+		}
 
 		$fields = $this->get_fields( $page );
 

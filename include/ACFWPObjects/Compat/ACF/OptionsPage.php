@@ -153,8 +153,6 @@ class OptionsPage extends Core\Singleton {
 
 		if ( is_string( $page['reset'] ) && file_exists( $page['reset'] ) ) {
 
-			$helper = Helper\ImportExportOptionsPage::instance();
-
 			$helper->import( file_get_contents( $page['reset'] ) );
 
 		}
