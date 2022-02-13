@@ -25,7 +25,7 @@ class PageLayout extends Core\Singleton {
 
 		add_action( 'acf/include_location_rules', [ $this, 'register_location_rules' ] );
 
-		add_action('save_post', [ $this, 'save_post' ], 20, 3 );
+		add_action( 'save_post', [ $this, 'save_post' ], 20, 3 );
 
 	}
 

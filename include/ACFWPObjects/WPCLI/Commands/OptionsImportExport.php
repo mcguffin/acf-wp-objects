@@ -55,7 +55,7 @@ class OptionsImportExport extends \WP_CLI_Command {
 	 *
 	 * ## OPTIONS
 	 *
-	 * <page_slug>
+	 * <page_slug>...
 	 * : ACF options page slug
 	 *
 	 * [--references]
@@ -73,11 +73,19 @@ class OptionsImportExport extends \WP_CLI_Command {
 		$references = isset( $assoc_args['references'] ) && $assoc_args['references'];
 
 		$helper = Helper\ImportExportOptionsPage::instance();
-		$page = acf_get_options_page( $args[0] );
+		$pages = array_filter( array_map( 'acf_get_options_page', $args ) );
 
-		if ( ! $page ) {
+		if ( 0 === count( $pages ) ) {
 			\WP_CLI::error( 'Options page not found' );
 			return;
+		} else if ( 1 === count( $pages ) ) {
+			$page = $pages[0];
+			$page['export'] = true;
+		} else {
+			$page = $pages[0];
+			$page['export'] = array_map( function( $page ) {
+				return $page['menu_slug'];
+			}, $pages );
 		}
 		echo wp_json_encode(
 			$helper->export( $page, $references ),
