@@ -290,6 +290,10 @@ class TemplateFileSelect extends \acf_field_select {
 
 		$template_type = Core\Template::instance()->get_template_type( $field['template_type'] );
 
+		if ( ! is_array( $template_type ) ) {
+			return [];
+		}
+
 		$header_key = $template_type['header_key']; // Template file header key
 
 		$template = Core\Template::instance();
