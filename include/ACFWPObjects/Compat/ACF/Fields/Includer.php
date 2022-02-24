@@ -9,7 +9,7 @@ use ACFWPObjects\Asset;
 use ACFWPObjects\Core;
 use ACFWPObjects\Compat\ACF\ACF as CompatACF;
 use ACFWPObjects\Compat\ACF\Helper;
-use ACFWPObjects\Compat\ACF\I18n;
+use ACFWPObjects\Compat\ACF\I18N;
 
 class Includer extends \acf_field {
 
