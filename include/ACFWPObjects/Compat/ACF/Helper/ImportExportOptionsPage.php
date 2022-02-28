@@ -78,6 +78,8 @@ class ImportExportOptionsPage extends Core\Singleton {
 
 		if ( $references ) {
 			$this->init_reference_export();
+		} else {
+			$this->init_reference_reset();
 		}
 
 		if ( is_array( $page['export'] ) ) {
@@ -103,6 +105,7 @@ class ImportExportOptionsPage extends Core\Singleton {
 			$export_data = $this->_export( $page, $references );
 		}
 
+		$export_data = $this->filter_export_data( $export_data );
 		/**
 		 *	Filter export data
 		 *	@param Array $export_data [
@@ -122,6 +125,25 @@ class ImportExportOptionsPage extends Core\Singleton {
 		 *	@param Boolean $references
 		 */
 		return apply_filters( 'acf_options_page_export_data', $export_data, $references );
+	}
+
+	/**
+	 *	Remove empty keys from export data
+	 *
+	 *	@param Array $export_data
+	 *	@return Array
+	 */
+	private function filter_export_data( $export_data ) {
+		$export_data = array_map( function( $value ) {
+			if ( is_array( $value ) ) {
+				$value = $this->filter_export_data( $value );
+			}
+			return $value;
+		}, $export_data );
+
+		return array_filter( $export_data, function($key) {
+			return '' !== $key;
+		}, ARRAY_FILTER_USE_KEY );
 	}
 
 	/**
@@ -407,6 +429,26 @@ class ImportExportOptionsPage extends Core\Singleton {
 		add_filter('acf/format_value/type=gallery', [ $this, 'get_reference' ], 11, 3 );
 
 		add_filter('acf/format_value/type=user', '__return_empty_string', 11, 3 ); // we do not export users
+	}
+
+	/**
+	 *	Export: Add necessary filters to acf/format_value
+	 */
+	private function init_reference_reset() {
+
+		$this->export_references = $this->reference_cache;
+
+		$this->field_export_references = [];
+
+		add_filter('acf/format_value/type=file', '__return_empty_string' );
+		add_filter('acf/format_value/type=image', '__return_empty_string' );
+		add_filter('acf/format_value/type=post_object', '__return_empty_string' );
+		add_filter('acf/format_value/type=relationship', '__return_empty_string' );
+		add_filter('acf/format_value/type=taxonomy', '__return_empty_string' );
+		add_filter('acf/format_value/type=nav_menu_select', '__return_empty_string' );
+		add_filter('acf/format_value/type=gallery', '__return_empty_string' );
+
+		add_filter('acf/format_value/type=user', '__return_empty_string' ); // we do not export users
 	}
 
 	/**

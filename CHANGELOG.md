@@ -1,6 +1,19 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.6.18
+------
+ - Fix: ImportExport – remove empty keys from export
+
+0.6.17
+-------
+ - Fix: PHP-Fatal on case sensitive file systems
+
+
+0.6.16
+-------
+ - Fix some PHP warnings
+
 0.6.15
 ------
  - Feature: introduce filter `acf_options_page_export_data`

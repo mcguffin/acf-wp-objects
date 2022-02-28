@@ -18,7 +18,7 @@ class OptionsImportExport extends \WP_CLI_Command {
 
 
 	/**
-	 * Export ACF Options Page to JSON
+	 * Reset ACF Options Page to default values
 	 *
 	 * ## OPTIONS
 	 *
