@@ -225,12 +225,13 @@ class SelectNavMenu extends \acf_field_select {
 	 */
 	function format_value_single( $value, $post_id, $field ) {
 
-		// bail ealry if is empty
-		if( acf_is_empty($value) ) return $value;
-
+		// bail early if empty
+		if ( acf_is_empty( $value ) ) {
+			return $value;
+		}
 
 		// vars
-		$label = acf_maybe_get($field['choices'], $value, $value);
+		$label = acf_maybe_get( $field['choices'], $value, $value );
 
 
 		// value

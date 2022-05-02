@@ -460,6 +460,7 @@ class ImportExportOptionsPage extends Core\Singleton {
 		if ( empty( $value ) ) {
 			return $value;
 		}
+
 		$refs = array_map( function( $value ) use ( $field ) {
 			$reference = "attachment:{$value}";
 			if ( ! isset( $this->export_references[ $reference ] ) ) {
@@ -475,6 +476,8 @@ class ImportExportOptionsPage extends Core\Singleton {
 							],
 						];
 					}
+				} else {
+					return '';
 				}
 			}
 			return $reference;
@@ -498,11 +501,17 @@ class ImportExportOptionsPage extends Core\Singleton {
 		if ( empty( $value ) ) {
 			return $value;
 		}
+
 		$refs = array_map( function( $post_id ) {
 			$reference = "post:$post_id";
 			if ( ! isset( $this->export_references[ $reference ] ) ) {
 
 				$post = get_post( $post_id );
+
+				// something is broken
+				if ( ! ( $post instanceOf \WP_Post ) ) {
+					return '';
+				}
 
 				$post_data = get_object_vars( $post );
 				$post_meta = get_post_meta( $post->ID );
@@ -538,19 +547,35 @@ class ImportExportOptionsPage extends Core\Singleton {
 	}
 
 	/**
-	 *	Export: generate post reference
-	 *term
-	 *	@filter acf/format_value/type=txonomy
+	 *	Export: generate term reference
+	 *
+	 *	@filter acf/format_value/type=taxonomy
 	 */
 	public function reference_terms( $value, $post_id, $field ) {
 		if ( empty( $value ) ) {
 			return $value;
 		}
 
+		// make sure to reference only term IDs
+		$values = array_filter( array_map( function( $val ) {
+			if ( $val instanceOf \WP_Term ) {
+				return $val->term_id;
+			} else if ( is_scalar( $val ) ) {
+				return $val;
+			}
+			return false;
+		}, array_filter( (array) $value ) ) );
+
+		// term IDs to array
 		$refs = array_map( function( $term_id ) {
 			$reference = "term:$term_id";
 			if ( ! isset( $this->export_references[ $reference ] ) ) {
 				$term = get_term( absint( $term_id ) );
+
+				// something is broken
+				if ( ! ( $term instanceOf \WP_Term ) ) {
+					return false;
+				}
 
 				$term_data = get_object_vars( $term );
 				$term_meta = get_term_meta( $term->term_id );
@@ -567,7 +592,7 @@ class ImportExportOptionsPage extends Core\Singleton {
 				];
 			}
 			return $reference;
-		}, array_filter( (array) $value ) );
+		}, $values );
 
 		if ( ! is_array( $value ) ) {
 			$this->field_export_references[ $post_id.':'.$field['name'] ] = $refs[0];
