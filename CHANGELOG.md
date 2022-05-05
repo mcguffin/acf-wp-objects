@@ -3,7 +3,9 @@ ACF-WP-Objects Changelog
 
 0.6.18
 ------
+ - Export: do not export referenced values
  - Fix: ImportExport – remove empty keys from export
+ - Fix: use of undefined constant STYLESHEETPATH
 
 0.6.17
 -------
