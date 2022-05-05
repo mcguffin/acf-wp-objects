@@ -112,7 +112,7 @@ class Template extends Singleton {
 			// get scan paths
 			$paths_to_scan = [ trailingslashit( get_stylesheet_directory() ) . $type['theme_location'] ];
 
-			if ( get_template_path() !== get_stylesheet_path() ) {
+			if ( get_template_directory() !== get_stylesheet_directory() ) {
 				$paths_to_scan[] = trailingslashit( get_template_directory() ) . $type['theme_location'];
 			}
 			if ( false !== $type['plugin_location'] ) {
