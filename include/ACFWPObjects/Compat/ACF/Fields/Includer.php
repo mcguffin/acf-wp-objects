@@ -18,7 +18,7 @@ class Includer extends \acf_field {
 	 *  @inheritdoc
 	 */
 	public function initialize() {
-
+		acf_register_store('wpo_resolve');
 		$this->name = 'includer-field';
 		$this->label = __('Include Fields', 'acf-wp-objects');
 		$this->category = 'relational';
@@ -139,7 +139,10 @@ class Includer extends \acf_field {
 			return $fields;
 		}
 
+		$store = acf_get_store('fields');
+
 		$return_fields = [];
+
 		foreach ( $fields as $field ) {
 
 
@@ -147,14 +150,21 @@ class Includer extends \acf_field {
 
 				$resolved_fields = $this->resolve_field( $field );
 
-
 				if ( isset( $parent['type'] ) && 'repeater' === $parent['type'] && $parent['collapsed'] === $field['key'] ) {
+
 					// add collapsed-target class
 					$resolved_fields = array_map( function( $field ) {
 						$field['wrapper']['class'] .= ' -collapsed-target';
 						return $field;
 					}, $resolved_fields );
 
+				}
+
+				if ( count( $resolved_fields ) && acf_have_local_fields( $parent['key'] ) ) {
+					// ACF-cache fields
+					array_map( function($field) use ( &$store ) {
+						$store->set( $field['key'], $field )->alias( $field['key'], $field['name'] );
+					}, $ret );
 				}
 
 				$return_fields = array_merge( $return_fields, $resolved_fields );
@@ -175,16 +185,23 @@ class Includer extends \acf_field {
 	 */
 	private function resolve_field( $field ) {
 
+		$resolve_store = acf_get_store('wpo_resolve');
+
+		// cache found fields
+		if ( $resolve_store->has( $field['key'] ) ) {
+			return $resolve_store->get( $field['key'] );
+		}
+
 		if ( ! empty( $field['textdomain'] ) && ( $i18n = I18N::get_localization( $field['textdomain'] ) ) ) {
 			$field = $i18n->translate_acf_object( $field );
 		}
 
+		// init helpers
 		$helper = Helper\Conditional::instance();
 		$fieldKey = Helper\FieldKey::instance();
 
 		$key_suffix = str_replace( 'field_', '', $field['key'] );
 		$ret = [];
-
 
 		$field_group_key = $field['field_group_key'];
 		if ( empty( $field_group_key ) ) {
@@ -197,8 +214,9 @@ class Includer extends \acf_field {
 		if ( isset( $field['parent_layout'] ) ) {
 			$parent['parent_layout'] = $field['parent_layout'];
 		}
-		/* @var  */
+		/* @var array  */
 		$include_fields = acf_get_fields( $field_group_key );
+
 
 		$conditional = $field['conditional_logic'];
 
@@ -252,10 +270,7 @@ class Includer extends \acf_field {
 			$ret = $fieldKey->replace_field_key( $ret, $search, $replace );
 		}
 
-		// cache fields
-		array_map( function($field) {
-			acf_get_store( 'fields' )->set( $field['key'], $field )->alias( $field['key'], $field['name'] );
-		}, $ret );
+		$resolve_store->set( $field['key'], $ret );
 
 		return $ret;
 	}
