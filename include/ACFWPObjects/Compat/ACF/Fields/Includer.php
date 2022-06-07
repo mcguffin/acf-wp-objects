@@ -164,7 +164,7 @@ class Includer extends \acf_field {
 					// ACF-cache fields
 					array_map( function($field) use ( &$store ) {
 						$store->set( $field['key'], $field )->alias( $field['key'], $field['name'] );
-					}, $ret );
+					}, $resolved_fields );
 				}
 
 				$return_fields = array_merge( $return_fields, $resolved_fields );
