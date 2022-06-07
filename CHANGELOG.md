@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.6.20
+------
+ - Fix: Includer field not resolving correctly
+
 0.6.18
 ------
  - Export: do not export referenced values
