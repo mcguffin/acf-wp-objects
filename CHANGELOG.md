@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.6.21
+------
+ - Fix: Options page import/export php error
+
 0.6.20
 ------
  - Fix: Includer field not resolving correctly
