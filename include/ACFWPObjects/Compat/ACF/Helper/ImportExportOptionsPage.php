@@ -253,7 +253,8 @@ class ImportExportOptionsPage extends Core\Singleton {
 		}
 
 		$refs = array_map( function( $value ) {
-			if ( isset( $this->resolve_references[ $value ] ) ) {
+
+			if ( is_scalar( $value ) && isset( $this->resolve_references[ $value ] ) ) {
 				return $this->resolve_references[ $value ];
 			}
 			return $value;
