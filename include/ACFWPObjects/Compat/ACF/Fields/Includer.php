@@ -18,7 +18,7 @@ class Includer extends \acf_field {
 	 *  @inheritdoc
 	 */
 	public function initialize() {
-		acf_register_store('wpo_resolve');
+
 		$this->name = 'includer-field';
 		$this->label = __('Include Fields', 'acf-wp-objects');
 		$this->category = 'relational';
@@ -185,13 +185,6 @@ class Includer extends \acf_field {
 	 */
 	private function resolve_field( $field ) {
 
-		$resolve_store = acf_get_store('wpo_resolve');
-
-		// cache found fields
-		if ( $resolve_store->has( $field['key'] ) ) {
-			return $resolve_store->get( $field['key'] );
-		}
-
 		if ( ! empty( $field['textdomain'] ) && ( $i18n = I18N::get_localization( $field['textdomain'] ) ) ) {
 			$field = $i18n->translate_acf_object( $field );
 		}
@@ -207,6 +200,10 @@ class Includer extends \acf_field {
 		if ( empty( $field_group_key ) ) {
 			$field_group_key = $field['field_group_key_custom'];
 		}
+		/* @var array  */
+		$include_fields = acf_get_fields( $field_group_key );
+
+
 		$parent = acf_get_field_group( $field_group_key );
 
 		$replace_field_keys = [];
@@ -214,11 +211,11 @@ class Includer extends \acf_field {
 		if ( isset( $field['parent_layout'] ) ) {
 			$parent['parent_layout'] = $field['parent_layout'];
 		}
-		/* @var array  */
-		$include_fields = acf_get_fields( $field_group_key );
 
 
 		$conditional = $field['conditional_logic'];
+
+
 
 		foreach ( $include_fields as $include_field ) {
 
@@ -269,8 +266,6 @@ class Includer extends \acf_field {
 		foreach ( $replace_field_keys as $search => $replace ) {
 			$ret = $fieldKey->replace_field_key( $ret, $search, $replace );
 		}
-
-		$resolve_store->set( $field['key'], $ret );
 
 		return $ret;
 	}
