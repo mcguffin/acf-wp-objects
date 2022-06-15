@@ -10,6 +10,7 @@ $(document).on('click', '.acf-field-radio.acf-popup > .acf-input label', e => {
 			$(acfInput).siblings().remove()
 			$(acfInput).unwrap()
 		}
+		$(acfLabel).css( { 'padding-bottom': '' } );
 		$(document).off('keyup',escReset)
 	}
 	const escReset = e => {
@@ -17,16 +18,21 @@ $(document).on('click', '.acf-field-radio.acf-popup > .acf-input label', e => {
 			reset()
 		}
 	}
-
+	$(acfLabel).css('padding-bottom',$(acfInput).height()+'px')
 	$(acfInput).wrap('<div class="inner" />')
 		.closest('.inner').wrap('<div class="acf-popup-box acf-box" />')
 		.closest('.acf-box').wrap('<div id="acf-popup" />')
 		.prepend(`<div class="title"><h3>${acfLabel.textContent}</h3><a href="#" class="acf-icon -cancel grey" data-event="close"></a></div>`)
 		.closest('#acf-popup').append('<div class="bg" data-event="close" />')
-		.on('click','[data-event="close"],label', e => {
+		.on('click','[data-event="close"]', e => {
+			e.preventDefault()
+			setTimeout(reset,50)
+		})
+		.on('click','label', e => {
 			setTimeout(reset,50)
 		})
 		.on('change', e => {
+			e.stopPropagation()
 			reset()
 		})
 	$(document).on('keyup',escReset)
