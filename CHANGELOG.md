@@ -1,6 +1,14 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.6.23
+------
+ - Styles: Popup
+
+0.6.22
+------
+ - UI Enhancement: Prevent Layout shift
+
 0.6.21
 ------
  - Fix: Options page import/export php error
