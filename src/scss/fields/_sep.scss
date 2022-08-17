@@ -1,0 +1,36 @@
+
+.acf-field {
+	&.sep-top {
+		border-top-width:5px !important;
+	}
+	&.sep-left {
+		border-left-width:5px !important;
+	}
+	&.sep-right {
+		border-right:5px solid #eee !important;
+		+ .acf-field.sep-left {
+			border-left-style:none;
+		}
+	}
+	&.sep-bottom {
+		border-bottom:5px solid #eee !important;
+		+ .acf-field.sep-top {
+			border-top-style:none;
+		}
+	}
+
+	&.sep-top-0 {
+		border-top-style:none !important;
+	}
+	&.sep-left-0 {
+		border-left-style:none !important;
+	}
+	&.sep-right-0 {
+		border-right-style:none !important;
+	}
+	&.sep-bottom-0 {
+		border-bottom-style:none !important;
+	}
+
+
+}
