@@ -1,0 +1,59 @@
+.acf-popup-box {
+	background: #FFFFFF;
+	border: 1px solid #ccd0d4;
+	position: relative;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+	/* title */
+	/* footer */
+	.title {
+		border-bottom: 1px solid #ccd0d4;
+		margin: 0;
+		padding: 15px;
+		h3 {
+			font-size: 14px;
+			line-height: 1em;
+			padding: 0;
+			margin: 1.5em 0 0;
+			.acf-field.acf-popup & {
+				margin-top:0;
+			}
+		}
+	}
+	.inner {
+		padding: 15px;
+	}
+	h2 {
+		color: #333333;
+		font-size: 26px;
+		line-height: 1.25em;
+		margin: 0.25em 0 0.75em;
+		padding: 0;
+	}
+	p {
+		margin-top: 0.5em;
+	}
+	i.dashicons-external {
+		margin-top: -1px;
+	}
+	.footer {
+		border-top: 1px solid #ccd0d4;
+		padding: 12px;
+		font-size: 13px;
+		line-height: 1.5;
+		p {
+			margin: 0;
+		}
+	}
+}
+// hell is paved with z-indices
+body {
+	&.acf-popup-open {
+		.acf-fields.-sidebar::before,
+		.acf-fields > .acf-tab-wrap .acf-tab-group {
+			z-index:0;
+		}
+		.acf-field.acf-accordion {
+			position: static;
+		}
+	}
+}

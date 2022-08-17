@@ -1,6 +1,7 @@
 import $ from 'jquery';
 
 $(document).on('click', '.acf-field-radio.acf-popup > .acf-input label', e => {
+	// open popup
 	const field = e.target.closest('.acf-field');
 	const acfLabel = field.querySelector('.acf-label label')
 	const acfInput = field.querySelector('.acf-input')
@@ -12,16 +13,18 @@ $(document).on('click', '.acf-field-radio.acf-popup > .acf-input label', e => {
 		}
 		$(acfLabel).css( { 'padding-bottom': '' } );
 		$(document).off('keyup',escReset)
+		$('body').toggleClass( 'acf-popup-open', false );
 	}
 	const escReset = e => {
 		if (e.keyCode === 27 ) {
 			reset()
 		}
 	}
+	$('body').toggleClass( 'acf-popup-open', true );
 	$(acfLabel).css('padding-bottom',$(acfInput).height()+'px')
 	$(acfInput).wrap('<div class="inner" />')
-		.closest('.inner').wrap('<div class="acf-popup-box acf-box" />')
-		.closest('.acf-box').wrap('<div id="acf-popup" />')
+		.closest('.inner').wrap('<div class="acf-popup-box" />')
+		.closest('.acf-popup-box').wrap('<div id="acf-popup" />')
 		.prepend(`<div class="title"><h3>${acfLabel.textContent}</h3><a href="#" class="acf-icon -cancel grey" data-event="close"></a></div>`)
 		.closest('#acf-popup').append('<div class="bg" data-event="close" />')
 		.on('click','[data-event="close"]', e => {
@@ -32,7 +35,7 @@ $(document).on('click', '.acf-field-radio.acf-popup > .acf-input label', e => {
 			setTimeout(reset,50)
 		})
 		.on('change', e => {
-			e.stopPropagation()
+			// e.stopPropagation()
 			reset()
 		})
 	$(document).on('keyup',escReset)

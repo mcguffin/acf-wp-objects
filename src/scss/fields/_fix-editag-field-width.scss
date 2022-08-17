@@ -1,0 +1,24 @@
+#edittag  {
+	tr.no-label {
+		&.seamless {
+			> .acf-input {
+				padding: 0;
+			}
+		}
+		.acf-fields.-left {
+			> .acf-field {
+				&.seamless {
+					> .acf-input {
+						width: calc( 100% + 10px );
+						margin-left: -10px;
+					}
+				}
+				&:not(.seamless) {
+					> .acf-input {
+						width: calc( 100% - 10px );
+					}
+				}
+			}
+		}
+	}
+}

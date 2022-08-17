@@ -8,8 +8,10 @@
 @import 'select';
 @import 'repeater';
 @import 'flexible-content';
-
+@import "acf-popup-box";
 @import 'seamless';
+@import 'sep';
+@import 'fix-editag-field-width';
 .block-editor .edit-post-sidebar .acf-fields > .acf-field, // override block editor
 .acf-field {
 	@import 'compact';
