@@ -4,6 +4,7 @@ ACF-WP-Objects Changelog
 0.6.23
 ------
  - Styles: Popup
+ - Styles: Introdce .sep-(top|bottom|let|right) class
 
 0.6.22
 ------
