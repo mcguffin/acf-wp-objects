@@ -181,8 +181,7 @@ class I18N {
 	 */
 	public function translate_fields( $fields, $parent ) {
 		// front- & backend
-
-		if ( $this->should_translate( $parent ) ) {
+		if ( is_array( $fields ) && $this->should_translate( $parent ) ) {
 			return $this->translate_acf_object( $fields );
 		}
 		return $fields;

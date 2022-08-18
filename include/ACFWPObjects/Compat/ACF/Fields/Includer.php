@@ -135,7 +135,7 @@ class Includer extends \acf_field {
 	 */
 	public function resolve_fields( $fields, $parent ) {
 
-		if ( ! $this->should_resolve() ) {
+		if ( ! is_array( $fields ) || ! $this->should_resolve() ) {
 			return $fields;
 		}
 
@@ -144,7 +144,6 @@ class Includer extends \acf_field {
 		$return_fields = [];
 
 		foreach ( $fields as $field ) {
-
 
 			if ( $this->name === $field['type'] ) {
 

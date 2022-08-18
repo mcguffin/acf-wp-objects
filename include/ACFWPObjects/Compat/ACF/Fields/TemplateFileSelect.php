@@ -79,7 +79,7 @@ class TemplateFileSelect extends \acf_field_select {
 	 */
 	public function resolve_fields( $fields, $parent ) {
 
-		if ( ! $this->should_resolve() ) {
+		if ( ! is_array($fields) || ! $this->should_resolve() ) {
 
 			return $fields;
 		}
