@@ -160,12 +160,16 @@ class ImportExportOptionsPage extends Core\Singleton {
 
 		$fields = $this->get_fields( $page );
 		$values = [];
+
+		add_filter( 'acf/format_value', [ $this, 'get_raw_value'], 99, 3 );
+
 		foreach ( $fields as $field ) {
 			$value = get_field( $field['name'], $page['post_id'], true );
 			if ( ! is_null( $value ) ) {
 				$values += [ $field['name'] => $value ];
 			}
 		}
+		remove_filter( 'acf/format_value', [ $this, 'get_raw_value'], 99 );
 		return [
 			'page' => $this->get_export_page_data( $page ),
 			'values' => $values,
@@ -173,6 +177,16 @@ class ImportExportOptionsPage extends Core\Singleton {
 		];
 	}
 
+	/**
+	 *	@filter acf/foramt_value
+	 */
+	public function get_raw_value( $value, $post_id, $field ) {
+		if ( in_array( $field['type'], [ 'group', 'repeater', 'flexible_content' ] ) ) {
+			return $value;
+		}
+
+		return get_field( $field['name'], $post_id, false );
+	}
 
 	/**
 	 *	reduce ACF Options page to exportable
