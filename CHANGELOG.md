@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.6.24
+------
+ - Fix: formatted values in options page export
+
 0.6.23
 ------
  - Styles: Popup
