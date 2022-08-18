@@ -11,13 +11,13 @@
   "node_modules/scroll-into-view-if-needed/index.js": [
     "js/admin/acf-input.js"
   ],
+  "src/js/lib/acf/select-conditions.js": [
+    "js/admin/acf-input.js"
+  ],
   "src/js/lib/acf/field-sweet-spot.js": [
     "js/admin/acf-input.js"
   ],
   "src/js/lib/acf/condition-type-regex.js": [
-    "js/admin/acf-input.js"
-  ],
-  "src/js/lib/acf/select-conditions.js": [
     "js/admin/acf-input.js"
   ],
   "src/js/lib/acf/id-field.js": [
@@ -26,13 +26,13 @@
   "src/js/lib/acf/condition-type-object-type.js": [
     "js/admin/acf-input.js"
   ],
-  "src/js/lib/acf/radio-popup.js": [
-    "js/admin/acf-input.js"
-  ],
   "src/js/lib/acf/select-nav-menu.js": [
     "js/admin/acf-input.js"
   ],
   "src/js/lib/acf/tab-url-navigation.js": [
+    "js/admin/acf-input.js"
+  ],
+  "src/js/lib/acf/radio-popup.js": [
     "js/admin/acf-input.js"
   ],
   "src/js/lib/acf/accordion-layout.js": [
