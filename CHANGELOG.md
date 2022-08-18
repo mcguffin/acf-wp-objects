@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.6.26
+------
+ - Fix: Typechecking in Field resolvers
+
 0.6.25
 ------
  - Fix: only some formatted values in options page export
