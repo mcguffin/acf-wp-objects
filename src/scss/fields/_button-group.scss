@@ -11,10 +11,14 @@
 				flex:0 0 0;
 			}
 		}
+		.color-label {
+			// min-width: 1em;
+			// min-height: 1em;
+		}
 	}
 	.size-thumbnail {
-		height: 100%;
-		object-fit: none;
+		// height: 100%;
+		// object-fit: none;
 	}
 
 	.acf-field-button-group.btn-2col &,

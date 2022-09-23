@@ -30,12 +30,11 @@ class RepeaterChoices extends Core\Singleton {
 		'text' => '[value:value]',
 		'image' => [
 			'label' =>'<span class="acf-image-choice">
-				[label:value]
-				<span class="image-label">[display:value]</span>
+				<span class="image-content">[display:value:image]</span>
+				<span class="image-label">[label:value]</span>
 			</span>',
 			'no-label' =>'<span class="acf-image-choice">
-				[display:value:label]
-				<span class="image-label">[display:value:image]</span>
+				<span class="image-content">[display:value:image]</span>
 			</span>',
 		],
 		'color' => [
@@ -45,8 +44,7 @@ class RepeaterChoices extends Core\Singleton {
 				</span>',
 
 			'label' => '<span class="white"></span>
-				<span class="acf-js-tooltip color-label" style="color:[display:value:contrast];background:[display:value];" title="[label:value]">
-				</span>',
+				<span class="acf-js-tooltip color-label" style="color:[display:value:contrast];background:[display:value];" title="[label:value]"></span>',
 		],
 	];
 
