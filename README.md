@@ -24,7 +24,7 @@ Integrate WordPress Objects objects into ACF.
     - Includer (include all fields from a different field group)  
     - User Role
     - Sweet Spot (use with media)
-    - Plugin Tempalte Select (Selector for template file from plugin)
+    - Plugin Template Select (Selector for template file from plugin)
  - New **Location Rules**:
     - Post Type / Taxonomy is public / builtin / show_ui / show_in_menu / show_in_nav_menus
     - Editor is Classic / Block editor

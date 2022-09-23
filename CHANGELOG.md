@@ -1,6 +1,11 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.6.27
+------
+ - Fix: JS Error with sweet spot in gallery field
+ - Fix Repeater Choice: image and color styles
+
 0.6.26
 ------
  - Fix: Typechecking in Field resolvers
