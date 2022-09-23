@@ -1,0 +1,67 @@
+{
+    "key": "group_acf_wp_objects_bar_section",
+    "title": "Bar Layout Section",
+    "fields": [
+        {
+            "key": "field_6aaaa69343b0e",
+            "label": "Bar boolean setting",
+            "name": "bar_boolean_setting",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_6aaaa6a443b0f",
+            "label": "Bar text setting",
+            "name": "bar_text_setting",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "wp_object": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_layouts",
+                "operator": "==",
+                "value": "sections"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "row_layout": "bar",
+    "layout_min": "",
+    "layout_max": "",
+    "modified": 1663928586
+}

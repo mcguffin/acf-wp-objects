@@ -1,0 +1,68 @@
+{
+    "key": "group_acf_wp_objects_foo_section",
+    "title": "Foo Layout Section",
+    "fields": [
+        {
+            "key": "field_5e40169343b0e",
+            "label": "Foo boolean setting",
+            "name": "foo_boolean_setting",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_5e4016a443b0f",
+            "label": "Foo text setting",
+            "name": "foo_text_setting",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "wp_object": "",
+            "is_id": 0,
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_layouts",
+                "operator": "==",
+                "value": "sections"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "row_layout": "foo",
+    "layout_min": "",
+    "layout_max": "",
+    "modified": 1663928569
+}
