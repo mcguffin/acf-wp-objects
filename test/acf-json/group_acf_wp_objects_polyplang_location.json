@@ -1,0 +1,46 @@
+{
+    "key": "group_acf_wp_objects_polyplang_location",
+    "title": "ACF WP-Objects Test: Form Polylang Language",
+    "fields": [
+        {
+            "key": "field_632d85d91cf52",
+            "label": "PLL Language Meta",
+            "name": "pll_language_meta",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "wp_object": "",
+            "is_id": 0,
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "language"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1663927868
+}
