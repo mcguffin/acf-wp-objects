@@ -3,6 +3,13 @@
     "title": "ACF WP-Objects Test: Repeater Choices (Choices)",
     "fields": [
         {
+            "repeater_choices": 1,
+            "repeater_field": "field_5db2ac6c067cc",
+            "repeater_label_field": "field_5db2ac9b067cd",
+            "repeater_value_field": "field_5db2aca5067ce",
+            "repeater_post_id": "acf_wpo_fields_test_repeater",
+            "repeater_display_value": 0,
+            "repeater_choice_template": "",
             "key": "field_5db2ad02ef87f",
             "label": "Button Group",
             "name": "button_group",
@@ -16,18 +23,46 @@
                 "id": ""
             },
             "choices": [],
-            "allow_null": 0,
             "default_value": "",
-            "layout": "horizontal",
             "return_format": "row",
+            "repeater_display_field": "field_5db2aca5067ce",
+            "allow_null": 0,
+            "layout": "horizontal"
+        },
+        {
             "repeater_choices": 1,
             "repeater_field": "field_5db2ac6c067cc",
             "repeater_label_field": "field_5db2ac9b067cd",
             "repeater_value_field": "field_5db2aca5067ce",
-            "repeater_post_id": "",
-            "repeater_display_value": 1
+            "repeater_post_id": "acf_wpo_fields_test_repeater",
+            "repeater_display_value": 0,
+            "repeater_choice_template": "",
+            "key": "field_632d836ebd654",
+            "label": "Button Group with Color-Spots",
+            "name": "button_group_spots",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "color-spots",
+                "id": ""
+            },
+            "choices": [],
+            "default_value": "",
+            "return_format": "row",
+            "repeater_display_field": "field_5db2aca5067ce",
+            "allow_null": 0,
+            "layout": "horizontal"
         },
         {
+            "repeater_choices": 1,
+            "repeater_field": "field_5db2ac3cffc4a",
+            "repeater_label_field": "field_5db2ac47ffc4b",
+            "repeater_value_field": "field_5db2ac4effc4c",
+            "repeater_post_id": "",
+            "repeater_choice_template": "",
             "key": "field_5db2b07a0889e",
             "label": "Button Group Image",
             "name": "button_group_image",
@@ -45,14 +80,15 @@
             "default_value": "",
             "layout": "horizontal",
             "return_format": "row",
+            "repeater_display_field": "field_5db2ac4effc4c"
+        },
+        {
             "repeater_choices": 1,
             "repeater_field": "field_5db2ac3cffc4a",
             "repeater_label_field": "field_5db2ac47ffc4b",
             "repeater_value_field": "field_5db2ac4effc4c",
             "repeater_post_id": "",
-            "repeater_display_value": 1
-        },
-        {
+            "repeater_choice_template": "",
             "key": "field_5db2b0a69ed10",
             "label": "Radio Image",
             "name": "radio_image",
@@ -71,15 +107,46 @@
             "default_value": "",
             "layout": "vertical",
             "return_format": "value",
+            "save_other_choice": 0,
+            "repeater_display_field": "field_5db2ac4effc4c"
+        },
+        {
             "repeater_choices": 1,
             "repeater_field": "field_5db2ac3cffc4a",
             "repeater_label_field": "field_5db2ac47ffc4b",
             "repeater_value_field": "field_5db2ac4effc4c",
             "repeater_post_id": "",
-            "repeater_display_value": 1,
+            "repeater_display_value": 0,
+            "repeater_choice_template": "",
+            "key": "field_632d848081edd",
+            "label": "Radio Image Popup",
+            "name": "radio_image_popup",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": [],
+            "default_value": "",
+            "return_format": "value",
+            "is_popup": 1,
+            "repeater_display_field": "field_5db2ac4effc4c",
+            "allow_null": 0,
+            "other_choice": 0,
+            "layout": "vertical",
             "save_other_choice": 0
         },
         {
+            "repeater_choices": 1,
+            "repeater_field": "field_5db2ac6c067cc",
+            "repeater_label_field": "field_5db2ac9b067cd",
+            "repeater_value_field": "field_5db2aca5067ce",
+            "repeater_post_id": "",
+            "repeater_choice_template": "",
             "key": "field_5db2b0cbc3079",
             "label": "Radio Color",
             "name": "radio_color",
@@ -98,15 +165,16 @@
             "default_value": "",
             "layout": "vertical",
             "return_format": "value",
-            "repeater_choices": 1,
-            "repeater_field": "field_5db2ac6c067cc",
-            "repeater_label_field": "field_5db2ac9b067cd",
-            "repeater_value_field": "field_5db2aca5067ce",
-            "repeater_post_id": "",
-            "repeater_display_value": 1,
-            "save_other_choice": 0
+            "save_other_choice": 0,
+            "repeater_display_field": "field_5db2aca5067ce"
         },
         {
+            "repeater_choices": 1,
+            "repeater_field": "field_5db2ac3cffc4a",
+            "repeater_label_field": "field_5db2ac47ffc4b",
+            "repeater_value_field": "field_5db2ac4effc4c",
+            "repeater_post_id": "",
+            "repeater_choice_template": "",
             "key": "field_5db2b10aa634e",
             "label": "Checkbox Image",
             "name": "checkbox_image",
@@ -125,15 +193,17 @@
             "layout": "vertical",
             "toggle": 0,
             "return_format": "value",
+            "save_custom": 0,
+            "repeater_display_field": "field_5db2ac4effc4c"
+        },
+        {
             "repeater_choices": 1,
             "repeater_field": "field_5db2ac3cffc4a",
             "repeater_label_field": "field_5db2ac47ffc4b",
             "repeater_value_field": "field_5db2ac4effc4c",
             "repeater_post_id": "",
-            "repeater_display_value": 1,
-            "save_custom": 0
-        },
-        {
+            "repeater_display_value": 0,
+            "repeater_choice_template": "",
             "key": "field_5db2b157f6ab6",
             "label": "Select Image",
             "name": "select_image",
@@ -147,16 +217,11 @@
                 "id": ""
             },
             "choices": [],
-            "default_value": [],
+            "default_value": false,
             "allow_null": 0,
             "multiple": 0,
             "ui": 0,
             "return_format": "value",
-            "repeater_choices": 1,
-            "repeater_field": "field_5db2ac3cffc4a",
-            "repeater_label_field": "field_5db2ac47ffc4b",
-            "repeater_value_field": "field_5db2ac4effc4c",
-            "repeater_post_id": "",
             "ajax": 0,
             "placeholder": ""
         }
@@ -173,7 +238,7 @@
             {
                 "param": "post",
                 "operator": "==",
-                "value": "1"
+                "value": "3326"
             }
         ]
     ],
@@ -183,7 +248,8 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": true,
     "description": "",
-    "modified": 1571991942
+    "show_in_rest": 0,
+    "modified": 1663927439
 }
