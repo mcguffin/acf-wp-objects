@@ -1,6 +1,6 @@
 <?php
 
-namespace ACFWPObjects\Compat\ACF\Location;
+namespace ACFWPObjects\Locations;
 
 if ( ! defined('ABSPATH') ) {
 	die('FU!');

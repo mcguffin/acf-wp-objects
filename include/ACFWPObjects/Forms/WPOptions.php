@@ -1,6 +1,6 @@
 <?php
 
-namespace ACFWPObjects\Compat\ACF\Form;
+namespace ACFWPObjects\Forms;
 
 if ( ! defined('ABSPATH') ) {
 	die('FU!');

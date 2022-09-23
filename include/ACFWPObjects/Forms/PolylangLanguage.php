@@ -1,6 +1,6 @@
 <?php
 
-namespace ACFWPObjects\Compat\ACF\Form;
+namespace ACFWPObjects\Forms;
 
 if ( ! defined('ABSPATH') ) {
 	die('FU!');
@@ -24,6 +24,9 @@ class PolylangLanguage extends \acf_form_taxonomy {
 	}
 
 
+	/**
+	 *	@inheritdoc
+	 */
 	function validate_page() {
 
 		// global
@@ -56,9 +59,7 @@ class PolylangLanguage extends \acf_form_taxonomy {
 		// load acf scripts
 		acf_enqueue_scripts();
 
-
 		// actions
-		//add_action('admin_footer', array($this, 'admin_footer'), 10, 1);
 		add_action("pll_language_add_form_fields", 	  array($this,'add_pll_term' ), 10, 1);
 		add_action("pll_language_edit_form_fields", array($this, 'edit_pll_term' ), 10, 2);
 

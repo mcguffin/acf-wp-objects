@@ -5,7 +5,7 @@
  *	2018-09-22
  */
 
-namespace ACFWPObjects\Compat\ACF\Fields;
+namespace ACFWPObjects\Fields;
 
 if ( ! defined('ABSPATH') ) {
 	die('FU!');
@@ -15,7 +15,9 @@ if ( ! defined('ABSPATH') ) {
 use ACFWPObjects\Core;
 use ACFWPObjects\Compat\ACF;
 
-class SelectTaxonomy extends \acf_field_select {
+class SelectImageSize extends \acf_field_select {
+
+	private $all_sizes = [];
 
 	/**
 	 *	@inheritdoc
@@ -23,8 +25,8 @@ class SelectTaxonomy extends \acf_field_select {
 	function initialize() {
 
 		// vars
-		$this->name = 'taxonomy_select';
-		$this->label = __("Select Taxonomy",'acf-wp-objects');
+		$this->name = 'image_size_select';
+		$this->label = __("Select Image Size",'acf-wp-objects');
 		$this->category = __('WordPress', 'acf-wp-objects' );
 		$this->defaults = [
 			'multiple' 		=> 0,
@@ -33,21 +35,22 @@ class SelectTaxonomy extends \acf_field_select {
 			'ui'			=> 0,
 			'ajax'			=> 0,
 			'placeholder'	=> '',
-			'return_format'	=> 'object',
+			'return_format'	=> 'array',
 
-			'_builtin'	=> '',
-			'public'	=> '',
-			'show_ui'	=> '',
-			'show_in_menu'	=> '',
-			'show_in_nav_menus'	=> '',
+			'image_sizes'	=> [],
+			'pick'			=> 0,
+			'named'			=> '',
+			'crop'			=> '',
+			'_builtin'		=> '',
 		];
 
-		// ajax
-		add_action('wp_ajax_acf/fields/taxonomy_select/query',			[ $this, 'ajax_query' ] );
-		add_action('wp_ajax_nopriv_acf/fields/taxonomy_select/query',	[ $this, 'ajax_query' ] );
 
+		// ajax
+		add_action('wp_ajax_acf/fields/image_size_select/query',		[ $this, 'ajax_query' ] );
+		add_action('wp_ajax_nopriv_acf/fields/image_size_select/query',	[ $this, 'ajax_query' ] );
 
 	}
+
 
 
 	/**
@@ -59,36 +62,35 @@ class SelectTaxonomy extends \acf_field_select {
 
 		$args_keys = [
 			'_builtin',
-			'public',
-			'show_ui',
-			'show_in_menu',
-			'show_in_nav_menus',
+			'named',
+			'crop',
 		];
 
 		if ( $field['pick'] ) {
-			if ( empty( $field['taxonomies'] ) ) {
-				$choices = $wp->get_taxonomies( [], 'label' );
+			if ( empty( $field['image_sizes'] ) ) {
+				$choices = $wp->get_image_sizes( [], 'label' );
 			} else {
-				$choices = $wp->get_taxonomies( [ 'names' => $field['taxonomies'] ], 'label' );
+				$choices = $wp->get_image_sizes( [ 'names' => $field['image_sizes'] ], 'label' );
 			}
 		} else {
 
 			$args = [];
 
 			foreach ( $args_keys as $key ) {
+
 				if ( $field[$key] !== '' ) {
 					$args[ $key ] = boolval( intval( $field[$key] ) );
 				}
 			}
-			$choices = $wp->get_taxonomies( $args, 'label' );
+
+			$choices = $wp->get_image_sizes( $args, 'label' );
 		}
 
-		if ( ! ACF\ACF::instance()->is_fieldgroup_admin() ) {
-
+ 		if ( ! ACF\ACF::instance()->is_fieldgroup_admin() ) {
 			$field['choices'] = $choices;
-
 		}
 
+		// return
 		return $field;
 
 	}
@@ -145,6 +147,7 @@ class SelectTaxonomy extends \acf_field_select {
 			]
 		]);
 
+
 		// return_format
 		acf_render_field_setting( $field, [
 			'label'			=> __('Return Value','acf-wp-objects'),
@@ -153,11 +156,12 @@ class SelectTaxonomy extends \acf_field_select {
 			'name'			=> 'return_format',
 			'layout'		=> 'horizontal',
 			'choices'		=> [
-				'label'			=> __("Label",'acf-wp-objects'),
-				'name'			=> __("Slug",'acf-wp-objects'),
-				'object'		=> __("Object",'acf-wp-objects')
+				'array'			=> __("Size Array",'acf-wp-objects'),
+				'slug'			=> __("Slug",'acf-wp-objects'),
 			],
 		]);
+
+
 
 
 		// return_format
@@ -171,15 +175,15 @@ class SelectTaxonomy extends \acf_field_select {
 
 		// default_value
 		acf_render_field_setting( $field, [
-			'label'			=> __('Select Taxonomies','acf'),
+			'label'			=> __('Select Image Sizes','acf'),
 			'instructions'	=> '',
 			'type'			=> 'select',
-			'name'			=> 'taxonomies',
-			'choices'		=> $wp->get_taxonomies( [], 'label' ),
+			'name'			=> 'image_sizes',
+			'choices'		=> $wp->get_image_sizes( [], 'label' ),
 			'multiple'		=> 1,
 			'ui'			=> 1,
 			'allow_null'	=> 1,
-			'placeholder'	=> __("All Taxonomies",'acf'),
+			'placeholder'	=> __("All Image Sizes",'acf'),
 			'conditions'	=> [
 				'field'		=> 'pick',
 				'operator'	=> '==',
@@ -187,8 +191,9 @@ class SelectTaxonomy extends \acf_field_select {
 			]
 		]);
 
+
 		acf_render_field_setting( $field, [
-			'label'			=> __('Public','acf-wp-objects'),
+			'label'			=> __('Named ','acf-wp-objects'),
 			'instructions'	=> '',
 			'type'			=> 'button_group',
 			'choices'		=> [
@@ -196,7 +201,25 @@ class SelectTaxonomy extends \acf_field_select {
 				'1'		=> __('Yes', 'wp-acf-objects' ),
 				'0'		=> __('No', 'wp-acf-objects' ),
 			],
-			'name'			=> 'public',
+			'name'			=> 'named',
+			'ui'			=> 1,
+			'conditions'	=> [
+				'field'		=> 'pick',
+				'operator'	=> '==',
+				'value'		=> 0
+			]
+		]);
+
+		acf_render_field_setting( $field, [
+			'label'			=> __('Cropped ','acf-wp-objects'),
+			'instructions'	=> '',
+			'type'			=> 'button_group',
+			'choices'		=> [
+				''		=> __( 'Any', 'wp-acf-objects' ),
+				'1'		=> __('Yes', 'wp-acf-objects' ),
+				'0'		=> __('No', 'wp-acf-objects' ),
+			],
+			'name'			=> 'crop',
 			'ui'			=> 1,
 			'conditions'	=> [
 				'field'		=> 'pick',
@@ -224,89 +247,14 @@ class SelectTaxonomy extends \acf_field_select {
 		]);
 
 
-
-		acf_render_field_setting( $field, [
-			'label'			=> __('Show UI','acf-wp-objects'),
-			'instructions'	=> '',
-			'type'			=> 'button_group',
-			'choices'		=> [
-				''		=> __( 'Any', 'wp-acf-objects' ),
-				'1'		=> __('Yes', 'wp-acf-objects' ),
-				'0'		=> __('No', 'wp-acf-objects' ),
-			],
-			'name'			=> 'show_ui',
-			'ui'			=> 1,
-			'conditions'	=> [
-				'field'		=> 'pick',
-				'operator'	=> '==',
-				'value'		=> 0
-			]
-		]);
-
-
-		acf_render_field_setting( $field, [
-			'label'			=> __('Show in Menus','acf-wp-objects'),
-			'instructions'	=> '',
-			'type'			=> 'button_group',
-			'choices'		=> [
-				''		=> __( 'Any', 'wp-acf-objects' ),
-				'1'		=> __('Yes', 'wp-acf-objects' ),
-				'0'		=> __('No', 'wp-acf-objects' ),
-			],
-			'name'			=> 'show_in_menu',
-			'ui'			=> 1,
-			'conditions'	=> [
-				'field'		=> 'pick',
-				'operator'	=> '==',
-				'value'		=> 0
-			]
-		]);
-
-
-		acf_render_field_setting( $field, [
-			'label'			=> __('Show in Nav Menus','acf-wp-objects'),
-			'instructions'	=> '',
-			'type'			=> 'button_group',
-			'choices'		=> [
-				''		=> __( 'Any', 'wp-acf-objects' ),
-				'1'		=> __('Yes', 'wp-acf-objects' ),
-				'0'		=> __('No', 'wp-acf-objects' ),
-			],
-			'name'			=> 'show_in_nav_menus',
-			'ui'			=> 1,
-			'conditions'	=> [
-				'field'		=> 'pick',
-				'operator'	=> '==',
-				'value'		=> 0
-			]
-		]);
-
-		acf_render_field_setting( $field, [
-			'label'			=> __('Hierarchical','acf-wp-objects'),
-			'instructions'	=> '',
-			'type'			=> 'button_group',
-			'choices'		=> [
-				''		=> __( 'Any', 'wp-acf-objects' ),
-				'1'		=> __('Yes', 'wp-acf-objects' ),
-				'0'		=> __('No', 'wp-acf-objects' ),
-			],
-			'name'			=> 'hierarchical',
-			'ui'			=> 1,
-			'conditions'	=> [
-				'field'		=> 'pick',
-				'operator'	=> '==',
-				'value'		=> 0
-			]
-		]);
-
 		// ajax
 		acf_hidden_input([
 			'name'			=> 'ajax',
 			'value'			=> 0,
 		]);
 
-	}
 
+	}
 
 	/**
 	 *	@inheritdoc
@@ -314,25 +262,22 @@ class SelectTaxonomy extends \acf_field_select {
 	function format_value_single( $value, $post_id, $field ) {
 
 		// bail ealry if is empty
-		if( acf_is_empty($value) ) return $value;
-
-
-		// vars
-		$label = acf_maybe_get($field['choices'], $value, $value);
+		if( acf_is_empty( $value ) ) {
+			return $value;
+		}
 
 
 		// value
-		if( $field['return_format'] == 'label' ) {
+		if( $field['return_format'] == 'array' ) {
+			$wp = Core\WP::instance();
+			// do nothing
+			$sizes = $wp->get_all_image_sizes();
+			if ( isset( $sizes[ $value ] ) ) {
+				$value = $sizes[ $value ];
+			}
 
 			// label
-			$value = get_taxonomy( $value )->label;
-
-		} elseif( $field['return_format'] == 'name' ) {
-
-			// do nothing
-
-		} elseif( $field['return_format'] == 'object' ) {
-			$value = get_taxonomy( $value );
+		} elseif( $field['return_format'] == 'slug' ) {
 
 		}
 		// return

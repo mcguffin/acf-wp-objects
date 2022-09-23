@@ -13,6 +13,7 @@ if ( ! defined('ABSPATH') ) {
 
 
 use ACFWPObjects\Core;
+use ACFWPObjects\Forms;
 
 
 class Polylang extends Core\Singleton {
@@ -24,7 +25,7 @@ class Polylang extends Core\Singleton {
 	 */
 	protected function __construct() {
 
-		$this->pll = new ACF\Form\PolylangLanguage();
+		$this->pll = new Forms\PolylangLanguage();
 
 		// make ACF location rule match on Polylang Admin page
 		add_filter( 'acf/location/match_rule/type=taxonomy', [ $this, 'location_rule_match' ], 10, 4 );

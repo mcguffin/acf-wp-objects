@@ -5,7 +5,7 @@
  *	2018-09-22
  */
 
-namespace ACFWPObjects\Compat\ACF\Fields;
+namespace ACFWPObjects\Fields;
 
 if ( ! defined('ABSPATH') ) {
 	die('FU!');
@@ -15,9 +15,7 @@ if ( ! defined('ABSPATH') ) {
 use ACFWPObjects\Core;
 use ACFWPObjects\Compat\ACF;
 
-class SelectImageSize extends \acf_field_select {
-
-	private $all_sizes = [];
+class SelectPostType extends \acf_field_select {
 
 	/**
 	 *	@inheritdoc
@@ -25,8 +23,8 @@ class SelectImageSize extends \acf_field_select {
 	function initialize() {
 
 		// vars
-		$this->name = 'image_size_select';
-		$this->label = __("Select Image Size",'acf-wp-objects');
+		$this->name = 'post_type_select';
+		$this->label = __("Select Post Type",'acf-wp-objects');
 		$this->category = __('WordPress', 'acf-wp-objects' );
 		$this->defaults = [
 			'multiple' 		=> 0,
@@ -35,23 +33,20 @@ class SelectImageSize extends \acf_field_select {
 			'ui'			=> 0,
 			'ajax'			=> 0,
 			'placeholder'	=> '',
-			'return_format'	=> 'array',
+			'return_format'	=> 'object',
 
-			'image_sizes'	=> [],
-			'pick'			=> 0,
-			'named'			=> '',
-			'crop'			=> '',
-			'_builtin'		=> '',
+			'_builtin'	=> '',
+			'public'	=> '',
+			'show_ui'	=> '',
+			'show_in_menu'	=> '',
+			'show_in_nav_menus'	=> '',
 		];
 
-
 		// ajax
-		add_action('wp_ajax_acf/fields/image_size_select/query',		[ $this, 'ajax_query' ] );
-		add_action('wp_ajax_nopriv_acf/fields/image_size_select/query',	[ $this, 'ajax_query' ] );
+		add_action('wp_ajax_acf/fields/post_type_select/query',			[ $this, 'ajax_query' ] );
+		add_action('wp_ajax_nopriv_acf/fields/post_type_select/query',	[ $this, 'ajax_query' ] );
 
 	}
-
-
 
 	/**
 	 *	@inheritdoc
@@ -62,39 +57,39 @@ class SelectImageSize extends \acf_field_select {
 
 		$args_keys = [
 			'_builtin',
-			'named',
-			'crop',
+			'public',
+			'show_ui',
+			'show_in_menu',
+			'show_in_nav_menus',
 		];
 
 		if ( $field['pick'] ) {
-			if ( empty( $field['image_sizes'] ) ) {
-				$choices = $wp->get_image_sizes( [], 'label' );
+			if ( empty( $field['post_types'] ) ) {
+				$choices = $wp->get_post_types( [], 'label' );
 			} else {
-				$choices = $wp->get_image_sizes( [ 'names' => $field['image_sizes'] ], 'label' );
+				$choices = $wp->get_post_types( [ 'names' => $field['post_types'] ], 'label' );
 			}
 		} else {
 
 			$args = [];
 
 			foreach ( $args_keys as $key ) {
-
 				if ( $field[$key] !== '' ) {
 					$args[ $key ] = boolval( intval( $field[$key] ) );
 				}
 			}
-
-			$choices = $wp->get_image_sizes( $args, 'label' );
+			$choices = $wp->get_post_types( $args, 'label' );
 		}
 
- 		if ( ! ACF\ACF::instance()->is_fieldgroup_admin() ) {
+		if ( ! ACF\ACF::instance()->is_fieldgroup_admin() ) {
+
 			$field['choices'] = $choices;
+
 		}
 
-		// return
 		return $field;
 
 	}
-
 
 
 	/**
@@ -147,7 +142,6 @@ class SelectImageSize extends \acf_field_select {
 			]
 		]);
 
-
 		// return_format
 		acf_render_field_setting( $field, [
 			'label'			=> __('Return Value','acf-wp-objects'),
@@ -156,12 +150,11 @@ class SelectImageSize extends \acf_field_select {
 			'name'			=> 'return_format',
 			'layout'		=> 'horizontal',
 			'choices'		=> [
-				'array'			=> __("Size Array",'acf-wp-objects'),
-				'slug'			=> __("Slug",'acf-wp-objects'),
+				'label'			=> __("Label",'acf-wp-objects'),
+				'name'			=> __("Slug",'acf-wp-objects'),
+				'object'		=> __("Object",'acf-wp-objects')
 			],
 		]);
-
-
 
 
 		// return_format
@@ -175,15 +168,15 @@ class SelectImageSize extends \acf_field_select {
 
 		// default_value
 		acf_render_field_setting( $field, [
-			'label'			=> __('Select Image Sizes','acf'),
+			'label'			=> __('Select Post Types','acf'),
 			'instructions'	=> '',
 			'type'			=> 'select',
-			'name'			=> 'image_sizes',
-			'choices'		=> $wp->get_image_sizes( [], 'label' ),
+			'name'			=> 'post_types',
+			'choices'		=> $wp->get_post_types( [], 'label' ),
 			'multiple'		=> 1,
 			'ui'			=> 1,
 			'allow_null'	=> 1,
-			'placeholder'	=> __("All Image Sizes",'acf'),
+			'placeholder'	=> __("All Post Types",'acf'),
 			'conditions'	=> [
 				'field'		=> 'pick',
 				'operator'	=> '==',
@@ -191,9 +184,8 @@ class SelectImageSize extends \acf_field_select {
 			]
 		]);
 
-
 		acf_render_field_setting( $field, [
-			'label'			=> __('Named ','acf-wp-objects'),
+			'label'			=> __('Public','acf-wp-objects'),
 			'instructions'	=> '',
 			'type'			=> 'button_group',
 			'choices'		=> [
@@ -201,25 +193,7 @@ class SelectImageSize extends \acf_field_select {
 				'1'		=> __('Yes', 'wp-acf-objects' ),
 				'0'		=> __('No', 'wp-acf-objects' ),
 			],
-			'name'			=> 'named',
-			'ui'			=> 1,
-			'conditions'	=> [
-				'field'		=> 'pick',
-				'operator'	=> '==',
-				'value'		=> 0
-			]
-		]);
-
-		acf_render_field_setting( $field, [
-			'label'			=> __('Cropped ','acf-wp-objects'),
-			'instructions'	=> '',
-			'type'			=> 'button_group',
-			'choices'		=> [
-				''		=> __( 'Any', 'wp-acf-objects' ),
-				'1'		=> __('Yes', 'wp-acf-objects' ),
-				'0'		=> __('No', 'wp-acf-objects' ),
-			],
-			'name'			=> 'crop',
+			'name'			=> 'public',
 			'ui'			=> 1,
 			'conditions'	=> [
 				'field'		=> 'pick',
@@ -247,6 +221,81 @@ class SelectImageSize extends \acf_field_select {
 		]);
 
 
+
+		acf_render_field_setting( $field, [
+			'label'			=> __('Show UI','acf-wp-objects'),
+			'instructions'	=> '',
+			'type'			=> 'button_group',
+			'choices'		=> [
+				''		=> __( 'Any', 'wp-acf-objects' ),
+				'1'		=> __('Yes', 'wp-acf-objects' ),
+				'0'		=> __('No', 'wp-acf-objects' ),
+			],
+			'name'			=> 'show_ui',
+			'ui'			=> 1,
+			'conditions'	=> [
+				'field'		=> 'pick',
+				'operator'	=> '==',
+				'value'		=> 0
+			]
+		]);
+
+
+		acf_render_field_setting( $field, [
+			'label'			=> __('Show in Menus','acf-wp-objects'),
+			'instructions'	=> '',
+			'type'			=> 'button_group',
+			'choices'		=> [
+				''		=> __( 'Any', 'wp-acf-objects' ),
+				'1'		=> __('Yes', 'wp-acf-objects' ),
+				'0'		=> __('No', 'wp-acf-objects' ),
+			],
+			'name'			=> 'show_in_menu',
+			'ui'			=> 1,
+			'conditions'	=> [
+				'field'		=> 'pick',
+				'operator'	=> '==',
+				'value'		=> 0
+			]
+		]);
+
+
+		acf_render_field_setting( $field, [
+			'label'			=> __('Show in Nav Menus','acf-wp-objects'),
+			'instructions'	=> '',
+			'type'			=> 'button_group',
+			'choices'		=> [
+				''		=> __( 'Any', 'wp-acf-objects' ),
+				'1'		=> __('Yes', 'wp-acf-objects' ),
+				'0'		=> __('No', 'wp-acf-objects' ),
+			],
+			'name'			=> 'show_in_nav_menus',
+			'ui'			=> 1,
+			'conditions'	=> [
+				'field'		=> 'pick',
+				'operator'	=> '==',
+				'value'		=> 0
+			]
+		]);
+
+		acf_render_field_setting( $field, [
+			'label'			=> __('Hierarchical','acf-wp-objects'),
+			'instructions'	=> '',
+			'type'			=> 'button_group',
+			'choices'		=> [
+				''		=> __( 'Any', 'wp-acf-objects' ),
+				'1'		=> __('Yes', 'wp-acf-objects' ),
+				'0'		=> __('No', 'wp-acf-objects' ),
+			],
+			'name'			=> 'hierarchical',
+			'ui'			=> 1,
+			'conditions'	=> [
+				'field'		=> 'pick',
+				'operator'	=> '==',
+				'value'		=> 0
+			]
+		]);
+
 		// ajax
 		acf_hidden_input([
 			'name'			=> 'ajax',
@@ -256,28 +305,35 @@ class SelectImageSize extends \acf_field_select {
 
 	}
 
+
+
 	/**
 	 *	@inheritdoc
 	 */
 	function format_value_single( $value, $post_id, $field ) {
 
 		// bail ealry if is empty
-		if( acf_is_empty( $value ) ) {
-			return $value;
-		}
+		if( acf_is_empty($value) ) return $value;
+
+
+		// vars
+		$label = acf_maybe_get($field['choices'], $value, $value);
 
 
 		// value
-		if( $field['return_format'] == 'array' ) {
-			$wp = Core\WP::instance();
-			// do nothing
-			$sizes = $wp->get_all_image_sizes();
-			if ( isset( $sizes[ $value ] ) ) {
-				$value = $sizes[ $value ];
-			}
+		if( $field['return_format'] == 'label' ) {
 
 			// label
-		} elseif( $field['return_format'] == 'slug' ) {
+			$value = $label;
+
+		} elseif( $field['return_format'] == 'name' ) {
+
+			// do nothing
+
+
+		} elseif( $field['return_format'] == 'object' ) {
+
+			$value = get_post_type_object( $value );
 
 		}
 		// return

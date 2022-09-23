@@ -13,6 +13,7 @@ if ( ! defined('ABSPATH') ) {
 
 
 use ACFWPObjects\Core;
+use ACFWPObjects\Forms;
 
 
 class WPMU extends Core\Singleton implements Core\ComponentInterface {
@@ -37,7 +38,7 @@ class WPMU extends Core\Singleton implements Core\ComponentInterface {
 
 		if ( is_network_admin() ) {
 			new ACF\NetworkAdminOptionsPage();
-			ACF\Form\WPOptions::instance();
+			Forms\WPOptions::instance();
 		}
 
 	}

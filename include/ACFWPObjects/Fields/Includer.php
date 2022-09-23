@@ -1,6 +1,6 @@
 <?php
 
-namespace ACFWPObjects\Compat\ACF\Fields;
+namespace ACFWPObjects\Fields;
 
 // exit if accessed directly
 if( ! defined( 'ABSPATH' ) ) exit;

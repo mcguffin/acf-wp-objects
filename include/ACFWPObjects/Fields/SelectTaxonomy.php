@@ -5,7 +5,7 @@
  *	2018-09-22
  */
 
-namespace ACFWPObjects\Compat\ACF\Fields;
+namespace ACFWPObjects\Fields;
 
 if ( ! defined('ABSPATH') ) {
 	die('FU!');
@@ -15,7 +15,7 @@ if ( ! defined('ABSPATH') ) {
 use ACFWPObjects\Core;
 use ACFWPObjects\Compat\ACF;
 
-class SelectPostType extends \acf_field_select {
+class SelectTaxonomy extends \acf_field_select {
 
 	/**
 	 *	@inheritdoc
@@ -23,8 +23,8 @@ class SelectPostType extends \acf_field_select {
 	function initialize() {
 
 		// vars
-		$this->name = 'post_type_select';
-		$this->label = __("Select Post Type",'acf-wp-objects');
+		$this->name = 'taxonomy_select';
+		$this->label = __("Select Taxonomy",'acf-wp-objects');
 		$this->category = __('WordPress', 'acf-wp-objects' );
 		$this->defaults = [
 			'multiple' 		=> 0,
@@ -43,10 +43,12 @@ class SelectPostType extends \acf_field_select {
 		];
 
 		// ajax
-		add_action('wp_ajax_acf/fields/post_type_select/query',			[ $this, 'ajax_query' ] );
-		add_action('wp_ajax_nopriv_acf/fields/post_type_select/query',	[ $this, 'ajax_query' ] );
+		add_action('wp_ajax_acf/fields/taxonomy_select/query',			[ $this, 'ajax_query' ] );
+		add_action('wp_ajax_nopriv_acf/fields/taxonomy_select/query',	[ $this, 'ajax_query' ] );
+
 
 	}
+
 
 	/**
 	 *	@inheritdoc
@@ -64,10 +66,10 @@ class SelectPostType extends \acf_field_select {
 		];
 
 		if ( $field['pick'] ) {
-			if ( empty( $field['post_types'] ) ) {
-				$choices = $wp->get_post_types( [], 'label' );
+			if ( empty( $field['taxonomies'] ) ) {
+				$choices = $wp->get_taxonomies( [], 'label' );
 			} else {
-				$choices = $wp->get_post_types( [ 'names' => $field['post_types'] ], 'label' );
+				$choices = $wp->get_taxonomies( [ 'names' => $field['taxonomies'] ], 'label' );
 			}
 		} else {
 
@@ -78,7 +80,7 @@ class SelectPostType extends \acf_field_select {
 					$args[ $key ] = boolval( intval( $field[$key] ) );
 				}
 			}
-			$choices = $wp->get_post_types( $args, 'label' );
+			$choices = $wp->get_taxonomies( $args, 'label' );
 		}
 
 		if ( ! ACF\ACF::instance()->is_fieldgroup_admin() ) {
@@ -90,6 +92,7 @@ class SelectPostType extends \acf_field_select {
 		return $field;
 
 	}
+
 
 
 	/**
@@ -168,15 +171,15 @@ class SelectPostType extends \acf_field_select {
 
 		// default_value
 		acf_render_field_setting( $field, [
-			'label'			=> __('Select Post Types','acf'),
+			'label'			=> __('Select Taxonomies','acf'),
 			'instructions'	=> '',
 			'type'			=> 'select',
-			'name'			=> 'post_types',
-			'choices'		=> $wp->get_post_types( [], 'label' ),
+			'name'			=> 'taxonomies',
+			'choices'		=> $wp->get_taxonomies( [], 'label' ),
 			'multiple'		=> 1,
 			'ui'			=> 1,
 			'allow_null'	=> 1,
-			'placeholder'	=> __("All Post Types",'acf'),
+			'placeholder'	=> __("All Taxonomies",'acf'),
 			'conditions'	=> [
 				'field'		=> 'pick',
 				'operator'	=> '==',
@@ -302,9 +305,7 @@ class SelectPostType extends \acf_field_select {
 			'value'			=> 0,
 		]);
 
-
 	}
-
 
 
 	/**
@@ -324,16 +325,14 @@ class SelectPostType extends \acf_field_select {
 		if( $field['return_format'] == 'label' ) {
 
 			// label
-			$value = $label;
+			$value = get_taxonomy( $value )->label;
 
 		} elseif( $field['return_format'] == 'name' ) {
 
 			// do nothing
 
-
 		} elseif( $field['return_format'] == 'object' ) {
-
-			$value = get_post_type_object( $value );
+			$value = get_taxonomy( $value );
 
 		}
 		// return

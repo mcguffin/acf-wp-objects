@@ -29,7 +29,7 @@ class ClassicEditor extends Core\Singleton implements Core\ComponentInterface {
 	 */
 	public function register_location_rules() {
 
-		acf_register_location_rule( 'ACFWPObjects\Compat\ACF\Location\ClassicEditor' );
+		acf_register_location_rule( 'ACFWPObjects\Locations\ClassicEditor' );
 
 	}
 	/**

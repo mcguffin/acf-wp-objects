@@ -15,7 +15,9 @@ if ( ! defined('ABSPATH') ) {
 use ACFWPObjects\Asset;
 use ACFWPObjects\Core;
 use ACFWPObjects\Compat\ACF\FieldOption;
-
+use ACFWPObjects\Forms;
+use ACFWPObjects\Fields;
+use ACFWPObjects\Locations;
 
 class ACF extends Core\Singleton {
 
@@ -53,7 +55,7 @@ class ACF extends Core\Singleton {
 			RepeaterChoices::instance();
 		}
 		if ( is_admin() ) {
-			Form\WPOptions::instance();
+			Forms\WPOptions::instance();
 		}
 
 		add_action( 'acf/enqueue_scripts', [ $this, 'enqueue_style' ] );
@@ -224,15 +226,11 @@ class ACF extends Core\Singleton {
 	 */
 	public function register_location_rules() {
 
-		acf_register_location_rule( 'ACFWPObjects\Compat\ACF\Location\PostTypeProp' );
-
-		acf_register_location_rule( 'ACFWPObjects\Compat\ACF\Location\TaxonomyProp' );
-
-		acf_register_location_rule( 'ACFWPObjects\Compat\ACF\Location\WPOptionsPage' );
-
-		acf_register_location_rule( 'ACFWPObjects\Compat\ACF\Location\TemplateFileSettings' );
-
-		acf_register_location_rule( 'ACFWPObjects\Compat\ACF\Location\Everywhere' );
+		acf_register_location_rule( 'ACFWPObjects\Locations\PostTypeProp' );
+		acf_register_location_rule( 'ACFWPObjects\Locations\TaxonomyProp' );
+		acf_register_location_rule( 'ACFWPObjects\Locations\WPOptionsPage' );
+		acf_register_location_rule( 'ACFWPObjects\Locations\TemplateFileSettings' );
+		acf_register_location_rule( 'ACFWPObjects\Locations\Everywhere' );
 
 	}
 
@@ -242,23 +240,15 @@ class ACF extends Core\Singleton {
 	 */
 	public function register_field_types() {
 
-		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\ImageSweetSpot' );
-
-		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\Includer' );
-
-		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectImageSize' );
-
-		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectNavMenu' );
-
-		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectNavMenuLocation' );
-
-		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectPostType' );
-
-		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectRole' );
-
-		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\SelectTaxonomy' );
-
-		acf_register_field_type( '\ACFWPObjects\Compat\ACF\Fields\TemplateFileSelect' );
+		acf_register_field_type( 'ACFWPObjects\Fields\ImageSweetSpot' );
+		acf_register_field_type( 'ACFWPObjects\Fields\Includer' );
+		acf_register_field_type( 'ACFWPObjects\Fields\SelectImageSize' );
+		acf_register_field_type( 'ACFWPObjects\Fields\SelectNavMenu' );
+		acf_register_field_type( 'ACFWPObjects\Fields\SelectNavMenuLocation' );
+		acf_register_field_type( 'ACFWPObjects\Fields\SelectPostType' );
+		acf_register_field_type( 'ACFWPObjects\Fields\SelectRole' );
+		acf_register_field_type( 'ACFWPObjects\Fields\SelectTaxonomy' );
+		acf_register_field_type( 'ACFWPObjects\Fields\TemplateFileSelect' );
 	}
 
 }

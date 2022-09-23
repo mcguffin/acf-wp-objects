@@ -1,6 +1,6 @@
 <?php
 
-namespace ACFWPObjects\Compat\ACF\Fields;
+namespace ACFWPObjects\Fields;
 
 use ACFWPObjects\Core;
 use ACFWPObjects\Compat\ACF;
@@ -199,7 +199,7 @@ class TemplateFileSelect extends \acf_field_select {
 					? 0
 					: ( $b['__tmp_sort_key'] > $a['__tmp_sort_key'] ? -1 : 1 );
 			});
-			$sub_fields = array_map( function( &$el ) {
+			$sub_fields = array_map( function( $el ) {
 				unset( $el['__tmp_sort_key'] );
 				return $el;
 			}, $sub_fields );

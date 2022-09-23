@@ -5,7 +5,7 @@
  *	2018-09-22
  */
 
-namespace ACFWPObjects\Compat\ACF\Fields;
+namespace ACFWPObjects\Fields;
 
 if ( ! defined('ABSPATH') ) {
 	die('FU!');

@@ -79,7 +79,7 @@ class PageLayout extends Core\Singleton {
 	public function register_location_rules() {
 
 		add_filter( 'acf_page_layout_locations', [ $this, 'add_locations' ] );
-		acf_register_location_rule( 'ACFWPObjects\Compat\ACF\Location\PageLayouts' );
+		acf_register_location_rule( 'ACFWPObjects\Locations\PageLayouts' );
 
 	}
 
