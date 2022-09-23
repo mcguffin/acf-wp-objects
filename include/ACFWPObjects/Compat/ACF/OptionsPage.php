@@ -116,13 +116,16 @@ class OptionsPage extends Core\Singleton {
 	public function save_post( $post_id ) {
 		global $page_hook;
 
-		if ( ! isset( $_POST['options_page_action'] ) ) {
+		// nonce already verified by WP
+		if ( ! isset( $_POST['options_page_action'] ) || ! isset( $_POST['options_page_slug'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			return;
 		}
 
-		$action = wp_unslash( $_POST['options_page_action'] );
+		// no sanitation necessaray, just testing equality
+		$action = wp_unslash( $_POST['options_page_action'] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
-		$page_slug = wp_unslash( $_POST['options_page_slug'] );
+		// just an array key, no sanitation necessaray,
+		$page_slug = wp_unslash( $_POST['options_page_slug'] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		$this->current_page = acf_get_options_page( $page_slug );
 
@@ -168,11 +171,12 @@ class OptionsPage extends Core\Singleton {
 	 */
 	public function action_import( $page ) {
 		// import values.
-		if ( isset( $_POST['import_json'] ) && ! empty( $_POST['import_json'] ) ) {
+		if ( isset( $_POST['import_json'] ) && ! empty( $_POST['import_json'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 			$helper = Helper\ImportExportOptionsPage::instance();
 
-			if ( $helper->import( wp_unslash( $_POST['import_json'] ) ) ) {
+			// sanitation done by Helper\ImportExportOptionsPage::import()
+			if ( $helper->import( wp_unslash( $_POST['import_json'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				wp_redirect( add_query_arg( array( 'message' => 'import' ) ) );
 			} else {
 				wp_redirect( add_query_arg( array( 'message' => 'import_error' ) ) );
@@ -212,7 +216,7 @@ class OptionsPage extends Core\Singleton {
 		header( sprintf('Content-Disposition: attachment; filename="%s_%s.json"', $this->current_page['post_id'], date( 'YmdHis' ) ) );
 		header( sprintf('Content-Length: %d', strlen( $json_str ) ) );
 
-		echo $json_str;
+		echo $json_str; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		exit();
 	}
@@ -224,18 +228,18 @@ class OptionsPage extends Core\Singleton {
 	public function validate_options_page( $page ) {
 		return wp_parse_args( $page, [
 			'import' => false,
-			'import_message' => __( 'Options Imported', 'acf-wp-objects' ),
-			'import_error_message' => __( 'Invalid Import Data', 'acf-wp-objects' ),
-			'import_button' => __( 'Import', 'acf-wp-objects' ),
-			'import_select_file' => __( 'Select File…', 'acf-wp-objects' ),
+			'import_message' => esc_html__( 'Options Imported', 'acf-wp-objects' ),
+			'import_error_message' => esc_html__( 'Invalid Import Data', 'acf-wp-objects' ),
+			'import_button' => esc_html__( 'Import', 'acf-wp-objects' ),
+			'import_select_file' => esc_html__( 'Select File…', 'acf-wp-objects' ),
 
 			'export' => false,
 			'export_references' => false,
-			'export_button' => __( 'Export Settings', 'acf-wp-objects' ),
+			'export_button' => esc_html__( 'Export Settings', 'acf-wp-objects' ),
 
 			'reset' => false,
-			'reset_button' => __( 'Restore defaults', 'acf-wp-objects' ),
-			'reset_message' => __( 'Options Reset to Defaults', 'acf-wp-objects' ),
+			'reset_button' => esc_html__( 'Restore defaults', 'acf-wp-objects' ),
+			'reset_message' => esc_html__( 'Options Reset to Defaults', 'acf-wp-objects' ),
 		]);
 	}
 
@@ -247,7 +251,7 @@ class OptionsPage extends Core\Singleton {
 			?>
 			<div class="acf-wpo-export">
 				<button type="button" name="options_page_action" value="export" class="button button-large widefat" id="export">
-					<?php echo $page['export_button']; ?>
+					<?php echo $page['export_button']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- code is assumed trusted ?>
 				</button>
 			</div>
 			<?php
@@ -255,14 +259,14 @@ class OptionsPage extends Core\Singleton {
 		if ( $page['import'] ) {
 			?>
 			<div class="acf-wpo-import">
-				<h4><?php _e( 'Import', 'acf-wp-objects' ); ?></h4>
+				<h4><?php esc_html_e( 'Import', 'acf-wp-objects' ); ?></h4>
 				<input type="text" class="acf-hidden" id="acf-wpo-import-json" name="import_json" value="" />
 				<input type="file" class="acf-hidden" id="acf-wpo-import-file" accept="application/json" />
 				<label class="button button-large widefat" for="acf-wpo-import-file">
-					<?php echo $page['import_select_file']; ?>
+					<?php echo $page['import_select_file']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- code is assumed trusted ?>
 				</label>
 				<button type="button" name="options_page_action" value="import" class="button button-primary button-large widefat" id="import" disabled>
-					<?php echo $page['import_button']; ?>
+					<?php echo $page['import_button']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- code is assumed trusted ?>
 				</button>
 			</div>
 			<?php
@@ -281,7 +285,7 @@ class OptionsPage extends Core\Singleton {
 		if ( $page['reset'] ) {
 			?>
 			<button type="button" name="options_page_action" value="reset" class="button button-large" id="reset">
-				<?php echo $page['reset_button']; ?>
+				<?php echo $page['reset_button']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- code is assumed trusted ?>
 			</button>
 			<?php
 		}
