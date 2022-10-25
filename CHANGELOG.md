@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.6.29
+------
+ - Fix: Compatibility with ACF < 5.8
+
 0.6.28
 ------
  - Minor security fixes

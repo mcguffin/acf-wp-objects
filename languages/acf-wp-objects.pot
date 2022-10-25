@@ -2,14 +2,14 @@
 # This file is distributed under the GPL3.
 msgid ""
 msgstr ""
-"Project-Id-Version: ACF WP-Objects 0.6.27\n"
+"Project-Id-Version: ACF WP-Objects 0.6.28\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/acf-wp-objects\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-09-23T10:30:41+00:00\n"
+"POT-Creation-Date: 2022-10-25T16:18:55+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: acf-wp-objects\n"
@@ -139,44 +139,44 @@ msgstr ""
 msgid "Sweet Spot"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:227
+#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:231
 #: test/test.php:269
 #: test/test.php:291
 msgid "Options Imported"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:228
+#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:232
 #: test/test.php:270
 #: test/test.php:292
 msgid "Invalid Import Data"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:229
-#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:258
+#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:233
+#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:262
 #: test/test.php:271
 #: test/test.php:293
 msgid "Import"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:230
+#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:234
 #: test/test.php:272
 #: test/test.php:294
 msgid "Select File…"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:234
+#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:238
 #: test/test.php:276
 #: test/test.php:298
 msgid "Export Settings"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:237
+#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:241
 #: test/test.php:279
 #: test/test.php:301
 msgid "Restore defaults"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:238
+#: include/ACFWPObjects/Compat/ACF/OptionsPage.php:242
 #: test/test.php:280
 #: test/test.php:302
 msgid "Options Reset to Defaults"
