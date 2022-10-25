@@ -28,14 +28,14 @@ class Polylang extends Core\Singleton {
 		$this->pll = new Forms\PolylangLanguage();
 
 		// make ACF location rule match on Polylang Admin page
-		add_filter( 'acf/location/match_rule/type=taxonomy', [ $this, 'location_rule_match' ], 10, 4 );
+		add_filter( 'acf/location/match_rule/type=taxonomy', [ $this, 'location_rule_match' ], 10, 3 );
 
 	}
 
 	/**
 	 *	@filter acf/location/match_rule/type=taxonomy
 	 */
-	public function location_rule_match( $result, $rule, $screen, $field_group ) {
+	public function location_rule_match( $result, $rule, $screen ) {
 
 		if ( $rule['value'] === 'language' ) {
 
