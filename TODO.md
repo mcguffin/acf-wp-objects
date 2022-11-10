@@ -1,6 +1,10 @@
 ACF-WP-Objects ToDo
 ===================
 
+Options page export
+-------------------
+ - [ ] Convert true/false > 0/1
+
 Fields
 ------
 - [ ] Wizard
@@ -45,7 +49,9 @@ Development
    - [ ] RGBA-Color-Picker
    - [ ] ...
 
-
+Bugs
+----
+ - [ ] JS-Error with Sweet Spot & Gallery field
 
 Tests
 -----
