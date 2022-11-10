@@ -58,7 +58,18 @@
 .block-editor .edit-post-sidebar .acf-fields > .acf-field, // override block editor
 .acf-field {
 	&.seamless {
+		> .acf-input > .acf-taxonomy-field > .categorychecklist-holder {
+			border-style: none;
+		}
 
+		.postbox > .inside & > .acf-label {
+			margin:0;
+			padding:10px;
+			border-bottom:1px dashed #eeeeee;
+			// .acf-block-body & {
+			// 	padding:10px 20px 0 20px;
+			// }
+		}
 		&.acf-field-group:not(.no-label) {
 
 			& > .acf-label {
@@ -99,29 +110,6 @@
 				}
 			}
 		}
-
-		// &,
-		// &.acf-field-group {
-		// 	padding:0;
-		// 	.-left > & {
-		// 		& > .acf-label {
-		// 			padding-top:15px;
-		// 			padding-bottom:15px;
-		// 		}
-		// 	}
-		// 	&  > .acf-input > .acf-fields {
-		// 		border-style:none;
-		// 		&.-left,
-		// 		& > .acf-field {
-		// 			padding-left:0;
-		// 			padding-right:0;
-		// 		}
-		// 	}
-		// }
-		// .acf-fields.-left & > .acf-input > .acf-fields {
-		// 	margin-left:-11px;
-		// 	margin-right:-11px;
-		// }
 	}
 
 }
