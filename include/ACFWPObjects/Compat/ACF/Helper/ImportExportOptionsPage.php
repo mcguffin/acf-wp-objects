@@ -181,7 +181,11 @@ class ImportExportOptionsPage extends Core\Singleton {
 	 *	@filter acf/foramt_value
 	 */
 	public function get_raw_value( $value, $post_id, $field ) {
-		if ( in_array( $field['type'], [ 'group', 'repeater', 'flexible_content', 'true_false', 'number', 'range' ] ) ) {
+		if ( 'true_false' === $field['type'] ) {
+			return (bool) $value
+				? '1'
+				: '0';
+		} else if ( in_array( $field['type'], [ 'group', 'repeater', 'flexible_content', 'number', 'range' ] ) ) {
 			return $value;
 		}
 
