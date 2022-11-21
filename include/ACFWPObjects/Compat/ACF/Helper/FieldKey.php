@@ -68,7 +68,7 @@ class FieldKey extends Core\Singleton {
 		foreach ( $field as $k => $v ) {
 			if ( is_array( $v ) ) {
 				$field[$k] = $this->deep_reset_field_key( $v );
-			} else if ( 0 === strpos( $v, 'field_' ) && in_array( $k, [ 'key', 'field', 'collapsed' ], true ) ) {
+			} else if ( is_string($v) && 0 === strpos( $v, 'field_' ) && in_array( $k, [ 'key', 'field', 'collapsed' ], true ) ) {
 				$field[$k] = 'field_' . md5( $v );
 			}
 		}
