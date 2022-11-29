@@ -1,6 +1,15 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.6.32
+------
+ - Export Options page: fix formatted export values
+
+0.6.31
+------
+ - CSS: seamless nested repeater tables
+ - JS: Accordion-Layout collapsed
+
 0.6.30
 ------
  - CSS: seamless with label in .postbox
