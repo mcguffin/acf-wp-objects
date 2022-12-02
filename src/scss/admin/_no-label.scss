@@ -14,3 +14,20 @@
 		}
 	}
 }
+
+&.only-label {
+	& > .acf-input {
+		display:none;
+	}
+	.acf-fields.-left > & {
+		&:before {
+			width: 100%;
+			border-right-style: none;
+		}
+		& + .acf-field {
+			&:before {
+				top: -1px;
+			}
+		}
+	}
+}

@@ -55,6 +55,7 @@
 		}
 	}
 }
+
 .block-editor .edit-post-sidebar .acf-fields > .acf-field, // override block editor
 .acf-field {
 	&.seamless {
@@ -62,13 +63,15 @@
 			border-style: none;
 		}
 
-		.postbox > .inside & > .acf-label {
-			margin:0;
-			padding:10px;
-			border-bottom:1px dashed #eeeeee;
-			// .acf-block-body & {
-			// 	padding:10px 20px 0 20px;
-			// }
+		.acf-fields:not(.-left) > & {
+			.postbox > .inside & > .acf-label {
+				margin:0;
+				padding:10px;
+				border-bottom:1px dashed #eeeeee;
+				// .acf-block-body & {
+				// 	padding:10px 20px 0 20px;
+				// }
+			}
 		}
 		&.acf-field-group:not(.no-label) {
 
