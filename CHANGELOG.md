@@ -1,9 +1,14 @@
 ACF-WP-Objects Changelog
 ========================
 
-0.6.33
+0.6.34
 -----
  - Fix: ID Field js error in field group admin
+
+0.6.33
+-----
+ - CSS: introduce `only-label` class
+ - Fix: Seamless css class
 
 0.6.32
 ------
