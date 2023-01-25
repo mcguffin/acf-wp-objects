@@ -1,6 +1,6 @@
 {
   "name": "acf-wp-objects",
-  "version": "0.6.33",
+  "version": "0.6.34",
   "description": "Connecting WordPress Data with ACF Fields",
   "private": true,
   "scripts": {
