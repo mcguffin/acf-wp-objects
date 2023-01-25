@@ -39,7 +39,7 @@ $(document).on('change','.acf-field.acf-id-field [type="text"]', e => {
 })
 // make duplicated field editable again
 acf.addAction( 'duplicate_field', field => {
-	if ( field.$el.is('.acf-id-field') ) {
+	if ( field.$el && field.$el.is('.acf-id-field') ) {
 		field.$input().prop( 'readonly', false ).trigger('change')
 	}
 } );

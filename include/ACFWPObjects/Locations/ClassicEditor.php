@@ -38,8 +38,8 @@ class ClassicEditor extends \acf_location {
 
 		$is_block_editor = \Classic_Editor::choose_editor( use_block_editor_for_post( $post ), $post );
 
-        // return
-        return $this->compare( $is_block_editor ? 'block-editor' : 'classic-editor', $rule );
+		// return
+		return $this->compare( $is_block_editor ? 'block-editor' : 'classic-editor', $rule );
 
 	}
 

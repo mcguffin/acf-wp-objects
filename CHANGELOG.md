@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.6.33
+-----
+ - Fix: ID Field js error in field group admin
+
 0.6.32
 ------
  - Export Options page: fix formatted export values
