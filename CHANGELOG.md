@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.6.35
+------
+ - Fix: ui option didn't save on select fields
+
 0.6.34
 -----
  - Fix: ID Field js error in field group admin

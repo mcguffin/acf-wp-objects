@@ -97,30 +97,6 @@ class SelectRole extends \acf_field_select {
 			'ui'			=> 1,
 		]);
 
-
-		// ui
-		acf_render_field_setting( $field, [
-			'label'			=> __('Stylised UI','acf'),
-			'instructions'	=> '',
-			'name'			=> 'ui',
-			'type'			=> 'true_false',
-			'ui'			=> 1,
-		]);
-
-		// ajax
-		acf_render_field_setting( $field, [
-			'label'			=> __('Use AJAX to lazy load choices?','acf'),
-			'instructions'	=> '',
-			'name'			=> 'ajax',
-			'type'			=> 'true_false',
-			'ui'			=> 1,
-			'conditions'	=> [
-				'field'		=> 'ui',
-				'operator'	=> '==',
-				'value'		=> 1
-			]
-		]);
-
 		// return_format
 		acf_render_field_setting( $field, [
 			'label'			=> __('Return Value','acf-wp-objects'),
