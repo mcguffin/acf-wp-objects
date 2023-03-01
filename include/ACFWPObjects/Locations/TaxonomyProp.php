@@ -41,8 +41,8 @@ class TaxonomyProp extends \acf_location {
 
 		$txo = get_taxonomy( $taxonomy );
 
-        // return
-        return $this->compare( $txo->$prop, $rule );
+		// return
+		return $this->compare( $txo->$prop, $rule );
 
 	}
 

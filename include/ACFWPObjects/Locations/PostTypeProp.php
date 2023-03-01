@@ -49,7 +49,7 @@ class PostTypeProp extends \acf_location {
 
 			$prop = $rule['value'];
 
-	        return $this->compare( $pto->$prop, $rule );
+			return $this->compare( $pto->$prop, $rule );
 
 		}
 		return false;
