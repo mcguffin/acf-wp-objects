@@ -42,25 +42,22 @@ class Template extends Singleton {
 	 */
 	public function get_template_types() {
 
-		$types = apply_filters('acf_wp_objects_template_types', [
-		/*	'' => [
-				'header_key' => 'Template Name',
-				'theme_location' => '', // recursive
-				'plugin_location' => false,
-			], */
-		], $this );
+		$types = apply_filters('acf_wp_objects_template_types', [], $this );
 
-		foreach ( $types as $slug => &$type ) {
+		foreach ( $types as $slug => $type ) {
 			if ( is_string( $type ) ) {
-				$type = [ 'header_key' => $type ];
+				$types[$slug] = [ 'header_key' => $type ];
 			}
-			$type = wp_parse_args( $type, [
-				'theme_location'	=> $slug,
-				'plugin_location'	=> false,
+
+			$types[$slug] = wp_parse_args( $types[$slug], [
+				'theme_location'       => $slug,
+				'plugin_location'      => false,
+				'scan_plugin_location' => true,
 			] );
 			if ( is_null( $type['plugin_location'] ) ) {
-				$type['plugin_location'] = 'templates';
+				$types[$slug]['plugin_location'] = 'templates';
 			}
+
 		}
 
 		return $types;
@@ -115,7 +112,7 @@ class Template extends Singleton {
 			if ( get_template_directory() !== get_stylesheet_directory() ) {
 				$paths_to_scan[] = trailingslashit( get_template_directory() ) . $type['theme_location'];
 			}
-			if ( false !== $type['plugin_location'] ) {
+			if ( false !== $type['plugin_location'] && $type['scan_plugin_location'] ) {
 				$paths_to_scan[] = trailingslashit( WP_PLUGIN_DIR ) . trailingslashit( $slug ) . $type['plugin_location'];
 			}
 

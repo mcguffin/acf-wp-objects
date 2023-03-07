@@ -3,6 +3,9 @@ ACF-WP-Objects Changelog
 
 0.6.35
 ------
+ - Introduce Location rule: Post type supports
+ - Templates: Load Templates with $args param
+ - Templates: introduce `scan_plugin_location` boolean param to acf_wp_objects_template_types filter
  - Fix: ui option didn't save on select fields
 
 0.6.34
