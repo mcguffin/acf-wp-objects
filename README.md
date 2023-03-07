@@ -27,6 +27,7 @@ Integrate WordPress Objects objects into ACF.
     - Plugin Template Select (Selector for template file from plugin)
  - New **Location Rules**:
     - Post Type / Taxonomy is public / builtin / show_ui / show_in_menu / show_in_nav_menus
+    - Post type supports
     - Editor is Classic / Block editor
     - WP Options page is General / Writing / Reading / Discussion / Media / Permalinks
     - Plugin Template Settings

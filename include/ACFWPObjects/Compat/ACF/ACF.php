@@ -227,6 +227,7 @@ class ACF extends Core\Singleton {
 	public function register_location_rules() {
 
 		acf_register_location_rule( 'ACFWPObjects\Locations\PostTypeProp' );
+		acf_register_location_rule( 'ACFWPObjects\Locations\PostTypeSupports' );
 		acf_register_location_rule( 'ACFWPObjects\Locations\TaxonomyProp' );
 		acf_register_location_rule( 'ACFWPObjects\Locations\WPOptionsPage' );
 		acf_register_location_rule( 'ACFWPObjects\Locations\TemplateFileSettings' );
