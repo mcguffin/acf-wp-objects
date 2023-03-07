@@ -21,7 +21,7 @@ class Template extends Singleton {
 	*/
 	protected function __construct() {
 
-		add_action( 'get_template_part', [ $this, 'get_template_part'] , 20, 3 );
+		add_action( 'get_template_part', [ $this, 'get_template_part'] , 20, 4 );
 
 	}
 
@@ -159,9 +159,9 @@ class Template extends Singleton {
 	/**
 	 *	@action get_template_part
 	 */
-	public function get_template_part( $slug, $name, $templates ) {
+	public function get_template_part( $slug, $name, $templates, $args = [] ) {
 
-		$located = locate_template( $templates, false, false );
+		$located = locate_template( $templates, false, false, $args );
 
 		if ( $located === '' ) {
 
@@ -190,7 +190,7 @@ class Template extends Singleton {
 
 				foreach ( $templates as $file ) {
 					if ( file_exists( $file ) ) {
-						load_template( $file, false );
+						load_template( $file, false, $args );
 						return;
 					}
 				}
