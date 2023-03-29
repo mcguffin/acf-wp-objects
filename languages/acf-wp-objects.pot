@@ -2,14 +2,14 @@
 # This file is distributed under the GPL3.
 msgid ""
 msgstr ""
-"Project-Id-Version: ACF WP-Objects 0.6.34\n"
+"Project-Id-Version: ACF WP-Objects 0.6.35\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/acf-wp-objects\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-25T21:56:07+00:00\n"
+"POT-Creation-Date: 2023-03-29T09:34:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: acf-wp-objects\n"
@@ -35,49 +35,49 @@ msgid "https://github.com/mcguffin"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/ACF.php:96
-#: include/ACFWPObjects/Fields/SelectImageSize.php:232
-#: include/ACFWPObjects/Fields/SelectPostType.php:206
-#: include/ACFWPObjects/Fields/SelectTaxonomy.php:209
+#: include/ACFWPObjects/Fields/SelectImageSize.php:207
+#: include/ACFWPObjects/Fields/SelectPostType.php:182
+#: include/ACFWPObjects/Fields/SelectTaxonomy.php:185
 #: include/ACFWPObjects/Locations/PostTypeProp.php:67
 #: include/ACFWPObjects/Locations/TaxonomyProp.php:58
 msgid "Builtin"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/ACF.php:97
-#: include/ACFWPObjects/Fields/SelectPostType.php:188
-#: include/ACFWPObjects/Fields/SelectTaxonomy.php:191
+#: include/ACFWPObjects/Fields/SelectPostType.php:164
+#: include/ACFWPObjects/Fields/SelectTaxonomy.php:167
 #: include/ACFWPObjects/Locations/PostTypeProp.php:68
 #: include/ACFWPObjects/Locations/TaxonomyProp.php:59
 msgid "Public"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/ACF.php:98
-#: include/ACFWPObjects/Fields/SelectPostType.php:226
-#: include/ACFWPObjects/Fields/SelectTaxonomy.php:229
+#: include/ACFWPObjects/Fields/SelectPostType.php:202
+#: include/ACFWPObjects/Fields/SelectTaxonomy.php:205
 #: include/ACFWPObjects/Locations/PostTypeProp.php:69
 #: include/ACFWPObjects/Locations/TaxonomyProp.php:60
 msgid "Show UI"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/ACF.php:99
-#: include/ACFWPObjects/Fields/SelectPostType.php:245
-#: include/ACFWPObjects/Fields/SelectTaxonomy.php:248
+#: include/ACFWPObjects/Fields/SelectPostType.php:221
+#: include/ACFWPObjects/Fields/SelectTaxonomy.php:224
 #: include/ACFWPObjects/Locations/PostTypeProp.php:70
 #: include/ACFWPObjects/Locations/TaxonomyProp.php:61
 msgid "Show in Menus"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/ACF.php:100
-#: include/ACFWPObjects/Fields/SelectPostType.php:264
-#: include/ACFWPObjects/Fields/SelectTaxonomy.php:267
+#: include/ACFWPObjects/Fields/SelectPostType.php:240
+#: include/ACFWPObjects/Fields/SelectTaxonomy.php:243
 #: include/ACFWPObjects/Locations/PostTypeProp.php:71
 #: include/ACFWPObjects/Locations/TaxonomyProp.php:62
 msgid "Show in Nav Menus"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/ACF.php:101
-#: include/ACFWPObjects/Fields/SelectPostType.php:282
-#: include/ACFWPObjects/Fields/SelectTaxonomy.php:285
+#: include/ACFWPObjects/Fields/SelectPostType.php:258
+#: include/ACFWPObjects/Fields/SelectTaxonomy.php:261
 #: include/ACFWPObjects/Locations/PostTypeProp.php:72
 #: include/ACFWPObjects/Locations/TaxonomyProp.php:63
 msgid "Hierarchical"
@@ -121,12 +121,12 @@ msgid "Disable input, if field has a value."
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/FieldOption/TextID.php:84
-#: include/ACFWPObjects/Fields/SelectImageSize.php:160
-#: include/ACFWPObjects/Fields/SelectNavMenu.php:161
-#: include/ACFWPObjects/Fields/SelectNavMenuLocation.php:127
-#: include/ACFWPObjects/Fields/SelectPostType.php:154
-#: include/ACFWPObjects/Fields/SelectRole.php:133
-#: include/ACFWPObjects/Fields/SelectTaxonomy.php:157
+#: include/ACFWPObjects/Fields/SelectImageSize.php:135
+#: include/ACFWPObjects/Fields/SelectNavMenu.php:138
+#: include/ACFWPObjects/Fields/SelectNavMenuLocation.php:103
+#: include/ACFWPObjects/Fields/SelectPostType.php:130
+#: include/ACFWPObjects/Fields/SelectRole.php:109
+#: include/ACFWPObjects/Fields/SelectTaxonomy.php:133
 msgid "Slug"
 msgstr ""
 
@@ -335,6 +335,7 @@ msgstr ""
 #: include/ACFWPObjects/Fields/SelectTaxonomy.php:28
 #: include/ACFWPObjects/Locations/ClassicEditor.php:24
 #: include/ACFWPObjects/Locations/PostTypeProp.php:24
+#: include/ACFWPObjects/Locations/PostTypeSupports.php:24
 #: include/ACFWPObjects/Locations/TaxonomyProp.php:24
 #: include/ACFWPObjects/Locations/WPOptionsPage.php:24
 msgid "WordPress"
@@ -380,38 +381,38 @@ msgstr ""
 msgid "Select Image Size"
 msgstr ""
 
-#: include/ACFWPObjects/Fields/SelectImageSize.php:153
-#: include/ACFWPObjects/Fields/SelectNavMenu.php:155
-#: include/ACFWPObjects/Fields/SelectNavMenuLocation.php:120
-#: include/ACFWPObjects/Fields/SelectPostType.php:147
-#: include/ACFWPObjects/Fields/SelectRole.php:126
-#: include/ACFWPObjects/Fields/SelectTaxonomy.php:150
+#: include/ACFWPObjects/Fields/SelectImageSize.php:128
+#: include/ACFWPObjects/Fields/SelectNavMenu.php:132
+#: include/ACFWPObjects/Fields/SelectNavMenuLocation.php:96
+#: include/ACFWPObjects/Fields/SelectPostType.php:123
+#: include/ACFWPObjects/Fields/SelectRole.php:102
+#: include/ACFWPObjects/Fields/SelectTaxonomy.php:126
 msgid "Return Value"
 msgstr ""
 
-#: include/ACFWPObjects/Fields/SelectImageSize.php:154
-#: include/ACFWPObjects/Fields/SelectNavMenuLocation.php:121
-#: include/ACFWPObjects/Fields/SelectPostType.php:148
-#: include/ACFWPObjects/Fields/SelectRole.php:127
-#: include/ACFWPObjects/Fields/SelectTaxonomy.php:151
+#: include/ACFWPObjects/Fields/SelectImageSize.php:129
+#: include/ACFWPObjects/Fields/SelectNavMenuLocation.php:97
+#: include/ACFWPObjects/Fields/SelectPostType.php:124
+#: include/ACFWPObjects/Fields/SelectRole.php:103
+#: include/ACFWPObjects/Fields/SelectTaxonomy.php:127
 msgid "Specify the returned value on front end"
 msgstr ""
 
-#: include/ACFWPObjects/Fields/SelectImageSize.php:159
+#: include/ACFWPObjects/Fields/SelectImageSize.php:134
 msgid "Size Array"
 msgstr ""
 
-#: include/ACFWPObjects/Fields/SelectImageSize.php:169
-#: include/ACFWPObjects/Fields/SelectPostType.php:162
-#: include/ACFWPObjects/Fields/SelectTaxonomy.php:165
+#: include/ACFWPObjects/Fields/SelectImageSize.php:144
+#: include/ACFWPObjects/Fields/SelectPostType.php:138
+#: include/ACFWPObjects/Fields/SelectTaxonomy.php:141
 msgid "Pick from List"
 msgstr ""
 
-#: include/ACFWPObjects/Fields/SelectImageSize.php:196
+#: include/ACFWPObjects/Fields/SelectImageSize.php:171
 msgid "Named "
 msgstr ""
 
-#: include/ACFWPObjects/Fields/SelectImageSize.php:214
+#: include/ACFWPObjects/Fields/SelectImageSize.php:189
 msgid "Cropped "
 msgstr ""
 
@@ -427,31 +428,31 @@ msgstr ""
 msgid "Create Menu"
 msgstr ""
 
-#: include/ACFWPObjects/Fields/SelectNavMenu.php:160
-#: include/ACFWPObjects/Fields/SelectNavMenuLocation.php:126
+#: include/ACFWPObjects/Fields/SelectNavMenu.php:137
+#: include/ACFWPObjects/Fields/SelectNavMenuLocation.php:102
 msgid "ID"
 msgstr ""
 
-#: include/ACFWPObjects/Fields/SelectNavMenu.php:162
-#: include/ACFWPObjects/Fields/SelectNavMenuLocation.php:128
-#: include/ACFWPObjects/Fields/SelectPostType.php:153
-#: include/ACFWPObjects/Fields/SelectRole.php:132
-#: include/ACFWPObjects/Fields/SelectTaxonomy.php:156
+#: include/ACFWPObjects/Fields/SelectNavMenu.php:139
+#: include/ACFWPObjects/Fields/SelectNavMenuLocation.php:104
+#: include/ACFWPObjects/Fields/SelectPostType.php:129
+#: include/ACFWPObjects/Fields/SelectRole.php:108
+#: include/ACFWPObjects/Fields/SelectTaxonomy.php:132
 msgid "Label"
 msgstr ""
 
-#: include/ACFWPObjects/Fields/SelectNavMenu.php:163
-#: include/ACFWPObjects/Fields/SelectNavMenuLocation.php:129
-#: include/ACFWPObjects/Fields/SelectPostType.php:155
-#: include/ACFWPObjects/Fields/SelectTaxonomy.php:158
+#: include/ACFWPObjects/Fields/SelectNavMenu.php:140
+#: include/ACFWPObjects/Fields/SelectNavMenuLocation.php:105
+#: include/ACFWPObjects/Fields/SelectPostType.php:131
+#: include/ACFWPObjects/Fields/SelectTaxonomy.php:134
 msgid "Object"
 msgstr ""
 
-#: include/ACFWPObjects/Fields/SelectNavMenu.php:168
+#: include/ACFWPObjects/Fields/SelectNavMenu.php:145
 msgid "Menu Location"
 msgstr ""
 
-#: include/ACFWPObjects/Fields/SelectNavMenu.php:169
+#: include/ACFWPObjects/Fields/SelectNavMenu.php:146
 msgid "Save selected menu in in menu location"
 msgstr ""
 
@@ -467,7 +468,7 @@ msgstr ""
 msgid "Select Role"
 msgstr ""
 
-#: include/ACFWPObjects/Fields/SelectRole.php:134
+#: include/ACFWPObjects/Fields/SelectRole.php:110
 msgid "Role Object"
 msgstr ""
 
@@ -520,6 +521,10 @@ msgstr ""
 
 #: include/ACFWPObjects/Locations/PostTypeProp.php:23
 msgid "Post Type Property"
+msgstr ""
+
+#: include/ACFWPObjects/Locations/PostTypeSupports.php:23
+msgid "Post Type Supports"
 msgstr ""
 
 #: include/ACFWPObjects/Locations/TaxonomyProp.php:23
