@@ -15,6 +15,9 @@ use ACFWPObjects\Compat;
 
 class WP extends Singleton {
 
+	/** @var array all image sizes */
+	private $all_sizes = [];
+
 	/**
 	 *	@param $args see get_taxonomies() $args param
 	 *	@param $return property to return
@@ -86,11 +89,10 @@ class WP extends Singleton {
 
 		global $_wp_additional_image_sizes;
 
-		if ( ! empty( $this->all_sizes ) ) {
+		if ( count( $this->all_sizes ) ) {
 			return $this->all_sizes;
 		}
 
-		$this->all_sizes = [];
 
 		$core_sizes = [ 'thumbnail', 'medium', 'large' ];
 		$builtin_sizes = array_merge( $core_sizes, [ 'medium_large', 'full' ]);
