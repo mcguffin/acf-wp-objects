@@ -1,6 +1,12 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.6.36
+------
+ - CSS: Fix `sep-top` class in term context
+ - WP-Objects: add posts_per_page option to number fields
+ - Fix: some PHP 8.2 deprecations
+
 0.6.35
 ------
  - Introduce Location rule: Post type supports

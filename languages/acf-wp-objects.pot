@@ -2,14 +2,14 @@
 # This file is distributed under the GPL3.
 msgid ""
 msgstr ""
-"Project-Id-Version: ACF WP-Objects 0.6.35\n"
+"Project-Id-Version: ACF WP-Objects 0.6.36\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/acf-wp-objects\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-03-29T09:34:51+00:00\n"
+"POT-Creation-Date: 2023-05-03T12:16:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: acf-wp-objects\n"
@@ -284,45 +284,49 @@ msgid "Term Title"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/WPObjects.php:47
+msgid "Posts per page"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:50
 msgid "Post Excerpt"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:48
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:52
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:51
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:55
 msgid "Term Description"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:51
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:54
 msgid "Post Content"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:55
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:58
 msgid "Custom Logo"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:57
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:60
 msgid "Post Thumbnail"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:60
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:64
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:63
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:67
 msgid "Page for Posts"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:61
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:65
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:64
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:68
 msgid "Page on Front"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:68
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:71
 msgid "Post Attachments"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:398
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:401
 msgid "WordPress Object"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/WPObjects.php:406
+#: include/ACFWPObjects/Compat/ACF/WPObjects.php:409
 msgid "Select"
 msgstr ""
 
