@@ -43,6 +43,9 @@ class WPObjects extends Core\Singleton {
 				'post:post_name'				=> __('Post Slug','acf-wp-objects'),
 				'term:term_name'				=> __('Term Title','acf-wp-objects'),
 			],
+			'number'	=> [
+				'option:posts_per_page'			=> __('Posts per page','acf-wp-objects'),
+			],
 			'textarea'	=> [
 				'post:post_excerpt'				=> __('Post Excerpt','acf-wp-objects'),
 				'term:term_description'			=> __('Term Description','acf-wp-objects'),
