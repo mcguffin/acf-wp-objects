@@ -51,8 +51,10 @@ Installation
 ------------
 
 ### Production (using Github Updater – recommended for Multisite)
- - Install [Andy Fragen's GitHub Updater](https://github.com/afragen/github-updater) first.
- - In WP Admin go to Settings / GitHub Updater / Install Plugin. Enter `mcguffin/acf-wp-objects` as a Plugin-URI.
+ - Head over to [releases](../../releases)
+ - Download 'acf-wp-objects.zip'
+ - Upload and activate it like any other WordPress plugin
+ - AutoUpdate will run as long as the plugin is active
 
 ### Development
  - cd into your plugin directory
@@ -72,8 +74,9 @@ This will load and save ACF JSON from the subdirectory `path/to/json-files` insi
 acf_register_local_json(
 	'path/to/json-files', // e.g. 'acf-json' in a theme
 	function( $field_group ) { 
-		// callback which should return true, if the field group 
-		// JSON should be saved at the given location
+		// callback 
+		// return true, if the field group JSON
+		// should be saved at the given location
 		return $field_group['key'] === 'group_my_fieldgroup_key';
 	},
 	[ // parent paths to check
@@ -190,7 +193,7 @@ Repeater Choices with repeater row return
 ACF doesn't load the field groups in the frontend by default.
 To retrieve the value of a Repeater Choice in the frontend, ACF has to know about this.
 
-You can achieve this ba adding `do_action( 'acf_wpo_load_fields' );`
+You can achieve this by adding `do_action( 'acf_wpo_load_fields' );`
 
 ACF Options Page
 ----------------
@@ -222,9 +225,9 @@ acf_add_options_page([
  - **`import_button`** `String` Import button label
  - **`import_select_file`** `String` Import file input label
  - **`export`** `Boolean|Array` Enable export feature. `true` will simply export values from the current options page. Passing an array of options page IDs will export from multiple options pages at once
- - **`export_references`** `Boolean` Whether to export referenced contend like posts, images or terms
+ - **`export_references`** `Boolean` Whether to export referenced content like posts, images or terms
  - **`export_button`** `String` Export button label
- - **`reset`** `Boolen|String` Enable reset feature. Passing the path to a valid import file, will import it.
+ - **`reset`** `Boolen|String` Enable reset feature. Passing the path to a valid import file will import it.
  - **`reset_message`** `String` Message after a sucessful reset
  - **`reset_button`** `String` Reset button label
 
