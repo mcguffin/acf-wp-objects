@@ -9,6 +9,9 @@
 		&:before {
 			content:none;
 		}
+		#edittag & {
+			padding-left:10px;
+		}
 		&.seamless > .acf-input {
 			padding-left:0;
 		}
