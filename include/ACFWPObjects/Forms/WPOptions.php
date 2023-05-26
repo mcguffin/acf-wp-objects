@@ -51,10 +51,6 @@ class WPOptions extends Core\Singleton {
 			return;
 		}
 
-		if ( acf_get_setting('pro') ) {
-			$this->maybe_save();
-		}
-		//
 		// add_filter( 'whitelist_options', [ $this, 'whitelist_options' ] );
 
 		acf_enqueue_scripts();
@@ -62,7 +58,7 @@ class WPOptions extends Core\Singleton {
 
 		foreach ( $this->field_groups as $group ) {
 			$section = 'acf-'.$group['key'];
-			add_settings_section( 'acf-'.$group['key'], $group['title'], function() use ( $group ) {
+			add_settings_section( $section, $group['title'], function() use ( $group ) {
 				if ( ! empty( $group['description'] ) ) {
 					printf(
 						'<p class="description">%s</p>',
@@ -74,54 +70,22 @@ class WPOptions extends Core\Singleton {
 			$fields = acf_get_fields( $group );
 
 			foreach ( $fields as $field ) {
-				if ( acf_get_setting('pro') ) {
+				$option_name = sprintf( '%s_%s', $this->optionset, $field['name'] );
+				//add_option( $option_name, '', '', false );
+				register_setting( $this->optionset, $option_name );
+				$field['name'] = $option_name;
 
-					add_settings_field(
-						$field['key'],
-						$field['label'],
-						[ $this, 'render_field' ],
-						$this->optionset,
-						$section,
-						$field
-					);
-
-				} else {
-
-					$option_name = sprintf( '%s_%s', $this->optionset, $field['name'] );
-					//add_option( $option_name, '', '', false );
-					register_setting( 'general', $option_name );
-					$field['name'] = $option_name;
-
-					add_settings_field(
-						$option_name,
-						$field['label'],
-						[ $this, 'render_field' ],
-						$this->optionset,
-						$section,
-						$field
-					);
-					$this->acf_field_options[] = $option_name;
-				}
+				add_settings_field(
+					$option_name,
+					$field['label'],
+					[ $this, 'render_field' ],
+					$this->optionset,
+					$section,
+					$field
+				);
+				$this->acf_field_options[] = $option_name;
 			}
 		}
-	}
-
-	/**
-	 *	Save options
-	 */
-	public function maybe_save() {
-		if ( ! isset( $_POST['acf'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
-			return;
-		}
-
-		// save data
-		if ( acf_verify_nonce('options') && acf_validate_save_post( true ) ) {
-
-			// save ...
-			acf_save_post( $this->optionset );
-
-		}
-
 	}
 
 	/**
@@ -140,12 +104,7 @@ class WPOptions extends Core\Singleton {
 		add_filter('acf/get_field_label', [ $this, 'remove_label' ] );
 		$field['prefix'] = '';
 		$field['key'] = '';
-
-		if ( acf_get_setting('pro') ) {
-			$field['value'] = acf_get_value( $this->optionset, $field );
-		} else {
-			$field['value'] = get_option( $field['name'] );
-		}
+		$field['value'] = get_option( $field['name'] );
 
 		acf_render_field_wrap( $field );
 
