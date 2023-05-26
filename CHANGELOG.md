@@ -3,7 +3,7 @@ ACF-WP-Objects Changelog
 
 0.6.37
 ------
- - Fix WP-Options Location for ACF Pro
+ - Fix WP-Options Form for locations other than general
 
 0.6.36
 ------
