@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.7.0
+-----
+ - WP-Objects: Add user meta
+
 0.6.37
 ------
  - Fix WP-Options Form for locations other than general

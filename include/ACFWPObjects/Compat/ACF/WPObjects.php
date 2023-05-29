@@ -37,11 +37,21 @@ class WPObjects extends Core\Singleton {
 
 		$this->field_choices = [
 			'text'		=> [
-				'option:blogname'				=> __('Blogname','acf-wp-objects'),
-				'option:blogdescription'		=> __('Blog description','acf-wp-objects'),
-				'post:post_title'				=> __('Post Title','acf-wp-objects'),
-				'post:post_name'				=> __('Post Slug','acf-wp-objects'),
-				'term:term_name'				=> __('Term Title','acf-wp-objects'),
+				'option:blogname'				=> __( 'Blogname', 'acf-wp-objects' ),
+				'option:blogdescription'		=> __( 'Blog description', 'acf-wp-objects' ),
+				'post:post_title'				=> __( 'Post Title', 'acf-wp-objects' ),
+				'post:post_name'				=> __( 'Post Slug', 'acf-wp-objects' ),
+				'term:term_name'				=> __( 'Term Title', 'acf-wp-objects' ),
+				'user:first_name'				=> __( 'User First Name', 'acf-wp-objects' ),
+				'user:last_name'				=> __( 'User Last Name', 'acf-wp-objects' ),
+				'user:nickname'					=> __( 'User Nickname', 'acf-wp-objects' ),
+				'user:display_name'				=> __( 'User Display Name', 'acf-wp-objects' ),
+			],
+			'email'		=> [
+				'user:email'					=> __( 'User Display Name', 'acf-wp-objects' ),
+			],
+			'url'		=> [
+				'user:url'						=> __( 'User Display Name', 'acf-wp-objects' ),
 			],
 			'number'	=> [
 				'option:posts_per_page'			=> __('Posts per page','acf-wp-objects'),
@@ -49,10 +59,12 @@ class WPObjects extends Core\Singleton {
 			'textarea'	=> [
 				'post:post_excerpt'				=> __('Post Excerpt','acf-wp-objects'),
 				'term:term_description'			=> __('Term Description','acf-wp-objects'),
+				'user:description'				=> __('User Description','acf-wp-objects'),
 			],
 			'wysiwyg'	=> [
 				'post:post_content'				=> __('Post Content','acf-wp-objects'),
 				'term:term_description'			=> __('Term Description','acf-wp-objects'),
+				'user:description'				=> __('User Description','acf-wp-objects'),
 			],
 			'image'		=> [
 				'theme_mod:custom_logo'			=> __( 'Custom Logo', 'acf-wp-objects' ),
@@ -211,15 +223,20 @@ class WPObjects extends Core\Singleton {
 					$value = $this->get_attachment_ids( $post_id );
 				}
 				break;
-		}
+			case 'user':
+				$info = acf_get_post_id_info( $post_id );
+				$user = new \WP_User( $info['id'] );
+				$value = $user->$key ?? '';
+
+				break;
+			}
 		return $value;
 
 	}
 
-
-	public function wp_preview_post_thumbnail_filter( $value, $post_id, $meta_key ) {
-
-	}
+	// public function wp_preview_post_thumbnail_filter( $value, $post_id, $meta_key ) {
+	//
+	// }
 
 
 	/**
@@ -333,6 +350,63 @@ class WPObjects extends Core\Singleton {
 			//		wp_update_post( $updatepost );
 				}
 				return true;
+			case 'user':
+
+				$info = acf_get_post_id_info( $post_id );
+
+				if ( ! (int) $info['id'] ) {
+					// nope! might be a new user.
+					return false;
+				}
+				$user = new \WP_User( $info['id'] );
+
+				if ( 'first_name' === $key ) {
+					$user_key = $key;
+
+				} else if ( 'last_name' === $key ) {
+					$user_key = $key;
+
+				} else if ( 'nickname' === $key ) {
+					$user_key = $key;
+
+				} else if ( 'display_name' === $key ) {
+					$user_key = $key;
+
+				} else if ( 'email' === $key ) {
+					$user_key = "user_{$key}";
+					// email change
+					if ( ! ( $value = sanitize_email( $value ) ) ) {
+						return false;
+					}
+
+					// send confirmation mail on profile update
+					if ( (int) $info['id'] === (int) wp_get_current_user()->ID ) {
+						$prev_post = $_POST;
+						$_POST = [
+							'user_id' => $user->ID,
+							'email'   => $value,
+						];
+						send_confirmation_on_profile_email();
+						$_POST = $prev_post;
+					}
+
+				} else if ( 'url' === $key ) {
+					$user_key = "user_{$key}";
+					if ( ! ( $value = sanitize_url( $value ) )) {
+						return false;
+					}
+
+				} else if ( 'description' === $key ) {
+					$user_key = $key;
+					$value = wp_kses_post( $value );
+				} else {
+					return false;
+				}
+
+				$user->$user_key = $value;
+
+				wp_update_user( $user );
+
 		}
 	}
 
