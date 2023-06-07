@@ -45,6 +45,7 @@ class WPObjects extends Core\Singleton {
 				'user:first_name'				=> __( 'User First Name', 'acf-wp-objects' ),
 				'user:last_name'				=> __( 'User Last Name', 'acf-wp-objects' ),
 				'user:nickname'					=> __( 'User Nickname', 'acf-wp-objects' ),
+				'user:nicename'					=> __( 'User Nicename', 'acf-wp-objects' ),
 				'user:display_name'				=> __( 'User Display Name', 'acf-wp-objects' ),
 			],
 			'email'		=> [
@@ -224,12 +225,15 @@ class WPObjects extends Core\Singleton {
 				}
 				break;
 			case 'user':
+				if ( in_array( $key, [ 'nicename', 'email', 'url' ] ) ) {
+					$key = "user_{$key}";
+				}
 				$info = acf_get_post_id_info( $post_id );
 				$user = new \WP_User( $info['id'] );
 				$value = $user->$key ?? '';
 
 				break;
-			}
+		}
 		return $value;
 
 	}
@@ -371,6 +375,9 @@ class WPObjects extends Core\Singleton {
 
 				} else if ( 'display_name' === $key ) {
 					$user_key = $key;
+
+				} else if ( 'nicename' === $key ) {
+					$user_key = "user_{$key}";
 
 				} else if ( 'email' === $key ) {
 					$user_key = "user_{$key}";
