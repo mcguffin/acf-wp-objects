@@ -4,6 +4,7 @@ ACF-WP-Objects Changelog
 0.7.1
 -----
  - WP-Objects: Support user nicename
+ - Post type field: Choose by post type support
 
 0.7.0
 -----

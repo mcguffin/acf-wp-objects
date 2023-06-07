@@ -40,6 +40,7 @@ class SelectPostType extends \acf_field_select {
 			'show_ui'	=> '',
 			'show_in_menu'	=> '',
 			'show_in_nav_menus'	=> '',
+			'supports'	=> '',
 		];
 
 		// ajax
@@ -61,6 +62,7 @@ class SelectPostType extends \acf_field_select {
 			'show_ui',
 			'show_in_menu',
 			'show_in_nav_menus',
+			'supports',
 		];
 
 		if ( $field['pick'] ) {
@@ -75,7 +77,11 @@ class SelectPostType extends \acf_field_select {
 
 			foreach ( $args_keys as $key ) {
 				if ( $field[$key] !== '' ) {
-					$args[ $key ] = boolval( intval( $field[$key] ) );
+					if ( is_scalar( $field[$key] ) ) {
+						$args[ $key ] = boolval( intval( $field[$key] ) );
+					} else {
+						$args[ $key ] = $field[$key];
+					}
 				}
 			}
 			$choices = $wp->get_post_types( $args, 'label' );
@@ -265,6 +271,32 @@ class SelectPostType extends \acf_field_select {
 			],
 			'name'			=> 'hierarchical',
 			'ui'			=> 1,
+			'conditions'	=> [
+				'field'		=> 'pick',
+				'operator'	=> '==',
+				'value'		=> 0
+			]
+		]);
+
+		global $_wp_post_type_features;
+		$features = [];
+		foreach ( $_wp_post_type_features as $pt_features ) {
+			$features = array_merge( $features, array_keys( array_filter( $pt_features ) ) );
+		}
+
+		acf_render_field_setting( $field, [
+			'label'			=> __( 'Feature Support', 'acf-wp-objects' ),
+			'instructions'	=> '',
+			'type'			=> 'select',
+			'choices'		=> array_combine(
+				$features,
+				array_map( function( $f ) {
+					return ucwords( str_replace( ['-','_'], ' ',$f ) );
+				}, $features )
+			),
+			'name'			=> 'supports',
+			'ui'			=> 0,
+			'multiple'      => 1,
 			'conditions'	=> [
 				'field'		=> 'pick',
 				'operator'	=> '==',

@@ -144,6 +144,7 @@ class WP extends Singleton {
 	 *	@return array pt_slug => $return
 	 */
 	public function get_post_types( $args = [], $return = null ) {
+
 		if ( isset( $args['names'] ) ) {
 			$post_types = [];
 			$names = $args['names'];
@@ -152,8 +153,25 @@ class WP extends Singleton {
 				$args['name'] = $name;
 				$post_types += get_post_types( $args, 'objects' );
 			}
+
 		} else {
+			if ( isset( $args['supports'] ) ) {
+				$support = $args['supports'];
+				unset( $args['supports'] );
+			} else {
+				$support = false;
+			}
+
 			$post_types = get_post_types( $args, 'objects' );
+
+			if ( $support ) {
+				$post_types = array_intersect_key(
+					$post_types,
+					$this->get_post_types( [
+						'names' => get_post_types_by_support( $support ),
+					] )
+				);
+			}
 		}
 
 		if ( is_null( $return ) ) {
