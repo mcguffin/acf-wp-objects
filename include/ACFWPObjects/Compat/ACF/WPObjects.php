@@ -192,7 +192,9 @@ class WPObjects extends Core\Singleton {
 
 				break;
 			case 'post':
-
+				if ( false === $post_id ) {
+					return $value;
+				}
 				if ( 'post_title' == $key ) {
 					$value = get_the_title( $post_id );
 				} else if ( 'post_name' == $key ) {
