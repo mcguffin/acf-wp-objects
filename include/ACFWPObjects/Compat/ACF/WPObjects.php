@@ -195,8 +195,12 @@ class WPObjects extends Core\Singleton {
 				if ( false === $post_id ) {
 					return $value;
 				}
+
 				if ( 'post_title' == $key ) {
-					$value = get_the_title( $post_id );
+					$value = '';
+					if ( ( $post = get_post( $post_id ) ) && 'auto-draft' !== $post->post_status ) {
+						$value = $post->post_title;
+					}
 				} else if ( 'post_name' == $key ) {
 					$value = get_post_field( 'post_name', $post_id );
 				} else if ( 'post_content' == $key ) {
