@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.7.3
+-----
+ - Fix Sweet Spot js error
+
 0.7.2
 -----
  - Fix WP-Objects: only load values if post_id is given
