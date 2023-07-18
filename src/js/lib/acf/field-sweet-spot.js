@@ -52,7 +52,7 @@ const SweetSpotField = acf.Field.extend({
 		this.setupImage = this.setupImage.bind(this);
 		this.$marker = false;
 		this.$markerContainer = false;
-		if ( !! this.$image() ) {
+		if ( this.$image().length ) {
 			if ( this.$image().get(0).complete ) {
 				this.setupImage();
 			} else {

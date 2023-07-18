@@ -37,3 +37,19 @@
 		box-sizing: border-box;
 	}
 }
+.attachment-info {
+	.thumbnail {
+		& {
+			width: 100%;
+			height: auto;
+			max-height: 240px;
+			max-width: 100%;
+		}
+		img {
+			width: auto;
+			height: auto;
+			max-width: 100%;
+			max-height: none;
+		}
+	}
+}
