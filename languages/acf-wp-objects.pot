@@ -2,14 +2,14 @@
 # This file is distributed under the GPL3.
 msgid ""
 msgstr ""
-"Project-Id-Version: ACF WP-Objects 0.7.3\n"
+"Project-Id-Version: ACF WP-Objects 0.7.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/acf-wp-objects\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-07-18T10:26:29+00:00\n"
+"POT-Creation-Date: 2023-07-28T14:28:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: acf-wp-objects\n"
@@ -34,7 +34,7 @@ msgstr ""
 msgid "https://github.com/mcguffin"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/ACF.php:96
+#: include/ACFWPObjects/Compat/ACF/ACF.php:98
 #: include/ACFWPObjects/Fields/SelectImageSize.php:207
 #: include/ACFWPObjects/Fields/SelectPostType.php:188
 #: include/ACFWPObjects/Fields/SelectTaxonomy.php:185
@@ -43,7 +43,7 @@ msgstr ""
 msgid "Builtin"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/ACF.php:97
+#: include/ACFWPObjects/Compat/ACF/ACF.php:99
 #: include/ACFWPObjects/Fields/SelectPostType.php:170
 #: include/ACFWPObjects/Fields/SelectTaxonomy.php:167
 #: include/ACFWPObjects/Locations/PostTypeProp.php:68
@@ -51,7 +51,7 @@ msgstr ""
 msgid "Public"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/ACF.php:98
+#: include/ACFWPObjects/Compat/ACF/ACF.php:100
 #: include/ACFWPObjects/Fields/SelectPostType.php:208
 #: include/ACFWPObjects/Fields/SelectTaxonomy.php:205
 #: include/ACFWPObjects/Locations/PostTypeProp.php:69
@@ -59,7 +59,7 @@ msgstr ""
 msgid "Show UI"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/ACF.php:99
+#: include/ACFWPObjects/Compat/ACF/ACF.php:101
 #: include/ACFWPObjects/Fields/SelectPostType.php:227
 #: include/ACFWPObjects/Fields/SelectTaxonomy.php:224
 #: include/ACFWPObjects/Locations/PostTypeProp.php:70
@@ -67,7 +67,7 @@ msgstr ""
 msgid "Show in Menus"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/ACF.php:100
+#: include/ACFWPObjects/Compat/ACF/ACF.php:102
 #: include/ACFWPObjects/Fields/SelectPostType.php:246
 #: include/ACFWPObjects/Fields/SelectTaxonomy.php:243
 #: include/ACFWPObjects/Locations/PostTypeProp.php:71
@@ -75,7 +75,7 @@ msgstr ""
 msgid "Show in Nav Menus"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/ACF.php:101
+#: include/ACFWPObjects/Compat/ACF/ACF.php:103
 #: include/ACFWPObjects/Fields/SelectPostType.php:264
 #: include/ACFWPObjects/Fields/SelectTaxonomy.php:261
 #: include/ACFWPObjects/Locations/PostTypeProp.php:72
@@ -83,10 +83,12 @@ msgstr ""
 msgid "Hierarchical"
 msgstr ""
 
+#: include/ACFWPObjects/Compat/ACF/FieldOption/InlineWYSIWYG.php:63
 #: include/ACFWPObjects/Compat/ACF/FieldOption/LayoutAccordion.php:45
 msgid "Accordion"
 msgstr ""
 
+#: include/ACFWPObjects/Compat/ACF/FieldOption/InlineWYSIWYG.php:64
 #: include/ACFWPObjects/Compat/ACF/FieldOption/LayoutAccordion.php:46
 msgid "Close other layouts when opening a Layout."
 msgstr ""
