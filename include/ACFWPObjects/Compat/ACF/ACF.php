@@ -47,8 +47,10 @@ class ACF extends Core\Singleton {
 
 		WPObjects::instance();
 		OptionsPage::instance();
-		FieldOption\Popup::instance();
+
+		FieldOption\InlineWYSIWYG::instance();
 		FieldOption\LayoutAccordion::instance();
+		FieldOption\Popup::instance();
 		FieldOption\TextID::instance();
 
 		if ( acf_get_setting('pro') ) {
