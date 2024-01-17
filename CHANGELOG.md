@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.7.5
+-----
+ - Fis: ID-Field value uniqueness
+
 0.7.4
 -----
  - Introduce Field option Inline Wysiwyg (will not output <p>)
