@@ -86,11 +86,9 @@ class ACF extends Core\Singleton {
 	 */
 	public function init() {
 
-		$choices = RepeaterChoices::instance();
 		$wp = Core\WP::instance();
 
 		$this->acf_input_js->localize( [
-			'repeated_fields' => $choices->get_repeated_fields(),
 			'post_types'	=> array_map( [ $this, 'reduce_pt' ], $wp->get_post_types() ),
 			'taxonomies'	=> array_map( [ $this, 'reduce_taxo' ], $wp->get_taxonomies() ),
 			'image_sizes'	=> array_map( [ $this, 'mk_image_sizes' ], $wp->get_image_sizes() ),
@@ -157,8 +155,11 @@ class ACF extends Core\Singleton {
 	 *	@action acf/field_group/admin_enqueue_scripts
 	 */
 	public function enqueue_field_group() {
-
+		$choices = RepeaterChoices::instance();
 		$this->acf_field_group_js
+			->localize([
+				'repeated_fields' => $choices->get_repeated_fields(),
+			], 'acf_wp_objects_fieldgroup')
 			->footer( false )
 			->deps( 'acf-field-group', $this->acf_input_js )
 			->enqueue();

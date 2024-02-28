@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 
-const repeated_fields = acf_wp_objects.repeated_fields;
+const repeated_fields = acf_wp_objects_fieldgroup.repeated_fields;
 const selector = '[data-key="repeater_field"] select';
 
 // reduce value & label field choices when repeater field changes

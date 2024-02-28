@@ -1,9 +1,13 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.7.6
+-----
+ - Improve startup Performance
+
 0.7.5
 -----
- - Fis: ID-Field value uniqueness
+ - Fix: ID-Field value uniqueness
 
 0.7.4
 -----
