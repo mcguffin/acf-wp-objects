@@ -606,6 +606,11 @@ class RepeaterChoices extends Core\Singleton {
 	 *	@return array rgba
 	 */
 	private function parse_color( $color ) {
+
+		if ( empty( $color ) ) {
+			return [0,0,0,1];
+		}
+
 		$do_int = function($i) {
 			return floatval($i) / 255;
 		};
@@ -620,18 +625,31 @@ class RepeaterChoices extends Core\Singleton {
 		};
 
 		$a = 1;
-		if ( preg_match( '/^#([0-9a-f]{1})([0-9a-f]{1})([0-9a-f]{1})$/i', $color, $matches ) ) {
+		if ( preg_match( '/^#([0-9a-f]{1})([0-9a-f]{1})([0-9a-f]{1})$/i', $color, $matches ) ) { // #000
 			$rgb = array_map( $do_hex1, $matches );
-		} else if ( preg_match( '/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i', $color, $matches ) ) {
+		} else if ( preg_match( '/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i', $color, $matches ) ) { // #000000
 			$rgb = array_map( $do_hex2, $matches );
-		} else if ( preg_match( '/^rgb\(([\d]+),([\d]+),([\d]+)\)$/', $color, $matches ) ) {
+		} else if ( preg_match( '/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i', $color, $matches ) ) { // #00000000
+			$a = $do_hex2( array_pop( $matches ) );
+			$rgb = array_map( $do_hex2, $matches );
+		} else if ( preg_match( '/^rgb\(([\d]+),([\d]+),([\d]+)\)$/', $color, $matches ) ) { // rgb(0,0,0)
 			$rgb = array_map( $do_int, $matches );
-		} else if ( preg_match( '/^rgba\(([\d]+),([\d]+),([\d]+),([\d\.]+)\)$/', $color, $matches ) ) {
+		} else if ( preg_match( '/^rgb\(([\d]+) ([\d]+) ([\d]+)\)$/', $color, $matches ) ) { // rgb(0 0 0)
+			$rgb = array_map( $do_int, $matches );
+		} else if ( preg_match( '/^rgba\(([\d]+),([\d]+),([\d]+),([\d\.]+)\)$/', $color, $matches ) ) { // rgb(0,0,0,0)
 			$a = array_pop( $matches );
 			$rgb = array_map( $do_int, $matches );
-		} else if ( preg_match( '/^rgb\(([\d%]+),([\d%]+),([\d%]+)\)$/', $color, $matches ) ) {
+		} else if ( preg_match( '/^rgba\(([\d]+)\s+([\d]+)\s+([\d]+)\s+\/\s+([\d\.]+)\)$/', $color, $matches ) ) { // rgb(0 0 0 / 0.0)
+			$a = array_pop( $matches );
+			$rgb = array_map( $do_int, $matches );
+		} else if ( preg_match( '/^rgba\(([\d]+)\s+([\d]+)\s+([\d]+)\s+\/\s+([\d%]+)\)$/', $color, $matches ) ) { // rgb(0 0 0 / 0%)
+			$a = array_pop( $matches );
+			$rgb = array_map( $do_int, $matches );
+		} else if ( preg_match( '/^rgb\(([\d%]+),([\d%]+),([\d%]+)\)$/', $color, $matches ) ) { // rgb(0%,0%,0%)
 			$rgb = array_map( $do_percent, $matches );
-		} else if ( preg_match( '/^rgba\(([\d%]+),([\d%]+),([\d\%]+),([\d\.]+)\)$/', $color, $matches ) ) {
+		} else if ( preg_match( '/^rgb\(([\d%]+)\s+([\d%]+)\s+([\d%]+)\)$/', $color, $matches ) ) { // rgb(0% 0% 0%)
+			$rgb = array_map( $do_percent, $matches );
+		} else if ( preg_match( '/^rgba\(([\d%]+),([\d%]+),([\d\%]+),([\d\.]+)\)$/', $color, $matches ) ) { // rgba(0%,0%,0%,0)
 			$a = array_pop($matches);
 			$rgb = array_map( $do_percent, $matches );
 		}

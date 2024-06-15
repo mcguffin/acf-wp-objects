@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.7.7
+-----
+ - Repeater choices: fix php warning
+
 0.7.6
 -----
  - Improve startup Performance
