@@ -1,39 +1,39 @@
 
 .acf-field {
 	&.sep-top {
-		border-top-width:5px !important;
+		border-top-width: 5px !important;
 		.form-table > tbody > & {
-			border-top-style:solid;
-			border-top-color:#eaeCf0;
+			border-top-style: solid;
+			border-top-color: #eaeCf0;
 		}
 	}
 	&.sep-left {
-		border-left-width:5px !important;
+		border-left-width: 5px !important;
 	}
 	&.sep-right {
-		border-right:5px solid #eee !important;
+		border-right: 5px solid #eee !important;
 		+ .acf-field.sep-left {
-			border-left-style:none;
+			border-left-style: none;
 		}
 	}
 	&.sep-bottom {
-		border-bottom:5px solid #eee !important;
+		border-bottom: 5px solid #eee !important;
 		+ .acf-field.sep-top {
-			border-top-style:none;
+			border-top-style: none;
 		}
 	}
 
 	&.sep-top-0 {
-		border-top-style:none !important;
+		border-top-style: none !important;
 	}
 	&.sep-left-0 {
-		border-left-style:none !important;
+		border-left-style: none !important;
 	}
 	&.sep-right-0 {
-		border-right-style:none !important;
+		border-right-style: none !important;
 	}
 	&.sep-bottom-0 {
-		border-bottom-style:none !important;
+		border-bottom-style: none !important;
 	}
 
 
