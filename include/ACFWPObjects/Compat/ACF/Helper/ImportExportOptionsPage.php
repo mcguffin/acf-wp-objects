@@ -167,6 +167,9 @@ class ImportExportOptionsPage extends Core\Singleton {
 		add_filter( 'acf/format_value', [ $this, 'get_raw_value'], 99, 3 );
 
 		foreach ( $fields as $field ) {
+			if ( empty( $field['name'] ) ) {
+				continue;
+			}
 			$value = get_field( $field['name'], $page['post_id'], true );
 			if ( ! is_null( $value ) ) {
 				$values += [ $field['name'] => $value ];
