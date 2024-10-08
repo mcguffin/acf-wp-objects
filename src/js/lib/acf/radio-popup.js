@@ -2,16 +2,23 @@ import $ from 'jquery';
 
 $(document).on('click', '.acf-field-radio.acf-popup > .acf-input label', e => {
 	// open popup
-	const field = e.target.closest('.acf-field');
-	const acfLabel = field.querySelector('.acf-label label')
+	const field    = e.target.closest('.acf-field');
 	const acfInput = field.querySelector('.acf-input')
+	const acfLabel = field.querySelector('.acf-label label')
 
+	let label, dataName
+	if ( field.matches('td') ) { // acf-table
+		dataName = field.getAttribute('data-name')
+		label = field.closest('table').querySelector(`thead th[data-name="${dataName}"]`).textContent
+	} else {
+		label = field.querySelector('.acf-label label').textContent
+	}
 	const reset = () => {
 		while ( ! $(acfInput).parent().is('.acf-field') ) {
 			$(acfInput).siblings().remove()
 			$(acfInput).unwrap()
 		}
-		$(acfLabel).css( { 'padding-bottom': '' } );
+		acfLabel && $(acfLabel).css( { 'padding-bottom': '' } );
 		$(document).off('keyup',escReset)
 		$('body').toggleClass( 'acf-popup-open', false );
 	}
@@ -21,11 +28,11 @@ $(document).on('click', '.acf-field-radio.acf-popup > .acf-input label', e => {
 		}
 	}
 	$('body').toggleClass( 'acf-popup-open', true );
-	$(acfLabel).css('padding-bottom',$(acfInput).height()+'px')
+	acfLabel && $(acfLabel).css('padding-bottom',$(acfInput).height()+'px')
 	$(acfInput).wrap('<div class="inner" />')
 		.closest('.inner').wrap('<div class="acf-popup-box" />')
 		.closest('.acf-popup-box').wrap('<div id="acf-popup" />')
-		.prepend(`<div class="title"><h3>${acfLabel.textContent}</h3><a href="#" class="acf-icon -cancel grey" data-event="close"></a></div>`)
+		.prepend(`<div class="title"><h3>${label}</h3><a href="#" class="acf-icon -cancel grey" data-event="close"></a></div>`)
 		.closest('#acf-popup').append('<div class="bg" data-event="close" />')
 		.on('click','[data-event="close"]', e => {
 			e.preventDefault()
