@@ -1,6 +1,11 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.7.8
+-----
+ - Fix: radio popup in .acf-table crashed
+ - Fix: import/export validation
+
 0.7.7
 -----
  - Repeater choices: fix php warning
