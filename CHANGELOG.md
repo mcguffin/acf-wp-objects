@@ -1,6 +1,12 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.7.9
+-----
+ - Fix: repeater choice action hook too early
+ - Fix css: Accordion field label in row layout
+ - Fix css: edit term seamless css
+
 0.7.8
 -----
  - Fix: radio popup in .acf-table crashed
