@@ -21,4 +21,17 @@
 			}
 		}
 	}
+	.acf-fields {
+		&.-left {
+			> .acf-field {
+				// fix for term
+				&.acf-field-accordion {
+					> .acf-label {
+						width: auto;
+						padding: 12px;
+					}
+				}
+			}
+		}
+	}
 }
