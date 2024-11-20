@@ -80,11 +80,12 @@ class RepeaterChoices extends Core\Singleton {
 	 */
 	protected function __construct( ) {
 
-		add_filter( 'acf/prepare_field/type=select', [ $this, 'prepare' ] );
-		add_filter( 'acf/prepare_field/type=radio', [ $this, 'prepare' ] );
-		add_filter( 'acf/prepare_field/type=button_group', [ $this, 'prepare' ] );
-		add_filter( 'acf/prepare_field/type=checkbox', [ $this, 'prepare' ] );
+		add_filter( 'acf/load_field/type=select', [ $this, 'prepare' ] );
+		add_filter( 'acf/load_field/type=radio', [ $this, 'prepare' ] );
+		add_filter( 'acf/load_field/type=button_group', [ $this, 'prepare' ] );
+		add_filter( 'acf/load_field/type=checkbox', [ $this, 'prepare' ] );
 
+		// migrate from legacy type
 		add_filter( 'acf/load_field/type=select', [ $this, 'migrate_field' ], 5 );
 		add_filter( 'acf/load_field/type=radio', [ $this, 'migrate_field' ], 5 );
 		add_filter( 'acf/load_field/type=button_group', [ $this, 'migrate_field' ], 5 );
