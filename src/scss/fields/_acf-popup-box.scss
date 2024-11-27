@@ -15,12 +15,52 @@
 			padding: 0;
 			margin: 1.5em 0 0;
 			.acf-field.acf-popup & {
-				margin-top:0;
+				margin-top: 0;
 			}
 		}
 	}
 	.inner {
 		padding: 15px;
+	}
+	.flt {
+		padding: 1em 0;
+		display: flex;
+		gap: 1em;
+		label {
+			display: inline-flex;
+			gap: 0.5em;
+			align-items: center;
+			cursor: pointer;
+
+			--unit: calc( 1em - 3px);
+			input {
+				display: none;
+			}
+			&::before {
+				// color: #ccc;
+				content: '';
+				display: inline-block;
+				height: var(--unit);
+				width: calc( 2 * var(--unit) );
+				border-radius: 40px;
+				background-image: radial-gradient(currentcolor calc( 0.5 * var(--unit) ), transparent calc( 0.5 * var(--unit) ));
+				background-size: var(--unit) var(--unit);
+				background-repeat: no-repeat;
+				background-position: left;
+				box-sizing: border-box;
+				outline: 1px solid currentColor;
+				outline-offset: 2px;
+			}
+			&:has(:checked)::before {
+				color: #2271b1;
+				background-position: right;
+			}
+			&:has(:disabled) {
+				opacity: 0.33;
+				pointer-events: none;
+				// cursor: default;
+			}
+		}
 	}
 	h2 {
 		color: #333333;
@@ -50,7 +90,7 @@ body {
 	&.acf-popup-open {
 		.acf-fields.-sidebar::before,
 		.acf-fields > .acf-tab-wrap .acf-tab-group {
-			z-index:0;
+			z-index: 0;
 		}
 		.acf-field.acf-accordion {
 			position: static;

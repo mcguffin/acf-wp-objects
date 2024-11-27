@@ -27,10 +27,65 @@ $(document).on('click', '.acf-field-radio.acf-popup > .acf-input label', e => {
 			reset()
 		}
 	}
+	const filter = (() => {
+
+		const selectors = [];
+
+		const filter = document.createElement('div')
+		const style  = document.createElement('style')
+
+		const keywords = Array.from(acfInput.querySelectorAll('data[value]'))
+			.map( el => el.getAttribute('value') )
+			.filter( val => !! val )
+			.filter( (value, index, array) => array.indexOf(value) === index )
+			.map( keyword => {
+				selectors.push( `.acf-popup-box .flt:has(:checked):has([value="${keyword}"]:checked) ~ .acf-input label:not(:has(data[value="${keyword}"]))`)
+				return keyword;
+			} )
+			.map( keyword => {
+				const label = document.createElement('label')
+				const input = document.createElement('input')
+				input.type  = 'checkbox'
+				input.value = keyword
+				label.textContent = keyword
+				label.append(input)
+				filter.append(label)
+				return keyword
+			} )
+
+		if ( ! keywords.length ) {
+			// empty div
+			return filter
+		}
+
+		filter.classList.add('flt')
+		style.innerHTML = selectors.join(',') + '{ opacity: 0.125; filter: grayscale(1); pointer-events: none; }'
+		filter.append(style)
+
+		return filter;
+	})()
+
+	const updateFilter = () => {
+		filter
+			.querySelectorAll('[type="checkbox"]')
+			.forEach( el => {
+				if ( ! el.matches(':checked')) {
+					const matchingElements = Array.from( acfInput.querySelectorAll(`label:has(data[value="${el.value}"])`) )
+						.filter( el => getComputedStyle(el).opacity === "1" )
+
+					el.disabled = matchingElements.length === 0
+				}
+			})
+	}
+
 	$('body').toggleClass( 'acf-popup-open', true );
+
 	acfLabel && $(acfLabel).css('padding-bottom',$(acfInput).height()+'px')
+// return console.log($(acfInput).wrap('<div class="inner" />').closest('.inner'))
 	$(acfInput).wrap('<div class="inner" />')
-		.closest('.inner').wrap('<div class="acf-popup-box" />')
+		.closest('.inner')
+		.prepend(filter)
+		.wrap('<div class="acf-popup-box" />')
 		.closest('.acf-popup-box').wrap('<div id="acf-popup" />')
 		.prepend(`<div class="title"><h3>${label}</h3><a href="#" class="acf-icon -cancel grey" data-event="close"></a></div>`)
 		.closest('#acf-popup').append('<div class="bg" data-event="close" />')
@@ -38,33 +93,17 @@ $(document).on('click', '.acf-field-radio.acf-popup > .acf-input label', e => {
 			e.preventDefault()
 			setTimeout(reset,50)
 		})
-		.on('click','label', e => {
+		.on('click','li > label', e => {
 			setTimeout(reset,50)
 		})
-		.on('change', e => {
-			// e.stopPropagation()
+		.on('change', '[type="radio"]', e => {
 			reset()
 		})
+		.on('change', '.flt [type="checkbox"]', e => {
+			updateFilter()
+		})
 	$(document).on('keyup',escReset)
-	//
-	//
-	//
-	//
-	// // popup.$('.inner:first').append( acfInput )
-	// // popup.$('.inner:first').append( button )
-	//
-	// field.appendChild(popup.$el.get(0))
 
-	//
-	// popup.on( 'submit', 'form', e => {
-	// 	e.preventDefault();
-	// 	console.log(arguments)
-	// 	field.appendChild(acfInput)
-	// 	popup.close()
-	// });
-	// popup.on( 'close', e => {
-	// 	field.appendChild(acfInput);
-	// } );
 	e.stopImmediatePropagation()
 	e.preventDefault()
 
