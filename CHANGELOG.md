@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.7.11
+------
+ - Fix CSS: ACF Popup Box
+
 0.7.9
 -----
  - Fix: repeater choice action hook too early
