@@ -1,5 +1,12 @@
 import $ from 'jquery';
 
+$(document).on('click', '.acf-field-radio.acf-popup .flt label', e => {
+	// prevent firing change events
+	e.preventDefault()
+	const cb = e.target.querySelector('[type="checkbox"]')
+	cb.checked = ! cb.checked
+})
+
 $(document).on('click', '.acf-field-radio.acf-popup > .acf-input label', e => {
 	// open popup
 	const field    = e.target.closest('.acf-field');
@@ -39,7 +46,7 @@ $(document).on('click', '.acf-field-radio.acf-popup > .acf-input label', e => {
 			.filter( val => !! val )
 			.filter( (value, index, array) => array.indexOf(value) === index )
 			.map( keyword => {
-				selectors.push( `.acf-popup-box .flt:has(:checked):has([value="${keyword}"]:checked) ~ .acf-input label:not(:has(data[value="${keyword}"]))`)
+				selectors.push( `.acf-popup-box .flt:has(:checked):has([value="${keyword}"]:checked) ~ .acf-input > .acf-radio-list > li:not(:has(data[value="${keyword}"]))`)
 				return keyword;
 			} )
 			.map( keyword => {
@@ -59,7 +66,8 @@ $(document).on('click', '.acf-field-radio.acf-popup > .acf-input label', e => {
 		}
 
 		filter.classList.add('flt')
-		style.innerHTML = selectors.join(',') + '{ opacity: 0.125; filter: grayscale(1); pointer-events: none; }'
+		// style.innerHTML = selectors.join(',') + '{ opacity: 0.125; filter: grayscale(1); pointer-events: none; }'
+		style.innerHTML = selectors.join(',') + '{ display: none; }'
 		filter.append(style)
 
 		return filter;

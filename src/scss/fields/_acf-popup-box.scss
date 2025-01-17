@@ -1,8 +1,25 @@
+#acf-popup {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	&:has(.flt) {
+		align-items: start;
+		padding-top: 15px;
+	}
+	&::before {
+		content: none;
+	}
+}
+
 .acf-popup-box {
 	background: #FFFFFF;
 	border: 1px solid #ccd0d4;
 	position: relative;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+	#acf-popup & {
+		display: inline-grid;
+		grid-template-rows: min-content auto;
+	}
 	/* title */
 	/* footer */
 	.title {
@@ -20,12 +37,24 @@
 		}
 	}
 	.inner {
-		padding: 15px;
+		#acf-popup & {
+			padding: 0 15px 15px 15px;
+			margin: 0;
+			overflow: auto;
+			max-height: calc(90vh - 60px);
+		}
 	}
 	.flt {
-		padding: 1em 0;
+		padding: 15px;
 		display: flex;
 		gap: 1em;
+		flex-wrap: wrap;
+		position: sticky;
+		top: 0;
+		background-color: #fff;
+		z-index: 1;
+		margin: 0 -15px 10px -15px;
+		box-shadow: 0 1px 2px rgba(0 0 0 / 0.05);
 		label {
 			display: inline-flex;
 			gap: 0.5em;
