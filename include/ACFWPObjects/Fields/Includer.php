@@ -214,8 +214,6 @@ class Includer extends \acf_field {
 
 		$conditional = $field['conditional_logic'];
 
-
-
 		foreach ( $include_fields as $include_field ) {
 
 			if ( $field['prefix_label'] ) {

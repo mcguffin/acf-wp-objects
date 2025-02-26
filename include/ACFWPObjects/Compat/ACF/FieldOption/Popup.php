@@ -55,7 +55,7 @@ class Popup extends Core\Singleton {
 	 *	@filter acf/prepare_field/type=radio
 	 */
 	public function prepare_field_late( $field ) {
-		if ( /*$field['repeater_choices'] &&*/ $field['is_popup'] && $field['allow_null'] ) {
+		if ( $field['is_popup'] && $field['allow_null'] ) {
 			$field['allow_null'] = 0;
 			if ( ! isset( $field['choices'][''] ) ) {
 				$field['choices'] = [
