@@ -1,0 +1,70 @@
+[data-name="preview-edit"] {
+	display: block;
+	appearance: none;
+	border: 1px dotted #ccc;
+	padding: 1em;
+	margin: 0;
+	background: none;
+	min-width: 50px;
+	min-height: 25px;
+	text-align: initial;
+	cursor: pointer;
+	&:hover,
+	&:focus {
+		border-style: solid;
+	}
+	a, button, input {
+		pointer-events: none;
+	}
+}
+.acf-dialog {
+	grid-template-rows: max-content auto max-content;
+	border-style: none;
+	padding: 0;
+	background-color: #fff;
+	box-shadow: 0 0 15px rgba(0,0,0,0.3);
+	&[open] {
+		display: grid;
+		.acf-field-wysiwyg & {
+			z-index: 100000;
+		}
+	}
+	.acf-dialog-head {
+		position: sticky;
+		top: 0;
+		z-index: 1;
+		padding: 1em;
+		background-color: #fff;
+		font-weight: 700;
+		font-size: 1.2em;
+		border-bottom: #ccd0d4 solid 1px;
+		display: flex;
+		align-items: start;
+		.-cancel {
+			margin-left: auto;
+		}
+	}
+	.acf-dialog-body {
+		background-color: #fff;
+		> .acf-fields {
+			border-style: none;
+		}
+		&:not(:has(.acf-fields)) {
+			padding: 0 1em;
+		}
+		&:last-child {
+			padding-bottom: 1em;
+		}
+	}
+	.acf-dialog-foot {
+		position: sticky;
+		bottom: 0;
+		padding: 1em;
+		background-color: #fff;
+		border-top: #ccd0d4 solid 1px;
+		display: flex;
+		.button-primary {
+			margin-left: auto;
+		}
+	}
+}

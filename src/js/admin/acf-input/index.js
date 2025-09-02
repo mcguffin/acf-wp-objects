@@ -3,7 +3,7 @@ import 'acf/select-conditions';
 import 'acf/condition-type-regex';
 import 'acf/condition-type-object-type';
 import 'acf/id-field';
-import 'acf/radio-popup';
+import 'acf/popup';
 import 'acf/select-nav-menu';
 import scrollIntoView from 'scroll-into-view-if-needed'
 import $ from 'jquery';
