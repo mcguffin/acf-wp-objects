@@ -51,6 +51,7 @@ class ACF extends Core\Singleton {
 		FieldOption\InlineWYSIWYG::instance();
 		FieldOption\LayoutAccordion::instance();
 		FieldOption\Popup::instance();
+		FieldOption\PrimaryTerm::instance();
 		FieldOption\TextID::instance();
 
 		if ( acf_get_setting('pro') ) {

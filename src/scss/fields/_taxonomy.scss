@@ -1,0 +1,13 @@
+.acf-field {
+	&[data-type="taxonomy"] {
+		.acf-checkbox-list {
+			li {
+				display: flex;
+				align-items: baseline;
+				.primary-term {
+					order: -1;
+				}
+			}
+		}
+	}
+}
