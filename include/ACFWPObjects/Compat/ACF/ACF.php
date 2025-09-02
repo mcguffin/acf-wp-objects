@@ -56,6 +56,7 @@ class ACF extends Core\Singleton {
 
 		if ( acf_get_setting('pro') ) {
 			RepeaterChoices::instance();
+			FieldOption\RepeaterPostSync::instance();
 		}
 		if ( is_admin() ) {
 			Forms\WPOptions::instance();
