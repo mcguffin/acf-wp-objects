@@ -68,12 +68,22 @@ class FieldKey extends Core\Singleton {
 		foreach ( $field as $k => $v ) {
 			if ( is_array( $v ) ) {
 				$field[$k] = $this->deep_reset_field_key( $v );
-			} else if ( is_string($v) && 0 === strpos( $v, 'field_' ) && in_array( $k, [ 'key', 'field', 'collapsed' ], true ) ) {
+			} else if ( $this->is_field_key( $v, $k ) ) {
 				$field[$k] = 'field_' . md5( $v );
 			}
 		}
 
 		return $field;
+	}
+
+	/**
+	 *	@param mixed $key
+	 *	@param string $prop
+	 *
+	 *	@return bool
+	 */
+	public function is_field_key( $key, $prop = '' ) {
+		return is_string($key) && 0 === strpos( $key, 'field_' ) && in_array( $prop, [ 'key', 'field', 'collapsed' ], true );
 	}
 
 	/**
