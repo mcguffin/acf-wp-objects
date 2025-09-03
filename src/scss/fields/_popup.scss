@@ -18,6 +18,11 @@
 	}
 }
 .acf-dialog {
+	position: fixed;
+	&::backdrop {
+		background-color: rgba(0,0,0,0.5);
+	}
+
 	grid-template-rows: max-content auto max-content;
 	border-style: none;
 	padding: 0;
@@ -67,4 +72,7 @@
 			margin-left: auto;
 		}
 	}
+}
+.mce-tooltip {
+	min-width: max-content;
 }

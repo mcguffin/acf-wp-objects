@@ -15,7 +15,7 @@ const previewFunctions = {
 				preview = preview.replaceAll(`{${field.get('name')}}`,field.val());
 			})
 			previewNode.innerHTML = preview
-			return previewNode
+			return Array.from(previewNode.childNodes)
 		},
 		resetValue: function() {
 			this.subFields().forEach( field => {
@@ -36,34 +36,73 @@ const previewFunctions = {
 		createPreview: function() {
 			const preview = document.createElement('div')
 			const value   = this.$el.get(0).querySelector('.acf-radio-list label.selected')
-			Array.from(value.childNodes).forEach( el => {
+			return Array.from(value.childNodes).forEach( el => {
 				const clone = el.cloneNode(true)
 				if ( !! el.matches && el.matches('input')) {
 					clone.removeAttribute('name')
 					clone.classList.add('acf-hidden')
 				}
-				preview.append(clone)
+				return clone;
 			})
-			return preview;
 		}
 	},
 	wysiwyg: {
 		createPreview: function() {
 			const preview = document.createElement('div')
 			preview.innerHTML = wp.autop.autop(this.val())
-			return preview
+			return preview.childNodes;
+		},
+		showEditor: function() {
+			this.initObserver()
+			this.editor().showModal();
+			this.observe()
+		},
+		hideEditor: function(response='') {
+			this.unobserve()
+			this.editor().close(response);
+		},
+		initObserver: function() {
+			if ( !! this.domObserver ) {
+				return
+			}
+
+			this.elObserver = new MutationObserver( records => {
+				const rect = this.editor().getBoundingClientRect()
+				for (const record of records) {
+					for (const addedNode of record.addedNodes) {
+						if ( addedNode.matches('body > :where(.mce-tooltip,.mce-floatpanel,mce-notification):not(.mce-window)')) {
+							addedNode.style.transform = `translate(-${rect.x}px,-${rect.y}px)`
+							this.editor().append(addedNode)
+						} else if ( addedNode.matches('body > .mce-window')) {
+							this.editor().append(addedNode)
+						}
+					}
+				}
+			})
+			this.mceDialogs = Array.from(document.querySelectorAll('body > :where(.mce-menu)'))
+			return this
+		},
+
+		observe: function() {
+			const rect = this.editor().getBoundingClientRect()
+			this.elObserver.observe(document.querySelector('body'),{childList:true})
+			this.mceDialogs.forEach( el => {
+				el.style.transform = `translate(-${rect.x}px,-${rect.y}px)`
+				this.editor().append(el)
+			})
+		},
+		unobserve: function() {
+			this.elObserver.disconnect()
+			this.mceDialogs.forEach( el => {
+				el.style.transform = 'translate(0px)'
+				document.body.append(el)
+			})
 		}
 	}
 };
 
 ['group','radio','wysiwyg'].forEach( type => {
 	const fieldType = acf.getFieldType(type)||acf.Field.extend({type})
-
-	// const events = Object.assign({}, fieldType.prototype.events, {
-	// 	'click [data-name="preview-edit"]': 'openEditor',
-	// 	'click [data-name="preview-edit-finish"]': 'closeEditor',
-	// 	'click [data-name="preview-edit-reset"]': 'resetEditor',
-	// }, previewFunctions[type].events??{} );
 
 	const events = Object.assign(
 		{},
@@ -82,13 +121,15 @@ const previewFunctions = {
 				editor: function() {
 					return this.$('dialog').get(0);
 				},
+				showEditor: function() {
+					this.editor().showModal();
+				},
+				hideEditor: function(response='') {
+					this.editor().close(response);
+				},
 				openEditor: function(e) {
 					this.storeValue()
-					if ( 'wysiwyg' === this.get('type') ) {
-						this.editor().show(); // cant show modal with rte. hides tinymce dialogs.
-					} else {
-						this.editor().showModal();
-					}
+					this.showEditor()
 					this.editor().addEventListener('close', e => {
 						if ( 'true' === this.editor().returnValue ) {
 							// update preview
@@ -99,10 +140,10 @@ const previewFunctions = {
 					})
 				},
 				resetEditor: function(e) {
-					this.editor().close('');
+					this.hideEditor();
 				},
 				closeEditor: function(e) {
-					this.editor().close('true');
+					this.hideEditor('true');
 				},
 				storeValue: function() {
 					this._prevValue = this.val()
@@ -111,10 +152,10 @@ const previewFunctions = {
 					this.val(this._prevValue)
 				},
 				updatePreview: function() {
-					const previewContainer = this.$el.get(0).querySelector('[data-name="preview-edit"]')
+					const previewContainer = this.$el.get(0).querySelector('[data-name="preview-edit"] .acf-field-preview')
 					const preview = this.createPreview()
 					previewContainer.innerHTML = '';
-					previewContainer.appendChild(preview)
+					preview.forEach( el => previewContainer.append(el) )
 				}
 			},
 			previewFunctions[type],

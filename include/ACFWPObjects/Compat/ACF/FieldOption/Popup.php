@@ -85,7 +85,7 @@ class Popup extends AbstractFieldOption {
 	public function render_radio_value($field) {
 		if ( isset( $field['choices'][ $field['value'] ] )) {
 			printf(
-				'<div><input type="radio" value="%s" class="acf-hidden" />%s</div>',
+				'<div class="acf-field-preview"><input type="radio" value="%s" class="acf-hidden" />%s</div>',
 				$field['value'],
 				$field['choices'][ $field['value'] ]
 			);
@@ -116,7 +116,7 @@ class Popup extends AbstractFieldOption {
 	}
 
 	public function render_wysiwyg_value($field) {
-		printf('<span class="dashicons dashicons-edit"></span><div>%s</div>', acf_format_value($field['value'], null, $field) );
+		printf('<span class="dashicons dashicons-edit"></span><div class="acf-field-preview">%s</div>', acf_format_value($field['value'], null, $field) );
 	}
 
 	/**
