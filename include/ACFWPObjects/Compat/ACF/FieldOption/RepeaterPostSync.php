@@ -17,8 +17,21 @@ class RepeaterPostSync extends Core\Singleton {
 	 */
 	protected function __construct() {
 		add_filter( 'acf/load_field/type=repeater', [$this, 'load_field'] );
+		add_filter( 'acf/prepare_field/type=repeater', [ $this, 'prepare_field' ] );
 		add_filter( 'acf/update_value/type=repeater', [$this, 'update_value'], 10, 3 );
 		add_action( 'acf/save_post', [ $this, 'save_post' ]);
+	}
+
+
+	/**
+	 *	@filter acf/load_field/type=post_object
+	 */
+	public function prepare_field( $field ) {
+
+		if ( is_array( $field['post_sync'] ) ) {
+			$field['data']['post_id_field'] = $field['post_sync']['post_id_field'];
+		}
+		return $field;
 	}
 
 	/**
@@ -70,6 +83,22 @@ class RepeaterPostSync extends Core\Singleton {
 			$postdata['meta_input']  = $this->translate_field_keys( array_diff_key( $curr, [ $post_id_field => '' ] ) );
 			if ( $curr[$post_id_field] && get_post( $curr[$post_id_field] ) ) {
 				$postdata['ID'] = $curr[$post_id_field];
+			}
+			if ( is_array( $postdata['post_title'] ) ) {
+				$postdata['post_title'] = implode('', array_map(
+					function($segment) use ( $post_id, $curr,$i ) {
+						if ( 'post_title' === $segment ) {
+							return get_the_title($post_id);
+						} else if ( strpos($segment,'field_') !== false ) {
+							$field = acf_get_field($segment);
+							return acf_format_value($curr[$segment],"{$post_id}:{$i}",$field);
+						} else if ( is_string($segment) ) {
+							return $segment;
+						}
+						return '';
+					},
+					$postdata['post_title']
+				));
 			}
 			$saved_post_id = wp_insert_post( $postdata, false, false );
 
