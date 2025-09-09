@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { fillTemplate } from '../template';
 
 const previewFunctions = {
 	group: {
@@ -9,12 +10,12 @@ const previewFunctions = {
 			})
 		},
 		createPreview: function() {
-			const previewNode = document.createElement('div')
-			let preview = this.previewTemplate();
+			const previewNode  = document.createElement('div')
+			const templateVars = {}
 			this.subFields().forEach( field => {
-				preview = preview.replaceAll(`{${field.get('name')}}`,field.val());
+				templateVars[field.get('name')] = field.val()
 			})
-			previewNode.innerHTML = preview
+			previewNode.innerHTML = fillTemplate(templateVars,this.previewTemplate())
 			return Array.from(previewNode.childNodes)
 		},
 		resetValue: function() {
@@ -49,7 +50,7 @@ const previewFunctions = {
 	wysiwyg: {
 		createPreview: function() {
 			const preview = document.createElement('div')
-			preview.innerHTML = wp.autop.autop(this.val())
+			preview.innerHTML = wp.editor.autop(this.val())
 			return preview.childNodes;
 		},
 		showEditor: function() {
@@ -79,7 +80,7 @@ const previewFunctions = {
 					}
 				}
 			})
-			this.mceDialogs = Array.from(document.querySelectorAll('body > :where(.mce-menu)'))
+			this.mceDialogs = Array.from(document.querySelectorAll('body > :where(.mce-menu,.mce-toolbar-grp)'))
 			return this
 		},
 
