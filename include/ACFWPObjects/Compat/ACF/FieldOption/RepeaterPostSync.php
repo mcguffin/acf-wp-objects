@@ -54,6 +54,7 @@ class RepeaterPostSync extends Core\Singleton {
 				'post_type'     => 'post',
 				'post_status'   => 'publish',
 				'post_title'    => $field['label'],
+				'post_meta'     => [],
 			] );
 		}
 		return $field;
@@ -206,12 +207,16 @@ class RepeaterPostSync extends Core\Singleton {
 		$saved_post_ids = [];
 		// save posts
 		foreach ( $current as $i => $curr ) {
-			$postdata = array_diff_key( $field['post_sync'], [ 'post_id_field' => '' ] );
+			$postdata = array_diff_key( $field['post_sync'], [ 'post_id_field' => '', 'post_meta' => '' ] );
 			$postdata['post_parent'] = $post_id;
 			$postdata['post_status'] = $post_status;
 			$postdata['menu_order']  = $i + 1;
 			$postdata['meta_input']  = $this->translate_field_keys( array_diff_key( $curr, [ $post_id_field => '' ] ) );
 			$postdata['meta_input']['_acfwpo_sync_repeater_field'] = $field_key;
+
+			foreach ( $field['post_sync']['post_meta'] as $meta_key ) {
+				$postdata['meta_input'][$meta_key] = get_post_meta( $post_id, $meta_key, true );
+			}
 
 			if ( $curr[$post_id_field] && get_post( $curr[$post_id_field] ) ) {
 				$postdata['ID'] = $curr[$post_id_field];
