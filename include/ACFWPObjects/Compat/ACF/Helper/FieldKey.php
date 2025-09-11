@@ -7,10 +7,6 @@
 
 namespace ACFWPObjects\Compat\ACF\Helper;
 
-if ( ! defined('ABSPATH') ) {
-	die('FU!');
-}
-
 use ACFWPObjects\Core;
 
 class FieldKey extends Core\Singleton {
@@ -54,7 +50,6 @@ class FieldKey extends Core\Singleton {
 		return $fields;
 	}
 
-
 	/**
 	 *	Make sure field keys are not referenced in the db
 	 *
@@ -83,7 +78,7 @@ class FieldKey extends Core\Singleton {
 	 *	@return bool
 	 */
 	public function is_field_key( $key, $prop = '' ) {
-		return is_string($key) && 0 === strpos( $key, 'field_' ) && in_array( $prop, [ 'key', 'field', 'collapsed' ], true );
+		return is_string($key) && 0 === strpos( $key, 'field_' ) && in_array( $prop, [ 'key', 'field', 'collapsed', 'message_target', 'post_id_field' ], true );
 	}
 
 	/**

@@ -29,12 +29,10 @@ function acf_get_page_layouts() {
  *	render layout template
  */
 function acf_page_layouts( $page_layout, $post_id = false ) {
-
 	while ( have_rows( $page_layout, $post_id ) ) {
 		the_row();
 
 		$args = get_row( true );
-
 		$args = apply_filters( 'acf_page_layout_args/' . $page_layout, $args );
 		$args = apply_filters( 'acf_page_layout_args/' . $page_layout . '/layout=' . get_row_layout(), $args );
 
