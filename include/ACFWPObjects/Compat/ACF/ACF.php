@@ -90,19 +90,21 @@ class ACF extends Core\Singleton {
 
 		$wp = Core\WP::instance();
 
-		$this->acf_input_js->localize( [
-			'post_types'	=> array_map( [ $this, 'reduce_pt' ], $wp->get_post_types() ),
-			'taxonomies'	=> array_map( [ $this, 'reduce_taxo' ], $wp->get_taxonomies() ),
-			'image_sizes'	=> array_map( [ $this, 'mk_image_sizes' ], $wp->get_image_sizes() ),
-			'object_type_props' => [
-				'_builtin'			=> __( 'Builtin', 'acf-wp-objects' ),
-				'public'			=> __( 'Public', 'acf-wp-objects' ),
-				'show_ui'			=> __( 'Show UI', 'acf-wp-objects' ),
-				'show_in_menu'		=> __( 'Show in Menus', 'acf-wp-objects' ),
-				'show_in_nav_menus'	=> __( 'Show in Nav Menus', 'acf-wp-objects' ),
-				'hierarchical'		=> __( 'Hierarchical', 'acf-wp-objects' ),
-			],
-		], 'acf_wp_objects' );
+		$this->acf_input_js
+			->deps('wp-api-fetch')
+				->localize( [
+				'post_types'	=> array_map( [ $this, 'reduce_pt' ], $wp->get_post_types() ),
+				'taxonomies'	=> array_map( [ $this, 'reduce_taxo' ], $wp->get_taxonomies() ),
+				'image_sizes'	=> array_map( [ $this, 'mk_image_sizes' ], $wp->get_image_sizes() ),
+				'object_type_props' => [
+					'_builtin'			=> __( 'Builtin', 'acf-wp-objects' ),
+					'public'			=> __( 'Public', 'acf-wp-objects' ),
+					'show_ui'			=> __( 'Show UI', 'acf-wp-objects' ),
+					'show_in_menu'		=> __( 'Show in Menus', 'acf-wp-objects' ),
+					'show_in_nav_menus'	=> __( 'Show in Nav Menus', 'acf-wp-objects' ),
+					'hierarchical'		=> __( 'Hierarchical', 'acf-wp-objects' ),
+				],
+			], 'acf_wp_objects' );
 
 		if ( apply_filters( 'acf_image_sweetspot_enable', false ) ) {
 			ImageSweetSpot::instance();
