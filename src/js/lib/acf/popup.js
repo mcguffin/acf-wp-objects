@@ -32,12 +32,14 @@ const previewFunctions = {
 	},
 	radio: {
 		events: {
-			'click [type="radio"]': 'closeEditor'
+			'click [type="radio"]': 'maybeCloseEditor'
+		},
+		maybeCloseEditor: function(e) {
+			this.editor() && this.hideEditor('true');
 		},
 		createPreview: function() {
-			const preview = document.createElement('div')
 			const value   = this.$el.get(0).querySelector('.acf-radio-list label.selected')
-			return Array.from(value.childNodes).forEach( el => {
+			return Array.from(value.childNodes).map( el => {
 				const clone = el.cloneNode(true)
 				if ( !! el.matches && el.matches('input')) {
 					clone.removeAttribute('name')
