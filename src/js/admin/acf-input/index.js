@@ -4,7 +4,7 @@ import 'acf/select-conditions';
 import 'acf/condition-type-regex';
 import 'acf/condition-type-object-type';
 import 'acf/id-field';
-import 'acf/message-template';
+import 'acf/post-object-message-template';
 import 'acf/popup';
 import 'acf/repeater-post-sync';
 import 'acf/repeater-deny-sort';

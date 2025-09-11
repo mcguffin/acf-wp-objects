@@ -1,10 +1,11 @@
 
-const fillTemplate = (vars,template) => {
-	console.log(vars)
+const fillTemplate = (vars,template,fallback = '') => {
+	let hasValues = false
 	Object.entries(vars).forEach(([key,value]) => {
+		hasValues |= !!value
 		template = template.replaceAll(`{${key}}`,value)
 	})
-	return template;
+	return hasValues ? template : fallback;
 }
 
 export {

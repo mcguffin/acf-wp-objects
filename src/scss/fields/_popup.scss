@@ -16,6 +16,16 @@
 	a, button, input {
 		pointer-events: none;
 	}
+	[data-type="group"] &,
+	[data-type="wysiwyg"] & {
+		display: grid;
+		grid-template-columns: auto min-content;
+		grid-auto-flow: row dense;
+		width: 100%;
+		.dashicons {
+			grid-column: 2;
+		}
+	}
 }
 .acf-dialog {
 	position: fixed;

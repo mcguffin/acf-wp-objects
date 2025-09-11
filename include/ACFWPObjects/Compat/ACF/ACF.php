@@ -50,6 +50,7 @@ class ACF extends Core\Singleton {
 
 		FieldOption\InlineWYSIWYG::instance();
 		FieldOption\LayoutAccordion::instance();
+		FieldOption\MessageTemplate::instance();
 		FieldOption\Popup::instance();
 		FieldOption\PrimaryTerm::instance();
 		FieldOption\TextID::instance();
