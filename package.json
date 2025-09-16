@@ -1,6 +1,6 @@
 {
   "name": "acf-wp-objects",
-  "version": "0.7.11",
+  "version": "0.8.0",
   "description": "Connecting WordPress Data with ACF Fields",
   "private": true,
   "scripts": {
@@ -35,11 +35,9 @@
     "jquery": "global:jQuery"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.8",
-    "@babel/plugin-proposal-class-properties": "^7.14.5",
-    "@babel/plugin-proposal-object-rest-spread": "^7.14.7",
-    "@babel/plugin-transform-react-jsx": "^7.14.5",
-    "@babel/preset-env": "^7.14.8",
+    "@babel/core": "^7.28.3",
+    "@babel/plugin-transform-object-rest-spread": "^7.28.0",
+    "@babel/preset-env": "^7.28.3",
     "babelify": "^10.0.0",
     "browserify": "^17.0.0",
     "browserify-shim": "^3.8.14",
