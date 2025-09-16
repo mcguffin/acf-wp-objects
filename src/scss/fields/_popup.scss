@@ -16,8 +16,8 @@
 	a, button, input {
 		pointer-events: none;
 	}
-	[data-type="group"] &,
-	[data-type="wysiwyg"] & {
+	[data-type="group"] > .acf-input > &,
+	[data-type="wysiwyg"] > .acf-input > & {
 		display: grid;
 		grid-template-columns: auto min-content;
 		grid-auto-flow: row dense;

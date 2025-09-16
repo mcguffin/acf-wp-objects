@@ -99,14 +99,18 @@ class Popup extends AbstractFieldOption {
 		<span class="dashicons dashicons-edit"></span>
 		<div class="acf-field-preview">
 			<?php
+			$has_values = false;
 			foreach ( $field['sub_fields'] as $sub_field ) {
 				$value = $field['value'][ $sub_field['key'] ]??'';
 				$name  = $sub_field['name'];
 				if ( is_scalar( $value ) ) {
 					$preview = str_replace( "{{$name}}", $value, $preview );
 				}
+				$has_values |= !! $value;
 			}
-			echo $preview;
+			if ( $has_values ) {
+				echo $preview;
+			}
 			?>
 		</div>
 		<template>
