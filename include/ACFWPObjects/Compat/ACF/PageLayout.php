@@ -117,38 +117,36 @@ class PageLayout extends Core\Singleton {
 		if ( is_string( $args ) ) {
 			$args = [
 				'title' => $args,
-				'name' => $args,
+				'name'  => $args,
 			];
 		}
 		$key = sanitize_title( $args['name'], sanitize_key( $args['name'] ), 'save' ); //
 		$args = wp_parse_args( $args, [
-			'key'					=> 'group_' . $key, // ?
-			'name'					=> $key,
-			'title'					=> $args['name'],
-			'label_placement'		=> 'top',
-			'instruction_placement'	=> 'label',
-			'menu_order'			=> 0,
-			'save_post_content'		=> false,
-			'is_accordion'			=> false,
-			'style'					=> 'seamless',
-			'button_label'			=> __( 'Add section', 'acf-wp-objects' ),
-			'fields'				=> [],
-			'wrapper'				=> [],
-			'location'				=> [
+			'key'                   => 'group_' . $key, // ?
+			'name'                  => $key,
+			'title'                 => $args['name'],
+			'label_placement'       => 'top',
+			'instruction_placement' => 'label',
+			'menu_order'            => 0,
+			'save_post_content'     => false,
+			'is_accordion'          => false,
+			'style'                 => 'seamless',
+			'button_label'          => __( 'Add section', 'acf-wp-objects' ),
+			'fields'                => [],
+			'wrapper'               => [],
+			'location'              => [
 				[
 					[
-						'param'		=> 'post_type',
-						'operator'	=> '==',
-						'value'		=> 'page',
+						'param'    => 'post_type',
+						'operator' => '==',
+						'value'    => 'page',
 					],
 				]
 			],
-			'hide_on_screen' => [
-				'the_content',
-				'excerpt'
-			],
+			'hide_on_screen'        => [ 'the_content', 'excerpt' ],
+			'show_in_rest'          => 0,
 		]);
-		$args['key'] =  'group_' . $key;
+		$args['key']  =  'group_' . $key;
 		$args['type'] = 'flexible_content';
 
 
@@ -222,31 +220,31 @@ class PageLayout extends Core\Singleton {
 
 		// description
 		acf_render_field_wrap( [
-			'label'			=> __('Row Layout Slug','acf-wp-objects'),
-			'instructions'	=> $instructions,
-			'type'			=> 'text',
-			'name'			=> 'row_layout',
-			'prefix'		=> 'acf_field_group',
-			'value'			=> $field_group[ 'row_layout' ],
+			'label'        => __('Row Layout Slug','acf-wp-objects'),
+			'instructions' => $instructions,
+			'type'         => 'text',
+			'name'         => 'row_layout',
+			'prefix'       => 'acf_field_group',
+			'value'        => $field_group[ 'row_layout' ],
 		] );
 
 
 		acf_render_field_wrap( [
-			'label'			=> __('Min Layouts','acf-wp-objects'),
-			'instructions'	=> '',
-			'type'			=> 'text',
-			'name'			=> 'layout_min',
-			'prefix'		=> 'acf_field_group',
-			'value'			=> $field_group[ 'layout_min' ],
+			'label'        => __('Min Layouts','acf-wp-objects'),
+			'instructions' => '',
+			'type'         => 'text',
+			'name'         => 'layout_min',
+			'prefix'       => 'acf_field_group',
+			'value'        => $field_group[ 'layout_min' ],
 		] );
 
 		acf_render_field_wrap( [
-			'label'			=> __('Max Layouts','acf-wp-objects'),
-			'instructions'	=> '',
-			'type'			=> 'text',
-			'name'			=> 'layout_max',
-			'prefix'		=> 'acf_field_group',
-			'value'			=> $field_group[ 'layout_max' ],
+			'label'        => __('Max Layouts','acf-wp-objects'),
+			'instructions' => '',
+			'type'         => 'text',
+			'name'         => 'layout_max',
+			'prefix'       => 'acf_field_group',
+			'value'        => $field_group[ 'layout_max' ],
 		] );
 
 	}
@@ -308,45 +306,46 @@ class PageLayout extends Core\Singleton {
 
 			}, acf_get_fields( $field_group ) );
 			$layouts[ $key ] = [
-				'key'			=> $key,
-				'name'			=> $field_group[ 'row_layout' ],
-				'label'			=> $field_group['title'],
-				'display'		=> $field_group['label_placement'] === 'top' ? 'block' : 'row',
-				'sub_fields'	=> $sub_fields,
-				'min'			=> $field_group[ 'layout_min' ],
-				'max'			=> $field_group[ 'layout_max' ],
+				'key'        => $key,
+				'name'       => $field_group[ 'row_layout' ],
+				'label'      => $field_group['title'],
+				'display'    => $field_group['label_placement'] === 'top' ? 'block' : 'row',
+				'sub_fields' => $sub_fields,
+				'min'        => $field_group[ 'layout_min' ],
+				'max'        => $field_group[ 'layout_max' ],
 			];
 		}
 
 
 
 		$local_field_group = [
-			'key'		=> 'group_'.$layout_key,
-			'title' 	=> $args['title'],
-			'fields'	=> array_merge( $args['fields'], [
+			'key'                   => 'group_'.$layout_key,
+			'title'                 => $args['title'],
+			'fields'                => array_merge( $args['fields'], [
 				[
-					'key'				=> 'field_' . $args['name'],
-					'label'				=> $args['title'],
-					'name'				=> $args['name'],
-					'type'				=> 'flexible_content',
-					'instructions'		=> '',
-					'required'			=> 0,
-					'conditional_logic'	=> [],
-					'wrapper'			=> $args['wrapper'],
-					'layouts'			=> $layouts,
-					'button_label'		=> $args['button_label'],
-					'is_accordion'		=> $args['is_accordion'],
-					'min'				=> '',
-					'max'				=> '',
+					'key'               => 'field_' . $args['name'],
+					'label'             => $args['title'],
+					'name'              => $args['name'],
+					'type'              => 'flexible_content',
+					'instructions'      => '',
+					'required'          => 0,
+					'conditional_logic' => [],
+					'wrapper'           => $args['wrapper'],
+					'layouts'           => $layouts,
+					'button_label'      => $args['button_label'],
+					'is_accordion'      => $args['is_accordion'],
+					'min'               => '',
+					'max'               => '',
 				]
 			] ),
-			'location'				=> $args['location'],
-			'menu_order'			=> $args['menu_order'],
-			'position'				=> 'normal',
-			'style'					=> $args['style'],
-			'label_placement'		=> $args['label_placement'],
-			'instruction_placement'	=> $args['instruction_placement'],
-			'hide_on_screen'		=> $args['hide_on_screen'],
+			'location'              => $args['location'],
+			'menu_order'            => $args['menu_order'],
+			'position'              => 'normal',
+			'style'                 => $args['style'],
+			'label_placement'       => $args['label_placement'],
+			'instruction_placement' => $args['instruction_placement'],
+			'hide_on_screen'        => $args['hide_on_screen'],
+			'show_in_rest' => 1,
 		];
 		acf_add_local_field_group( $local_field_group );
 
