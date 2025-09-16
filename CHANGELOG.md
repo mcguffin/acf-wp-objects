@@ -1,6 +1,14 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.8.0
+-----
+ - Enable Popup for Wysiwyg, Group and Radio
+ - Add Option "Is Primary Term" for taxonomy fields
+ - Create and sync posts from a repeater (no UI, JSON config only)
+ - Generate Message from Post Object (no UI, JSON config only)
+ - PageLayouts: add `show_in_rest` option
+
 0.7.11
 ------
  - Fix CSS: ACF Popup Box
