@@ -18,7 +18,7 @@ class RepeaterPostSync extends Core\Singleton {
 	protected function __construct() {
 		add_filter( 'acf/load_field/type=repeater', [$this, 'load_field'] );
 		add_filter( 'acf/prepare_field/type=repeater', [ $this, 'prepare_field' ] );
-		// add_filter( 'acf/update_value/type=repeater', [$this, 'update_value'], 10, 3 );
+		add_filter( 'acf/update_value/type=repeater', [$this, 'update_value'], 10, 3 );
 		add_action( 'acf/save_post', [ $this, 'sync_post' ]);
 		add_action('trashed_post', [ $this, 'sync_post'] );
 		add_action('deleted_post', [ $this, 'deleted_post'] );
@@ -58,6 +58,19 @@ class RepeaterPostSync extends Core\Singleton {
 			] );
 		}
 		return $field;
+	}
+
+	/**
+	 *	Setup sync
+	 *
+	 *	@filter acf/update_value/type=repeater
+	 */
+	public function update_value($value, $post_id, $field) {
+		if ( is_array( $field['post_sync'] ) ) {
+			// save synced feld key in post
+			$this->add_sync_field( $post_id, $field['key'] );
+		}
+		return $value;
 	}
 
 	/**
@@ -200,9 +213,6 @@ class RepeaterPostSync extends Core\Singleton {
 		$current       = get_field( $field_key, $post_id, false );
 		$post_id_field = $field['post_sync']['post_id_field'];
 		$post_status   = get_post_status($post_id);
-
-		// save synced in parent field
-		$this->add_sync_field($post_id, $field_key);
 
 		$saved_post_ids = [];
 		// save posts
