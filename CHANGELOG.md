@@ -1,6 +1,10 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.8.1
+-----
+ - Fix post sync
+
 0.8.0
 -----
  - Enable Popup for Wysiwyg, Group and Radio
