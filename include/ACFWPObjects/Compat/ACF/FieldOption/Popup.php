@@ -83,14 +83,15 @@ class Popup extends AbstractFieldOption {
 	}
 
 	public function render_radio_value($field) {
+		echo '<div class="acf-field-preview">';
 		if ( isset( $field['choices'][ $field['value'] ] )) {
 			printf(
-				'<div class="acf-field-preview"><input type="radio" value="%s" class="acf-hidden" />%s</div>',
+				'<input type="radio" value="%s" class="acf-hidden" />%s',
 				$field['value'],
 				$field['choices'][ $field['value'] ]
 			);
 		}
-
+		echo '</div>';
 	}
 
 	public function render_group_value($field) {
