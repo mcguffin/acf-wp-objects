@@ -58,7 +58,7 @@ class Popup extends AbstractFieldOption {
 		<dialog class="acf-dialog">
 			<div class="acf-dialog-head">
 				<?php echo esc_html($field['label']); ?>
-				<button type="reset" class="acf-icon -cancel grey" data-name="preview-edit-reset" title="<?php esc_attr_e('Cancel','acf-wp-objects'); ?>"></button>
+				<button type="button" class="acf-icon -cancel grey" data-name="preview-edit-reset" title="<?php esc_attr_e('Cancel','acf-wp-objects'); ?>"></button>
 			</div>
 			<div class="acf-dialog-body">
 		<?php
