@@ -2,14 +2,14 @@
 # This file is distributed under the GPL3.
 msgid ""
 msgstr ""
-"Project-Id-Version: ACF WP-Objects 0.8.2\n"
+"Project-Id-Version: ACF WP-Objects 0.8.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/acf-wp-objects\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-09-24T15:05:59+02:00\n"
+"POT-Creation-Date: 2025-09-24T21:45:02+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: acf-wp-objects\n"
@@ -106,37 +106,38 @@ msgstr ""
 msgid "Okay"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOption/Popup.php:134
+#: include/ACFWPObjects/Compat/ACF/FieldOption/Popup.php:135
 msgid "– none –"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOption/Popup.php:150
+#: include/ACFWPObjects/Compat/ACF/FieldOption/Popup.php:151
 msgid "Popup"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOption/Popup.php:151
+#: include/ACFWPObjects/Compat/ACF/FieldOption/Popup.php:152
 msgid "Edit field value in Popup."
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOption/Popup.php:166
+#: include/ACFWPObjects/Compat/ACF/FieldOption/Popup.php:167
 msgid "Preview template"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOption/Popup.php:167
+#: include/ACFWPObjects/Compat/ACF/FieldOption/Popup.php:168
 msgid "Use sub field names in curly braces as placeholders."
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOption/PrimaryTerm.php:38
+#: include/ACFWPObjects/Compat/ACF/FieldOption/PrimaryTerm.php:55
+#: include/ACFWPObjects/Compat/ACF/FieldOption/PrimaryTerm.php:131
+#, php-format
+msgid "Primary %s"
+msgstr ""
+
+#: include/ACFWPObjects/Compat/ACF/FieldOption/PrimaryTerm.php:70
 msgid "Select Primary Term"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOption/PrimaryTerm.php:64
+#: include/ACFWPObjects/Compat/ACF/FieldOption/PrimaryTerm.php:96
 msgid "Post-Meta-Prefix"
-msgstr ""
-
-#: include/ACFWPObjects/Compat/ACF/FieldOption/PrimaryTerm.php:109
-#, php-format
-msgid "Primary %s"
 msgstr ""
 
 #: include/ACFWPObjects/Compat/ACF/FieldOption/TextID.php:63
