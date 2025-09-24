@@ -11,12 +11,13 @@ class PrimaryTerm extends Core\Singleton {
 	 */
 	protected function __construct() {
 
+		add_filter( 'acf/prepare_field/type=taxonomy', [ $this, 'prepare_field' ] );
+		add_action( 'acf/render_field/type=taxonomy', [$this, 'render_field'] );
 		add_filter( 'acf/load_field/type=taxonomy', [ $this, 'load_field' ] );
 		add_action( 'acf/field_group/render_field_settings_tab/general/type=taxonomy', [ $this, 'field_settings_general' ] );
 		add_filter( 'acf/fields/taxonomy/wp_list_categories', [ $this, 'wp_list_categories_args' ], 10, 2 );
 		add_filter( 'acf/update_value/type=taxonomy', [ $this, 'update_value' ], 10, 3 );
 		add_filter( 'acf/load_value/type=taxonomy', [ $this, 'load_value' ], 20, 3 );
-
 	}
 
 	/**
@@ -28,6 +29,37 @@ class PrimaryTerm extends Core\Singleton {
 			'primary_term'        => 0,
 			'primary_term_prefix' => 'primary',
 		] );
+	}
+
+	/**
+	 *	@filter acf/prepare_field/type=post_object
+	 */
+	public function prepare_field( $field ) {
+		$field = wp_parse_args($field, [ 'message_template' => '', 'message_target' => 0 ]);
+		if ( $field['primary_term'] ) {
+			$field['data']['primary_term'] = 'true';
+		}
+		return $field;
+	}
+
+	/**
+	 *	@filter acf/prepare_field/type=post_object
+	 */
+	public function render_field($field) {
+		if ( $field['primary_term'] ) {
+			?><template><?php
+
+			printf(
+				'<label class="primary-term acf-js-tooltip" title="%1$s"><input type="radio" name="%2$s[%3$s]" value="{term_id}" /></label>',
+				sprintf(
+					esc_attr__('Primary %s','acf-wp-objects'),
+					get_taxonomy_labels(get_taxonomy($field['taxonomy']))->singular_name
+				),
+				$field['name'],
+				$this->get_meta_key($field)
+			);
+			?></template><?php
+		}
 	}
 
 	/**
@@ -73,16 +105,6 @@ class PrimaryTerm extends Core\Singleton {
 					'operator' => '==',
 					'value'    => 1,
 				],
-				// [
-				// 	'field'    => 'load_terms',
-				// 	'operator' => '==',
-				// 	'value'    => 1,
-				// ],
-				// [
-				// 	'field'    => 'field_type',
-				// 	'operator' => '==',
-				// 	'value'    => 'checkbox',
-				// ],
 			],
 		));
 
@@ -161,6 +183,9 @@ class PrimaryTerm extends Core\Singleton {
 		return $value;
 	}
 
+	/**
+	 *	@filter acf/update_value/type=taxonomy
+	 */
 	public function get_meta_key( $field ) {
 		return "{$field['primary_term_prefix']}_{$field['taxonomy']}";
 	}

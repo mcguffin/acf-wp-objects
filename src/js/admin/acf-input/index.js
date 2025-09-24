@@ -11,3 +11,4 @@ import 'acf/repeater-deny-sort';
 import 'acf/select-nav-menu';
 import 'acf/accordion-layout';
 import 'acf/tab-url-navigation';
+import 'acf/taxonomy-primary-term';
