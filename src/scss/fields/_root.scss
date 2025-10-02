@@ -1,0 +1,6 @@
+:root {
+	--acfwpo-transparency: linear-gradient(45deg, #ededed 25%, transparent 25%),
+						linear-gradient(-45deg, #ededed 25%, transparent 25%),
+						linear-gradient(45deg, transparent 75%, #ededed 75%),
+						linear-gradient(-45deg, transparent 75%, #ededed 75%);
+}
