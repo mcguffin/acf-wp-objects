@@ -1,6 +1,18 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.8.4
+-----
+ - Fix wysiwyg popup
+
+0.8.3
+-----
+ - Fix Primary Term Ajax Add
+
+0.8.2
+-----
+ - Fix radio popup
+
 0.8.1
 -----
  - Fix post sync
