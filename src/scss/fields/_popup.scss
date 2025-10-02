@@ -29,19 +29,19 @@
 }
 .acf-dialog {
 	position: fixed;
-	&::backdrop {
-		background-color: rgba(0,0,0,0.5);
-	}
-
 	grid-template-rows: max-content auto max-content;
 	border-style: none;
 	padding: 0;
 	background-color: #fff;
 	box-shadow: 0 0 15px rgba(0,0,0,0.3);
+	&::backdrop {
+		background-color: rgba(0,0,0,0.5);
+	}
 	&[open] {
 		display: grid;
 		.acf-field-wysiwyg & {
 			z-index: 100000;
+			overflow: visible;
 		}
 	}
 	.acf-dialog-head {
@@ -64,11 +64,14 @@
 		> .acf-fields {
 			border-style: none;
 		}
-		&:not(:has(.acf-fields)) {
+		&:not(:has(.acf-fields,.wp-editor-wrap)) {
 			padding: 0 1em;
 		}
 		&:last-child {
 			padding-bottom: 1em;
+		}
+		.wp-editor-wrap {
+			// margin: 1em 0;
 		}
 	}
 	.acf-dialog-foot {
@@ -81,6 +84,9 @@
 		.button-primary {
 			margin-left: auto;
 		}
+	}
+	div.mce-inline-toolbar-grp {
+		position: fixed;
 	}
 }
 .mce-tooltip {
