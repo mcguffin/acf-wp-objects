@@ -5,7 +5,7 @@ Plugin Name: ACF WP-Objects
 Plugin URI: https://github.com/mcguffin/acf-wp-objects
 Description: Connecting WordPress Data with ACF Fields
 Author: Jörn Lund
-Version: 0.8.3
+Version: 0.8.4
 Author URI: https://github.com/mcguffin
 License: GPL3
 GitHub Plugin URI: mcguffin/acf-wp-objects
