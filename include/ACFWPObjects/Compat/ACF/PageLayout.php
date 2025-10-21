@@ -38,9 +38,13 @@ class PageLayout extends Core\Singleton {
 
 		if ( false !== $this->should_save_post_content ) {
 
-			$content = false;
+			list( $save_post_id, $layout ) = $this->should_save_post_content;
 
-			$layout = $this->should_save_post_content;
+			if ( $save_post_id !== $post_id ) {
+				return;
+			}
+
+			$content = false;
 
 			$this->should_save_post_content = false;
 
@@ -58,7 +62,7 @@ class PageLayout extends Core\Singleton {
 				remove_action( 'post_updated', 'wp_save_post_revision', 10 );
 
 				wp_update_post([
-					'ID' => $post_id,
+					'ID'           => $post_id,
 					'post_content' => $contents,
 				]);
 
@@ -316,14 +320,14 @@ class PageLayout extends Core\Singleton {
 			];
 		}
 
-
+		$flex_field_key = 'field_' . $args['name'];
 
 		$local_field_group = [
 			'key'                   => 'group_'.$layout_key,
 			'title'                 => $args['title'],
 			'fields'                => array_merge( $args['fields'], [
 				[
-					'key'               => 'field_' . $args['name'],
+					'key'               => $flex_field_key, //'field_' . $args['name'],
 					'label'             => $args['title'],
 					'name'              => $args['name'],
 					'type'              => 'flexible_content',
@@ -363,7 +367,7 @@ class PageLayout extends Core\Singleton {
 	public function update_value( $value, $post_id, $field ) {
 
 		/** @var layout name */
-		$this->should_save_post_content = $field['name'];
+		$this->should_save_post_content = [ $post_id, $field['name'] ];
 
 		return $value;
 
