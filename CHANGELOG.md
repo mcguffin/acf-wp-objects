@@ -1,6 +1,14 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.8.8
+-----
+ - Fix CSS: color spots empty value
+
+0.8.7
+-----
+ - Fix color popup
+
 0.8.6
 -----
  - Fix wysiwyg popup. Again.

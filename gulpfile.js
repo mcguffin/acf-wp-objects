@@ -20,12 +20,6 @@ const config = {
 		outputStyle: 'compressed',
 		precision: 8,
 		stopOnError: false,
-		functions: {
-			'base64Encode($string)': $string => {
-				var buffer = new Buffer( $string.getValue() );
-				return sass.types.String( buffer.toString('base64') );
-			}
-		},
 		includePaths:['src/scss/']
 	}
 }
@@ -73,18 +67,18 @@ gulp.task('dev:js', cb => {
 		.map( entry => {
 			let target = entry.replace(/(\.\/src\/js\/|\/index)/g,'');
 			return browserify({
-			        entries: [entry],
+				entries: [entry],
 					debug: true,
 					paths:['./src/js/lib']
-			    })
+				})
 				.transform( babelify.configure({}) )
 				.transform( 'browserify-shim' )
 				.bundle()
 				.pipe(source(target))
 				.pipe(buffer())
-			    .pipe(sourcemaps.init({loadMaps:true}))
-			    .pipe(uglify())
-			    .pipe(sourcemaps.write())
+				.pipe(sourcemaps.init({loadMaps:true}))
+				.pipe(uglify())
+				.pipe(sourcemaps.write())
 				.pipe(gulp.dest("./js"));
 		} );
 
