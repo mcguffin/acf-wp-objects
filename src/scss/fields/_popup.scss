@@ -39,6 +39,9 @@
 	}
 	&[open] {
 		display: grid;
+		body:has(&) {
+			overflow: hidden;
+		}
 		.acf-field-wysiwyg & {
 			z-index: 100000;
 			overflow: visible;

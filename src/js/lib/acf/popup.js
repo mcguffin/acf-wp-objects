@@ -18,6 +18,73 @@ const fieldMapping = (fieldEl,field) => {
 	return mapping
 }
 
+
+const getObserver = cb => {
+	return new MutationObserver( records => {
+		for (const record of records) {
+			for (const addedNode of record.addedNodes) {
+				cb(addedNode)
+			}
+		}
+	})
+}
+
+const defaultFunctions = {
+	editor: function(e) {
+		return this.$('dialog').get(0);
+	},
+	showEditor: function(e) {
+		this.initObserver(e)
+		this.editor(e).showModal();
+		this.observe(e)
+	},
+	hideEditor: function(e,response='') {
+		this.unobserve(e)
+		this.editor(e).close(response);
+	},
+	openEditor: function(e) {
+		this.storeValue(e)
+		this.showEditor(e)
+		this.editor(e).addEventListener('close', ee => {
+			console.log()
+			if ( 'true' === this.editor(e).returnValue ) {
+				// update preview
+				this.updatePreview(e)
+			} else {
+				this.resetValue(e)
+			}
+		})
+	},
+	resetEditor: function(e) {
+		this.hideEditor(e);
+	},
+	closeEditor: function(e) {
+		console.log(e)
+		this.hideEditor(e,'true');
+	},
+	storeValue: function(e) {
+		this._prevValue = this.val()
+	},
+	resetValue: function(e) {
+		this.val(this._prevValue)
+	},
+	previewContainer: function(e) {
+		return this.$el.get(0).querySelector('[data-name="preview-edit"] .acf-field-preview');
+	},
+	updatePreview: function(e) {
+		const previewContainer = this.previewContainer(e)
+		const preview = this.createPreview(e)
+		previewContainer.innerHTML = '';
+		preview.forEach( el => previewContainer.append(el) )
+	},
+	initObserver: function(e) {
+	},
+	observe: function(e) {
+	},
+	unobserve: function(e) {
+	}
+}
+
 const groupFunctions = {
 	storeValue: function(e) {
 		this._prevValue = {}
@@ -26,7 +93,6 @@ const groupFunctions = {
 				this._prevValue[name] = field.val();
 			}
 		})
-		console.log(this.fieldMapping(e),this._prevValue)
 	},
 	createPreview: function(e) {
 		const previewNode  = document.createElement('div')
@@ -73,6 +139,11 @@ const previewFunctions = {
 		maybeCloseEditor: function(e) {
 			this.editor(e) && this.hideEditor(e,'true');
 		},
+		showEditor: function(e) {
+			this.initObserver(e)
+			this.editor(e).showModal();
+			this.observe(e)
+		},
 		createPreview: function(e) {
 			const value   = this.$el.get(0).querySelector('.acf-radio-list label.selected')
 			return Array.from(value.childNodes).map( el => {
@@ -101,23 +172,22 @@ const previewFunctions = {
 			this.editor(e).close(response);
 		},
 		initObserver: function(e) {
-			if ( !! this.domObserver ) {
-				return
-			}
+			if ( ! this.elObserver ) {
+				this.elObserver = getObserver( addedNode => {
+					const rect = this.editor(e).getBoundingClientRect()
 
-			this.elObserver = new MutationObserver( records => {
-				const rect = this.editor(e).getBoundingClientRect()
-				for (const record of records) {
-					for (const addedNode of record.addedNodes) {
-						if ( addedNode.matches('body > :where(.mce-floatpanel,mce-notification):not(.mce-window)')) {
-							this.editor(e).append(addedNode)
-						} else if ( addedNode.matches('body > .mce-tooltip')) {
-							addedNode.style.transform = `translate(-${rect.x}px,-${rect.y}px)`
-							this.editor(e).append(addedNode)
+					if ( addedNode.matches('body > :is(.mce-widget,.mce-container)')) {
+						this.editor(e).append(addedNode)
+						if ( addedNode.matches('.mce-tooltip,.mce-menu,.mce-toolbar-grp')) {
+							addedNode.style.transform = `translate(-${rect.x}px,-${rect.y*1+window.scrollY*1}px)`
 						}
+						if ( addedNode.matches('.mce-menu')) {
+							this.mceDialogs.push(addedNode)
+						}
+
 					}
-				}
-			})
+				})
+			}
 			this.mceDialogs = Array.from(document.querySelectorAll('body > :where(.mce-menu,.mce-toolbar-grp)'))
 			return this
 		},
@@ -126,13 +196,18 @@ const previewFunctions = {
 			const rect = this.editor(e).getBoundingClientRect()
 			this.elObserver.observe(document.querySelector('body'),{childList:true})
 			this.mceDialogs.forEach( el => {
-				// el.style.transform = `translate(-${rect.x}px,-${rect.y}px)`
-				el.style.transform = `translateY(-${window.scrollY}px)`
+				if ( el.matches('.mce-menu') ) {
+					const rect = this.editor(e).getBoundingClientRect()
+					addedNode.style.transform = `translate(-${rect.x}px,-${rect.y*1+window.scrollY*1}px)`
+				} else {
+					el.style.transform = `translateY(-${window.scrollY}px)`
+				}
 				this.editor(e).append(el)
 			})
 		},
 		unobserve: function(e) {
 			this.elObserver.disconnect()
+			console.log(this.mceDialogs)
 			this.mceDialogs.forEach( el => {
 				el.style.transform = 'translateY(0px)'
 				document.body.append(el)
@@ -157,52 +232,7 @@ const previewFunctions = {
 
 	acf.registerFieldType(fieldType.extend(
 		Object.assign(
-			{
-				editor: function(e) {
-					return this.$('dialog').get(0);
-				},
-				showEditor: function(e) {
-					this.editor(e).showModal();
-				},
-				hideEditor: function(e,response='') {
-					this.editor(e).close(response);
-				},
-				openEditor: function(e) {
-					this.storeValue(e)
-					this.showEditor(e)
-					this.editor(e).addEventListener('close', ee => {
-						console.log()
-						if ( 'true' === this.editor(e).returnValue ) {
-							// update preview
-							this.updatePreview(e)
-						} else {
-							this.resetValue(e)
-						}
-					})
-				},
-				resetEditor: function(e) {
-					this.hideEditor(e);
-				},
-				closeEditor: function(e) {
-					console.log(e)
-					this.hideEditor(e,'true');
-				},
-				storeValue: function(e) {
-					this._prevValue = this.val()
-				},
-				resetValue: function(e) {
-					this.val(this._prevValue)
-				},
-				previewContainer: function(e) {
-					return this.$el.get(0).querySelector('[data-name="preview-edit"] .acf-field-preview');
-				},
-				updatePreview: function(e) {
-					const previewContainer = this.previewContainer(e)
-					const preview = this.createPreview(e)
-					previewContainer.innerHTML = '';
-					preview.forEach( el => previewContainer.append(el) )
-				}
-			},
+			defaultFunctions,
 			previewFunctions[type],
 			{ events }
 		)
