@@ -1,8 +1,5 @@
-@use "sass:math";
-
-@import 'variables/index';
-
-@import 'mixins/index';
+@use '../variables/index' as *;
+@use '../mixins/index' as *;
 
 //@import 'fields/index';
 
@@ -13,14 +10,14 @@
 	//background:rgba($wp-blue,0.2);
 }
 .sweet-spot-marker {
-	$size: 30px;
+	--size: 30px;
 	position: absolute;
 	left:50%;
 	top:50%;
-	margin-left:math.div(-$size, 2);
-	margin-top:math.div(-$size, 2);
-	width:$size;
-	height:$size;
+	margin-left:calc(var(--size) / 2);
+	margin-top:calc(var(--size) / 2);
+	width: var(--size);
+	height: var(--size);
 	border-radius:50%;
 	border:3px solid #fff;
 	display: block;

@@ -1,4 +1,3 @@
-
-@import 'colors';
-@import 'colors-acf';
-@import 'dashicons';
+@forward 'colors';
+@forward 'colors-acf';
+@forward 'dashicons';

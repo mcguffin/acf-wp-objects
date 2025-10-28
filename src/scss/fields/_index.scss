@@ -1,21 +1,19 @@
-@import 'root';
-@import 'button-group';
-@import 'checkbox';
-@import 'radio';
-@import 'color-picker';
-@import 'color-spots';
-@import 'nav-menu-select';
-@import 'select';
-@import 'repeater';
-@import 'flexible-content';
-@import "acf-popup-box";
-@import "popup";
-@import 'seamless';
-@import 'sep';
-@import 'taxonomy';
-@import 'fix-editag-field-width';
-.block-editor .edit-post-sidebar .acf-fields > .acf-field, // override block editor
-.acf-field {
-	@import 'compact';
-	@import 'no-label';
-}
+@use 'root' as *;
+@use 'button-group' as *;
+@use 'checkbox' as *;
+@use 'radio' as *;
+@use 'color-picker' as *;
+@use 'color-spots' as *;
+@use 'nav-menu-select' as *;
+@use 'select' as *;
+@use 'repeater' as *;
+@use 'flexible-content' as *;
+@use "acf-popup-box" as *;
+@use "popup" as *;
+@use 'seamless' as *;
+@use 'sep' as *;
+@use 'taxonomy' as *;
+@use 'fix-editag-field-width' as *;
+
+@forward 'compact';
+@forward 'no-label';

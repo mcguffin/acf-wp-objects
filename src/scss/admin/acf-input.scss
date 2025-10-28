@@ -1,12 +1,8 @@
-@import 'variables/index';
-
-@import 'mixins/index';
-
-@import 'fields/index';
-
-@import 'block-editor/index';
-
-@import 'options-page';
+@use '../variables/index' as *;
+@use '../mixins/index' as *;
+@use '../fields/index' as *;
+@use '../block-editor/index' as *;
+@use 'options-page' as *;
 
 .color-label {
 	display:inline-block;

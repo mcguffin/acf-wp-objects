@@ -1,12 +1,5 @@
+@use 'sass:map';
 
-@function wp-color($key) {
-  @if map-has-key($wp-colors, $key) {
-    @return map-get($wp-colors, $key);
-  }
-
-  @warn "Unknown `#{$key}` in $colors.";
-  @return null;
-}
 
 $wp-colors: (
   white: #fff,
@@ -77,3 +70,11 @@ $wp-colors: (
   green-90: #003008,
   green-100: #001c05
 );
+@function wp-color($key) {
+  @if map.has-key($wp-colors, $key) {
+	@return map.get($wp-colors, $key);
+  }
+
+  @warn "Unknown `#{$key}` in $colors.";
+  @return null;
+}

@@ -1,23 +1,26 @@
-&.compact {
-	.acf-field .acf-label {
-		margin-bottom:5px;
-	}
-	.acf-fields {
-		> .acf-field {
-			padding:7px;
-			> .acf-label {
-				padding-top:0;
-			}
-			&.acf-field-group {
-				padding-top:0;
-				padding-bottom:0;
+.block-editor .edit-post-sidebar .acf-fields > .acf-field, // override block editor
+.acf-field {
+	&.compact {
+		.acf-field .acf-label {
+			margin-bottom:5px;
+		}
+		.acf-fields {
+			> .acf-field {
+				padding:7px;
 				> .acf-label {
-					padding-top:7px;
+					padding-top:0;
 				}
-				> .acf-input {
-					padding:0 7px;
-					> .acf-fields {
-						border-width: 0;
+				&.acf-field-group {
+					padding-top:0;
+					padding-bottom:0;
+					> .acf-label {
+						padding-top:7px;
+					}
+					> .acf-input {
+						padding:0 7px;
+						> .acf-fields {
+							border-width: 0;
+						}
 					}
 				}
 			}

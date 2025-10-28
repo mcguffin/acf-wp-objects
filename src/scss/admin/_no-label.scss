@@ -1,35 +1,38 @@
-&.no-label {
-	& > .acf-label {
-		display:none;
-		& + .acf-input {
-			width:100%;
+.block-editor .edit-post-sidebar .acf-fields > .acf-field, // override block editor
+.acf-field {
+	&.no-label {
+		& > .acf-label {
+			display:none;
+			& + .acf-input {
+				width:100%;
+			}
 		}
-	}
-	.acf-fields.-left > & {
-		&:before {
-			content:none;
-		}
-		#edittag & {
-			padding-left:10px;
-		}
-		&.seamless > .acf-input {
-			padding-left:0;
-		}
-	}
-}
-
-&.only-label {
-	& > .acf-input {
-		display:none;
-	}
-	.acf-fields.-left > & {
-		&:before {
-			width: 100%;
-			border-right-style: none;
-		}
-		& + .acf-field {
+		.acf-fields.-left > & {
 			&:before {
-				top: -1px;
+				content:none;
+			}
+			#edittag & {
+				padding-left:10px;
+			}
+			&.seamless > .acf-input {
+				padding-left:0;
+			}
+		}
+	}
+
+	&.only-label {
+		& > .acf-input {
+			display:none;
+		}
+		.acf-fields.-left > & {
+			&:before {
+				width: 100%;
+				border-right-style: none;
+			}
+			& + .acf-field {
+				&:before {
+					top: -1px;
+				}
 			}
 		}
 	}

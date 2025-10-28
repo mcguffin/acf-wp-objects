@@ -1,3 +1,6 @@
+@use '../variables/index' as *;
+@use '../mixins/index' as *;
+
 .edit-post-meta-boxes-area.is-side {
 }
 @include acf-block-editor() {
