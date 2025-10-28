@@ -1,6 +1,14 @@
 ACF-WP-Objects Changelog
 ========================
 
+0.8.6
+-----
+ - Fix wysiwyg popup. Again.
+
+0.8.5
+-----
+ - Fix save post in PageLayout
+
 0.8.4
 -----
  - Fix wysiwyg popup
