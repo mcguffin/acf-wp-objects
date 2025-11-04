@@ -46,7 +46,6 @@ const defaultFunctions = {
 		this.storeValue(e)
 		this.showEditor(e)
 		this.editor(e).addEventListener('close', ee => {
-			console.log()
 			if ( 'true' === this.editor(e).returnValue ) {
 				// update preview
 				this.updatePreview(e)
@@ -59,7 +58,6 @@ const defaultFunctions = {
 		this.hideEditor(e);
 	},
 	closeEditor: function(e) {
-		console.log(e)
 		this.hideEditor(e,'true');
 	},
 	storeValue: function(e) {
@@ -207,7 +205,6 @@ const previewFunctions = {
 		},
 		unobserve: function(e) {
 			this.elObserver.disconnect()
-			console.log(this.mceDialogs)
 			this.mceDialogs.forEach( el => {
 				el.style.transform = 'translateY(0px)'
 				document.body.append(el)
