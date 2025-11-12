@@ -1,9 +1,9 @@
 {
   "id": "https://github.com/mcguffin/acf-wp-objects/raw/master/.wp-release-info.json",
   "slug": "acf-wp-objects",
-  "version": "0.8.7",
+  "version": "0.8.8",
   "url": "https://github.com/mcguffin/acf-wp-objects",
-  "package": "https://github.com/mcguffin/acf-wp-objects/releases/download/0.8.7/acf-wp-objects.zip",
+  "package": "https://github.com/mcguffin/acf-wp-objects/releases/download/0.8.8/acf-wp-objects.zip",
   "tested": "6.1",
   "requires_php": "7.2"
 }

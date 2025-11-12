@@ -704,6 +704,16 @@
 .acf-field-flexible-content.acf-accordion-layout > .acf-input > .acf-flexible-content > .ui-sortable .layout:not(:first-child) {
   border-top-style: none;
 }
+.acf-field-flexible-content.acf-accordion-layout .layout .acf-fc-layout-actions-wrap {
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+}
+.acf-field-flexible-content.acf-accordion-layout .acf-fc-top-actions .acf-fc-expand-all,
+.acf-field-flexible-content.acf-accordion-layout .acf-fc-top-actions .acf-fc-collapse-all,
+.acf-field-flexible-content.acf-accordion-layout .acf-fc-top-actions .acf-separator {
+  display: none;
+}
 
 #acf-popup {
   display: -webkit-box;
