@@ -2,7 +2,7 @@ ACF-WP-Objects Changelog
 ========================
 
 
-0.8.7
+0.8.8
 -----
  - Fix CSS: FC Accordion layout
 
