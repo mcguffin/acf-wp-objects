@@ -14,5 +14,17 @@
 				}
 			}
 		}
+		.layout {
+			.acf-fc-layout-actions-wrap {
+				align-items: stretch;
+			}
+		}
+		.acf-fc-top-actions {
+			.acf-fc-expand-all,
+			.acf-fc-collapse-all,
+			.acf-separator {
+				display: none;
+			}
+		}
 	}
 }
