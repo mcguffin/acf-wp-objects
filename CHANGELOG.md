@@ -1,6 +1,11 @@
 ACF-WP-Objects Changelog
 ========================
 
+
+0.8.7
+-----
+ - Fix CSS: FC Accordion layout
+
 0.8.7
 -----
  - Fix CSS: color spots empty value
