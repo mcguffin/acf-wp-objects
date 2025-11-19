@@ -52,6 +52,7 @@ class PrimaryTerm extends Core\Singleton {
 			printf(
 				'<label class="primary-term acf-js-tooltip" title="%1$s"><input type="radio" name="%2$s[%3$s]" value="{term_id}" /></label>',
 				sprintf(
+					/* translators: Taxonomy singular name */
 					esc_attr__('Primary %s','acf-wp-objects'),
 					get_taxonomy_labels(get_taxonomy($field['taxonomy']))->singular_name
 				),

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-12T18:11:13+00:00\n"
+"POT-Creation-Date: 2025-11-19T12:09:21+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: acf-wp-objects\n"
@@ -126,17 +126,18 @@ msgstr ""
 msgid "Use sub field names in curly braces as placeholders."
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOption/PrimaryTerm.php:55
-#: include/ACFWPObjects/Compat/ACF/FieldOption/PrimaryTerm.php:131
+#. translators: Taxonomy singular name
+#: include/ACFWPObjects/Compat/ACF/FieldOption/PrimaryTerm.php:56
+#: include/ACFWPObjects/Compat/ACF/FieldOption/PrimaryTerm.php:132
 #, php-format
 msgid "Primary %s"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOption/PrimaryTerm.php:70
+#: include/ACFWPObjects/Compat/ACF/FieldOption/PrimaryTerm.php:71
 msgid "Select Primary Term"
 msgstr ""
 
-#: include/ACFWPObjects/Compat/ACF/FieldOption/PrimaryTerm.php:96
+#: include/ACFWPObjects/Compat/ACF/FieldOption/PrimaryTerm.php:97
 msgid "Post-Meta-Prefix"
 msgstr ""
 
