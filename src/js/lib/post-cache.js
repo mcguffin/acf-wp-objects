@@ -26,6 +26,7 @@ const cacheField = async field => {
 	await cachePost(postId,postType)
 }
 
+// TODO check if needed ... postacf/-obhject-message-template.js should do this task
 acf.addAction( 'ready_field/type=post_object', async (field) => {
 	cacheField(field)
 	field.$el.on('change select',() => cacheField(field) )
