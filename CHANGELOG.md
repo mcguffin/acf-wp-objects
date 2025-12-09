@@ -2,6 +2,10 @@ ACF-WP-Objects Changelog
 ========================
 
 
+0.8.9
+-----
+ - Fix: _load_textdomain_just_in_time
+
 0.8.8
 -----
  - Fix CSS: FC Accordion layout
