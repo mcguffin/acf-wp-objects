@@ -93,7 +93,7 @@ class ACF extends Core\Singleton {
 
 		$this->acf_input_js
 			->deps('wp-api-fetch')
-				->localize( [
+			->localize( [
 				'post_types'	=> array_map( [ $this, 'reduce_pt' ], $wp->get_post_types() ),
 				'taxonomies'	=> array_map( [ $this, 'reduce_taxo' ], $wp->get_taxonomies() ),
 				'image_sizes'	=> array_map( [ $this, 'mk_image_sizes' ], $wp->get_image_sizes() ),

@@ -27,65 +27,27 @@ class WPObjects extends Core\Singleton {
 	 * 		]
 	 * ]
 	 */
-	private $field_choices = [];
+	private $field_choices = null;
 
+	private $supported_fields = [
+		'text',
+		'email',
+		'url',
+		'number',
+		'textarea',
+		'wysiwyg',
+		'image',
+		'post_object',
+		'relationship',
+		'gallery'
+	];
 
 	/**
 	 *	@inheritdoc
 	 */
 	protected function __construct() {
 
-		$this->field_choices = [
-			'text'		=> [
-				'option:blogname'				=> __( 'Blogname', 'acf-wp-objects' ),
-				'option:blogdescription'		=> __( 'Blog description', 'acf-wp-objects' ),
-				'post:post_title'				=> __( 'Post Title', 'acf-wp-objects' ),
-				'post:post_name'				=> __( 'Post Slug', 'acf-wp-objects' ),
-				'term:term_name'				=> __( 'Term Title', 'acf-wp-objects' ),
-				'user:first_name'				=> __( 'User First Name', 'acf-wp-objects' ),
-				'user:last_name'				=> __( 'User Last Name', 'acf-wp-objects' ),
-				'user:nickname'					=> __( 'User Nickname', 'acf-wp-objects' ),
-				'user:nicename'					=> __( 'User Nicename', 'acf-wp-objects' ),
-				'user:display_name'				=> __( 'User Display Name', 'acf-wp-objects' ),
-			],
-			'email'		=> [
-				'user:email'					=> __( 'User Display Name', 'acf-wp-objects' ),
-			],
-			'url'		=> [
-				'user:url'						=> __( 'User Display Name', 'acf-wp-objects' ),
-			],
-			'number'	=> [
-				'option:posts_per_page'			=> __('Posts per page','acf-wp-objects'),
-			],
-			'textarea'	=> [
-				'post:post_excerpt'				=> __('Post Excerpt','acf-wp-objects'),
-				'term:term_description'			=> __('Term Description','acf-wp-objects'),
-				'user:description'				=> __('User Description','acf-wp-objects'),
-			],
-			'wysiwyg'	=> [
-				'post:post_content'				=> __('Post Content','acf-wp-objects'),
-				'term:term_description'			=> __('Term Description','acf-wp-objects'),
-				'user:description'				=> __('User Description','acf-wp-objects'),
-			],
-			'image'		=> [
-				'theme_mod:custom_logo'			=> __( 'Custom Logo', 'acf-wp-objects' ),
-			//	'theme_mod:background_image'	=> __( 'Background Image', 'acf-wp-objects' ), // can't use ... WP saves a plain URL.
-				'post:post_thumbnail'			=> __( 'Post Thumbnail', 'acf-wp-objects' ),
-			],
-			'post_object'	=> [
-				'option:page_for_posts'			=> __( 'Page for Posts', 'acf-wp-objects' ),
-				'option:page_on_front'			=> __( 'Page on Front', 'acf-wp-objects' ),
-			],
-			'relationship'	=> [
-				'option:page_for_posts'			=> __( 'Page for Posts', 'acf-wp-objects' ),
-				'option:page_on_front'			=> __( 'Page on Front', 'acf-wp-objects' ),
-			],
-			'gallery'	=> [
-				'post:attachments'				=> __( 'Post Attachments', 'acf-wp-objects' ),
-			],
-		];
-
-		foreach ( array_keys( $this->field_choices ) as $field_type ) {
+		foreach ( $this->supported_fields as $field_type ) {
 
 			add_action( "acf/render_field_settings/type={$field_type}", [ $this, 'field_settings' ] );
 
@@ -94,8 +56,6 @@ class WPObjects extends Core\Singleton {
 		}
 
 		add_filter( 'acf/pre_update_value', [ $this, 'pre_update_value' ], 10, 4 );
-
-
 	}
 
 	/**
@@ -108,56 +68,6 @@ class WPObjects extends Core\Singleton {
 
 		return $field;
 	}
-
-
-
-
-	/**
-	 *	NOT IN USE
-	 *	@action acf/pre_load_value
-	 */
-	// public function pre_load_value( $check, $post_id, $field ) {
-	//
-	// 	if ( is_customize_preview() ) {
-	// 		// return $check;
-	// 	}
-	//
-	// 	if ( ! $storage_key = $this->get_field_storage( $field ) ) {
-	// 		return $check;
-	// 	}
-	// 	list( $storage, $key ) = $storage_key;
-	//
-	//
-	// 	switch ( $storage ) {
-	// 		case 'theme_mod':
-	// 			return get_theme_mod( $key );
-	// 		case 'option':
-	// 			return get_option( $key );
-	// 		case 'term':
-	// 			return 'NOT IMPLEMENTED YET';
-	// 		case 'post':
-	//
-	// 			if ( 'post_title' == $key ) {
-	// 				return get_the_title( $post_id );
-	// 			} else if ( 'post_excerpt' == $key ) {
-	// 				if ( $post = get_post( $post_id ) ) {
-	// 					return $post->post_excerpt;
-	// 				}
-	// 				return $check;
-	//
-	// 			} else if ( 'post_content' == $key ) {
-	// 				if ( $post = get_post( $post_id ) ) {
-	// 					return $post->post_content;
-	// 				}
-	// 				return $check;
-	//
-	// 			} else if ( 'post_thumbnail' == $key ) {
-	// 				return get_post_thumbnail_id( $post_id );
-	// 			}
-	// 	}
-	// 	return $check;
-	//
-	// }
 
 	/**
 	 *	@action acf/load_value/key={$field_key}
@@ -243,11 +153,6 @@ class WPObjects extends Core\Singleton {
 		return $value;
 
 	}
-
-	// public function wp_preview_post_thumbnail_filter( $value, $post_id, $meta_key ) {
-	//
-	// }
-
 
 	/**
 	 *	@filter acf/pre_update_value
@@ -499,11 +404,6 @@ class WPObjects extends Core\Singleton {
 	}
 
 	/**
-	 *	@action acf/save_value/type={$type}
-	 */
-
-
-	/**
 	 *	@usedby pre_update_value()
 	 */
 	public function get_field_storage( $field ) {
@@ -521,6 +421,59 @@ class WPObjects extends Core\Singleton {
 	 *	@usedby field_settings()
 	 */
 	private function get_wp_objects( $field_type ) {
+
+		if ( is_null( $this->field_choices ) ) {
+			$this->field_choices = [
+				'text'         => [
+					'option:blogname'        => __( 'Blogname', 'acf-wp-objects' ),
+					'option:blogdescription' => __( 'Blog description', 'acf-wp-objects' ),
+					'post:post_title'        => __( 'Post Title', 'acf-wp-objects' ),
+					'post:post_name'         => __( 'Post Slug', 'acf-wp-objects' ),
+					'term:term_name'         => __( 'Term Title', 'acf-wp-objects' ),
+					'user:first_name'        => __( 'User First Name', 'acf-wp-objects' ),
+					'user:last_name'         => __( 'User Last Name', 'acf-wp-objects' ),
+					'user:nickname'          => __( 'User Nickname', 'acf-wp-objects' ),
+					'user:nicename'          => __( 'User Nicename', 'acf-wp-objects' ),
+					'user:display_name'      => __( 'User Display Name', 'acf-wp-objects' ),
+				],
+				'email'        => [
+					'user:email'             => __( 'User Display Name', 'acf-wp-objects' ),
+				],
+				'url'          => [
+					'user:url'               => __( 'User Display Name', 'acf-wp-objects' ),
+				],
+				'number'       => [
+					'option:posts_per_page'  => __('Posts per page','acf-wp-objects'),
+				],
+				'textarea'     => [
+					'post:post_excerpt'      => __('Post Excerpt','acf-wp-objects'),
+					'term:term_description'  => __('Term Description','acf-wp-objects'),
+					'user:description'       => __('User Description','acf-wp-objects'),
+				],
+				'wysiwyg'      => [
+					'post:post_content'      => __('Post Content','acf-wp-objects'),
+					'term:term_description'  => __('Term Description','acf-wp-objects'),
+					'user:description'       => __('User Description','acf-wp-objects'),
+				],
+				'image'        => [
+					'theme_mod:custom_logo'  => __( 'Custom Logo', 'acf-wp-objects' ),
+					// 'theme_mod:background_image' => __( 'Background Image', 'acf-wp-objects' ), // can't use ... WP saves a plain URL.
+					'post:post_thumbnail'    => __( 'Post Thumbnail', 'acf-wp-objects' ),
+				],
+				'post_object'  => [
+					'option:page_for_posts'  => __( 'Page for Posts', 'acf-wp-objects' ),
+					'option:page_on_front'   => __( 'Page on Front', 'acf-wp-objects' ),
+				],
+				'relationship' => [
+					'option:page_for_posts'  => __( 'Page for Posts', 'acf-wp-objects' ),
+					'option:page_on_front'   => __( 'Page on Front', 'acf-wp-objects' ),
+				],
+				'gallery'      => [
+					'post:attachments'       => __( 'Post Attachments', 'acf-wp-objects' ),
+				],
+			];
+		}
+
 
 		if ( isset( $this->field_choices[ $field_type ] ) ) {
 			return $this->field_choices[ $field_type ];
