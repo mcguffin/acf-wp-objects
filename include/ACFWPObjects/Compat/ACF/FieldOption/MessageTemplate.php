@@ -30,7 +30,7 @@ class MessageTemplate extends Core\Singleton {
 	 *	@filter acf/load_field/type=post_object
 	 */
 	public function prepare_field( $field ) {
-		$field = wp_parse_args($field, [ 'message_template' => '', 'message_target' => 0 ]);
+		$field = wp_parse_args($field, [ 'message_template' => '', 'message_target' => 0, 'data' => [] ]);
 		if ( $field['post_type'] ) {
 			$field['data']['post_type'] = implode(',',(array) $field['post_type']);
 		}
