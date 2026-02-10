@@ -2,6 +2,10 @@ ACF-WP-Objects Changelog
 ========================
 
 
+0.8.10
+-----
+ - Add classname to Popup field
+
 0.8.9
 -----
  - Fix: _load_textdomain_just_in_time
