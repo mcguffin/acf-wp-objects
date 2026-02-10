@@ -32,7 +32,18 @@ class Popup extends AbstractFieldOption {
 	 *	@filter acf/prepare_field/type={$field_type}
 	 */
 	public function prepare_field( $field ) {
-		return wp_parse_args( $field, [ 'is_popup' => false ] );
+		$field = wp_parse_args( $field, [ 'is_popup' => false ] );
+
+		if ( $field['is_popup'] ) {
+			// $field['pattern'] = '[0-9a-z_-]+';
+			$field['wrapper'] = wp_parse_args( $field['wrapper'], [
+				'class' => '',
+			] );
+
+			$field['wrapper']['class'] .= ' acf-field-has-dialog';
+
+		}
+		return $field;
 	}
 
 	/**
