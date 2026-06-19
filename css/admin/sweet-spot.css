@@ -25,15 +25,15 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  margin-left: calc(var(--size) / 2);
-  margin-top: calc(var(--size) / 2);
+  margin-left: calc(var(--size) / -2);
+  margin-top: calc(var(--size) / -2);
   width: var(--size);
   height: var(--size);
   border-radius: 50%;
   border: 3px solid #fff;
   display: block;
-  -webkit-box-sizing: content-box;
-          box-sizing: content-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   pointer-events: none;
 }
 .sweet-spot-marker::before {
