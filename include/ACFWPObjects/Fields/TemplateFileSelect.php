@@ -7,7 +7,7 @@ use ACFWPObjects\Compat\ACF;
 use ACFWPObjects\Compat\ACF\Helper;
 use ACFWPObjects\Compat\ACF\ACF as CompatACF;
 
-class TemplateFileSelect extends \acf_field_select {
+class TemplateFileSelect extends FieldSelect {
 
 	private static $_resolved = [];
 

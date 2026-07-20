@@ -15,7 +15,7 @@ if ( ! defined('ABSPATH') ) {
 use ACFWPObjects\Core;
 use ACFWPObjects\Compat\ACF;
 
-class SelectNavMenuLocation extends \acf_field_select {
+class SelectNavMenuLocation extends FieldSelect {
 
 	/**
 	 *	@inheritdoc

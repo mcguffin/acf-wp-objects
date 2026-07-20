@@ -15,7 +15,7 @@ if ( ! defined('ABSPATH') ) {
 use ACFWPObjects\Core;
 use ACFWPObjects\Compat\ACF;
 
-class SelectRole extends \acf_field_select {
+class SelectRole extends FieldSelect {
 
 	/**
 	 *	@inheritdoc

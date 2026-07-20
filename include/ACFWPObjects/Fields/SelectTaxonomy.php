@@ -15,7 +15,7 @@ if ( ! defined('ABSPATH') ) {
 use ACFWPObjects\Core;
 use ACFWPObjects\Compat\ACF;
 
-class SelectTaxonomy extends \acf_field_select {
+class SelectTaxonomy extends FieldSelect {
 
 	/**
 	 *	@inheritdoc

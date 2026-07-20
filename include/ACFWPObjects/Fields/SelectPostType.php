@@ -7,15 +7,11 @@
 
 namespace ACFWPObjects\Fields;
 
-if ( ! defined('ABSPATH') ) {
-	die('FU!');
-}
-
 
 use ACFWPObjects\Core;
 use ACFWPObjects\Compat\ACF;
 
-class SelectPostType extends \acf_field_select {
+class SelectPostType extends FieldSelect {
 
 	/**
 	 *	@inheritdoc

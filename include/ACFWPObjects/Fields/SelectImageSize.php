@@ -15,7 +15,7 @@ if ( ! defined('ABSPATH') ) {
 use ACFWPObjects\Core;
 use ACFWPObjects\Compat\ACF;
 
-class SelectImageSize extends \acf_field_select {
+class SelectImageSize extends FieldSelect {
 
 	private $all_sizes = [];
 
